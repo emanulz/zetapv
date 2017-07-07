@@ -1,0 +1,14 @@
+{
+  "plugins": [
+                "transform-es2015-modules-commonjs",
+                "react-html-attrs",
+                "transform-decorators-legacy"
+            ],
+
+  "presets": [
+                ["es2015"],
+                ["es2016"],
+                "react",
+                "stage-0"
+            ]
+}

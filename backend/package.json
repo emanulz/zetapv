@@ -1,0 +1,14 @@
+{
+  "name": "zetapv-backend",
+  "version": "1.0.0",
+  "description": "backend module for zetapv project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@emanulz",
+  "license": "ISC",
+  "dependencies": {
+
+  }
+}
