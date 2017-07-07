@@ -4,19 +4,42 @@
 import React from 'react';
 
 
-export default class Main extends React.Component {
+export default class TopBar extends React.Component {
+
+    menuClick(ev){
+
+        console.log(ev)
+
+        const mainContainer = document.getElementById("mainContainer")
+        const sideMenu = document.getElementById("sideMenu")
+
+        if(mainContainer.classList.contains('pulled')){
+
+            mainContainer.classList.remove('pulled')
+            sideMenu.classList.remove('visible')
+            return true
+        }
+
+        mainContainer.classList.add('pulled');
+        sideMenu.classList.add('visible')
+
+    }
+
 
 
     // Main Layout
     render(){
 
-        return <div className='topBar' >
+        return <div className='topBar'>
 
                     <div className='topBar-content'>
 
-                        <div className='topBar-content-button'>
+                        <div onClick={this.menuClick.bind(this)} className='topBar-content-button'>
 
-                            <span><i class="fa fa-camera-retro fa-lg"></i> fa-lg</span>
+                            <div className='topBar-content-button-content'>
+                                <span><i class="fa fa-bars"></i></span>
+                                <span>Menu</span>
+                            </div>
 
                         </div>
 

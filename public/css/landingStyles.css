@@ -44,9 +44,78 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.sideMenu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  z-index: 1;
+  width: 250px;
+  height: 100%;
+  background-color: #354052;
+  color: white;
+  transition: left 200ms ease-out; }
+  .sideMenu.visible {
+    left: 0; }
+  .sideMenu-header {
+    display: block;
+    font-size: 24px;
+    margin: 20px;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-;
+    font-weight: 700; }
+  .sideMenu-items {
+    color: white;
+    font-size: 14px; }
+    .sideMenu-items a {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 100;
+      display: block;
+      height: 25px;
+      text-decoration: none;
+      color: white;
+      font-size: 12px;
+      padding: 20px;
+      line-height: 25px; }
+      .sideMenu-items a span.fa {
+        margin-right: 5px; }
+      .sideMenu-items a:hover {
+        background-color: #262E3B; }
+
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transition: left 200ms ease-out; }
+  .mainContainer.pulled {
+    left: 250px; }
+
 .topBar {
   width: 100%;
   height: 40px;
   background-color: #354052; }
+  .topBar-content {
+    margin: 0 20px;
+    line-height: 30px; }
+    .topBar-content-button {
+      display: inline-block;
+      font-size: 12px;
+      font-family: sans-serif;
+      font-weight: 300;
+      color: white;
+      cursor: pointer;
+      position: relative;
+      margin: 5px 0;
+      padding: 0 10px;
+      width: 50px;
+      height: 30px;
+      background-color: #6F7E95;
+      border-radius: 4px; }
+      .topBar-content-button-content {
+        display: flex;
+        justify-content: space-between; }
+      .topBar-content-button:hover {
+        background-color: #5c759d; }
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9sYW5kaW5nU3R5bGVzLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/

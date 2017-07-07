@@ -11,6 +11,8 @@
   "author": "@emanulz",
   "license": "ISC",
   "dependencies": {
+    "alertifyjs": "^1.10.0",
+    "axios": "^0.16.2",
     "express": "^4.15.3",
     "font-awesome": "^4.7.0",
     "jade": "^1.11.0",

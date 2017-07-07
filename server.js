@@ -2,10 +2,15 @@ const express = require('express')
 const app = express()
 
 app.use(express.static('public'))
+
 app.set('view engine', 'jade')
 
 app.get('/', function (req, res) {
   res.render(__dirname + '/frontend/landing/index');
+})
+
+app.get('/pos', function (req, res) {
+  res.render(__dirname + '/frontend/pos/index');
 })
 
 app.listen(3000, function (err) {

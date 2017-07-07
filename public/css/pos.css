@@ -1,0 +1,480 @@
+
+.table-product-selected {
+    background-color: #cacaca !important;
+    color:#000;
+    vertical-align: middle;
+    padding: 1.5em;
+}
+
+.table-product-selected input{
+    background-color: #cacaca !important;
+}
+
+.table-body tr:hover  {
+    background-color: #cabeb8 !important;
+}
+
+.table-body tr:hover input  {
+    background-color: #cacaca !important;
+}
+
+.bg-white {
+    background-color: white;
+
+    margin:5px 25px 5px 25px;
+    padding:10px;
+}
+
+.bg-whitenop {
+    background-color: white;
+}
+
+.avatar{
+	width: 50px;
+	height: 50px;
+	-webkit-border-radius: 30px; /* Saf3+, Chrome */
+	border-radius: 30px; /* Opera 10.5, IE 9 */
+	/*-moz-border-radius: 30px;  Disabled for FF1+ */
+	}
+
+.product-table{
+    max-height:500px;
+    overflow-y: auto;
+
+}
+
+th {
+    background-color: #354052;
+    color: white;
+    font-weight: normal;
+}
+
+.form-control{
+    width: 87%
+}
+
+.inner-addon{
+
+  position: relative;
+}
+
+/* style icon */
+.inner-addon .glyphicon{
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+
+}
+
+.inner-addon .btn{
+    position: absolute;
+    padding-top: 10px;
+    font-size: 15px;
+}
+
+.inner-addon .fa-barcode{
+    position: absolute;
+    padding-top: 15px;
+    pointer-events: none;
+    font-size: 20px;
+}
+
+.right-addon .btn{
+
+  right: 0px;
+}
+
+.right-addon .fa-barcode{
+
+  right: 30px;
+}
+
+/* align icon */
+.left-addon .glyphicon{
+
+  left:  10px;
+}
+
+.right-addon .glyphicon{
+
+  right: 20px;
+}
+
+/* add padding  */
+.left-addon input{
+
+  padding-left:  30px;
+}
+.right-addon input{
+
+  padding-right: 30px;
+}
+
+.table{
+    font-size: 65%;
+}
+.table-totals{
+        font-size: 80%;
+        margin-bottom: 0;
+        margin-top: 10px;
+    }
+.table-totals tr th{
+    width: 100px;
+
+}
+.credit-positive{
+    font-size: 18px;
+    font-weight: bolder;
+    color: #5cb85c;
+}
+
+.credit-negative{
+    font-size: 18px;
+    font-weight: bolder;
+    color: #993300;
+}
+
+.sale-total-div{
+    background-color: #47BAC1;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+    font-size: 32px;
+}
+
+.fa-check-square{
+    color: #5cb85c;
+}
+
+.fa-times-circle{
+    color: #993300;
+}
+
+.btn-default:hover{
+    background-color: #666666;
+    color: white;
+
+}
+
+/***************************/
+/* Pay Panel POS from here */
+/***************************/
+.pay-panel{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: 15;
+    background-color: rgba(145, 145, 145, 0.67);
+    background-size:100% 100%;
+    transition: all 0.3s ease-in-out;
+
+
+}
+
+.pay-panel.is-visible{
+
+    position: absolute;
+    top: 0;
+    z-index: 15;
+
+}
+
+.pay-panel-main{
+
+    position: absolute;;
+    width: 80%;
+    left:10%;
+    background-color: rgb(214, 214, 214);
+    bottom: 0;
+    top: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width:80%;
+
+}
+
+
+
+.pay-panel-header{
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    font-family: inherit;
+    font-weight: bold;
+    color: white;
+    background-color: #6F7E95;
+    line-height: 50px;
+}
+
+.pay-panel-header i{
+    position: absolute;
+    right: 5px;
+    top:2px;
+    cursor: pointer;
+
+}
+
+.pay-panel-header i:hover{
+    font-size: 25px;
+
+}
+
+.pay-method-select{
+
+    position: absolute;
+    top: 60px;
+    left: 5%;
+    width: 90%;
+
+}
+
+.pay-method-select-item{
+
+    display: inline-block;
+    width: 18%;
+    height: 120px;
+    font-size:60px;
+    line-height: 80px;
+    text-align: center;
+    margin-left: 5.5%;
+    border-radius: 5px;
+    background-color: rgb(214, 214, 230);
+    cursor: pointer;
+
+}
+
+.pay-method-select-item.selected{
+    background-color: rgb(230, 255, 255);
+}
+
+.pay-method-select-item:hover{
+    background-color: rgb(214, 230, 250);
+}
+
+.pay-method-select-item-header{
+    display: block;
+    line-height: 30px;
+    font-size: 18px;
+    width: 100%;
+    height: 30px;
+    position: relative;
+    top:0px;
+    background-color: #2B3647;
+    color: white;
+    border-radius: 5px 5px 0 0;
+}
+
+.pay-area-container{
+
+    position:relative;
+    top: 200px;
+    left: 5%;
+    width: 90%;
+    height: calc(100% - 220px);
+    min-height: 280px;
+    display: inline-block;
+
+
+}
+
+.pay-method-body{
+    display: inline-block;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 49%;
+    height: 100%;
+    border: 1px solid gray;
+
+}
+
+.pay-method-body-header{
+
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 0;
+    text-align: center;
+    height: 30px;
+    background-color: #2B3647;
+    color: white;
+    font-size: 18px;
+    line-height: 30px;
+
+}
+
+.pay-method-body-content{
+    position: relative;
+    display: block;
+    top: 50px;
+    left: 15px;
+    width: 100%;
+
+}
+
+.pay-method-body-content input{
+    position: relative;
+    width: 50%;
+    height: 50px;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.pay-method-body-content input.form-control{
+    display: inline-block;
+}
+
+.pay-side-bar{
+    position: absolute;
+    top: 0;
+    left:50%;
+    display: inline-block;
+    width: 49%;
+    height: 100%;
+    border: 1px solid gray;
+}
+
+.pay-tag{
+    display: inline-block;
+    width: 40%;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 5px;
+    background-color: #6F7E95;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.pay-tag.left{
+
+    width: 35%;
+    font-size: 15px;
+
+
+}
+
+.pay-tag.right{
+
+    width: 55%;
+    margin-left: 2%;
+
+
+}
+
+.pay-tag.tag-button{
+    width: 30%;
+    float: right;
+    margin-right:8%;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    padding-left: 0;
+    font-size: 15px;
+    pointer-events: none;
+    background-color: #8394ad;
+}
+
+.pay-tag.tag-button.enable{
+
+    cursor: pointer;
+    pointer-events: auto;
+    background-color: #6F7E95;
+}
+
+/***************************/
+/* Pay Panel POS until here */
+/***************************/
+
+
+@media (min-width: 768px) {
+    .bg-white{
+      margin:5px 5px 5px 5px;
+    }
+    .left-item{
+        margin-left: 25px;
+    }
+    .right-item{
+        margin-right: 25px;
+    }
+    .form-control{
+        width: 90%;
+    }
+    .table {
+        font-size: 80%;
+    }
+    .table-totals{
+        font-size: 100%;
+    }
+
+
+}
+
+@media (min-width: 1200px) {
+
+    .form-control{
+    width: 93%;
+    }
+    .table{
+    font-size: 100%;
+    }
+    .table-totals{
+        font-size: 100%;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .pay-panel-main{
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+    }
+
+    .pay-method-select-item-header{
+
+        line-height: 30px;
+        font-size: 15px;
+        height: 30px;
+
+    }
+
+    .pay-method-select-item{
+
+        height: 90px;
+        font-size:35px;
+        line-height: 60px;
+
+    }
+
+    .pay-area-container{
+        top:165px;
+        min-height: 500px;
+    }
+
+    .pay-method-body{
+        width: 100%;
+        height: 49%;
+        position: relative;
+    }
+
+    .pay-side-bar{
+        width: 100%;
+        height: 49%;
+        left: 0;
+        position: relative;
+
+    }
+
+}
