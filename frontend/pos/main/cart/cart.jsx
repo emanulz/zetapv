@@ -9,8 +9,8 @@ export default class Cart extends React.Component {
     // Main Layout
     render(){
 
-            return <div style={{'marginTop':'10px'}} className="bg-white left-item product-table">
-                        <table className="table">
+            return <div style={{'marginTop':'10px'}} className="bg-white left-item cart col-xs-12">
+                        <table className="table cart-table">
                             <thead>
                                 <tr>
                                     <th>Cód</th>

@@ -73,16 +73,26 @@ export default class Product extends React.Component {
     // Render the product
     render(){
 
-            return <div className="bg-white left-item form-group"><span><b>Producto:</b></span>
-                        <div className="inner-addon right-addon"><i style={{'paddingRight':'60px'}} className="fa fa-barcode"></i>
-                        <button onClick={this.searchProductClick.bind(this)} style={{'height':'48px', 'width':'48px'}} className="btn btn-success product-search-btn">
-                            <span><i style={{'paddingBottom':'8px'}} className="fa fa-search"></i></span>
-                        </button>
-                        <input onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)}
-                               ref={(input) => { this.codeInput = input }}
-                               type="text" placeholder="Ingrese el Código del Producto"
-                               className="form-control input-lg product_code_field mousetrap"/>
+            return <div className="product">
+                        <div className="product-title" >
+                            <span><b>Producto:</b></span>
                         </div>
+                        <div className="product-inputs">
+                            <div className="product-inputs-code">
+                                <i className="fa fa-barcode"></i>
+                                <input onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)}
+                                    ref={(input) => { this.codeInput = input }}
+                                    type="text" placeholder="Ingrese el Código del Producto"
+                                    className="product-inputs-code-input mousetrap form-control input-lg"/>
+
+                            </div>
+                            <button onClick={this.searchProductClick.bind(this)} style={{'height':'48px', 'width':'48px'}} className="product-inputs-search">
+                                <span><i style={{'paddingBottom':'8px'}} className="fa fa-search"></i></span>
+                            </button>
+
+                        </div>
+
+
                     </div>
 
         }

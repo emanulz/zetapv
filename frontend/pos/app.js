@@ -32,14 +32,16 @@ import store from "./store.js"
 ReactDOM.render(<Provider store={store}>
                     <div>
                         <SideMenu></SideMenu>
-                        <div id='mainContainer' className="row blur-div mainContainer">
+                        <div id='mainContainer' className="blur-div mainContainer">
                             <TopBar></TopBar>
-                            <Main></Main>
-                            <Sidebar></Sidebar>
+                            <div className="row" style={{'margin':'0'}}>
+                                <Main></Main>
+                                <Sidebar></Sidebar>
+                            </div>
                             <SearchClient></SearchClient>
                             <SearchProduct></SearchProduct>
-                            <PayPanel></PayPanel>
-                            <InvoicePanel></InvoicePanel>
+                            {/* <PayPanel></PayPanel> */}
+                            {/* <InvoicePanel></InvoicePanel> */}
 
                         </div>
                     </div>

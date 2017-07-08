@@ -5,6 +5,7 @@ var CompressionPlugin = require('compression-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
 
+
 module.exports = {
   context: __dirname,
   devtool: debug ? "inline-sourcemap" : '',
@@ -17,18 +18,18 @@ module.exports = {
 
   module:{
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
+          {
+              test: /\.(js|jsx)$/,
+              exclude: /(node_modules|bower_components)/,
+              loader: 'babel-loader',
+          },
+          {
+              test:/\.sass$/,
+              loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+          }
+        ],
     },
-    {
-        test:/\.(sass)$/,
-        loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
-    }
 
-    ],
-  },
   output: {
     path: __dirname+ "/public",
     filename: "./js/[name].js"
