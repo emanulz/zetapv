@@ -34,28 +34,37 @@ ReactDOM.render(<Provider store={store}>
                         <SideMenu></SideMenu>
                         <div id='mainContainer' className="blur-div mainContainer">
                             <TopBar></TopBar>
-                            <div className="row" style={{'margin':'0'}}>
-                                <Main></Main>
-                                <Sidebar></Sidebar>
+                            <div className="mainContainer-content">
+                                <div className="row" style={{'margin':'0'}}>
+                                    <Main></Main>
+                                    <Sidebar></Sidebar>
+                                </div>
+                                <SearchClient></SearchClient>
+                                <SearchProduct></SearchProduct>
+                                {/* <PayPanel></PayPanel> */}
+                                {/* <InvoicePanel></InvoicePanel> */}
+
                             </div>
-                            <SearchClient></SearchClient>
-                            <SearchProduct></SearchProduct>
-                            {/* <PayPanel></PayPanel> */}
-                            {/* <InvoicePanel></InvoicePanel> */}
+
+                            <div className="row footer">
+                                <Footer></Footer>
+                                
+                            </div>
 
                         </div>
+
                     </div>
                 </Provider>,
 
                 document.getElementById('app-container')
 );
 
-//footer fixed
-ReactDOM.render(<Provider store={store}>
-
-                    <Footer></Footer>
-
-                </Provider>,
-
-    document.getElementById('footer')
-);
+// //footer fixed
+// ReactDOM.render(<Provider store={store}>
+//
+//                     <Footer></Footer>
+//
+//                 </Provider>,
+//
+//     document.getElementById('footer')
+// );

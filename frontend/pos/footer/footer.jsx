@@ -15,10 +15,16 @@ export default class Footer extends React.Component {
     // Main Layout
     render(){
 
-        return <div className="col-xs-12 col-sm-8">
-                  <div>
-                    <h1 className="sale-total-div"><span className="sale_total price">₡ {this.props.total.formatMoney(2,',','.')}</span></h1>
-                  </div>
+        return <div className="col-xs-12 col-sm-8 footer-content">
+
+                    <div className="footer-content-tag">
+                        <h1>
+                            <span className="price">₡ {this.props.total.formatMoney(2,',','.')} </span>
+                        </h1>
+                    </div>
+
+
+
                </div>
 
     }

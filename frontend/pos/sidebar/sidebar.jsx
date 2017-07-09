@@ -16,7 +16,7 @@ export default class SideBar extends React.Component {
 
                     <Client></Client>
                     <Totals></Totals>
-                    {/* <Buttons></Buttons> */}
+                    <Buttons></Buttons>
 
                </div>
 

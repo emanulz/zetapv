@@ -56,18 +56,18 @@ export default class Totals extends React.Component {
     // Main Layout
     render(){
 
-        return <div style={{'padding':'0'}} className="col-xs-12">
+        return <div className="col-xs-12 totals">
                 <div style={{'paddingTop':'0', 'marginTop':'0'}} className="bg-white right-item"><span><b>Totales:</b></span><br/>
-                    <table className="table table-totals">
+                    <table className="table totals-table">
                         <tbody>
                         <tr>
                             <th>Sub-Total:</th>
-                            <td className="price sale_subtotal">₡ {this.props.subTotalNoDiscount.formatMoney(2,',','.')}</td>
+                            <td className="price">₡ {this.props.subTotalNoDiscount.formatMoney(2,',','.')}</td>
 
                         </tr>
                         <tr>
                             <th style={{'width':'37%'}}>Descuento %</th>
-                            <td style={{'padding':'0'}} className="sale_global_discount">
+                            <td style={{'padding':'0'}}>
                                 <input onKeyPress={this.inputKeyPress.bind(this)}
                                        onChange={this.inputKeyPress.bind(this)}
                                        onBlur={this.inputOnBlur.bind(this)}
@@ -79,17 +79,17 @@ export default class Totals extends React.Component {
                         </tr>
                         <tr>
                             <th>Descuento:</th>
-                            <td className="price sale_subtotal">₡ {this.props.discountTotal.formatMoney(2,',','.')}</td>
+                            <td className="price">₡ {this.props.discountTotal.formatMoney(2,',','.')}</td>
 
                         </tr>
 
                         <tr>
                             <th>IV:</th>
-                            <td className="price sale_iv_amount">₡ {this.props.taxes.formatMoney(2,',','.')}</td>
+                            <td className="price">₡ {this.props.taxes.formatMoney(2,',','.')}</td>
                         </tr>
                         <tr>
                             <th onClick={this.showInvoicePanel.bind(this)} >Total:</th>
-                            <td className="price sale_subtotal">₡ {this.props.total.formatMoney(2,',','.')}</td>
+                            <td className="price">₡ {this.props.total.formatMoney(2,',','.')}</td>
 
                         </tr>
                     </tbody>
