@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import TopBar from '../layout/topBar/topBar.jsx'
-import SideMenu from '../layout/sideMenu/sideMenu.jsx'
+import TopBar from '../pos/layout/topBar/topBar.jsx'
+import SideMenu from '../pos/layout/sideMenu/sideMenu.jsx'
 
 
 ReactDOM.render(<div>

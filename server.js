@@ -13,6 +13,10 @@ app.get('/pos', function (req, res) {
   res.render(__dirname + '/frontend/pos/index');
 })
 
+app.get('/admin', function (req, res) {
+  res.render(__dirname + '/frontend/admin/index');
+})
+
 app.listen(3000, function (err) {
 
     if (err) return console.log('Error in server, please check, and restart'), process.exit(1);

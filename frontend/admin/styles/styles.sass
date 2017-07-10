@@ -1,0 +1,32 @@
+@import "../../../public/vendor/side-panel/style"
+@import "../../../node_modules/alertifyjs/build/css/alertify"
+@import "../../../node_modules/alertifyjs/build/css/themes/bootstrap"
+
+//boostrap just forms and tables
+@import "../../../public/vendor/bootstrap/bootstrap.min"
+//grid system
+@import "../../../public/vendor/flexboxGrid/flexboxgrid.min"
+
+@import "reset"
+@import "adminVars"
+
+
+//defaults
+.mainContainer
+    width: calc(100% - 250px)
+    height: 100%
+    position: fixed
+    top: 0
+    left: 250px
+    z-index: 2
+    transition: left 200ms ease-out
+    &.pulled
+        left: 250px
+    &-content
+        height: calc(100% - 60px)
+        overflow-y: auto
+        overflow-x: hidden
+
+//Modules Imports
+
+@import "../layout/layout"

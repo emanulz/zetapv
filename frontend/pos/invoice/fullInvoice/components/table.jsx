@@ -28,7 +28,7 @@ export default class Table extends React.Component {
                       </tr>
             })
 
-            return <table className="full-invoice-table">
+            return <table className="full-invoice-table table">
                         <thead>
                             <tr>
                                 <th>Código</th>

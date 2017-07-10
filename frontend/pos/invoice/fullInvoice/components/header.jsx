@@ -13,7 +13,7 @@ export default class Header extends React.Component{
                 <div className="full-invoice-header">
 
                     <div className="full-invoice-header-logo">
-                        <img src="/static/public/img/logo.png"/>
+                        <img src="/img/logo.png"/>
                     </div>
                     <div className="full-invoice-header-info">
                         <h2>Emanuel Zuniga Infante</h2>

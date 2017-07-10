@@ -13,7 +13,9 @@ module.exports = {
     landing:"./frontend/landing/app.js",
     landingStyles:"./frontend/landing/main.sass",
     pos:"./frontend/pos/app.js",
-    posStyles:"./frontend/pos/styles/main.sass"
+    posStyles:"./frontend/pos/styles/main.sass",
+    admin:"./frontend/admin/app.js",
+    adminStyles:"./frontend/admin/styles/styles.sass"
   },
 
   module:{

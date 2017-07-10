@@ -13,8 +13,8 @@ formatMoney()
 window.printDiv = printDiv
 
 //layout components
-import TopBar from '../layout/topBar/topBar.jsx'
-import SideMenu from '../layout/sideMenu/sideMenu.jsx'
+import TopBar from './layout/topBar/topBar.jsx'
+import SideMenu from './layout/sideMenu/sideMenu.jsx'
 
 //components
 import Main from './main/main.jsx'
@@ -41,15 +41,17 @@ ReactDOM.render(<Provider store={store}>
                                 </div>
                                 <SearchClient></SearchClient>
                                 <SearchProduct></SearchProduct>
-                                {/* <PayPanel></PayPanel> */}
-                                {/* <InvoicePanel></InvoicePanel> */}
+
 
                             </div>
 
                             <div className="row footer">
                                 <Footer></Footer>
-                                
+
                             </div>
+
+                            <PayPanel></PayPanel>
+                            <InvoicePanel></InvoicePanel>
 
                         </div>
 

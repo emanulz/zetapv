@@ -1,0 +1,25 @@
+.sideMenu-item-composed
+    & ul
+        border-left: 2px solid $TABLE-BORDER-COLOR
+        margin-left: 20px
+        max-height: 0
+        transition: all 0.3s ease-in-out
+        overflow-y: hidden
+        &.visible
+            max-height: 300px
+            transition: all 0.3s ease-in-out
+        & li
+            position: relative
+        & li::before
+            position: absolute
+            left: 0
+            width: 15px
+            border: 1px solid $TABLE-BORDER-COLOR
+            content: ''
+            display: inline-block
+            top: 30px
+
+
+    & .icon
+        float: right
+        font-size: 15px

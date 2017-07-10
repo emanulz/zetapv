@@ -1,0 +1,16 @@
+extends ../base
+
+block title
+    title ADMIN
+
+block js
+    script(type='application/javascript' src="http://localhost:35729/livereload.js")
+    script(type='application/javascript' src='/js/admin.js')
+    |   <script type="text/javascript">
+    |       alertify.defaults.theme.ok = "btn btn-success";
+    |       alertify.defaults.theme.cancel = "ui black button";
+    |   </script>
+    
+block styles
+    link(rel="stylesheet", href="/css/adminStyles.css")
+        
