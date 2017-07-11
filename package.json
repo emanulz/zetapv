@@ -13,14 +13,17 @@
   "dependencies": {
     "alertifyjs": "^1.10.0",
     "axios": "^0.16.2",
+    "datatables.net": "^1.10.15",
     "express": "^4.15.3",
     "font-awesome": "^4.7.0",
     "jade": "^1.11.0",
+    "jquery": "^3.2.1",
     "pouchdb": "^6.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.7.1",
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0"

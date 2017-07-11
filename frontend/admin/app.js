@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+
 import { Provider } from "react-redux"
 
 //utils
@@ -14,21 +19,27 @@ formatMoney()
 import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
 
+import Clients from './clients/clients.jsx'
+
 import store from "./store.js"
 
 
 ReactDOM.render(<Provider store={store}>
-                    <div>
-                        <SideMenu></SideMenu>
-                        <div id='mainContainer' className="blur-div mainContainer">
-                            <TopBar></TopBar>
-                            <div className="mainContainer-content">
 
+                        <Router>
+                            <div>
+                                <SideMenu></SideMenu>
+                                <div id='mainContainer' className="blur-div mainContainer">
+                                    <TopBar></TopBar>
+                                    <div className="mainContainer-content">
+                                        <Route exact path='/admin' render={()=>{return <h1>HOME</h1>}} />
+                                        <Route exact path='/admin/clients' component={Clients} />
+                                    </div>
+
+                                </div>
                             </div>
+                        </Router>
 
-                        </div>
-
-                    </div>
                 </Provider>,
 
                 document.getElementById('app-container')

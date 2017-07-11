@@ -19,6 +19,11 @@
         margin: 0
         font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif
         font-weight: 700
+    &-wrapper
+        max-height: calc(100% - 110px)
+        overflow-y: auto
+        &::-webkit-scrollbar
+            display: none
 
 
     &-items
@@ -29,12 +34,12 @@
             font-family: 'Open Sans', sans-serif
             font-weight: 100
             display: block
-            height: 25px
+            height: 30px
             text-decoration: none
             color: white
             font-size: 12px
-            padding: 20px
-            line-height: 25px
+            padding: 15px 20px
+            line-height: 30px
             box-sizing: content-box
             transition: background-color 0.5s ease
             & span.fa

@@ -16,6 +16,9 @@ app.get('/pos', function (req, res) {
 app.get('/admin', function (req, res) {
   res.render(__dirname + '/frontend/admin/index');
 })
+app.get('/admin/*', function (req, res) {
+  res.render(__dirname + '/frontend/admin/index');
+})
 
 app.listen(3000, function (err) {
 

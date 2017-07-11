@@ -3177,6 +3177,11 @@ table {
     margin: 0;
     font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700; }
+  .sideMenu-wrapper {
+    max-height: calc(100% - 110px);
+    overflow-y: auto; }
+    .sideMenu-wrapper::-webkit-scrollbar {
+      display: none; }
   .sideMenu-items {
     color: white;
     font-size: 14px; }
@@ -3184,12 +3189,12 @@ table {
       font-family: 'Open Sans', sans-serif;
       font-weight: 100;
       display: block;
-      height: 25px;
+      height: 30px;
       text-decoration: none;
       color: white;
       font-size: 12px;
-      padding: 20px;
-      line-height: 25px;
+      padding: 15px 20px;
+      line-height: 30px;
       box-sizing: content-box;
       transition: background-color 0.5s ease; }
       .sideMenu-items a span.fa {
@@ -3215,15 +3220,22 @@ table {
     .sideMenu-search input::placeholder {
       color: #ddd; }
 
+.sideMenu-item-composed.visible a.visible {
+  background-color: #262E3B; }
+
+.sideMenu-item-composed.visible .show-icon {
+  transform: rotate(-90deg);
+  transition: transform 0.2s ease; }
+
 .sideMenu-item-composed ul {
   border-left: 2px solid #ddd;
   margin-left: 20px;
   max-height: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   overflow-y: hidden; }
   .sideMenu-item-composed ul.visible {
     max-height: 300px;
-    transition: all 0.3s ease-in-out; }
+    transition: all 0.2s ease-in-out; }
   .sideMenu-item-composed ul li {
     position: relative; }
   .sideMenu-item-composed ul li::before {
@@ -3233,11 +3245,14 @@ table {
     border: 1px solid #ddd;
     content: '';
     display: inline-block;
-    top: 30px; }
+    top: 28px;
+    z-index: 1; }
 
-.sideMenu-item-composed .icon {
+.sideMenu-item-composed .show-icon {
+  transition: transform 0.2s ease;
   float: right;
-  font-size: 15px; }
+  font-size: 15px;
+  line-height: 25px; }
 
 .topBar {
   width: 100%;
