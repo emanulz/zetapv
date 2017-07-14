@@ -13,6 +13,8 @@ import CompactInvoice from '../compactInvoice/compactInvoice.jsx'
 })
 export default class InvoicePanel extends React.Component{
 
+    
+
     hidePanel(){
 
         this.props.dispatch({ type:'HIDE_INVOICE_PANEL', payload:-1})

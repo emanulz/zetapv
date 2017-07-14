@@ -12,6 +12,10 @@ import { connect } from "react-redux"
 })
 export default class Footer extends React.Component {
 
+    componentDidMount(){
+        document.getElementById('loader').classList.add('hidden')
+    }
+
     // Main Layout
     render(){
 

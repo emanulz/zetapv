@@ -21,7 +21,8 @@ import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
 
 
-import Clients from './clients/clients.jsx'
+import ListClients from './clients/list.jsx'
+import AddClients from './clients/add.jsx'
 import Products from './products/products.jsx'
 
 import store from "./store.js"
@@ -31,13 +32,14 @@ ReactDOM.render(<Provider store={store}>
 
                         <Router>
                             <div>
-                                <DbSync></DbSync>
+                                <DbSync remoteDB='http://192.168.9.108:5984'></DbSync>
                                 <SideMenu></SideMenu>
                                 <div id='mainContainer' className="blur-div mainContainer">
                                     <TopBar></TopBar>
                                     <div className="mainContainer-content">
                                         <Route exact path='/admin' render={()=>{return <h1>HOME</h1>}} />
-                                        <Route exact path='/admin/clients' component={Clients} />
+                                        <Route exact path='/admin/clients' component={ListClients} />
+                                        <Route exact path='/admin/clients/add' component={AddClients} />
                                         <Route exact path='/admin/products' component={Products} />
                                     </div>
 

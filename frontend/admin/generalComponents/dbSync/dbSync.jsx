@@ -24,6 +24,10 @@ export default class Product extends React.Component {
 
     }
 
+    componentDidMount(){
+        document.getElementById('loader').classList.remove('loader')
+    }
+
     syncClients(){
         const _this = this
         var localDb = new PouchDB('clients')
@@ -34,6 +38,8 @@ export default class Product extends React.Component {
         }).on('change', function (change) {
             // yo, something changed!
             _this.props.dispatch(fetchClients())
+        }).on('complete', function (info) {
+            _this.props.dispatch(fetchClients())
         }).on('paused', function (info) {
             // replication was paused, usually because of a lost connection
         }).on('active', function (info) {
@@ -42,7 +48,7 @@ export default class Product extends React.Component {
             // totally unhandled error (shouldn't happen)
         });
 
-        this.props.dispatch(fetchClients())//fetch clients before mount, send dispatch to reducer.
+        this.props.dispatch(fetchClients())
     }
 
     syncProducts(){
@@ -56,6 +62,8 @@ export default class Product extends React.Component {
         }).on('change', function (change) {
             // yo, something changed!
             _this.props.dispatch(fetchProducts())
+        }).on('complete', function (info) {
+            _this.props.dispatch(fetchProducts())
         }).on('paused', function (info) {
             // replication was paused, usually because of a lost connection
         }).on('active', function (info) {
@@ -64,15 +72,13 @@ export default class Product extends React.Component {
             // totally unhandled error (shouldn't happen)
         });
 
-        this.props.dispatch(fetchProducts())//fetch products before mount, send dispatch to reducer.
+        this.props.dispatch(fetchProducts())
 
     }
 
 
-
-    // Render the product
     render(){
         return null
-        }
+    }
 
 }

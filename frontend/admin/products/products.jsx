@@ -4,7 +4,6 @@
 import React from 'react';
 import { connect } from "react-redux"
 var PouchDB = require('pouchdb');
-window.PouchDB = PouchDB;
 
 import { fetchProducts } from "./actions"
 
@@ -26,15 +25,16 @@ export default class Product extends React.Component {
 
     // Render the product
     render(){
-        console.log(this.props)
 
-        const headerOrder = [{field:'code', text:'Código'},
-                             {field:'description', text:'Descripción'},
-                             {field:'sellprice', text:'Precio de venta'},
-                             {field:'cost', text:'Costo'},
+        const headerOrder = [{field:'code', text:'Código', type:'primary'},
+                             {field:'description', text:'Descripción', type:'text'},
+                             {field:'cost', text:'Costo', type:'price'},
+                             {field:'usetaxes', text:'IV?', type:'bool'},
+                             {field:'taxes', text:'IV %'},
+                             {field:'sellprice', text:'Precio de venta', type:'price'},
                              ]
 
-        return <DataTable headerOrder={headerOrder} data={this.props.products}></DataTable>
+        return <DataTable headerOrder={headerOrder} model='products' data={this.props.products}></DataTable>
         }
 
 }

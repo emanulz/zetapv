@@ -9,12 +9,14 @@ import {Link} from 'react-router-dom'
 
 export default class SideMenu extends React.Component {
 
+
+
     // Main Layout
     render(){
 
-        const childClients = [{text:'Ver', class:'fa-table', href:'/admin/clients'},
+        const childClients = [{text:'Listar', class:'fa-table', href:'/admin/clients'},
                               {text:'Agregar', class:'fa-plus', href:'/admin/clients/add'}]
-        const childProducts = [{text:'Ver', class:'fa-table', href:'/admin/products'},
+        const childProducts = [{text:'Listar', class:'fa-table', href:'/admin/products'},
                               {text:'Agregar', class:'fa-plus', href:'/admin/products/add'}]
 
         return <div id='sideMenu' className='sideMenu'>
