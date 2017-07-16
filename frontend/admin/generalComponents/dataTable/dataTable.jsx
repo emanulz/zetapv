@@ -73,7 +73,9 @@ export default class DataTable extends React.Component {
         const data = this.props.data.length ? this.props.data : []
 
         const tableHeader = headerOrder.map(item=>{
-            return <th key={item.field}> {item.text} </th>
+
+            let ret = item.type != 'bool' ? <th key={item.field}> {item.text} </th> : <th style={{textAlign:'center'}} key={item.field}> {item.text} </th>
+            return ret
         })
 
         console.log('rendering...')
@@ -95,12 +97,24 @@ export default class DataTable extends React.Component {
 
                             case 'bool' :{
                                 let icon = itemToRender ? 'fa fa-check' : 'fa fa-minus-square'
-                                item =  <td key={`${el._id}_${header.field}`} data-order={itemToRender}> <span className={icon}></span> </td>
+                                item =  <td style={{textAlign:'center'}} key={`${el._id}_${header.field}`} data-order={itemToRender}> <span className={icon}></span> </td>
                                 break
                             }
 
                             case 'primary' :{
-                                item =  <td key={`${el._id}_${header.field}`} data-order={itemToRender} > <Link to={`/admin/${model}/${itemToRender}`}>{itemToRender}</Link> </td>
+
+
+                                item =  <td key={`${el._id}_${header.field}`} data-order={itemToRender} >
+                                            {/* <Link to={`/admin/${model}/edit#${itemToRender}`}>
+                                                {itemToRender}
+                                            </Link> */}
+                                            <Link to={{
+                                                    pathname: `/admin/${model}/${itemToRender}`,
+                                                    state:{el:el}
+                                                    }}>
+                                            {itemToRender}
+                                            </Link>
+                                        </td>
                                 break
                             }
 

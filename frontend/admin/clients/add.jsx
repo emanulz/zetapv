@@ -21,7 +21,8 @@ export default class Add extends React.Component {
             id: '',
             code: '',
             has_credit: false,
-            credit_limit: 0
+            credit_limit: 0,
+            credit_days: 0
             }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,6 +33,8 @@ export default class Add extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value
         const name = target.name
+
+        let newState = this.state
 
         this.setState({
 
@@ -117,7 +120,17 @@ export default class Add extends React.Component {
                                     <input value={this.state.credit_limit}
                                            name="credit_limit"
                                            onChange={this.handleInputChange}
-                                           type="text"
+                                           type="number"
+                                           className="form-control"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Días de crédito</label>
+                                    <input value={this.state.credit_days}
+                                           name="credit_days"
+                                           onChange={this.handleInputChange}
+                                           type="number"
                                            className="form-control"
                                     />
                                 </div>

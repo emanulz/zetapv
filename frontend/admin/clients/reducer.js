@@ -4,6 +4,14 @@ const stateConst = {
     clientsFected:false,
     clientsFetchError:'',
     clients: {},
+    clientSelected: { "name": '',
+                      "last_name": '',
+                      "id": '',
+                      "code": '',
+                      "has_credit": false,
+                      "credit_limit": '',
+                      "credit_days": 0
+                    }
 }
 
 export default function reducer(state=stateConst, action) {
@@ -29,6 +37,10 @@ export default function reducer(state=stateConst, action) {
               clients: action.payload,
             }
             break;
+        }//case
+
+        case "SELECT_CLIENT": {
+            return {...state, clientSelected: action.payload}
         }//case
 
 
