@@ -8,20 +8,6 @@ var PouchDB = require('pouchdb');
 //EXPORT FUNCTIONS USED IN COMPONENTS
 //------------------------------------------------------------------------------------------
 
-// //Fetch products from backend
-// export function fetchProducts() {
-//
-//   return function(dispatch) {
-//     axios.get("/sales/api/products/")
-//       .then((response) => {
-//         dispatch({type: "FETCH_PRODUCTS_FULFILLED", payload: response.data})
-//       })
-//       .catch((err) => {
-//         dispatch({type: "FETCH_PRODUCTS_REJECTED", payload: err})
-//       })
-//   }
-// }
-
 //Fetch products from backend
 export function fetchProducts() {
 
@@ -47,129 +33,164 @@ export function fetchProducts() {
   }
 }
 
-//opens the product search panel
-export function searchProduct(){
+export function fetchDepartments() {
 
-    return {type: "PRODUCT_SHOW_PANEL", payload: -1}
+  return function(dispatch) {
+
+    var localDbProducts = new PouchDB('departments')
+
+    localDbProducts.allDocs({
+        include_docs: true,
+        attachments: true
+        })
+      .then((response) => {
+        console.log(response)
+        const rows = response.rows
+        let data = []
+        rows.forEach(row=>data.push(row.doc))
+
+        dispatch({type: "FETCH_DEPARTMENTS_FULFILLED", payload: data})
+      })
+      .catch((err) => {
+        dispatch({type: "FETCH_DEPARTMENTS_REJECTED", payload: err})
+      })
+  }
 }
 
-// Function to update the globa; discount of complete storage of items, and reflect it on store, then updating DOME
-export function applyDiscounts(itemsInCart, globalDiscount){
+export function checkProductData(product, products){
 
-    let newCart = itemsInCart.map(item =>{
 
-        let newItem = item
+    let Ok = true
 
-        let data =  caclSubtotal(item.product, item.qty, item.discount, globalDiscount)
+    if(product.code == ''){
+        alertify.alert('Error', 'Debe especificar el código del producto')
+        return false
+    }
 
-        newItem.subtotal = data.subtotal
-        newItem.totalWithIv = data.totalWithIv
-        newItem.discountCurrency = data.discountCurrency
-        newItem.subTotalNoDiscount = data.subTotalNoDiscount
+    if(product.description == ''){
+        alertify.alert('Error', 'Debe especificar la descripción del producto')
+        return false
+    }
 
-        console.log(newItem)
-
-        return newItem
-
+    products.forEach((productData)=>{
+        if(product.code == productData.code){
+            if(product._id != productData._id){
+                alertify.alert('Error', `El producto "${productData.description}" ya posee el código ${product.code}`)
+                Ok = false
+                return false
+            }
+        }
     })
 
-    return {type:"REPLACE_CART", payload: newCart}
+
+    return Ok
 
 }
 
-// Function to update the inline discount of an item, and reflect it on store
-export function updateItemDiscount(itemsInCart, code, discount, globalDiscount){
+export function saveProduct(product){
 
-    const indexInCart = itemsInCart.findIndex(item => item.product.code == code)//checks if product exists
+    return function(dispatch){
 
-    let res = (indexInCart == -1 )//if not exists dispatch Not Found, if exists check if already in cart
-            ? {type: "PRODUCT_IN_CART_NOT_FOUND", payload: -1}
-            : {type: "UPDATE_CART", payload: {item:updatedCartItem(itemsInCart,
-                                                                   indexInCart,
-                                                                   itemsInCart[indexInCart].qty,
-                                                                   discount,
-                                                                   globalDiscount),
-                                              index:indexInCart
-                                             }}
+        var db = new PouchDB('products')
 
-    return res
+        db.post(product)
+        .then((response)=>{
+            alertify.alert('Completado', `Producto creado con éxito.`)
+            dispatch({type:'CLEAR_PRODUCT', payload:''})
+        })
+        .catch((err)=>{
+            alertify.alert('Error', `hubo un error al crear el producto ${err}.`)
+        })
 
-}
-
-//When item is selected in code field
-export function productSelected(code, qty, products, itemsInCart, globalDiscount) {
-
-    const productSelected = products.findIndex(product => product.code == code)//checks if product exists
-
-    let res = (productSelected == -1 )//if not exists dispatch Not Found, if exists check if already in cart
-            ? {type: "PRODUCT_NOT_FOUND", payload: -1}
-            : checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected)
-
-    return res
+    }
 
 }
 
+export function setProduct(code){
 
-//------------------------------------------------------------------------------------------
-//LOCAL AUX FUNCTIONS
-//------------------------------------------------------------------------------------------
 
-//checks in cart if item already exists
-function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected){
+    return function(dispatch){
 
-    const indexInCart = itemsInCart.findIndex(cart => cart.product.code == code) //check if product in cart
+        let db = new PouchDB('products')
 
-    let dataNewProd = caclSubtotal(products[productSelected], qty, 0, globalDiscount)
+        db.allDocs({
+            include_docs: true,
+            attachments: true
+            })
+        .then((response) => {
 
-    let res = (indexInCart == -1 )//if not exists in cart Dispats ADD_TO_TABLE, if exists dispatch cart updated
-            ? {type: "ADD_TO_CART", payload: {product:products[productSelected],
-                                    qty:qty,
-                                    discount:0,
-                                    discountCurrency: dataNewProd.discountCurrency,
-                                    subTotalNoDiscount: dataNewProd.subTotalNoDiscount,
-                                    subtotal: dataNewProd.subtotal,
-                                    totalWithIv : dataNewProd.totalWithIv}}
+          const rows = response.rows
 
-            : {type: "UPDATE_CART", payload: {item:updatedCartItem(itemsInCart,
-                                                                   indexInCart,
-                                                                   itemsInCart[indexInCart].qty+qty,
-                                                                   itemsInCart[indexInCart].discount,
-                                                                   globalDiscount),
-                                              index:indexInCart
-                                             }}
+          let data = []
 
-    return res
+          rows.forEach((row)=>{
 
+              if(row.doc.code == code) {
+                  data.push(row.doc)
+              }
+
+          })
+
+          if(data.length){
+              dispatch({type: "SET_PRODUCT", payload: data[0]})
+          }
+          else{
+              alertify.alert('Error', `No hay registros con el código ${code}`)
+          }
+
+        })
+        .catch((err) => {
+           alertify.alert('Error', `Error al cargar el producto: ${err}`)
+        })
+
+    }
 }
 
-//calculates the subtotal by line, also the total with iv included, the discount in currency format
-function caclSubtotal(product, qty, productDiscount, globalDiscount){
+export function updateProduct(product){
 
-    let subTotalNoDiscount =  product.price * qty
+    const db = new PouchDB('products')
 
-    let subTotal = product.price * qty * (1-(productDiscount/100)) * (1-(globalDiscount/100))
+    return function(dispatch) {
 
-    let totalWithIv = (product.usetaxes) ? subTotal*(1+(product.taxes/100)) : subTotal
+        db.get(product._id)
+        .then((dbProduct)=>{
 
-    let discountCurrencyInLine = product.price * qty * (productDiscount/100)
-    let discountCurrencyGlobal = ((product.price * qty) - discountCurrencyInLine) * (globalDiscount/100)
+            product._rev = dbProduct._rev
 
-    let discountCurrency = discountCurrencyInLine + discountCurrencyGlobal
+            db.put(product)
+            .then((response)=>{
 
-    return {subtotal:subTotal, totalWithIv: totalWithIv,  discountCurrency: discountCurrency, subTotalNoDiscount: subTotalNoDiscount};
+                alertify.alert('Completado', `Producto actualizado con éxito.`)
 
-}
+                console.log(response)
 
-//updates an item in the cart with new information, this aux funtion returns new updated object ready for replace the stored one
-function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDiscount){
+                db.get(response.id)
+                .then((dbProduct)=>{
 
-     let data = caclSubtotal(itemsInCart[index].product, newQty, productDiscount, globalDiscount)
+                    dispatch({type: "SET_PRODUCT", payload: dbProduct})
 
-     return {product:itemsInCart[index].product,
-             discountCurrency:data.discountCurrency,
-             qty:newQty,
-             discount:productDiscount,
-             subTotalNoDiscount: data.subTotalNoDiscount,
-             subtotal:data.subtotal,
-             totalWithIv: data.totalWithIv}
+                })
+                .catch((err)=>{
+
+                    alertify.alert('Error', `hubo un error al obtener el producto actualizado ${err}.`)
+
+                })
+
+
+            })
+            .catch((err)=>{
+                alertify.alert('Error', `hubo un error al actualizar el producto ${err}.`)
+                ret =  false
+            })
+
+        })
+        .catch((err)=>{
+
+            alertify.alert('Error', `hubo un error al obtener el producto para actualizar ${err}.`)
+
+        })
+
+    }
+
+
 }

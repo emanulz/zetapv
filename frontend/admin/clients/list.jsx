@@ -36,7 +36,13 @@ export default class List extends React.Component {
                              {field:'credit_limit', text:'Límite de crédito', type: 'price'},
                              {field:'credit_days', text:'Días de crédito'}]
 
-        return <DataTable headerOrder={headerOrder} model='clients' data={this.props.clients}></DataTable>
+        return <div className='clients-list-container'>
+
+                   <h1>Clientes:</h1>
+
+                   <DataTable headerOrder={headerOrder} model='clients' data={this.props.clients}></DataTable>
+
+               </div>
 
     }
 

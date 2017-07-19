@@ -18,7 +18,6 @@ export default class DataTable extends React.Component {
 
         $(this.refs.table).DataTable().destroy()
 
-        console.log('DESTROY')
     }
 
     componentDidUpdate() {
@@ -78,7 +77,6 @@ export default class DataTable extends React.Component {
             return ret
         })
 
-        console.log('rendering...')
 
         let bodyRows = data.map(el=>{
 
@@ -109,7 +107,7 @@ export default class DataTable extends React.Component {
                                                 {itemToRender}
                                             </Link> */}
                                             <Link to={{
-                                                    pathname: `/admin/${model}/${itemToRender}`,
+                                                    pathname: `/admin/${model}/edit/${itemToRender}`,
                                                     state:{el:el}
                                                     }}>
                                             {itemToRender}
@@ -131,6 +129,15 @@ export default class DataTable extends React.Component {
 
 
         return <div className='dataTables'>
+
+                    <div className='addBtn' >
+                         <Link to={`/admin/${this.props.model}/add`}>
+
+                             <span className='fa fa-plus'></span>
+                             Agregar
+
+                         </Link>
+                    </div>
 
                     <table ref="table" className='table' cellSpacing="0" width="100%" >
                         <thead>

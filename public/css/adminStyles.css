@@ -3314,6 +3314,28 @@ table {
   padding-top: 20px;
   color: gray; }
 
+.addBtn {
+  margin-bottom: 20px;
+  float: right;
+  height: 30px;
+  width: 100px;
+  background-color: #354052;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 12px; }
+  .addBtn span {
+    margin-right: 5px; }
+  .addBtn a {
+    text-decoration: none;
+    color: white; }
+    .addBtn a:hover {
+      color: white; }
+  .addBtn:hover {
+    background-color: #262E3B; }
+
 .client {
   font-family: sans-serif;
   font-size: 15px; }
@@ -3323,5 +3345,68 @@ table {
 
 .client-buttons button {
   margin-top: 15px; }
+
+.clients-list-container h1 {
+  font-size: 25px;
+  font-family: sans-serif; }
+
+.products-list-container h1 {
+  font-size: 25px;
+  font-family: sans-serif; }
+
+.create-product .first {
+  padding-right: 10px; }
+
+.create-product .second {
+  padding-left: 10px; }
+
+.create-product .col-xs-12 {
+  padding: 0; }
+
+.create-product .row {
+  padding: 0;
+  margin: 0 0 15px 0; }
+
+.create-product .col-xs-6 {
+  padding: 0; }
+
+.create-product h1 {
+  font-size: 20px;
+  font-family: sans-serif; }
+
+.create-product-input-block .first {
+  padding-right: 10px; }
+
+.create-product-input-block .second {
+  padding-left: 10px; }
+
+.create-product-fields-container {
+  padding-top: 15px !important; }
+  .create-product-fields-container.first {
+    padding-right: 10px; }
+  .create-product-fields-container.second {
+    padding-left: 10px; }
+  .create-product-fields-container span {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: 400; }
+  .create-product-fields-container hr {
+    margin: 5px 0 15px 0;
+    border-top: 1px solid #354052; }
+  .create-product-fields-container label {
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 5px; }
+  .create-product-fields-container .inline-checkbox {
+    display: flex;
+    flex-flow: row; }
+    .create-product-fields-container .inline-checkbox input {
+      width: 20px;
+      height: 18px;
+      margin: 0 15px; }
+  .create-product-fields-container.buttons .col-xs-6 {
+    padding-right: 10px;
+    margin-bottom: 10px; }
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9hZG1pblN0eWxlcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

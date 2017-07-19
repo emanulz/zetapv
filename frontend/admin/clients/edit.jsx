@@ -66,7 +66,7 @@ export default class Add extends React.Component {
 
                 <div className='client-header'>
 
-                {`Cliente: ${this.props.client.code} - ${this.props.client.name} ${this.props.client.last_name} `}
+                {`Cliente:`}
 
                 </div>
 

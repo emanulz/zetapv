@@ -25,7 +25,11 @@ import ListClients from './clients/list.jsx'
 import AddClients from './clients/add.jsx'
 import EditClients from './clients/edit.jsx'
 
-import Products from './products/products.jsx'
+import Products from './products/products/list.jsx'
+import CreateProduct from './products/products/create.jsx'
+import EditProduct from './products/products/update.jsx'
+
+import Departments from './products/departments/list.jsx'
 
 import store from "./store.js"
 
@@ -42,8 +46,11 @@ ReactDOM.render(<Provider store={store}>
                                         <Route exact path='/admin' render={()=>{return <h1>HOME</h1>}} />
                                         <Route exact path='/admin/clients' component={ListClients} />
                                         <Route exact path='/admin/clients/add' component={AddClients} />
-                                        <Route exact path='/admin/clients/:client' component={EditClients} />
+                                        <Route exact path='/admin/clients/edit/:client' component={EditClients} />
                                         <Route exact path='/admin/products' component={Products} />
+                                        <Route exact path='/admin/products/add' component={CreateProduct} />
+                                        <Route exact path='/admin/products/edit/:product' component={EditProduct} />
+                                        <Route exact path='/admin/products/departments' component={Departments} />
                                     </div>
 
                                 </div>

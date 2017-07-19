@@ -16,8 +16,10 @@ export default class SideMenu extends React.Component {
 
         const childClients = [{text:'Listar', class:'fa-table', href:'/admin/clients'},
                               {text:'Agregar', class:'fa-plus', href:'/admin/clients/add'}]
-        const childProducts = [{text:'Listar', class:'fa-table', href:'/admin/products'},
-                              {text:'Agregar', class:'fa-plus', href:'/admin/products/add'}]
+        const childProducts = [{text:'Lista de Productos', class:'fa-gift', href:'/admin/products'},
+                              {text:'Departamenentos', class:'fa-plus', href:'/admin/products/departments'},
+                              {text:'Sub-Departamentos', class:'fa-plus', href:'/admin/products/subdepartments'},
+                              {text:'Inventarios', class:'fa-plus', href:'/admin/products/inventory'}]
 
         return <div id='sideMenu' className='sideMenu'>
 
@@ -28,7 +30,7 @@ export default class SideMenu extends React.Component {
                     <div className="sideMenu-wrapper">
                         <ul className="sideMenu-items">
                             <li><Link to="/admin/"><span className="fa fa-area-chart"></span> Sitio Administrador</Link></li>
-                            <ComposedItem mainTittle='Clientes' mainIcon='fa-users' childItems={childClients}></ComposedItem>
+                            <li><Link to="/admin/clients"><span className="fa fa-users"></span> Clientes</Link></li>
                             <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts}></ComposedItem>
                             <li><a href="/pos/"><span className="fa fa-shopping-cart"></span> Punto de Venta</a></li>
                             <li><a href="/"><span className="fa fa-home"></span> Inicio</a></li>
