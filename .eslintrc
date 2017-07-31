@@ -1,0 +1,17 @@
+{
+  "extends": ["standard", "standard-jsx"],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-var": 1,
+    "prefer-const": 1,
+    "eqeqeq": 0,
+    "space-before-function-paren": 0,
+
+  }
+}
