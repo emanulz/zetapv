@@ -12,6 +12,7 @@
     "prefer-const": 1,
     "eqeqeq": 0,
     "space-before-function-paren": 0,
+    "padded-blocks": 0,
 
   }
 }

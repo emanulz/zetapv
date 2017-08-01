@@ -3336,6 +3336,71 @@ table {
   .addBtn:hover {
     background-color: #262E3B; }
 
+.create .first {
+  padding-right: 10px; }
+
+.create .second {
+  padding-left: 10px; }
+
+.create .col-xs-12 {
+  padding: 0; }
+
+.create .row {
+  padding: 0;
+  margin: 0 0 15px 0; }
+
+.create .col-xs-6 {
+  padding: 0; }
+
+.create h1 {
+  font-size: 20px;
+  font-family: sans-serif; }
+
+.create-input-block .first {
+  padding-right: 10px; }
+
+.create-input-block .second {
+  padding-left: 10px; }
+
+.create-fields-container {
+  padding-top: 15px !important; }
+  .create-fields-container.first {
+    padding-right: 10px; }
+  .create-fields-container.second {
+    padding-left: 10px; }
+  .create-fields-container span {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: 400; }
+  .create-fields-container hr {
+    margin: 5px 0 15px 0;
+    border-top: 1px solid #354052; }
+  .create-fields-container label {
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 5px; }
+  .create-fields-container .inline-checkbox {
+    display: flex;
+    flex-flow: row; }
+    .create-fields-container .inline-checkbox input {
+      width: 20px;
+      height: 18px;
+      margin: 0 15px; }
+  .create-fields-container.buttons {
+    font-family: sans-serif;
+    font-weight: 200; }
+    .create-fields-container.buttons .col-xs-6 {
+      padding-right: 10px;
+      margin-bottom: 10px; }
+    .create-fields-container.buttons .col-xs-12 {
+      padding-right: 10px;
+      margin-bottom: 10px; }
+
+.list-container h1 {
+  font-size: 25px;
+  font-family: sans-serif; }
+
 .client {
   font-family: sans-serif;
   font-size: 15px; }

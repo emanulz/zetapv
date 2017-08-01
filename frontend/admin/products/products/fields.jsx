@@ -12,7 +12,7 @@ export default class Fields extends React.Component {
     console.log(this.props)
 
     if (this.props.update) {
-      let code = this.props.location.pathname.split('/').pop()
+      const code = this.props.location.pathname.split('/').pop()
 
       this.props.dispatch(setProduct(code))
     }
@@ -78,8 +78,8 @@ export default class Fields extends React.Component {
   }
 
   deleteBtn() {
-    let product = this.props.product
-    let _this = this
+    const product = this.props.product
+    const _this = this
     // alertify.promp
 
     alertify.confirm('Eliminar', `Desea Eliminar el producto ${product.code} - ${product.description}? Esta acción no se puede deshacer.`, function() {
