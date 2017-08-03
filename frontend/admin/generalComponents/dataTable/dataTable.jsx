@@ -26,28 +26,28 @@ export default class DataTable extends React.Component {
         [
           10, 25, 50, 100, -1
         ],
-        [10, 25, 50, 100, "Todos"]
+        [10, 25, 50, 100, 'Todos']
       ],
       language: {
 
-        processing: "Procesando...",
-        search: "Buscar&nbsp;:",
-        lengthMenu: "Mostrar _MENU_ elementos",
-        info: "Mostrando _START_ a _END_ de _TOTAL_ elementos",
-        infoEmpty: "Mostrando 0 a 0 de 0 elementos",
-        infoFiltered: "(filtrado de _MAX_ elementos en total)",
-        loadingRecords: "Cargando Registros...",
-        zeroRecords: "No hay Registros",
-        emptyTable: "No hay datos disponibles en la tabla",
+        processing: 'Procesando...',
+        search: 'Buscar&nbsp;:',
+        lengthMenu: 'Mostrar _MENU_ elementos',
+        info: 'Mostrando _START_ a _END_ de _TOTAL_ elementos',
+        infoEmpty: 'Mostrando 0 a 0 de 0 elementos',
+        infoFiltered: '(filtrado de _MAX_ elementos en total)',
+        loadingRecords: 'Cargando Registros...',
+        zeroRecords: 'No hay Registros',
+        emptyTable: 'No hay datos disponibles en la tabla',
         paginate: {
-          first: "Primero",
-          previous: "Anterior",
-          next: "Siguiente",
-          last: "Último"
+          first: 'Primero',
+          previous: 'Anterior',
+          next: 'Siguiente',
+          last: 'Último'
         },
         aria: {
-          sortAscending: "Ascendente",
-          sortDescending: "Descendente"
+          sortAscending: 'Ascendente',
+          sortDescending: 'Descendente'
         }
       }
     })
