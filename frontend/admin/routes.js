@@ -24,6 +24,12 @@ import InventoryMovementsList from './inventories/products/movements/list.jsx'
 import InventoryMovementsCreate from './inventories/products/movements/create.jsx'
 import InventoryMovementsUpdate from './inventories/products/movements/update.jsx'
 
+import Receivable from './receivable/list.jsx'
+
+import ClientMovementsList from './receivable/movements/list.jsx'
+import CLientMovementsCreate from './receivable/movements/create.jsx'
+import CLientMovementsUpdate from './receivable/movements/update.jsx'
+
 const routes = <div>
 
   <Route exact path='/admin' render={() => {
@@ -31,8 +37,8 @@ const routes = <div>
   }} />
 
   <Route exact path='/admin/clients' component={ListClients} />
-  <Route path='/add' component={AddClients} />
-  <Route path='/edit/:client' component={EditClients} />
+  <Route path='/admin/clients/add' component={AddClients} />
+  <Route path='/admin/clients/edit/:client' component={EditClients} />
 
   <Route exact path='/admin/products' component={Products} />
   <Route exact path='/admin/products/add' component={CreateProduct} />
@@ -51,6 +57,12 @@ const routes = <div>
   <Route exact path='/admin/inventories/products/movements' component={InventoryMovementsList} />
   <Route exact path='/admin/inventories/products/movements/add' component={InventoryMovementsCreate} />
   <Route exact path='/admin/inventories/products/movements/edit/:movement' component={InventoryMovementsUpdate} />
+
+  <Route exact path='/admin/receivable' component={Receivable} />
+
+  <Route exact path='/admin/receivable/movements' component={ClientMovementsList} />
+  <Route exact path='/admin/receivable/movements/add' component={CLientMovementsCreate} />
+  <Route exact path='/admin/receivable/movements/edit/:movement' component={CLientMovementsUpdate} />
 
 </div>
 

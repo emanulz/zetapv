@@ -1,18 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 import TopBar from '../pos/layout/topBar/topBar.jsx'
 import SideMenu from '../pos/layout/sideMenu/sideMenu.jsx'
+import Body from './body/body.jsx'
 
+ReactDOM.render(
+  <div>
+    <SideMenu />
 
-ReactDOM.render(<div>
-                    <SideMenu></SideMenu>
+    <div id='mainContainer' className='mainContainer'>
+      <TopBar />
+      <Body />
+    </div>
 
-                    <div id='mainContainer'  className='mainContainer'>
-                            <TopBar></TopBar>
-                    </div>
-
-                </div>,
-
-                document.getElementById('app-container')
-            );
+  </div>, document.getElementById('app-container'))

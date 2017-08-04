@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Autenticación
+    link(rel='stylesheet', href='/css/login.css')
+  body
+    .login-page
+      .form
+        form.login-form(action='/login')
+          input(type='text', name='username', placeholder='Usuario')
+          input(type='password', name='password', placeholder='Contraseña')
+          button Acceder

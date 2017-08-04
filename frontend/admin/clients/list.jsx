@@ -3,49 +3,61 @@
  */
 import React from 'react'
 
-import { connect } from "react-redux"
-import { fetchClients } from "./actions"
-var PouchDB = require('pouchdb');
-
-//components
+import {connect} from 'react-redux'
+import {fetchClients} from './actions'
 import DataTable from '../generalComponents/dataTable/dataTable.jsx'
 
 @connect((store) => {
-  return {
-    clients: store.clients.clients
-  }
+  return {clients: store.clients.clients}
 })
 export default class List extends React.Component {
 
-    componentWillMount() {
+  componentWillMount() {
 
-        this.props.dispatch(fetchClients())//fetch clients before mount, send dispatch to reducer.
+    this.props.dispatch(fetchClients()) // fetch clients before mount, send dispatch to reducer.
 
-    }
+  }
 
+  render() {
 
-    render(){
+    console.log(this.props)
 
-        console.log(this.props)
+    const headerOrder = [
+      {
+        field: 'code',
+        text: 'Código',
+        type: 'primary'
+      }, {
+        field: 'name',
+        text: 'Nombre'
+      }, {
+        field: 'last_name',
+        text: 'Apellido'
+      }, {
+        field: 'id',
+        text: 'Identificación'
+      }, {
+        field: 'has_credit',
+        text: 'Tiene Crédito',
+        type: 'bool'
+      }, {
+        field: 'credit_limit',
+        text: 'Límite de crédito',
+        type: 'price'
+      }, {
+        field: 'credit_days',
+        text: 'Días de crédito'
+      }
+    ]
 
-        const headerOrder = [{field:'code', text:'Código', type: 'primary'},
-                             {field:'name', text:'Nombre'},
-                             {field:'last_name', text:'Apellido'},
-                             {field:'id', text:'Identificación'},
-                             {field:'has_credit', text:'Tiene Crédito', type: 'bool'},
-                             {field:'credit_limit', text:'Límite de crédito', type: 'price'},
-                             {field:'credit_days', text:'Días de crédito'}]
+    return <div className='clients-list-container'>
 
-        return <div className='clients-list-container'>
+      <h1>Clientes:</h1>
 
-                   <h1>Clientes:</h1>
+      <DataTable headerOrder={headerOrder} model='clients' data={this.props.clients} addLink='/admin/clients/add' />
 
-                   <DataTable headerOrder={headerOrder} model='clients' data={this.props.clients}></DataTable>
+    </div>
 
-               </div>
-
-    }
-
-
+  }
 
 }

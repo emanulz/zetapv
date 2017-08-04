@@ -48,6 +48,7 @@ export default class MovementsList extends React.Component {
         return product
       })
       : []
+    const dataFiltered = data.filter(el => el.useInventory)
 
     const headerOrder = [
       {
@@ -61,7 +62,7 @@ export default class MovementsList extends React.Component {
       },
       {
         field: 'useInventory',
-        text: 'Usa Invenyarios',
+        text: 'Usa Inventarios',
         type: 'bool'
       },
       {
@@ -75,7 +76,7 @@ export default class MovementsList extends React.Component {
 
       <h1>Movimientos:</h1>
 
-      <DataTable headerOrder={headerOrder} model='inventories/products/movements' data={data} addLink='/admin/inventories/products/movements/add' />
+      <DataTable headerOrder={headerOrder} model='inventories/products/movements' data={dataFiltered} addLink='/admin/inventories/products/movements/add' />
 
     </div>
   }

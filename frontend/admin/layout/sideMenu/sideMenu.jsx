@@ -25,12 +25,24 @@ export default class SideMenu extends React.Component {
         href: '/admin/products'
       }, {
         text: 'Departamenentos',
-        class: 'fa-plus',
+        class: 'fa-list',
         href: '/admin/products/departments'
       }, {
         text: 'Sub-Departamentos',
-        class: 'fa-plus',
+        class: 'fa-outdent',
         href: '/admin/products/subdepartments'
+      }
+    ]
+
+    const childClients = [
+      {
+        text: 'Clientes',
+        class: 'fa-user',
+        href: '/admin/clients'
+      }, {
+        text: 'Cuentas por Cobrar',
+        class: 'fa-money',
+        href: '/admin/receivable'
       }
     ]
 
@@ -47,11 +59,7 @@ export default class SideMenu extends React.Component {
               <span className='fa fa-area-chart' />
               Sitio Administrador</Link>
           </li>
-          <li>
-            <Link to='/admin/clients'>
-              <span className='fa fa-users' />
-              Clientes</Link>
-          </li>
+          <ComposedItem mainTittle='Clientes' mainIcon='fa-users' childItems={childClients} />
           <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts} />
           <ComposedItem mainTittle='Inventarios' mainIcon='fa-sticky-note' childItems={childInventories} />
           <li>

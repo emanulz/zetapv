@@ -20,6 +20,7 @@ export default class Product extends React.Component {
     this.syncDepartments()
     this.syncSubDepartments()
     this.syncProductMovements()
+    this.syncClientMovements()
   }
 
   componentDidMount() {
@@ -69,6 +70,15 @@ export default class Product extends React.Component {
       db: 'productmovements',
       dispatchType: 'FETCH_PRODUCTMOVEMENTS_FULFILLED',
       dispatchErrorType: 'FETCH_PRODUCTMOVEMENTS_REJECTED'
+    }
+    this.syncDB(kwargs)
+  }
+
+  syncClientMovements() {
+    const kwargs = {
+      db: 'clientmovements',
+      dispatchType: 'FETCH_CLIENTMOVEMENTS_FULFILLED',
+      dispatchErrorType: 'FETCH_CLIENTMOVEMENTS_REJECTED'
     }
     this.syncDB(kwargs)
   }
