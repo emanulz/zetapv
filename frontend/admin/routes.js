@@ -2,9 +2,9 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 
 // Routes Components
-import ListClients from './clients/list.jsx'
-import AddClients from './clients/add.jsx'
-import EditClients from './clients/edit.jsx'
+import ClientsList from './clients/list.jsx'
+import ClientsCreate from './clients/create.jsx'
+import ClientsEdit from './clients/update.jsx'
 
 import Products from './products/products/list.jsx'
 import CreateProduct from './products/products/create.jsx'
@@ -36,9 +36,9 @@ const routes = <div>
     return <h1>HOME</h1>
   }} />
 
-  <Route exact path='/admin/clients' component={ListClients} />
-  <Route path='/admin/clients/add' component={AddClients} />
-  <Route path='/admin/clients/edit/:client' component={EditClients} />
+  <Route exact path='/admin/clients' component={ClientsList} />
+  <Route path='/admin/clients/add' component={ClientsCreate} />
+  <Route path='/admin/clients/edit/:client' component={ClientsEdit} />
 
   <Route exact path='/admin/products' component={Products} />
   <Route exact path='/admin/products/add' component={CreateProduct} />

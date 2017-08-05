@@ -4,7 +4,7 @@
 import React from 'react'
 
 import {connect} from 'react-redux'
-import {fetchClients} from './actions'
+import {fetchItems} from '../utils/api'
 import DataTable from '../generalComponents/dataTable/dataTable.jsx'
 
 @connect((store) => {
@@ -14,13 +14,18 @@ export default class List extends React.Component {
 
   componentWillMount() {
 
-    this.props.dispatch(fetchClients()) // fetch clients before mount, send dispatch to reducer.
+    const kwargs = {
+      db: 'general',
+      docType: 'CLIENT',
+      dispatchType: 'FETCH_CLIENTS_FULFILLED',
+      dispatchErrorType: 'FETCH_CLIENTS_REJECTED'
+    }
+
+    this.props.dispatch(fetchItems(kwargs)) // fetch clients before mount, send dispatch to reducer.
 
   }
 
   render() {
-
-    console.log(this.props)
 
     const headerOrder = [
       {

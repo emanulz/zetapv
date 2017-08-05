@@ -1,52 +1,62 @@
-
-const stateConst = {
-    clientsFetching:false,
-    clientsFected:false,
-    clientsFetchError:'',
-    clients: {},
-    clientSelected: { "name": '',
-                      "last_name": '',
-                      "id": '',
-                      "code": '',
-                      "has_credit": false,
-                      "credit_limit": '',
-                      "credit_days": 0
-                    }
+const clientModel = {
+  'docType': 'CLIENT',
+  'created': new Date(),
+  'updated': new Date(),
+  'name': '',
+  'last_name': '',
+  'id': '',
+  'code': '',
+  'has_credit': false,
+  'credit_limit': '',
+  'credit_days': 0
 }
 
-export default function reducer(state=stateConst, action) {
+const stateConst = {
+  clientsFetchError: '',
+  clients: {},
+  clientActive: clientModel
+}
 
-    switch (action.type) {
+export default function reducer(state = stateConst, action) {
 
-        case "FETCH_CLIENTS": {
-            return {...state, clientsFetching: true}
-        }//case
+  switch (action.type) {
 
-        case "FETCH_CLIENTS_REJECTED": {
-          return {
-              ...state,
-              clientsFetching: false,
-              clientsFetchError: action.payload}
-        }//case
+    case 'FETCH_CLIENTS_FULFILLED':
+    {
+      return {
+        ...state,
+        clients: action.payload
+      }
 
-        case "FETCH_CLIENTS_FULFILLED": {
-            return {
-              ...state,
-              clientsFetching: false,
-              clientsFected: true,
-              clients: action.payload,
-            }
-            break;
-        }//case
+    } // case
 
-        case "SELECT_CLIENT": {
-            return {...state, clientSelected: action.payload}
-        }//case
+    case 'FETCH_CLIENTS_REJECTED':
+    {
+      return {
+        ...state,
+        clients: {},
+        clientActive: clientModel
+      }
+    } // case
 
+    case 'SET_CLIENT':
+    {
+      return {
+        ...state,
+        clientActive: action.payload
+      }
+    }
 
+    case 'CLEAR_CLIENT':
+    {
+      return {
+        ...state,
+        clientActive: clientModel
+      }
+    }
 
-    }// switch
+  } // switch
 
-    return state //default return
+  return state // default return
 
-}// reducer
+} // reducer

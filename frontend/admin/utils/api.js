@@ -4,6 +4,7 @@
 import alertify from 'alertifyjs'
 
 const PouchDB = require('pouchdb')
+PouchDB.plugin(require('pouchdb-find'))
 
 // ------------------------------------------------------------------------------------------
 // EXPORT FUNCTIONS
@@ -27,26 +28,20 @@ export function setItem(kwargs) {
   return function(dispatch) {
     const db = new PouchDB(kwargs.db)
 
-    db.allDocs({include_docs: true, attachments: true}).then((response) => {
-      const rows = response.rows
-      const data = []
+    db.find({
+      selector: {docType: kwargs.docType, [kwargs.lookUpField]: kwargs.lookUpValue}
+    }).then(function (result) {
 
-      rows.forEach((row) => {
-        if (row.doc[kwargs.lookUpField] == kwargs.lookUpValue) {
-          data.push(row.doc)
-        }
-
-      })
-
-      if (data.length) {
-        dispatch({type: kwargs.dispatchType, payload: data[0]})
+      if (result.docs.length) {
+        dispatch({type: kwargs.dispatchType, payload: result.docs[0]})
       } else {
         alertify.alert('Error', `No hay ${kwargs.modelName} con el valor de ${kwargs.lookUpName}: ${kwargs.lookUpValue}`)
       }
 
-    }).catch((err) => {
+    }).catch(function (err) {
       alertify.alert('Error', `Error al cargar el elemento: ${err}`)
     })
+
   }
 }
 
@@ -108,15 +103,37 @@ export function fetchItems(kwargs) {
   const db = new PouchDB(kwargs.db)
 
   return function(dispatch) {
-
-    db.allDocs({include_docs: true, attachments: true}).then((response) => {
-      const rows = response.rows
-      const data = []
-      rows.forEach(row => data.push(row.doc))
-
-      dispatch({type: kwargs.dispatchType, payload: data})
-    }).catch((err) => {
+    db.find({
+      selector: {docType: kwargs.docType}
+      // sort: [type.sortField]
+    }).then(function (result) {
+      console.log(result)
+      dispatch({type: kwargs.dispatchType, payload: result.docs})
+    }).catch(function (err) {
       dispatch({type: kwargs.dispatchErrorType, payload: err})
+    })
+  }
+}
+
+export function fetchItemsBulk(kwargs) {
+
+  const db = new PouchDB(kwargs.db)
+
+  db.createIndex({ index: {fields: ['docType']} })
+  db.createIndex({ index: {fields: ['docType', 'code']} })
+
+  return function(dispatch) {
+    kwargs.docTypes.map(docType => {
+      db.find({
+        selector: {docType: docType.docType}
+        // sort: [type.sortField]
+      }).then(function (result) {
+        console.log(result)
+        dispatch({type: docType.dispatchType, payload: result.docs})
+      }).catch(function (err) {
+        dispatch({type: docType.dispatchErrorType, payload: err})
+      })
+
     })
   }
 }

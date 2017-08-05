@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 
 const PouchDB = require('pouchdb')
-const socketPouchServer = require('socket-pouch/server')
 
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -10,8 +9,6 @@ const expressValidator = require('express-validator')
 const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('passport')
-
-socketPouchServer.listen(8080, {remoteUrl: 'http://emanuelziga:emma101421@localhost:5984/'})
 
 // Couch DB and Pouch Db init
 const db = new PouchDB('users')

@@ -25,7 +25,7 @@ ReactDOM.render(
 
     <Router>
       <div>
-        <DbSync remoteDB='ws://localhost:8080' />
+        <DbSync remoteDB='http://emanuelziga:emma101421@localhost:5984' />
         <SideMenu />
         <div id='mainContainer' className='blur-div mainContainer'>
           <TopBar />
