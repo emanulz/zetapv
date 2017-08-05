@@ -9,6 +9,8 @@ const PouchDB = require('pouchdb')
 
 window.PouchDB = PouchDB
 
+PouchDB.adapter('socket', require('socket-pouch/client'))
+
 @connect((store) => {
   return {products: store.products.products}
 })
@@ -84,26 +86,45 @@ export default class Product extends React.Component {
   }
 
   syncDB(kwargs) {
+    console.log('Sync', kwargs.db)
     const _this = this
     // DBs declaration and sync
-    const localDb = new PouchDB(kwargs.db)
-    const remoteDb = new PouchDB(`${this.props.remoteDB}/${kwargs.db}`)
+    const localDB = new PouchDB(kwargs.db)
 
-    localDb.sync(remoteDb, {
-      live: true,
-      retry: true
-    }).on('change', function(change) {
-      _this.props.dispatch(fetchItems(kwargs))
-    }).on('complete', function(info) {
-      _this.props.dispatch(fetchItems(kwargs))
-    }).on('paused', function(info) {
-      // replication was paused, usually because of a lost connection
-    }).on('active', function(info) {
-      // replication was resumed
-    }).on('error', function(err) {
-      // totally unhandled error (shouldn't happen)
-      console.log(err)
+    const remoteDB = new PouchDB({adapter: 'socket', name: kwargs.db, url: 'ws://localhost:8080'})
+    // PouchDB.replicate(localDB, remoteDB)
+    // localDB.replicate.from(remoteDB)
+    // // const localDb = new PouchDB(kwargs.db)
+    // // const remoteDb = new PouchDB(`${this.props.remoteDB}/${kwargs.db}`)
+    // remoteDB.allDocs({include_docs: true, attachments: true}).then((response) => {
+    //   console.log(response)
+    // }).catch(err => console.log(err))
+    localDB.sync(remoteDB, {
+      live: true
     })
+      .on('change', function(change) {
+        console.log('change')
+        _this.props.dispatch(fetchItems(kwargs))
+      }).on('complete', function(info) {
+        console.log('complete')
+        _this.props.dispatch(fetchItems(kwargs))
+      }).on('paused', function(info) {
+        console.log('paused')
+        // replication was paused, usually because of a lost connection
+      }).on('active', function(info) {
+        console.log('active')
+        // replication was resumed
+      }).on('error', function(err) {
+        console.log('error')
+        // totally unhandled error (shouldn't happen)
+        console.log(err)
+      })
+
+      //
+      // localDB.sync(remoteDB, {
+      //   live: true,
+      //   retry: true
+      // })
     // Fecth items
     this.props.dispatch(fetchItems(kwargs))
   }

@@ -110,7 +110,6 @@ export function fetchItems(kwargs) {
   return function(dispatch) {
 
     db.allDocs({include_docs: true, attachments: true}).then((response) => {
-      console.log(response)
       const rows = response.rows
       const data = []
       rows.forEach(row => data.push(row.doc))
