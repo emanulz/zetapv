@@ -1,7 +1,8 @@
 import React from 'react'
 import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
-import {checkSubDepartmentData, saveItem, setItem, updateItem, deleteItem} from '../actions.js'
+import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
+import {checkSubDepartmentData} from '../actions.js'
 
 @connect((store) => {
   return {
@@ -14,16 +15,19 @@ export default class Fields extends React.Component {
 
   componentWillMount() {
 
+    this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
+
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
 
       const obj = {
-        db: 'subdepartments',
+        db: 'general',
+        docType: 'PRODUCT_SUBDEPARTMENT',
         lookUpField: 'code',
         lookUpValue: code,
         lookUpName: 'código',
         modelName: 'sub-departamentos',
-        dispatchType: 'SET_SUBDEPARTMENT'
+        dispatchType: 'SET_PRODUCT_SUBDEPARTMENT'
       }
 
       this.props.dispatch(setItem(obj))
@@ -64,7 +68,7 @@ export default class Fields extends React.Component {
 
     subdepartment[name] = value
 
-    this.props.dispatch({type: 'SET_SUBDEPARTMENT', payload: subdepartment})
+    this.props.dispatch({type: 'SET_PRODUCT_SUBDEPARTMENT', payload: subdepartment})
   }
 
   saveBtn() {
@@ -73,12 +77,13 @@ export default class Fields extends React.Component {
     const fieldsOk = checkSubDepartmentData(subdepartment, subdepartments)
 
     if (fieldsOk) {
+      subdepartment.created = new Date()
       const obj = {
-        db: 'subdepartments',
+        db: 'general',
         item: subdepartment,
-        sucessMessage: 'Sub - Departamento creado correctamente',
+        sucessMessage: 'Sub-Departamento creado correctamente',
         errorMessage: 'Hubo un error al crear el Sub-departamento, intente de nuevo.',
-        dispatchType: 'CLEAR_SUBDEPARTMENT'
+        dispatchType: 'CLEAR_PRODUCT_SUBDEPARTMENT'
       }
 
       this.props.dispatch(saveItem(obj))
@@ -92,11 +97,12 @@ export default class Fields extends React.Component {
     const fieldsOk = checkSubDepartmentData(subdepartment, subdepartments)
 
     if (fieldsOk) {
+      subdepartment.updated = new Date()
       const obj = {
-        db: 'subdepartments',
+        db: 'general',
         item: subdepartment,
         modelName: 'Departamento',
-        dispatchType: 'SET_DEPARTMENT'
+        dispatchType: 'SET_PRODUCT_SUBDEPARTMENT'
       }
       this.props.dispatch(updateItem(obj))
     }
@@ -107,10 +113,10 @@ export default class Fields extends React.Component {
     const subdepartment = this.props.subdepartment
     const _this = this
     const obj = {
-      db: 'subdepartments',
+      db: 'general',
       item: subdepartment,
       modelName: 'Sub-Departamento',
-      dispatchType: 'CLEAR_SUBDEPARTMENT'
+      dispatchType: 'CLEAR_PRODUCT_SUBDEPARTMENT'
     }
     // ALERTIFY CONFIRM
     alertify.confirm('Eliminar', `Desea Eliminar el Sub-departamento ${subdepartment.code} - ${subdepartment.name}? Esta acción no se puede deshacer.`, function() {

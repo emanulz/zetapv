@@ -3193,8 +3193,12 @@ table {
   left: 250px;
   z-index: 2;
   transition: left 200ms ease-out; }
-  .mainContainer.pulled {
-    left: 250px; }
+  @media screen and (max-width: 990px) {
+    .mainContainer {
+      left: 0px;
+      width: 100%; }
+      .mainContainer.pulled {
+        left: 250px; } }
   .mainContainer-content {
     height: calc(100% - 60px);
     padding: 30px;
@@ -3211,6 +3215,11 @@ table {
   background-color: #354052;
   color: white;
   transition: left 200ms ease-out; }
+  @media screen and (max-width: 990px) {
+    .sideMenu {
+      left: -250px; }
+      .sideMenu.pulled {
+        left: 0px; } }
   .sideMenu.visible {
     left: 0; }
   .sideMenu-header {
@@ -3301,31 +3310,25 @@ table {
 .topBar {
   width: 100%;
   height: 60px;
-  background-color: #354052; }
-  .topBar-content {
-    margin: 0 20px;
-    line-height: 30px; }
-    .topBar-content-button {
-      display: none;
-      font-size: 12px;
-      font-family: sans-serif;
-      font-weight: 300;
-      color: white;
-      cursor: pointer;
-      position: relative;
-      margin: 5px 0;
-      padding: 0 10px;
-      width: 50px;
-      height: 30px;
-      background-color: #6F7E95;
-      border-radius: 4px;
-      box-sizing: content-box;
-      transition: background-color 0.5s ease; }
-      .topBar-content-button-content {
-        display: flex;
-        justify-content: space-between; }
-      .topBar-content-button:hover {
-        background-color: #5c759d; }
+  background-color: #354052;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between; }
+  .topBar-button {
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    height: 100%;
+    width: 70px;
+    color: white;
+    background-color: #6F7E95; }
+    .topBar-button:hover {
+      background-color: #5c759d; }
+    .topBar-button-collapse {
+      visibility: hidden; }
+      @media screen and (max-width: 990px) {
+        .topBar-button-collapse {
+          visibility: visible; } }
 
 .dataTables {
   font-family: sans-serif;
@@ -3368,16 +3371,15 @@ table {
   line-height: 30px;
   cursor: pointer;
   font-family: sans-serif;
-  font-size: 12px; }
+  font-size: 12px;
+  color: white;
+  text-decoration: none; }
+  .addBtn:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #262E3B; }
   .addBtn span {
     margin-right: 5px; }
-  .addBtn a {
-    text-decoration: none;
-    color: white; }
-    .addBtn a:hover {
-      color: white; }
-  .addBtn:hover {
-    background-color: #262E3B; }
 
 .create .first {
   padding-right: 10px; }

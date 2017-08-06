@@ -105,7 +105,7 @@ export default function reducer(state = stateConst, action) {
     // DEPARTMENTS
     // ***********************************
 
-    case 'FETCH_DEPARTMENTS_FULFILLED':
+    case 'FETCH_PRODUCT_DEPARTMENTS_FULFILLED':
     {
       return {
         ...state,
@@ -114,7 +114,7 @@ export default function reducer(state = stateConst, action) {
 
     } // case
 
-    case 'FETCH_DEPARTMENTS_REJECTED':
+    case 'FETCH_PRODUCT_DEPARTMENTS_REJECTED':
     {
       return {
         ...state,
@@ -122,7 +122,7 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
-    case 'SET_DEPARTMENT':
+    case 'SET_PRODUCT_DEPARTMENT':
     {
       return {
         ...state,
@@ -130,7 +130,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'CLEAR_DEPARTMENT':
+    case 'CLEAR_PRODUCT_DEPARTMENT':
     {
       return {
         ...state,
@@ -142,7 +142,7 @@ export default function reducer(state = stateConst, action) {
     // SUB DEPARTMENTS
     // ***********************************
 
-    case 'FETCH_SUBDEPARTMENTS_FULFILLED':
+    case 'FETCH_PRODUCT_SUBDEPARTMENTS_FULFILLED':
     {
       return {
         ...state,
@@ -151,7 +151,7 @@ export default function reducer(state = stateConst, action) {
 
     } // case
 
-    case 'FETCH_SUBDEPARTMENTS_REJECTED':
+    case 'FETCH_PRODUCT_SUBDEPARTMENTS_REJECTED':
     {
       return {
         ...state,
@@ -159,7 +159,7 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
-    case 'SET_SUBDEPARTMENT':
+    case 'SET_PRODUCT_SUBDEPARTMENT':
     {
       return {
         ...state,
@@ -167,7 +167,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'CLEAR_SUBDEPARTMENT':
+    case 'CLEAR_PRODUCT_SUBDEPARTMENT':
     {
       return {
         ...state,

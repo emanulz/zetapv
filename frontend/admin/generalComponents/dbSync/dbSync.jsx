@@ -38,13 +38,13 @@ export default class Product extends React.Component {
       },
       {
         docType: 'PRODUCT_DEPARTMENT',
-        dispatchType: 'FETCH_PRODUCT_DEPARTMENT_FULFILLED',
-        dispatchErrorType: 'FETCH_PRODUCT_DEPARTMENT_REJECTED'
+        dispatchType: 'FETCH_PRODUCT_DEPARTMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_PRODUCT_DEPARTMENTS_REJECTED'
       },
       {
         docType: 'PRODUCT_SUBDEPARTMENT',
-        dispatchType: 'FETCH_PRODUCT_SUBDEPARTMENT_FULFILLED',
-        dispatchErrorType: 'FETCH_PRODUCT_SUBDEPARTMENT_REJECTED'
+        dispatchType: 'FETCH_PRODUCT_SUBDEPARTMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_PRODUCT_SUBDEPARTMENTS_REJECTED'
       },
       {
         docType: 'PRODUCT_MOVEMENT',

@@ -3235,35 +3235,24 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .topBar {
   width: 100%;
-  height: 40px;
-  background-color: #354052; }
-  .topBar-content {
-    margin: 0 20px;
-    line-height: 30px; }
-    .topBar-content-button {
-      display: inline-block;
-      font-size: 12px;
-      font-family: sans-serif;
-      font-weight: 300;
-      color: white;
-      cursor: pointer;
-      position: relative;
-      margin: 5px 0;
-      padding: 0 10px;
-      width: 50px;
-      height: 30px;
-      background-color: #6F7E95;
-      border-radius: 4px;
-      box-sizing: content-box;
-      transition: background-color 0.5s ease; }
-      .topBar-content-button-content {
-        display: flex;
-        justify-content: space-between; }
-      .topBar-content-button:hover {
-        background-color: #5c759d; }
+  height: 60px;
+  background-color: #354052;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between; }
+  .topBar-button {
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    height: 100%;
+    width: 70px;
+    color: white;
+    background-color: #6F7E95; }
+    .topBar-button:hover {
+      background-color: #5c759d; }
 
 .mainContainer-content {
-  height: calc(100% - 110px);
+  height: calc(100% - 130px);
   overflow-y: auto;
   overflow-x: hidden; }
 

@@ -1,9 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+// UTILS
+import alertify from 'alertifyjs'
+// COMPONENTS
 import TopBar from '../pos/layout/topBar/topBar.jsx'
 import SideMenu from '../pos/layout/sideMenu/sideMenu.jsx'
 import Body from './body/body.jsx'
+
+window.alertify = alertify
 
 ReactDOM.render(
   <div>

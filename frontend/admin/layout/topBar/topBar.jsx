@@ -1,64 +1,43 @@
 /*
  * Module dependencies
  */
-import React from 'react';
-
+import React from 'react'
+import alertify from 'alertifyjs'
+import {toggleLayout} from './actions'
 
 export default class TopBar extends React.Component {
 
+  menuClick(ev) {
 
+    toggleLayout()
 
-    menuClick(ev){
+  }
 
-        console.log(ev)
+  logOutClick() {
 
-        const mainContainer = document.getElementById("mainContainer")
-        const sideMenu = document.getElementById("sideMenu")
+    // ALERTIFY CONFIRM
+    alertify.confirm('Cerrar Sesión', `¿Desea Cerrar su sesión en el sistema?`, function() {
+      window.location.replace('/login/logout')
+    }, function() {
+      return true
+    }).set('labels', {
+      ok: 'Cerrar',
+      cancel: 'Permanecer'
+    })
+  }
 
-        if(mainContainer.classList.contains('pulled')){
+  // Main Layout
+  render() {
 
-            mainContainer.classList.remove('pulled')
-            sideMenu.classList.remove('visible')
-            return true
-        }
+    return <div className='topBar'>
+      <div onClick={this.menuClick.bind(this)} className='topBar-button topBar-button-collapse not-visible' >
+        <span className='fa fa-bars' />
+      </div>
+      <div onClick={this.logOutClick.bind(this)} className='topBar-button topBar-button-logout'>
+        <span className='fa fa-power-off' />
+      </div>
+    </div>
 
-        mainContainer.classList.add('pulled');
-        sideMenu.classList.add('visible')
-
-    }
-
-
-
-    // Main Layout
-    render(){
-
-        return <div className='topBar'>
-
-                    <div className='topBar-content'>
-
-                        <div onClick={this.menuClick.bind(this)} className='topBar-content-button'>
-
-                            <div className='topBar-content-button-content'>
-                                <span><i class="fa fa-bars"></i></span>
-                                <span>Menu</span>
-                            </div>
-
-                        </div>
-
-                        <div className='topBar-content-nav'>
-
-
-                        </div>
-
-                        <div className='topBar-content-text'>
-
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-    }
+  }
 
 }

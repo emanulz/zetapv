@@ -8,6 +8,10 @@
     background-color: $PRIMARY-COLOR
     color: white
     transition: left 200ms ease-out
+    @media screen and (max-width: $BREAK-SMALL)
+      left: -250px
+      &.pulled
+        left: 0px
 
     &.visible
         left: 0

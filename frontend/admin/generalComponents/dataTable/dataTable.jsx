@@ -145,8 +145,8 @@ export default class DataTable extends React.Component {
 
     return <div className='dataTables'>
 
-      <div className='addBtn'>
-        <Link to={`${this.props.addLink}`}>
+      <div>
+        <Link className='addBtn' to={`${this.props.addLink}`}>
 
           <span className='fa fa-plus' />
           Agregar

@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchItems} from '../actions'
+import {fetchItems} from '../../utils/api'
 
 // components
 import DataTable from '../../generalComponents/dataTable/dataTable.jsx'
@@ -15,9 +15,10 @@ export default class Product extends React.Component {
 
   componentWillMount() {
     const kwargs = {
-      db: 'departments',
-      dispatchType: 'FETCH_DEPARTMENTS_FULFILLED',
-      dispatchErrorType: 'FETCH_DEPARTMENTS_REJECTED'
+      db: 'general',
+      docType: 'PRODUCT_DEPARTMENT',
+      dispatchType: 'FETCH_PRODUCT_DEPARTMENTS_FULFILLED',
+      dispatchErrorType: 'FETCH_PRODUCT_DEPARTMENTS_REJECTED'
     }
     this.props.dispatch(fetchItems(kwargs)) // fetch products before mount, send dispatch to reducer.
   }

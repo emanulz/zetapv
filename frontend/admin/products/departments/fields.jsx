@@ -1,7 +1,8 @@
 import React from 'react'
 import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
-import {checkDepartmentData, saveItem, setItem, updateItem, deleteItem} from '../actions.js'
+import {checkDepartmentData} from '../actions.js'
+import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
 
 @connect((store) => {
   return {department: store.products.departmentActive, departments: store.products.departments}
@@ -11,16 +12,19 @@ export default class Fields extends React.Component {
 
   componentWillMount() {
 
+    this.props.dispatch({type: 'CLEAR_PRODUCT_DEPARTMENT', payload: ''})
+
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
 
       const obj = {
-        db: 'departments',
+        db: 'general',
+        docType: 'PRODUCT_DEPARTMENT',
         lookUpField: 'code',
         lookUpValue: code,
         lookUpName: 'código',
         modelName: 'departamentos',
-        dispatchType: 'SET_DEPARTMENT'
+        dispatchType: 'SET_PRODUCT_DEPARTMENT'
       }
 
       this.props.dispatch(setItem(obj))
@@ -59,7 +63,7 @@ export default class Fields extends React.Component {
 
     department[name] = value
 
-    this.props.dispatch({type: 'SET_DEPARTMENT', payload: department})
+    this.props.dispatch({type: 'SET_PRODUCT_DEPARTMENT', payload: department})
   }
 
   saveBtn() {
@@ -68,12 +72,13 @@ export default class Fields extends React.Component {
     const fieldsOk = checkDepartmentData(department, departments)
 
     if (fieldsOk) {
+      department.created = new Date()
       const obj = {
-        db: 'departments',
+        db: 'general',
         item: department,
         sucessMessage: 'Departamento creado correctamente',
         errorMessage: 'Hubo un error al crear el departamento, intente de nuevo.',
-        dispatchType: 'CLEAR_DEPARTMENT'
+        dispatchType: 'CLEAR_PRODUCT_DEPARTMENT'
       }
 
       this.props.dispatch(saveItem(obj))
@@ -87,11 +92,12 @@ export default class Fields extends React.Component {
     const fieldsOk = checkDepartmentData(department, departments)
 
     if (fieldsOk) {
+      department.updated = new Date()
       const obj = {
-        db: 'departments',
+        db: 'general',
         item: department,
         modelName: 'Departamento',
-        dispatchType: 'SET_DEPARTMENT'
+        dispatchType: 'SET_PRODUCT_DEPARTMENT'
       }
       this.props.dispatch(updateItem(obj))
     }
@@ -104,10 +110,10 @@ export default class Fields extends React.Component {
     // alertify.promp
 
     const obj = {
-      db: 'departments',
+      db: 'general',
       item: department,
       modelName: 'Departamento',
-      dispatchType: 'CLEAR_DEPARTMENT'
+      dispatchType: 'CLEAR_PRODUCT_DEPARTMENT'
     }
 
     alertify.confirm('Eliminar', `Desea Eliminar el departamento ${department.code} - ${department.name}? Esta acción no se puede deshacer.`, function() {

@@ -22,7 +22,10 @@
     left: 250px
     z-index: 2
     transition: left 200ms ease-out
-    &.pulled
+    @media screen and (max-width: $BREAK-SMALL)
+      left: 0px
+      width: 100%
+      &.pulled
         left: 250px
     &-content
         height: calc(100% - 60px)
