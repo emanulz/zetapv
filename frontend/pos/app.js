@@ -1,22 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
-import { Provider } from "react-redux"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
 
-//utils
-import alertify from 'alertifyjs';
+// utils
+import alertify from 'alertifyjs'
 import formatMoney from '../utils/formatMoney.js'
 import printDiv from '../utils/printDiv.js'
 
-window.alertify = alertify;
-formatMoney()
-window.printDiv = printDiv
-
-//layout components
+// layout components
 import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
+import DbSync from './generalComponents/dbSync/dbSync.jsx'
 
-//components
+// components
 import Main from './main/main.jsx'
 import Sidebar from './sidebar/sidebar.jsx'
 import SearchClient from './search/clients/searchPanel.jsx'
@@ -25,48 +21,38 @@ import Footer from './footer/footer.jsx'
 import PayPanel from './pay/payPanel.jsx'
 import InvoicePanel from './invoice/InvoicePanel/invoicePanel.jsx'
 
-//store
-import store from "./store.js"
+// store
+import store from './store.js'
 
+window.alertify = alertify
+formatMoney()
+window.printDiv = printDiv
 
-ReactDOM.render(<Provider store={store}>
-                    <div>
-                        <SideMenu></SideMenu>
-                        <div id='mainContainer' className="blur-div mainContainer">
-                            <TopBar></TopBar>
-                            <div className="mainContainer-content">
-                                <div className="row" style={{'margin':'0'}}>
-                                    <Main></Main>
-                                    <Sidebar></Sidebar>
-                                </div>
-                                <SearchClient></SearchClient>
-                                <SearchProduct></SearchProduct>
+ReactDOM.render(
+  <Provider store={store}>
+    <div>
+      <DbSync remoteDB='http://emanuelziga:emma101421@localhost:5984' />
+      <SideMenu />
+      <div id='mainContainer' className='blur-div mainContainer'>
+        <TopBar />
+        <div className='mainContainer-content'>
+          <div className='row' style={{'margin': '0'}}>
+            <Main />
+            <Sidebar />
+          </div>
+          <SearchClient />
+          <SearchProduct />
 
+        </div>
 
-                            </div>
+        <div className='row footer'>
+          <Footer />
+        </div>
 
-                            <div className="row footer">
-                                <Footer></Footer>
+        <PayPanel />
+        <InvoicePanel />
 
-                            </div>
+      </div>
 
-                            <PayPanel></PayPanel>
-                            <InvoicePanel></InvoicePanel>
-
-                        </div>
-
-                    </div>
-                </Provider>,
-
-                document.getElementById('app-container')
-);
-
-// //footer fixed
-// ReactDOM.render(<Provider store={store}>
-//
-//                     <Footer></Footer>
-//
-//                 </Provider>,
-//
-//     document.getElementById('footer')
-// );
+    </div>
+  </Provider>, document.getElementById('app-container'))
