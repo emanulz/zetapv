@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchItemsBulk} from '../../utils/api'
+import {fetchItemsBulk, fetchItems} from '../../utils/api'
 
 const PouchDB = require('pouchdb')
 
@@ -16,6 +16,7 @@ export default class Product extends React.Component {
 
   componentWillMount() {
     this.syncGeneralDb()
+    this.syncUsersDb()
   }
 
   componentDidMount() {
@@ -84,18 +85,14 @@ export default class Product extends React.Component {
         _this.props.dispatch(kwargs.fecthFunc(kwargs))
 
       }).on('complete', function(info) {
-        console.log('complete')
 
       }).on('paused', function(info) {
-        console.log('paused')
         // replication was paused, usually because of a lost connection
 
       }).on('active', function(info) {
-        console.log('active')
         // replication was resumed
 
       }).on('error', function(err) {
-        console.log('error')
         // totally unhandled error (shouldn't happen)
         console.log(err)
 
@@ -103,6 +100,34 @@ export default class Product extends React.Component {
 
     // Fecth items
     this.props.dispatch(kwargs.fecthFunc(kwargs))
+  }
+
+  syncUsersDb() {
+    const _this = this
+    const localDB = new PouchDB('users')
+    const remoteDB = new PouchDB(`${this.props.remoteDB}/users`)
+
+    localDB.createIndex({ index: {fields: ['docType']} })
+    localDB.createIndex({ index: {fields: ['docType', 'username']} })
+
+    const kwargs = {
+      db: 'users',
+      docType: 'USER',
+      dispatchType: 'FETCH_USERS_FULFILLED',
+      dispatchErrorType: 'FETCH_USERS_REJECTED'
+    }
+
+    localDB.sync(remoteDB, {
+      retry: true
+    })
+      .on('change', function(change) {
+        console.log('change')
+        _this.props.dispatch(fetchItems(kwargs))
+
+      })
+
+    this.props.dispatch(fetchItems(kwargs))
+
   }
 
   render() {

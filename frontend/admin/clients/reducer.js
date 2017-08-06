@@ -1,7 +1,7 @@
 const clientModel = {
   'docType': 'CLIENT',
-  'created': new Date(),
-  'updated': new Date(),
+  'created': '',
+  'updated': '',
   'name': '',
   'last_name': '',
   'id': '',

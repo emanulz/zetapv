@@ -1,4 +1,7 @@
 const productModel = {
+  'docType': 'PRODUCT',
+  'created': '',
+  'updated': '',
   'code': '',
   'barcode': '',
   'description': '',
@@ -21,6 +24,9 @@ const productModel = {
 }
 
 const departmentModel = {
+  'docType': 'PRODUCT_DEPARTMENT',
+  'created': '',
+  'updated': '',
   'code': '',
   'description': '',
   'name': ''
@@ -28,6 +34,9 @@ const departmentModel = {
 }
 
 const subDepartmentModel = {
+  'docType': 'PRODUCT_SUBDEPARTMENT',
+  'created': '',
+  'updated': '',
   'code': '',
   'description': '',
   'name': '',
@@ -55,14 +64,6 @@ export default function reducer(state = stateConst, action) {
     // ***********************************
     // PRODUCTS
     // ***********************************
-
-    case 'FETCH_PRODUCTS':
-    {
-      return {
-        ...state,
-        productsFetching: true
-      }
-    } // case
 
     case 'FETCH_PRODUCTS_REJECTED':
     {

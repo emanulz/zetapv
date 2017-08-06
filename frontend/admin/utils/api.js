@@ -11,10 +11,12 @@ PouchDB.plugin(require('pouchdb-find'))
 // ------------------------------------------------------------------------------------------
 
 export function saveItem(kwargs) {
+
+  const item = kwargs.item
   return function(dispatch) {
     const db = new PouchDB(kwargs.db)
 
-    db.post(kwargs.item).then((response) => {
+    db.post(item).then((response) => {
       alertify.alert('Completado', kwargs.sucessMessage)
       dispatch({type: kwargs.dispatchType, payload: ''})
     }).catch((err) => {
@@ -33,7 +35,15 @@ export function setItem(kwargs) {
     }).then(function (result) {
 
       if (result.docs.length) {
+
+        if (kwargs.blankFields) {
+          kwargs.blankFields.map(field => {
+            result.docs[0][field] = ''
+            return field
+          })
+        }
         dispatch({type: kwargs.dispatchType, payload: result.docs[0]})
+
       } else {
         alertify.alert('Error', `No hay ${kwargs.modelName} con el valor de ${kwargs.lookUpName}: ${kwargs.lookUpValue}`)
       }
@@ -107,7 +117,6 @@ export function fetchItems(kwargs) {
       selector: {docType: kwargs.docType}
       // sort: [type.sortField]
     }).then(function (result) {
-      console.log(result)
       dispatch({type: kwargs.dispatchType, payload: result.docs})
     }).catch(function (err) {
       dispatch({type: kwargs.dispatchErrorType, payload: err})
@@ -128,7 +137,6 @@ export function fetchItemsBulk(kwargs) {
         selector: {docType: docType.docType}
         // sort: [type.sortField]
       }).then(function (result) {
-        console.log(result)
         dispatch({type: docType.dispatchType, payload: result.docs})
       }).catch(function (err) {
         dispatch({type: docType.dispatchErrorType, payload: err})
@@ -140,14 +148,11 @@ export function fetchItemsBulk(kwargs) {
 
 export function getNextNumericCode(elements, field) {
 
-  console.log(elements.length)
-
   if (elements.length) {
 
     let keys = elements.map(element => element[field])
 
     keys = keys.sort((a, b) => a > b)
-    console.log(keys)
     const max = keys.pop()
     return parseInt(max) + 1
 

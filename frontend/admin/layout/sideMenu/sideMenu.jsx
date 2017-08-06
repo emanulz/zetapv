@@ -55,9 +55,14 @@ export default class SideMenu extends React.Component {
       <div className='sideMenu-wrapper'>
         <ul className='sideMenu-items'>
           <li>
-            <Link to='/admin/'>
+            <Link to='/admin'>
               <span className='fa fa-area-chart' />
               Sitio Administrador</Link>
+          </li>
+          <li>
+            <Link to='/admin/users'>
+              <span className='fa fa-user' />
+              Usuarios</Link>
           </li>
           <ComposedItem mainTittle='Clientes' mainIcon='fa-users' childItems={childClients} />
           <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts} />

@@ -6,7 +6,7 @@ export default class Update extends React.Component {
 
   render() {
 
-    return <div className='create-product row'>
+    return <div className='create row'>
 
       <h1>Editar Producto</h1>
 

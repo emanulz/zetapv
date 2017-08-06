@@ -13,7 +13,9 @@ import {checkClientData} from './actions'
 
 export default class Fields extends React.Component {
   // REACT METHODS
-  componentDidMount() {
+  componentWillMount() {
+
+    this.props.dispatch({type: 'CLEAR_CLIENT', payload: ''})
 
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
@@ -30,10 +32,6 @@ export default class Fields extends React.Component {
 
       this.props.dispatch(setItem(kwargs))
     }
-  }
-
-  componentWillMount() {
-    this.props.dispatch({type: 'CLEAR_CLIENT', payload: ''})
   }
 
   // HANDLE INPUT CHANGE
@@ -81,6 +79,7 @@ export default class Fields extends React.Component {
     const fieldsOk = checkClientData(client, clients)
 
     if (fieldsOk) {
+      client.created = new Date()
       const kwargs = {
         db: 'general',
         item: client,
@@ -122,7 +121,7 @@ export default class Fields extends React.Component {
       dispatchType: 'CLEAR_CLIENT'
     }
     // ALERTIFY CONFIRM
-    alertify.confirm('Eliminar', `Desea Eliminar el Sub-departamento ${client.code} - ${client.name}? Esta acción no se puede deshacer.`, function() {
+    alertify.confirm('Eliminar', `Desea Eliminar el Cliente ${client.code} - ${client.name}? Esta acción no se puede deshacer.`, function() {
       _this.props.dispatch(deleteItem(kwargs))
     }, function() {
       return true

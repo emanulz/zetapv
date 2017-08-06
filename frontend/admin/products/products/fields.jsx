@@ -1,20 +1,37 @@
 import React from 'react'
 import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
-import {checkProductData, saveProduct, setProduct, updateProduct, deleteProduct} from '../actions.js'
+import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
+import {checkProductData} from '../actions.js'
 
 @connect((store) => {
-  return {product: store.products.productActive, products: store.products.products}
+  return {
+    product: store.products.productActive,
+    products: store.products.products
+  }
 })
 
 export default class Fields extends React.Component {
+
+  // REACT METHODS
   componentWillMount() {
-    console.log(this.props)
+
+    this.props.dispatch({type: 'CLEAR_PRODUCT', payload: ''})
 
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
 
-      this.props.dispatch(setProduct(code))
+      const kwargs = {
+        db: 'general',
+        docType: 'PRODUCT',
+        lookUpField: 'code',
+        lookUpValue: code,
+        lookUpName: 'código',
+        modelName: 'Productos',
+        dispatchType: 'SET_PRODUCT'
+      }
+
+      this.props.dispatch(setItem(kwargs))
     }
   }
 
@@ -52,38 +69,57 @@ export default class Fields extends React.Component {
     this.props.dispatch({type: 'SET_PRODUCT', payload: product})
   }
 
-  saveProduct() {
+  // BUTTONS
+  saveBtn() {
     const product = this.props.product
     const products = this.props.products
     const fieldsOk = checkProductData(product, products)
 
-    console.log(fieldsOk)
-
     if (fieldsOk) {
-      this.props.dispatch(saveProduct(product))
+      product.created = new Date()
+      const kwargs = {
+        db: 'general',
+        item: product,
+        sucessMessage: 'Producto creado Correctamente.',
+        errorMessage: 'Hubo un error al crear el Producto, intente de nuevo.',
+        dispatchType: 'CLEAR_PRODUCT'
+      }
+
+      this.props.dispatch(saveItem(kwargs))
     }
   }
 
-  updateProduct() {
+  updateBtn() {
+
     const product = this.props.product
     const products = this.props.products
-
     const fieldsOk = checkProductData(product, products)
-
-    console.log(fieldsOk)
+    product.updated = new Date()
 
     if (fieldsOk) {
-      this.props.dispatch(updateProduct(product))
+      const kwargs = {
+        db: 'general',
+        item: product,
+        modelName: 'Producto',
+        dispatchType: 'SET_PRODUCT'
+      }
+      this.props.dispatch(updateItem(kwargs))
     }
   }
 
   deleteBtn() {
+
     const product = this.props.product
     const _this = this
-    // alertify.promp
-
+    const kwargs = {
+      db: 'general',
+      item: product,
+      modelName: 'Producto',
+      dispatchType: 'CLEAR_PRODUCT'
+    }
+    // ALERTIFY CONFIRM
     alertify.confirm('Eliminar', `Desea Eliminar el producto ${product.code} - ${product.description}? Esta acción no se puede deshacer.`, function() {
-      _this.props.dispatch(deleteProduct(product))
+      _this.props.dispatch(deleteItem(kwargs))
     }, function() {
       return true
     }).set('labels', {
@@ -93,10 +129,13 @@ export default class Fields extends React.Component {
   }
 
   render() {
+    // ********************************************************************
+    // BUTTONS
+    // ********************************************************************
     const buttons = this.props.update
       ? <div className='row'>
         <div className='col-xs-6'>
-          <button onClick={this.updateProduct.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.updateBtn.bind(this)} className=' form-control btn-success'>
             Actualizar
           </button>
         </div>
@@ -115,7 +154,7 @@ export default class Fields extends React.Component {
       </div>
       : <div className='row'>
         <div className='col-xs-6'>
-          <button onClick={this.saveProduct.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.saveBtn.bind(this)} className=' form-control btn-success'>
             Guardar
           </button>
         </div>
@@ -133,6 +172,9 @@ export default class Fields extends React.Component {
         </div>
       </div>
 
+    // ********************************************************************
+    // RETURN BLOCK
+    // ********************************************************************
     return <div className='col-xs-12 row'>
 
       <div className='col-xs-6 create-product-fields-container first'>

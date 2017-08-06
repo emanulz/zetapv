@@ -6,6 +6,10 @@ import ClientsList from './clients/list.jsx'
 import ClientsCreate from './clients/create.jsx'
 import ClientsEdit from './clients/update.jsx'
 
+import UsersList from './users/list.jsx'
+import UsersCreate from './users/create.jsx'
+import UsersEdit from './users/update.jsx'
+
 import Products from './products/products/list.jsx'
 import CreateProduct from './products/products/create.jsx'
 import EditProduct from './products/products/update.jsx'
@@ -39,6 +43,10 @@ const routes = <div>
   <Route exact path='/admin/clients' component={ClientsList} />
   <Route path='/admin/clients/add' component={ClientsCreate} />
   <Route path='/admin/clients/edit/:client' component={ClientsEdit} />
+
+  <Route exact path='/admin/users' component={UsersList} />
+  <Route path='/admin/users/add' component={UsersCreate} />
+  <Route path='/admin/users/edit/:user' component={UsersEdit} />
 
   <Route exact path='/admin/products' component={Products} />
   <Route exact path='/admin/products/add' component={CreateProduct} />

@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../actions'
+import {fetchItems} from '../../utils/api'
 // components
 import DataTable from '../../generalComponents/dataTable/dataTable.jsx'
 
@@ -12,7 +12,16 @@ import DataTable from '../../generalComponents/dataTable/dataTable.jsx'
 })
 export default class Product extends React.Component {
   componentWillMount() {
-    this.props.dispatch(fetchProducts()) // fetch products before mount, send dispatch to reducer.
+
+    const kwargs = {
+      db: 'general',
+      docType: 'PRODUCT',
+      dispatchType: 'FETCH_PRODUCTS_FULFILLED',
+      dispatchErrorType: 'FETCH_PRODUCTS_REJECTED'
+    }
+
+    this.props.dispatch(fetchItems(kwargs)) // fetch clients before mount, send dispatch to reducer.
+
   }
 
   // Render the product
