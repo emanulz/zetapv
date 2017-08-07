@@ -58,8 +58,10 @@ export function saveItem(kwargs) {
     const db = new PouchDB(kwargs.db)
 
     db.post(item).then((response) => {
-      dispatch({type: kwargs.dispatchType, payload: ''})
       dispatch({type: 'SET_SALE', payload: item})
+      dispatch({type: 'SHOW_INVOICE_PANEL', payload: ''})
+      dispatch({type: 'HIDE_PAY_PANEL', payload: ''})
+      dispatch({type: 'SALE_COMPLETED', payload: ''})
     }).catch((err) => {
       alertify.alert('Error', `${kwargs.errorMessage} ERROR: ${err}.`)
     })

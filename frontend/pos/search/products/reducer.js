@@ -20,6 +20,14 @@ export default function reducer(state=stateConst, action) {
             return {...state, productsMatched: []}
         }//case
 
+        case 'NEW_SALE':
+        {
+          state = stateConst
+          return {
+            ...state, stateConst
+          }
+        } // case
+
 
     }// switch
 

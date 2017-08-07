@@ -1,17 +1,19 @@
-export default function printElem(divId) {
-    //Get the HTML of div
-           var divElements = document.getElementById(divId).innerHTML;
-           //Get the HTML of whole page
-           var oldPage = document.body.innerHTML;
+export default function PrintElem(elem) {
+  const mywindow = window.open('', 'PRINT', 'height=400,width=600')
 
-           //Reset the page's HTML with div's HTML only
-           document.body.innerHTML =
-             "<html><head><title></title></head><body>" +
-             divElements + "</body>";
+  mywindow.document.write('<html><head><title>' + document.title + '</title>')
+  mywindow.document.write('<link href="/css/posStyles.css" rel="stylesheet">')
+  mywindow.document.write('</head><body >')
+  mywindow.document.write(document.getElementById(elem).innerHTML)
+  mywindow.document.write('</body></html>')
 
-           //Print Page
-           window.print();
+  mywindow.document.close() // necessary for IE >= 10
+  mywindow.focus() // necessary for IE >= 10*/
 
-           //Restore orignal HTML
-           document.body.innerHTML = oldPage;
+  setTimeout(function() {
+    mywindow.print()
+    mywindow.close()
+  }, 50)
+
+  return true
 }

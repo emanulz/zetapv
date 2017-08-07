@@ -1,15 +1,16 @@
 const saleActiveModel = {
   id: 0,
   docType: 'SALE',
-  cart: [],
-  client: [],
-  pay: [],
+  cart: {},
+  client: '',
+  pay: {},
   created: new Date()
 }
 
 const stateConst = {
   sales: [],
-  saleActive: saleActiveModel
+  saleActive: saleActiveModel,
+  completed: false
 
 }
 
@@ -37,7 +38,17 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        saleActive: action.payload
+        saleActive: action.payload,
+        completed: true
+      }
+    } // case
+
+    case 'NEW_SALE':
+    {
+      const sales = state.sales
+      state = stateConst
+      return {
+        ...state, sales: sales
       }
     } // case
 

@@ -1,28 +1,47 @@
 const stateConst = {
-    isVisible:true,
-    isFull: false,
+  isVisible: false,
+  isFull: true
 }
 
-export default function reducer(state=stateConst, action) {
+export default function reducer(state = stateConst, action) {
 
-    switch (action.type) {
+  switch (action.type) {
 
-        case "SHOW_INVOICE_PANEL": {
-            return {...state, isVisible: true}
-        }//case
+    case 'SHOW_INVOICE_PANEL':
+    {
+      return {
+        ...state,
+        isVisible: true
+      }
+    } // case
 
-        case "HIDE_INVOICE_PANEL": {
-            return {...state, isVisible: false}
-        }//case
+    case 'HIDE_INVOICE_PANEL':
+    {
+      return {
+        ...state,
+        isVisible: false
+      }
+    } // case
 
-        case "TOGGLE_INVOICE_PANEL": {
-            let fullOrNot = state.isFull
-            return {...state, isFull: !fullOrNot}
-        }//case
+    case 'TOGGLE_INVOICE_PANEL':
+    {
+      const fullOrNot = state.isFull
+      return {
+        ...state,
+        isFull: !fullOrNot
+      }
+    } // case
 
+    case 'NEW_SALE':
+    {
+      state = stateConst
+      return {
+        ...state, stateConst
+      }
+    } // case
 
-    }// switch
+  } // switch
 
-    return state //default return
+  return state // default return
 
-}// reducer
+} // reducer

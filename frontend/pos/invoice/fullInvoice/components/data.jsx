@@ -1,46 +1,55 @@
 import React from 'react'
-import { connect } from "react-redux"
+import {connect} from 'react-redux'
 
+@connect((store) => {
+  return {sale: store.sales.saleActive}
+})
+export default class Data extends React.Component {
 
-export default class Data extends React.Component{
+  render() {
 
+    const sale = this.props.sale
+    const date = sale.created
+      ? `${('0' + sale.created.getDate()).slice(-2)}/
+      ${('0' + (sale.created.getMonth() + 1)).slice(-2)}/
+      ${sale.created.getFullYear()}`
+      : '01/01/1970'
+    const client = sale.client ? `${sale.client.name} ${sale.client.last_name}` : 'Cliente de Contado'
+    const id = sale.id ? sale.id : '00001'
 
-    render(){
+    return <div className='full-invoice-data'>
 
+      <table className='client-table'>
+        <thead>
+          <tr>
+            <th>CLIENTE:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{client}</td>
+          </tr>
+        </tbody>
 
-        return <div className="full-invoice-data">
+      </table>
+      <table className='datenum-table'>
 
-            <table className="client-table">
-                <thead>
-                    <tr>
-                        <th>CLIENTE:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Emanuel Zuniga Infante</td>
-                    </tr>
-                </tbody>
+        <tbody>
+          <tr>
+            <th>N. de factura:</th>
+            <td>{('00000' + id).slice(-5)}</td>
 
-            </table>
-            <table className="datenum-table">
+          </tr>
+          <tr>
+            <th>Fecha:</th>
+            <td>{date}</td>
+          </tr>
+        </tbody>
 
-                <tbody>
-                    <tr>
-                        <th>N. de factura:</th>
-                        <td>1352</td>
+      </table>
 
-                    </tr>
-                    <tr>
-                        <th>Fecha:</th>
-                        <td>10-05-1988</td>
-                    </tr>
-                </tbody>
+    </div>
 
-            </table>
-
-                </div>
-
-    }
+  }
 
 }

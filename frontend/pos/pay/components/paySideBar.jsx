@@ -15,7 +15,17 @@ export default class PaySideBar extends React.Component {
 
   saveBtn() {
     const sales = this.props.sales
-    const sortedSales = sales.length > 1 ? sales.sort((a, b) => a.id < b.id) : sales
+
+    const sortedSales = sales.length > 1 ? sales.sort((a, b) => {
+      if (a.id < b.id) {
+        return 1
+      }
+      if (a.id > b.id) {
+        return -1
+      }
+      return 0
+    }) : sales
+
     const nextId = sortedSales.length > 0 ? sortedSales[0].id + 1 : 1
 
     const sale = {

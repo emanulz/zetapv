@@ -6,7 +6,13 @@ import {connect} from 'react-redux'
 import {productSelected, searchProduct} from './actions'
 
 @connect((store) => {
-  return {products: store.products.products, itemsInCart: store.cart.cartItems, inputVal: store.products.inputVal, globalDiscount: store.cart.globalDiscount}
+  return {
+    products: store.products.products,
+    itemsInCart: store.cart.cartItems,
+    inputVal: store.products.inputVal,
+    globalDiscount: store.cart.globalDiscount,
+    disabled: store.sales.completed
+  }
 })
 export default class Product extends React.Component {
 
@@ -53,12 +59,12 @@ export default class Product extends React.Component {
       <div className='product-inputs'>
         <div className='product-inputs-code'>
           <i className='fa fa-barcode' />
-          <input onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)} ref={(input) => {
+          <input disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)} ref={(input) => {
             this.codeInput = input
           }} type='text' placeholder='Ingrese el Código del Producto' className='product-inputs-code-input mousetrap form-control input-lg' />
 
         </div>
-        <button onClick={this.searchProductClick.bind(this)} style={{
+        <button disabled={this.props.disabled} onClick={this.searchProductClick.bind(this)} style={{
           'height': '48px',
           'width': '48px'
         }} className='product-inputs-search'>

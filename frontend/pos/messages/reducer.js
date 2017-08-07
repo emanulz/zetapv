@@ -41,6 +41,14 @@ export default function reducer(state=stateConst, action) {
             return {...state, messages: true}
         }//case
 
+        case 'NEW_SALE':
+        {
+          state = stateConst
+          return {
+            ...state, stateConst
+          }
+        } // case
+
 
 
 

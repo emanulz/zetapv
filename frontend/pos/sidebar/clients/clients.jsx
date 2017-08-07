@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {clientSelected, searchClient} from './actions'
 
 @connect((store) => {
-  return {clients: store.clients.clients, clientSelected: store.clients.clientSelected}
+  return {clients: store.clients.clients, clientSelected: store.clients.clientSelected, disabled: store.sales.completed}
 })
 export default class Clients extends React.Component {
 
@@ -45,7 +45,7 @@ export default class Clients extends React.Component {
         <b>
           Datos del Cliente:
           <span>
-            <i onClick={this.searchClientClick.bind(this)} className='fa fa-edit btn-client-search' />
+            <i disabled={this.props.disabled} onClick={this.searchClientClick.bind(this)} className='fa fa-edit btn-client-search' />
           </span>
         </b>
       </span>
@@ -54,7 +54,7 @@ export default class Clients extends React.Component {
 
       <div className='row'>
 
-        <div className='col-xs-2'><img onClick={this.searchClientClick.bind(this)} src='/img/profile.jpg' className='client-avatar' /></div>
+        <div className='col-xs-2'><img disabled={this.props.disabled} onClick={this.searchClientClick.bind(this)} src='/img/profile.jpg' className='client-avatar' /></div>
 
         <div className='col-xs-10'>
           <span>
@@ -62,7 +62,7 @@ export default class Clients extends React.Component {
             </b>
           </span>
 
-          <input onKeyDown={this.inputKeyPress.bind(this)} type='text' className='client-code' />
+          <input disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)} type='text' className='client-code' />
           <i className='fa fa-street-view' /><br />
 
           <span>

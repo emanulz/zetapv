@@ -45,6 +45,15 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'NEW_SALE':
+    {
+      const products = state.products
+      state = stateConst
+      return {
+        ...state, products: products
+      }
+    } // case
+
   } // switch
 
   return state // default return

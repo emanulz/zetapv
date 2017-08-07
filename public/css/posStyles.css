@@ -3398,6 +3398,10 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       right: 40px; }
       .invoice-panel-header i.fa-file-text-o:hover {
         color: black; }
+    .invoice-panel-header i.fa-print {
+      right: 70px; }
+      .invoice-panel-header i.fa-print:hover {
+        color: black; }
 
 .invoice-panel-container {
   position: absolute;
@@ -3665,7 +3669,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     border-bottom: 1px solid #ccc; }
 
 .compact-invoice-notes {
-  width: 40%;
+  width: 100%;
   font-size: 11px;
   display: flex;
   flex-flow: column;
