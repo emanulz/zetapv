@@ -16,13 +16,13 @@ export default class Header extends React.Component{
                         <img src="/img/logo.png"/>
                     </div>
                     <div className="full-invoice-header-info">
-                        <h2>Emanuel Zuniga Infante</h2>
-                        <h3>Cédula No 1-1353-0032</h3>
-                        <h3>200m Norte de la Guardia Rural</h3>
-                        <h3>Palmares, Daniel Floeres Pérez Zeledón</h3>
+                        <h2>FUDESEMILLAS</h2>
+                        <h3>Céd Jurid No 3-006-228432</h3>
+                        <h3>Contiguo al matadero municipal</h3>
+                        <h3>Las Juntas de Pacuar, Daniel Floeres Pérez Zeledón</h3>
                         <h3>Costa Rica</h3>
-                        <h3>Tel: 8302-1964</h3>
-                        <h3>emanuelziga@gmail.com</h3>
+                        <h3>Tels: 2770-2002/2770-2003</h3>
+                        <h3>administracion@fudesemillas.net</h3>
                     </div>
 
                </div>

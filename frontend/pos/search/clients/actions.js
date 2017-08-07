@@ -1,42 +1,43 @@
+export function hidePanel() {
 
-export function hidePanel(){
-
-    return {type: "CLIENT_HIDE_PANEL", payload: -1}
+  return {type: 'CLIENT_HIDE_PANEL', payload: -1}
 }
 
-export function searchClient(val, clients){
+export function searchClient(val, clients) {
 
-    let text = val.split('%')
-    let name
-    let matchs = []
+  const text = val.split('%')
+  const matchs = []
 
-    console.log(clients)
+  console.log(clients)
 
-    $.each(clients, function(i) {
+  clients.forEach(client => {
+    let control = true
+    const name = client.name.toString() + ' ' + client.last_name.toString()
 
-        name = clients[i].name.toString() + ' ' +clients[i].last_name.toString();
-        var control = true;
+    text.forEach(word => {
+      const index = name.toLowerCase().indexOf(word.toLowerCase())
 
-        $.each(text, function(i) {
+      if (index == -1) {
+        control = false
+        return false
+      }
+    })
 
-        var index = name.toLowerCase().indexOf(text[i].toLowerCase());
+    if (control) {
+      matchs.push(client)
+    }
 
-        if (index == -1){
-            control = false;
-            return false;
-        }
+  })
 
-        });
+  const res = (matchs.length)
+    ? {
+      type: 'CLIENT_SEARCH_SUCCESS',
+      payload: matchs
+    }
+    : {
+      type: 'CLIENT_SEARCH_FAIL',
+      payload: -1
+    }
 
-        if (control == true){
-            matchs.push(clients[i])
-        }
-
-    });
-
-    let res = (matchs.length)
-            ? {type: "CLIENT_SEARCH_SUCCESS", payload: matchs}
-            : {type: "CLIENT_SEARCH_FAIL", payload: -1}
-
-    return res
+  return res
 }

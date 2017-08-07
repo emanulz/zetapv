@@ -1,47 +1,47 @@
+export function hidePanel() {
 
-export function hidePanel(){
-
-    return {type: "PRODUCT_HIDE_PANEL", payload: -1}
+  return {type: 'PRODUCT_HIDE_PANEL', payload: -1}
 }
 
-export function searchProduct(val, products){
+export function searchProduct(val, products) {
 
-    let text = val.split('%')
-    let description
-    let matchs = []
+  const text = val.split('%')
+  const matchs = []
 
-    $.each(products, function(i) {
+  products.forEach(product => {
+    let control = true
+    const description = product.description.toString()
 
-        description = products[i].description.toString();
-        var control = true;
+    text.forEach(word => {
+      const index = description.toLowerCase().indexOf(word.toLowerCase())
 
-        $.each(text, function(i) {
+      if (index == -1) {
+        control = false
+        return false
+      }
+    })
 
-        var index = description.toLowerCase().indexOf(text[i].toLowerCase());
+    if (control) {
+      matchs.push(product)
+    }
 
-        if (index == -1){
-            control = false;
-            return false;
-        }
+  })
 
-        });
+  const res = (matchs.length)
+    ? {
+      type: 'PRODUCT_SEARCH_SUCCESS',
+      payload: matchs
+    }
+    : {
+      type: 'PRODUCT_SEARCH_FAIL',
+      payload: -1
+    }
 
-        if (control == true){
-            matchs.push(products[i])
-        }
-
-    });
-
-    let res = (matchs.length)
-            ? {type: "PRODUCT_SEARCH_SUCCESS", payload: matchs}
-            : {type: "PRODUCT_SEARCH_FAIL", payload: -1}
-
-    return res
+  return res
 }
-
 
 export function productSelectedTable(code) {
 
-    return {type: "SET_PRODUCT_FIELD_VALUE", payload: code}
+  return {type: 'SET_PRODUCT_FIELD_VALUE', payload: code}
 
 }

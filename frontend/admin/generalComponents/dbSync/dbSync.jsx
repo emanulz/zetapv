@@ -69,7 +69,6 @@ export default class Product extends React.Component {
   }
 
   syncDB(kwargs) {
-    console.log('Sync', kwargs.db)
     const _this = this
     // DBs declaration and sync
     const localDB = new PouchDB(kwargs.db)

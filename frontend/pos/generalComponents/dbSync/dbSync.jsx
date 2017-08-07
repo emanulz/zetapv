@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchItemsBulk} from '../../../admin/utils/api'
+import {fetchItemsBulk, fetchItems} from '../../../admin/utils/api'
 
 const PouchDB = require('pouchdb')
 
@@ -16,6 +16,7 @@ export default class DbSync extends React.Component {
 
   componentWillMount() {
     this.syncGeneralDb()
+    this.syncsalesDb()
   }
 
   componentDidMount() {
@@ -48,7 +49,6 @@ export default class DbSync extends React.Component {
   }
 
   syncDB(kwargs) {
-    console.log('Sync', kwargs.db)
     const _this = this
     // DBs declaration and sync
     const localDB = new PouchDB(kwargs.db)
@@ -79,6 +79,35 @@ export default class DbSync extends React.Component {
 
     // Fecth items
     this.props.dispatch(kwargs.fecthFunc(kwargs))
+  }
+
+  syncsalesDb() {
+    const _this = this
+    const localDB = new PouchDB('sales')
+    const remoteDB = new PouchDB(`${this.props.remoteDB}/sales`)
+
+    localDB.createIndex({ index: {fields: ['docType']} })
+    localDB.createIndex({ index: {fields: ['docType', 'id']} })
+
+    const kwargs = {
+      db: 'sales',
+      docType: 'SALE',
+      dispatchType: 'FETCH_SALES_FULFILLED',
+      dispatchErrorType: 'FETCH_SALES_REJECTED'
+    }
+
+    localDB.sync(remoteDB, {
+      live: true,
+      retry: true
+    })
+      .on('change', function(change) {
+        console.log('change')
+        _this.props.dispatch(fetchItems(kwargs))
+
+      })
+
+    this.props.dispatch(fetchItems(kwargs))
+
   }
 
   render() {

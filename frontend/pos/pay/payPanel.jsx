@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from "react-redux"
+import {connect} from 'react-redux'
 
 import PayMethod from './components/payMethod.jsx'
 import PayCash from './components/payCahs.jsx'
@@ -9,70 +9,72 @@ import PayOther from './components/payOther.jsx'
 import PaySideBar from './components/paySideBar.jsx'
 
 @connect((store) => {
-  return {
-            panelVisible: store.pay.isVisible,
-            payMethod: store.pay.payMethod,
-  };
+  return {panelVisible: store.pay.isVisible, payMethod: store.pay.payMethod}
 })
-export default class PayPanel extends React.Component{
+export default class PayPanel extends React.Component {
 
-    hidePanel(){
+  hidePanel() {
 
-        this.props.dispatch({ type:'HIDE_PAY_PANEL', payload:-1})
-    }
+    this.props.dispatch({type: 'HIDE_PAY_PANEL', payload: -1})
+  }
 
-    render(){
+  render() {
 
-        let isVisible = (this.props.panelVisible) ? 'pay-panel is-visible' : 'pay-panel'
+    const isVisible = (this.props.panelVisible)
+      ? 'pay-panel is-visible'
+      : 'pay-panel'
 
-        let payMethod = ''
-        switch (this.props.payMethod) {
+    let payMethod = ''
+    switch (this.props.payMethod) {
 
-            case "CASH": {
-                payMethod = <PayCash></PayCash>
-                break
-            }//case
+      case 'CASH':
+      {
+        payMethod = <PayCash />
+        break
+      } // case
 
-            case "CARD": {
-                payMethod = <PayCard></PayCard>
-                break
-            }//case
+      case 'CARD':
+      {
+        payMethod = <PayCard />
+        break
+      } // case
 
-            case "CREDIT": {
-                payMethod = <PayCredit></PayCredit>
-                break
-            }//case
+      case 'CREDIT':
+      {
+        payMethod = <PayCredit />
+        break
+      } //  case
 
-            case "OTHER": {
-                payMethod = <PayOther></PayOther>
-                break
-            }//case
+      case 'OTHER':
+      {
+        payMethod = <PayOther />
+        break
+      } // case
 
-        }// switch
+    } // switch
 
+    return <div className={isVisible}>
 
-        return <div className={isVisible}>
+      <div className='pay-panel-main'>
+        <div className='pay-panel-header'>
+          Registrar Pago
+          <i onClick={this.hidePanel.bind(this)} className='fa fa-times' aria-hidden='true' />
+        </div>
 
-                <div className='pay-panel-main'>
-                    <div className='pay-panel-header'>
-                        Registrar Pago
-                        <i onClick={this.hidePanel.bind(this)} className="fa fa-times" aria-hidden="true"></i>
-                    </div>
+        <PayMethod />
 
-                    <PayMethod></PayMethod>
+        <div className='pay-area-container'>
 
-                    <div className='pay-area-container'>
+          {payMethod}
 
-                        {payMethod}
+          <PaySideBar />
 
-                        <PaySideBar></PaySideBar>
+        </div>
 
-                    </div>
+      </div>
 
-                </div>
+    </div>
 
-               </div>
-
-    }
+  }
 
 }

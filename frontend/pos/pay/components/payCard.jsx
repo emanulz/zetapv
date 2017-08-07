@@ -1,37 +1,45 @@
 import React from 'react'
-import { connect } from "react-redux"
+import {connect} from 'react-redux'
+import {updateStoreCardAuth, updateStoreCardDigits} from '../actions'
 
 @connect((store) => {
-  return {
-
-  };
+  return {cardAuth: store.pay.cardAuth, cardDigits: store.pay.cardDigits}
 })
-export default class PayCard extends React.Component{
+export default class PayCard extends React.Component {
 
-    render(){
+  payCardAuthChanged(ev) {
 
-        return <div className='pay-method-body'>
+    this.props.dispatch(updateStoreCardAuth(ev.target.value))
+  }
 
-                <div className='pay-method-body-header'> <span>Tarjeta</span> </div>
+  payCardDigitsChanged(ev) {
 
-                <div className='pay-method-body-content'>
+    this.props.dispatch(updateStoreCardDigits(ev.target.value))
+  }
 
+  render() {
 
-                    <div className='pay-tag left'>4 DIGITOS:</div>
-                    <input type='Number' className='form-control'></input>
+    return <div className='pay-method-body'>
 
-                    <div className='pay-tag left'>AUTORIZACIÓN:</div>
-                    <input type='Number' className='form-control'></input>
+      <div className='pay-method-body-header'>
+        <span>Tarjeta</span>
+      </div>
 
-                    <br/>
-                    <br/>
+      <div className='pay-method-body-content'>
 
+        <div className='pay-tag left'>4 DIGITOS:</div>
+        <input value={this.props.cardDigits} onChange={this.payCardDigitsChanged.bind(this)} type='Number' className='form-control' />
 
-                </div>
+        <div className='pay-tag left'>AUTORIZACIÓN:</div>
+        <input value={this.props.cardAuth} onChange={this.payCardAuthChanged.bind(this)} type='Number' className='form-control' />
 
+        <br />
+        <br />
 
-               </div>
+      </div>
 
-    }
+    </div>
+
+  }
 
 }
