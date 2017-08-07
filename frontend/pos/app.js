@@ -31,7 +31,7 @@ window.printDiv = printDiv
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <DbSync remoteDB='http://emanuelziga:emma101421@localhost:5984' />
+      <DbSync remoteDB='http://emanuelziga:emma101421@192.168.9.108:5984' />
       <SideMenu />
       <div id='mainContainer' className='blur-div mainContainer'>
         <TopBar />
