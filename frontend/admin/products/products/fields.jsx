@@ -2,7 +2,7 @@ import React from 'react'
 import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
 import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
-import {checkProductData} from '../actions.js'
+import {checkProductData, determinAmounts} from '../actions.js'
 
 @connect((store) => {
   return {
@@ -50,6 +50,7 @@ export default class Fields extends React.Component {
         value = parseFloat(target.value)
           ? parseFloat(target.value)
           : ''
+        console.log(value)
         break
       }
       default:
@@ -60,11 +61,12 @@ export default class Fields extends React.Component {
 
     const name = target.name
 
-    const product = {
+    let product = {
       ...this.props.product
     }
 
     product[name] = value
+    product = determinAmounts(product, name, value)
 
     this.props.dispatch({type: 'SET_PRODUCT', payload: product})
   }
@@ -118,11 +120,14 @@ export default class Fields extends React.Component {
       dispatchType: 'CLEAR_PRODUCT'
     }
     // ALERTIFY CONFIRM
-    alertify.confirm('Eliminar', `Desea Eliminar el producto ${product.code} - ${product.description}? Esta acción no se puede deshacer.`, function() {
-      _this.props.dispatch(deleteItem(kwargs))
-    }, function() {
-      return true
-    }).set('labels', {
+    alertify.confirm(
+      'Eliminar', `Desea Eliminar el producto ${product.code} - ${product.description}?
+      Esta acción no se puede deshacer.`,
+      function() {
+        _this.props.dispatch(deleteItem(kwargs))
+      }, function() {
+        return true
+      }).set('labels', {
       ok: 'Si',
       cancel: 'No'
     })
@@ -186,14 +191,27 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 first'>
 
             <label>Código</label>
-            <input value={this.props.product.code} name='code' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+            <input value={this.props.product.code} name='code' onChange={this.handleInputChange.bind(this)} type='text'
+              className='form-control' />
 
           </div>
 
           <div className='col-xs-6 second'>
 
             <label>Unidad</label>
-            <input value={this.props.product.unit} name='unit' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+            <input value={this.props.product.unit} name='unit' onChange={this.handleInputChange.bind(this)} type='text'
+              className='form-control' />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-12'>
+
+            <label>Código de Barras</label>
+            <input value={this.props.product.barcode} name='barcode' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
 
           </div>
         </div>
@@ -213,14 +231,16 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 first'>
 
             <label>Familia</label>
-            <select value={this.props.product.department} name='department' onChange={this.handleInputChange.bind(this)} className='form-control' />
+            <select value={this.props.product.department} name='department' onChange={this.handleInputChange.bind(this)}
+              className='form-control' />
 
           </div>
 
           <div className='col-xs-6 second'>
 
             <label>Sub-Familia</label>
-            <select value={this.props.product.subdepartment} name='subdepartment' onChange={this.handleInputChange.bind(this)} className='form-control' />
+            <select value={this.props.product.subdepartment} name='subdepartment'
+              onChange={this.handleInputChange.bind(this)} className='form-control' />
 
           </div>
         </div>
@@ -229,45 +249,15 @@ export default class Fields extends React.Component {
 
           <div className='col-xs-12'>
 
-            <label>Costo</label>
-            <input value={this.props.product.cost} name='cost' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            <div className='inline-checkbox'>
 
-          </div>
-        </div>
-      </div>
+              <label>Basado en Costo</label>
+              <input checked={this.props.product.costBased} name='costBased'
+                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
-      <div className='col-xs-6 create-product-fields-container second'>
-
-        <div className='inline-checkbox'>
-          <span>Datos Venta</span>
-          <input checked={this.props.product.isForSale} name='isForSale' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
-        </div>
-
-        <hr />
-
-        <div className='form-group row create-product-input-block'>
-
-          <div className='col-xs-12'>
-
-            <label>Código de Barras</label>
-            <input value={this.props.product.barcode} name='barcode' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
-
-          </div>
-        </div>
-
-        <div className='form-group row create-product-input-block'>
-
-          <div className='col-xs-6 first'>
-
-            <label>Utilidad</label>
-            <input value={this.props.product.utility} name='utility' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
-
-          </div>
-
-          <div className='col-xs-6 second'>
-
-            <label>Precio sin I.V</label>
-            <input value={this.props.product.price} name='price' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            </div>
+            <input value={this.props.product.cost} name='cost' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
 
           </div>
         </div>
@@ -278,17 +268,126 @@ export default class Fields extends React.Component {
             <div className='inline-checkbox'>
 
               <label>Impuestos %</label>
-              <input checked={this.props.product.useTaxes} name='useTaxes' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+              <input checked={this.props.product.useTaxes} name='useTaxes'
+                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
-            <input value={this.props.product.taxes} name='taxes' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            <input value={this.props.product.taxes} name='taxes' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
 
           </div>
 
           <div className='col-xs-6 second'>
 
+            <div className='inline-checkbox'>
+
+              <label>Impuesto 2 %</label>
+              <input checked={this.props.product.useTaxes2} name='useTaxes2'
+                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+
+            </div>
+            <input value={this.props.product.taxes2} name='taxes2' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+        </div>
+
+      </div>
+
+      <div className='col-xs-6 create-product-fields-container second'>
+
+        <div className='inline-checkbox'>
+          <span>Datos Venta</span>
+          <input checked={this.props.product.isForSale} name='isForSale' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
+        </div>
+
+        <hr />
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-6 first'>
+
+            <label>Utilidad 1</label>
+            <input value={this.props.product.utility} name='utility' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Precio sin I.V 1</label>
+            <input value={this.props.product.price} name='price' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-6 first'>
+
+            <div className='inline-checkbox'>
+
+              <label>Utilidad 2</label>
+              <input checked={this.props.product.usePrice2} name='usePrice2'
+                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+
+            </div>
+            <input value={this.props.product.utility2} name='utility2' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Precio sin I.V 2</label>
+            <input value={this.props.product.price2} name='price2' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-6 first'>
+
+            <div className='inline-checkbox'>
+
+              <label>Utilidad 3</label>
+              <input checked={this.props.product.usePrice3} name='usePrice3'
+                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+
+            </div>
+            <input value={this.props.product.utility3} name='utility3' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Precio sin I.V 3</label>
+            <input value={this.props.product.price3} name='price3' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-6 first'>
+
             <label>Descuento %</label>
-            <input value={this.props.product.discount} name='discount' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            <input value={this.props.product.discount} name='discount' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Descuento en moneda</label>
+            <input value={this.props.product.discountCurrency} name='discountCurrency'
+              onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
 
           </div>
         </div>
@@ -298,7 +397,27 @@ export default class Fields extends React.Component {
           <div className='col-xs-12'>
 
             <label>Precio de Venta</label>
-            <input value={this.props.product.sellPrice} name='sellPrice' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            <input value={this.props.product.sellPrice} name='sellPrice' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-6 first'>
+
+            <label>Precio de Venta 2</label>
+            <input value={this.props.product.sellPrice2} name='sellPrice2' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Precio de Venta 3</label>
+            <input value={this.props.product.sellPrice3} name='sellPrice3' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
 
           </div>
         </div>
@@ -310,7 +429,8 @@ export default class Fields extends React.Component {
 
           <span>Inventarios</span>
 
-          <input checked={this.props.product.useInventory} name='useInventory' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+          <input checked={this.props.product.useInventory} name='useInventory'
+            onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
         </div>
         <hr />
@@ -320,14 +440,16 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 first'>
 
             <label>Existencia</label>
-            <input value={this.props.product.inventory} name='inventory' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            <input value={this.props.product.inventory} name='inventory' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
 
           </div>
 
           <div className='col-xs-6 second'>
 
             <label>Mínimo Inventario</label>
-            <input value={this.props.product.minimum} name='minimum' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+            <input value={this.props.product.minimum} name='minimum' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
 
           </div>
         </div>

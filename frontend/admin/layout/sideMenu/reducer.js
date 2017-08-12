@@ -1,20 +1,20 @@
-
 const stateConst = {
-    hasLoaded:false,
-
+  hasLoaded: false
 }
 
-export default function reducer(state=stateConst, action) {
+export default function reducer(state = stateConst, action) {
 
-    switch (action.type) {
+  switch (action.type) {
 
-        case "FETCH_PRODUCTS": {
-            return {...state, hasLoaded: true}
-        }//case
+    case 'FETCH_PRODUCTS':
+    {
+      return { ...state,
+        hasLoaded: true
+      }
+    } // case
 
+  } // switch
 
-    }// switch
+  return state // default return
 
-    return state //default return
-
-}// reducer
+} // reducer

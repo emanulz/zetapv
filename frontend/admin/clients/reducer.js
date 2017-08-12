@@ -1,5 +1,6 @@
 const clientModel = {
   'docType': 'CLIENT',
+  'clientType': 'GENERAL',
   'created': '',
   'updated': '',
   'name': '',

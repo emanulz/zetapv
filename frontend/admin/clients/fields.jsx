@@ -206,6 +206,15 @@ export default class Fields extends React.Component {
         </div>
 
         <div className='form-group'>
+          <label>Tipo</label>
+          <select onChange={this.handleInputChange.bind(this)} className='form-control' name='clientType' value={this.props.client.clientType} >
+            <option value='GENERAL'>Cliente General</option>
+            <option value='DISTRIB'>Distribuidor</option>
+            <option value='WHOLESA'>Mayorista</option>
+          </select>
+        </div>
+
+        <div className='form-group'>
           <label>Tiene Crédito</label>
           <input checked={this.props.client.has_credit} name='has_credit' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
         </div>
