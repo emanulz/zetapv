@@ -4,11 +4,12 @@
 import React from 'react'
 
 import {connect} from 'react-redux'
-import {applyDiscounts} from '../../main/product/actions.js'
+import {recalcCart} from '../../main/product/actions.js'
 
 @connect((store) => {
   return {
     total: store.cart.cartTotal,
+    client: store.clients.clientSelected,
     taxes: store.cart.cartTaxes,
     discountTotal: store.cart.discountTotal,
     subTotalNoDiscount: store.cart.cartSubtotalNoDiscount,
@@ -38,7 +39,7 @@ export default class Totals extends React.Component {
         ? ev.target.value
         : 0
       this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
-      this.props.dispatch(applyDiscounts(this.props.itemsInCart, this.state.discountVal))
+      this.props.dispatch(recalcCart(this.props.itemsInCart, this.state.discountVal, this.props.client))
     } else {
       this.state.discountVal = (ev.target.value)
         ? parseFloat(ev.target.value)
@@ -54,7 +55,7 @@ export default class Totals extends React.Component {
       ? ev.target.value
       : 0
     this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
-    this.props.dispatch(applyDiscounts(this.props.itemsInCart, this.state.discountVal))
+    this.props.dispatch(recalcCart(this.props.itemsInCart, this.state.discountVal, this.props.client))
 
   }
 

@@ -1,5 +1,6 @@
 const clientSelectedModel = {
   code: '0000',
+  clientType: 'GENERAL',
   created: '',
   credit_days: 0,
   credit_limit: 0,

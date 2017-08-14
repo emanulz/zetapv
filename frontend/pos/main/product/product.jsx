@@ -8,6 +8,7 @@ import {productSelected, searchProduct} from './actions'
 @connect((store) => {
   return {
     products: store.products.products,
+    client: store.clients.clientSelected,
     itemsInCart: store.cart.cartItems,
     inputVal: store.products.inputVal,
     globalDiscount: store.cart.globalDiscount,
@@ -40,7 +41,8 @@ export default class Product extends React.Component {
         ? 1
         : parseFloat(qty) // if no qty sets to 1
 
-      this.props.dispatch(productSelected(code, qty, this.props.products, this.props.itemsInCart, this.props.globalDiscount))
+      this.props.dispatch(productSelected(code, qty, this.props.products, this.props.itemsInCart,
+        this.props.globalDiscount, this.props.client))
     } else {
       this.props.dispatch({type: 'SET_PRODUCT_FIELD_VALUE', payload: ev.target.value})
     }

@@ -87,7 +87,6 @@ export function checkSubDepartmentData(subdepartment, subdepartments) {
 }
 
 export function determinAmounts(product, fieldName, value) {
-  console.log(fieldName)
   switch (fieldName) {
 
     case 'sellPrice':
@@ -222,13 +221,13 @@ function fromCost(product, cost) {
     const iv1 = product.useTaxes ? parseFloat(product.taxes) / 100 : 0
     const iv2 = product.useTaxes2 ? parseFloat(product.taxes2) / 100 : 0
 
-    const price = parseFloat(cost) * (1 + (parseFloat(product.utility) / 100))
+    const price = cost && product.utility ? parseFloat(cost) * (1 + (parseFloat(product.utility) / 100)) : 0
     product['price'] = price.toFixed(2)
 
-    const price2 = parseFloat(cost) * (1 + (parseFloat(product.utility2) / 100))
+    const price2 = cost && product.utility2 ? parseFloat(cost) * (1 + (parseFloat(product.utility2) / 100)) : 0
     product['price2'] = price2.toFixed(2)
 
-    const price3 = parseFloat(cost) * (1 + (parseFloat(product.utility3) / 100))
+    const price3 = cost && product.utility2 ? parseFloat(cost) * (1 + (parseFloat(product.utility3) / 100)) : 0
     product['price3'] = price3.toFixed(2)
 
     const sellPrice = (price * iv1) + (price * iv2) + price
@@ -238,7 +237,7 @@ function fromCost(product, cost) {
     product['sellPrice2'] = sellPrice2.toFixed(2)
 
     const sellPrice3 = (price3 * iv1) + (price3 * iv2) + price3
-    product['sellPrice3'] = sellPrice3.toFixed(2)
+    product['sellPrice3'] = sellPrice3 ? sellPrice3.toFixed(2) : 0
 
     return product
 
@@ -262,7 +261,7 @@ function fromUtility(product, utility, priceField, sellPriceField) {
     const iv1 = product.useTaxes ? parseFloat(product.taxes) / 100 : 0
     const iv2 = product.useTaxes2 ? parseFloat(product.taxes2) / 100 : 0
 
-    const price = parseFloat(product.cost) * (1 + (parseFloat(utility) / 100))
+    const price = product.cost && utility ? parseFloat(product.cost) * (1 + (parseFloat(utility) / 100)) : 0
     product[priceField] = price.toFixed(2)
 
     const sellPrice = (price * iv1) + (price * iv2) + price

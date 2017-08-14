@@ -38,20 +38,18 @@ export function searchProduct() {
 }
 
 // Function to update the globa; discount of complete storage of items, and reflect it on store, then updating DOME
-export function applyDiscounts(itemsInCart, globalDiscount) {
+export function recalcCart(itemsInCart, globalDiscount, client) {
 
   const newCart = itemsInCart.map(item => {
 
     const newItem = item
 
-    const data = caclSubtotal(item.product, item.qty, item.discount, globalDiscount)
+    const data = caclSubtotal(item.product, item.qty, item.discount, globalDiscount, client)
 
     newItem.subtotal = data.subtotal
     newItem.totalWithIv = data.totalWithIv
     newItem.discountCurrency = data.discountCurrency
     newItem.subTotalNoDiscount = data.subTotalNoDiscount
-
-    console.log(newItem)
 
     return newItem
 
@@ -62,7 +60,7 @@ export function applyDiscounts(itemsInCart, globalDiscount) {
 }
 
 // Function to update the inline discount of an item, and reflect it on store
-export function updateItemDiscount(itemsInCart, code, discount, globalDiscount) {
+export function updateItemDiscount(itemsInCart, code, discount, globalDiscount, client) {
 
   const indexInCart = itemsInCart.findIndex(item => item.product.code == code) // checks if product exists
 
@@ -74,7 +72,7 @@ export function updateItemDiscount(itemsInCart, code, discount, globalDiscount) 
     : {
       type: 'UPDATE_CART',
       payload: {
-        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty, discount, globalDiscount),
+        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty, discount, globalDiscount, client),
         index: indexInCart
       }
     }
@@ -84,7 +82,7 @@ export function updateItemDiscount(itemsInCart, code, discount, globalDiscount) 
 }
 
 // When item is selected in code field
-export function productSelected(code, qty, products, itemsInCart, globalDiscount) {
+export function productSelected(code, qty, products, itemsInCart, globalDiscount, client) {
 
   const productSelected = products.findIndex(product => product.code == code) // checks if product exists
 
@@ -93,7 +91,7 @@ export function productSelected(code, qty, products, itemsInCart, globalDiscount
       type: 'PRODUCT_NOT_FOUND',
       payload: -1
     }
-    : checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected)
+    : checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client)
 
   return res
 
@@ -104,11 +102,11 @@ export function productSelected(code, qty, products, itemsInCart, globalDiscount
 // ------------------------------------------------------------------------------------------
 
 // checks in cart if item already exists
-function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected) {
+function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client) {
 
   const indexInCart = itemsInCart.findIndex(cart => cart.product.code == code) // check if product in cart
 
-  const dataNewProd = caclSubtotal(products[productSelected], qty, 0, globalDiscount)
+  const dataNewProd = caclSubtotal(products[productSelected], qty, 0, globalDiscount, client)
 
   const res = (indexInCart == -1) // if not exists in cart Dispats ADD_TO_TABLE, if exists dispatch cart updated
     ? {
@@ -127,7 +125,8 @@ function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, product
     : {
       type: 'UPDATE_CART',
       payload: {
-        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty + qty, itemsInCart[indexInCart].discount, globalDiscount),
+        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty + qty,
+          itemsInCart[indexInCart].discount, globalDiscount, client),
         index: indexInCart
       }
     }
@@ -137,29 +136,31 @@ function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, product
 }
 
 // calculates the subtotal by line, also the total with iv included, the discount in currency format
-function caclSubtotal(product, qty, productDiscount, globalDiscount) {
+function caclSubtotal(product, qty, productDiscount, globalDiscount, client) {
 
-  const subTotalNoDiscount = product.price * qty
+  const price = priceToUse(product, client)
 
-  const subTotal = product.price * qty * (1 - (productDiscount / 100)) * (1 - (globalDiscount / 100))
+  const subTotalNoDiscount = price * qty
 
-  const totalWithIv = (product.usetaxes)
+  const subTotal = price * qty * (1 - (productDiscount / 100)) * (1 - (globalDiscount / 100))
+
+  const totalWithIv = (product.useTaxes)
     ? subTotal * (1 + (product.taxes / 100))
     : subTotal
 
-  const discountCurrencyInLine = product.price * qty * (productDiscount / 100)
-  const discountCurrencyGlobal = ((product.price * qty) - discountCurrencyInLine) * (globalDiscount / 100)
+  const discountCurrencyInLine = price * qty * (productDiscount / 100)
+  const discountCurrencyGlobal = ((price * qty) - discountCurrencyInLine) * (globalDiscount / 100)
 
   const discountCurrency = discountCurrencyInLine + discountCurrencyGlobal
 
-  return {subtotal: subTotal, totalWithIv: totalWithIv, discountCurrency: discountCurrency, subTotalNoDiscount: subTotalNoDiscount}
+  return {subtotal: subTotal, totalWithIv: Math.ceil(totalWithIv), discountCurrency: discountCurrency, subTotalNoDiscount: subTotalNoDiscount}
 
 }
 
 // updates an item in the cart with new information, this aux funtion returns new updated object ready for replace the stored one
-function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDiscount) {
+function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDiscount, client) {
 
-  const data = caclSubtotal(itemsInCart[index].product, newQty, productDiscount, globalDiscount)
+  const data = caclSubtotal(itemsInCart[index].product, newQty, productDiscount, globalDiscount, client)
 
   return {
     product: itemsInCart[index].product,
@@ -170,4 +171,20 @@ function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDisc
     subtotal: data.subtotal,
     totalWithIv: data.totalWithIv
   }
+}
+
+// function to determin price to use in calculation
+function priceToUse(product, client) {
+
+  if (client.clientType == 'GENERAL') return product.price
+
+  if (client.clientType == 'DISTRIB' && product.usePrice2) return product.price2
+  if (client.clientType == 'DISTRIB') return product.price
+
+  if (client.clientType == 'WHOLESA' && product.usePrice3) return product.price3
+  if (client.clientType == 'WHOLESA' && product.usePrice2) return product.price2
+  if (client.clientType == 'WHOLESA') return product.price
+
+  return product.price
+
 }

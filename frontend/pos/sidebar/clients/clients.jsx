@@ -5,11 +5,23 @@ import React from 'react'
 
 import {connect} from 'react-redux'
 import {clientSelected, searchClient} from './actions'
+import {recalcCart} from '../../main/product/actions'
 
 @connect((store) => {
-  return {clients: store.clients.clients, clientSelected: store.clients.clientSelected, disabled: store.sales.completed}
+  return {clients: store.clients.clients,
+    clientSelected: store.clients.clientSelected,
+    cart: store.cart.cartItems,
+    globalDiscount: store.cart.globalDiscount,
+    client: store.clients.clientSelected,
+    disabled: store.sales.completed}
 })
 export default class Clients extends React.Component {
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.clientSelected != this.props.clientSelected) {
+      this.props.dispatch(recalcCart(nextProps.cart, nextProps.globalDiscount, nextProps.client))
+    }
+  }
 
   inputKeyPress(ev) {
     // if Key pressed id Enter
@@ -17,7 +29,6 @@ export default class Clients extends React.Component {
 
       const code = ev.target.value // Split val [0] is code [1] is qty
       this.props.dispatch(clientSelected(code, this.props.clients)) // dispatchs action according to result
-
     }
 
   }

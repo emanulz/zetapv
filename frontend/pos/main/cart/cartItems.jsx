@@ -7,7 +7,10 @@ import {updateTotals, removeFromCart} from './actions'
 import {updateItemDiscount} from '../product/actions'
 
 @connect((store) => {
-  return {inCart: store.cart.cartItems, globalDiscount: store.cart.globalDiscount, disabled: store.sales.completed}
+  return {inCart: store.cart.cartItems,
+    client: store.clients.clientSelected,
+    globalDiscount: store.cart.globalDiscount,
+    disabled: store.sales.completed}
 })
 export default class CartItems extends React.Component {
 
@@ -24,7 +27,8 @@ export default class CartItems extends React.Component {
       const discount = (ev.target.value)
         ? ev.target.value
         : 0
-      this.props.dispatch(updateItemDiscount(this.props.inCart, code, discount, this.props.globalDiscount))
+      this.props.dispatch(updateItemDiscount(this.props.inCart, code, discount, this.props.globalDiscount,
+        this.props.client))
 
     }
 
@@ -35,7 +39,8 @@ export default class CartItems extends React.Component {
     const discount = (ev.target.value)
       ? ev.target.value
       : 0
-    this.props.dispatch(updateItemDiscount(this.props.inCart, code, discount, this.props.globalDiscount))
+    this.props.dispatch(updateItemDiscount(this.props.inCart, code, discount, this.props.globalDiscount,
+      this.props.client))
 
   }
 
@@ -52,7 +57,7 @@ export default class CartItems extends React.Component {
 
     const items = cartItems.map((item) => {
 
-      const taxesText = (item.product.usetaxes)
+      const taxesText = (item.product.useTaxes)
         ? `${item.product.taxes}%`
         : `0%`
 

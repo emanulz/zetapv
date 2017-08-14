@@ -50,7 +50,6 @@ export default class Fields extends React.Component {
         value = parseFloat(target.value)
           ? parseFloat(target.value)
           : ''
-        console.log(value)
         break
       }
       default:
@@ -256,7 +255,7 @@ export default class Fields extends React.Component {
                 onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
-            <input value={this.props.product.cost} name='cost' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.costBased} value={this.props.product.cost} name='cost' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -272,7 +271,7 @@ export default class Fields extends React.Component {
                 onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
-            <input value={this.props.product.taxes} name='taxes' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.useTaxes} value={this.props.product.taxes} name='taxes' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -286,7 +285,8 @@ export default class Fields extends React.Component {
                 onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
-            <input value={this.props.product.taxes2} name='taxes2' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.useTaxes2} value={this.props.product.taxes2}
+              name='taxes2' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -308,8 +308,9 @@ export default class Fields extends React.Component {
 
           <div className='col-xs-6 first'>
 
-            <label>Utilidad 1</label>
-            <input value={this.props.product.utility} name='utility' onChange={this.handleInputChange.bind(this)}
+            <label>Utilidad 1 %</label>
+            <input disabled={!this.props.product.isForSale} value={this.props.product.utility} name='utility'
+              onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -317,7 +318,8 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 second'>
 
             <label>Precio sin I.V 1</label>
-            <input value={this.props.product.price} name='price' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.isForSale} value={this.props.product.price} name='price'
+              onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -329,12 +331,15 @@ export default class Fields extends React.Component {
 
             <div className='inline-checkbox'>
 
-              <label>Utilidad 2</label>
-              <input checked={this.props.product.usePrice2} name='usePrice2'
+              <label>Utilidad 2 %</label>
+              <input disabled={!this.props.product.isForSale} checked={this.props.product.usePrice2} name='usePrice2'
                 onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
-            <input value={this.props.product.utility2} name='utility2' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.usePrice2 || !this.props.product.isForSale}
+              value={this.props.product.utility2}
+              name='utility2'
+              onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -342,7 +347,10 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 second'>
 
             <label>Precio sin I.V 2</label>
-            <input value={this.props.product.price2} name='price2' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.usePrice2 || !this.props.product.isForSale}
+              value={this.props.product.price2}
+              name='price2'
+              onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -354,12 +362,14 @@ export default class Fields extends React.Component {
 
             <div className='inline-checkbox'>
 
-              <label>Utilidad 3</label>
-              <input checked={this.props.product.usePrice3} name='usePrice3'
+              <label>Utilidad 3 %</label>
+              <input disabled={!this.props.product.isForSale} checked={this.props.product.usePrice3} name='usePrice3'
                 onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
-            <input value={this.props.product.utility3} name='utility3' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.usePrice3 || !this.props.product.isForSale}
+              value={this.props.product.utility3} name='utility3'
+              onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -367,27 +377,10 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 second'>
 
             <label>Precio sin I.V 3</label>
-            <input value={this.props.product.price3} name='price3' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.usePrice3 || !this.props.product.isForSale}
+              value={this.props.product.price3} name='price3'
+              onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
-
-          </div>
-        </div>
-
-        <div className='form-group row create-product-input-block'>
-
-          <div className='col-xs-6 first'>
-
-            <label>Descuento %</label>
-            <input value={this.props.product.discount} name='discount' onChange={this.handleInputChange.bind(this)}
-              type='number' className='form-control' />
-
-          </div>
-
-          <div className='col-xs-6 second'>
-
-            <label>Descuento en moneda</label>
-            <input value={this.props.product.discountCurrency} name='discountCurrency'
-              onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
 
           </div>
         </div>
@@ -396,8 +389,29 @@ export default class Fields extends React.Component {
 
           <div className='col-xs-12'>
 
+            <div className='inline-checkbox'>
+
+              <label>Descuento Predeterminado %</label>
+              <input disabled={!this.props.product.isForSale} checked={this.props.product.hasDiscount}
+                name='hasDiscount'
+                onChange={this.handleInputChange.bind(this)}
+                type='checkbox' className='form-control' />
+
+            </div>
+            <input disabled={!this.props.product.isForSale || this.props.products.hasDiscount}
+              value={this.props.product.discount} name='discount' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+
+          <div className='col-xs-12'>
+
             <label>Precio de Venta</label>
-            <input value={this.props.product.sellPrice} name='sellPrice' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.isForSale} value={this.props.product.sellPrice} name='sellPrice' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -408,7 +422,8 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 first'>
 
             <label>Precio de Venta 2</label>
-            <input value={this.props.product.sellPrice2} name='sellPrice2' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.isForSale || !this.props.product.usePrice2} value={this.props.product.sellPrice2}
+              name='sellPrice2' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -416,7 +431,8 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 second'>
 
             <label>Precio de Venta 3</label>
-            <input value={this.props.product.sellPrice3} name='sellPrice3' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.isForSale || !this.props.product.usePrice3} value={this.props.product.sellPrice3}
+              name='sellPrice3' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -440,7 +456,8 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 first'>
 
             <label>Existencia</label>
-            <input value={this.props.product.inventory} name='inventory' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.useInventory} value={this.props.product.inventory}
+              name='inventory' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
@@ -448,7 +465,8 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 second'>
 
             <label>Mínimo Inventario</label>
-            <input value={this.props.product.minimum} name='minimum' onChange={this.handleInputChange.bind(this)}
+            <input disabled={!this.props.product.useInventory} value={this.props.product.minimum}
+              name='minimum' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>
