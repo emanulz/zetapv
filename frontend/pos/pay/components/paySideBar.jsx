@@ -8,7 +8,11 @@ import {connect} from 'react-redux'
     payMethod: store.pay.payMethod,
     pay: store.pay,
     client: store.clients.clientSelected,
-    sales: store.sales.sales
+    debt: store.clients.clientSelectedDebt,
+    sales: store.sales.sales,
+    saleId: store.sales.saleActiveId,
+    sale: store.sales.saleActive,
+    movements: store.clientmovements.movements
   }
 })
 export default class PaySideBar extends React.Component {
@@ -37,12 +41,16 @@ export default class PaySideBar extends React.Component {
       created: new Date()
     }
 
+    if (this.props.pay.payMethod == 'CREDIT') {
+      sale.pay.debt = this.props.cart.cartTotal
+      sale.pay.payed = false
+    }
     const kwargs = {
       db: 'sales',
+      movements: this.props.movements,
       item: sale,
       sucessMessage: 'Venta creada Correctamente.',
-      errorMessage: 'Hubo un error al crear la venta, intente de nuevo.',
-      dispatchType: 'SHOW_INVOICE_PANEL'
+      errorMessage: 'Hubo un error al crear la venta, intente de nuevo.'
     }
 
     this.props.dispatch(saveItem(kwargs))
@@ -73,6 +81,14 @@ export default class PaySideBar extends React.Component {
         const digits = this.props.pay.cardDigits
         change = parseFloat(this.props.pay.cashAmount) - parseFloat(this.props.total)
         payButtonClass = (total > 0 && auth && digits)
+          ? 'pay-tag tag-button enable'
+          : 'pay-tag tag-button'
+        break
+      }
+      case 'CREDIT':
+      {
+        const available = parseFloat(this.props.client.credit_limit) - parseFloat(this.props.debt)
+        payButtonClass = (total > 0 && total <= available && this.props.client.has_credit)
           ? 'pay-tag tag-button enable'
           : 'pay-tag tag-button'
         break

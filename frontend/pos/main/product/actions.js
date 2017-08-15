@@ -144,16 +144,22 @@ function caclSubtotal(product, qty, productDiscount, globalDiscount, client) {
 
   const subTotal = price * qty * (1 - (productDiscount / 100)) * (1 - (globalDiscount / 100))
 
-  const totalWithIv = (product.useTaxes)
-    ? subTotal * (1 + (product.taxes / 100))
-    : subTotal
+  const iv1 = (product.useTaxes)
+    ? subTotal * (product.taxes / 100)
+    : 0
+
+  const iv2 = (product.useTaxes2)
+    ? subTotal * (product.taxes2 / 100)
+    : 0
+
+  const totalWithIv = subTotal + iv1 + iv2
 
   const discountCurrencyInLine = price * qty * (productDiscount / 100)
   const discountCurrencyGlobal = ((price * qty) - discountCurrencyInLine) * (globalDiscount / 100)
 
   const discountCurrency = discountCurrencyInLine + discountCurrencyGlobal
 
-  return {subtotal: subTotal, totalWithIv: Math.ceil(totalWithIv), discountCurrency: discountCurrency, subTotalNoDiscount: subTotalNoDiscount}
+  return {subtotal: subTotal, totalWithIv: Math.round(totalWithIv), discountCurrency: discountCurrency, subTotalNoDiscount: subTotalNoDiscount}
 
 }
 

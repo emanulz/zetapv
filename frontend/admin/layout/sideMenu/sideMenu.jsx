@@ -74,6 +74,11 @@ export default class SideMenu extends React.Component {
               <span className='fa fa-user' />
               Usuarios</Link>
           </li>
+          <li>
+            <Link to='/admin/sales'>
+              <span className='fa fa-sale' />
+              Ventas</Link>
+          </li>
           <ComposedItem mainTittle='Clientes' mainIcon='fa-users' childItems={childClients} />
           <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts} />
           <ComposedItem mainTittle='Inventarios' mainIcon='fa-sticky-note' childItems={childInventories} />

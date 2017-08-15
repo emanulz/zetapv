@@ -54,16 +54,64 @@ export function updateStoreCardDigits(number) {
 export function saveItem(kwargs) {
 
   const item = kwargs.item
+  const movements = kwargs.movements
   return function(dispatch) {
     const db = new PouchDB(kwargs.db)
 
     db.post(item).then((response) => {
+
       dispatch({type: 'SET_SALE', payload: item})
-      dispatch({type: 'SHOW_INVOICE_PANEL', payload: ''})
-      dispatch({type: 'HIDE_PAY_PANEL', payload: ''})
-      dispatch({type: 'SALE_COMPLETED', payload: ''})
+      dispatch({type: 'SET_SALE_ID', payload: response.id})
+
+      if (item.pay.payMethod == 'CREDIT') { // IF CREDIT CREATE CREDIT MOVEMENT
+        const db2 = new PouchDB('general')
+        const movement = getMovement(movements, response.id, item)
+
+        db2.post(movement).then(response => {
+          dispatch({type: 'SHOW_INVOICE_PANEL', payload: ''})
+          dispatch({type: 'HIDE_PAY_PANEL', payload: ''})
+        }).catch(err => { // IF ERROR SHOW MESSAGE
+          alertify.alert('Error', `Error al crear el movimiento de crédito, por favor anule la factura y creela
+          de nuevo ERROR: ${err}.`)
+        })
+
+      } else { // IF NOT CREDIT SHOW PANELS
+        dispatch({type: 'SHOW_INVOICE_PANEL', payload: ''})
+        dispatch({type: 'HIDE_PAY_PANEL', payload: ''})
+      }
+
     }).catch((err) => {
       alertify.alert('Error', `${kwargs.errorMessage} ERROR: ${err}.`)
     })
   }
+}
+
+function getMovement(movements, saleId, sale) {
+
+  const sortedMovements = movements.length > 1 ? movements.sort((a, b) => {
+    if (a.document < b.document) {
+      return 1
+    }
+    if (a.document > b.document) {
+      return -1
+    }
+    return 0
+  }) : movements
+
+  const nextId = sortedMovements.length > 0 ? sortedMovements[0].document + 1 : 1
+
+  const movement = {
+    'document': nextId,
+    'docType': 'CLIENT_MOVEMENT',
+    'clientId': sale.client._id,
+    'type': 'CREDIT',
+    'amount': parseFloat(sale.cart.cartTotal),
+    'date': new Date(),
+    'sale_id': saleId,
+    'saleId': sale.id,
+    'description': `Venta a crédito con factura #${sale.id}`
+  }
+
+  return movement
+
 }

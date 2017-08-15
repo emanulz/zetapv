@@ -1,3 +1,4 @@
+
 const clientSelectedModel = {
   code: '0000',
   clientType: 'GENERAL',
@@ -17,7 +18,8 @@ const stateConst = {
   clientsFected: false,
   clientsFetchError: '',
   clients: {},
-  clientSelected: clientSelectedModel
+  clientSelected: clientSelectedModel,
+  clientSelectedDebt: 0
 }
 
 export default function reducer(state = stateConst, action) {
@@ -58,6 +60,14 @@ export default function reducer(state = stateConst, action) {
         clientSelected: action.payload.client
       }
     } // case
+
+    case 'SET_CLIENT_DEBT':
+    {
+      return {
+        ...state,
+        clientSelectedDebt: action.payload
+      }
+    }
 
     case 'NEW_SALE':
     {

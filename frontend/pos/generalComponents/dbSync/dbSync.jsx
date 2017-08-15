@@ -35,6 +35,11 @@ export default class DbSync extends React.Component {
         docType: 'PRODUCT',
         dispatchType: 'FETCH_PRODUCTS_FULFILLED',
         dispatchErrorType: 'FETCH_PRODUCTS_REJECTED'
+      },
+      {
+        docType: 'CLIENT_MOVEMENT',
+        dispatchType: 'FETCH_CLIENT_MOVEMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_CLIENT_MOVEMENTS_REJECTED'
       }
 
     ]

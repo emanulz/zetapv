@@ -17,9 +17,10 @@ export default class MovementsList extends React.Component {
 
   componentWillMount() {
     const kwargs = {
-      db: 'clientmovements',
-      dispatchType: 'FETCH_CLIENTMOVEMENTS_FULFILLED',
-      dispatchErrorType: 'FETCH_CLIENTMOVEMENTS_REJECTED'
+      db: 'general',
+      docType: 'CLIENT_MOVEMENT',
+      dispatchType: 'FETCH_CLIENT_MOVEMENTS_FULFILLED',
+      dispatchErrorType: 'FETCH_CLIENT_MOVEMENTS_REJECTED'
     }
     this.props.dispatch(fetchItems(kwargs)) // fetch products before mount, send dispatch to reducer.
   }
@@ -47,8 +48,13 @@ export default class MovementsList extends React.Component {
         type: 'text'
       },
       {
+        field: 'saleId',
+        text: 'Venta',
+        type: 'text'
+      },
+      {
         field: 'amount',
-        text: 'Cantidad',
+        text: 'Monto',
         type: 'text'
       }
     ]

@@ -38,9 +38,9 @@ export default function reducer(state = stateConst, action) {
 
       newCart.splice(action.payload, 1)
 
-      const itemsLeftInCart = (newCart.length)
-        ? true
-        : false
+      const itemsLeftInCart = (newCart.length > 0)
+      // ? true
+      // : false
 
       return {
         ...state,

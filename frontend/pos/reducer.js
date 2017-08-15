@@ -9,6 +9,7 @@ import messages from './messages/reducer.js'
 import pay from './pay/reducer.js'
 import invoice from './invoice/reducer.js'
 import sales from './sales/reducer.js'
+import clientmovements from './movements/clients/reducer'
 
 export default combineReducers({
   products,
@@ -19,6 +20,6 @@ export default combineReducers({
   messages,
   pay,
   invoice,
-  sales
-
+  sales,
+  clientmovements
 })

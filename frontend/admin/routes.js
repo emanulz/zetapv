@@ -30,9 +30,13 @@ import InventoryMovementsUpdate from './inventories/products/movements/update.js
 
 import Receivable from './receivable/list.jsx'
 
+import BillMovement from './receivable/statement/billMovements/movements.jsx'
+
 import ClientMovementsList from './receivable/movements/list.jsx'
-import CLientMovementsCreate from './receivable/movements/create.jsx'
-import CLientMovementsUpdate from './receivable/movements/update.jsx'
+import ClientMovementsCreate from './receivable/movements/create.jsx'
+import ClientMovementsUpdate from './receivable/movements/update.jsx'
+
+import Sales from './sales/list.jsx'
 
 const routes = <div>
 
@@ -47,6 +51,8 @@ const routes = <div>
   <Route exact path='/admin/users' component={UsersList} />
   <Route path='/admin/users/add' component={UsersCreate} />
   <Route path='/admin/users/edit/:user' component={UsersEdit} />
+
+  <Route exact path='/admin/sales' component={Sales} />
 
   <Route exact path='/admin/products' component={Products} />
   <Route exact path='/admin/products/add' component={CreateProduct} />
@@ -69,8 +75,10 @@ const routes = <div>
   <Route exact path='/admin/receivable' component={Receivable} />
 
   <Route exact path='/admin/receivable/movements' component={ClientMovementsList} />
-  <Route exact path='/admin/receivable/movements/add' component={CLientMovementsCreate} />
-  <Route exact path='/admin/receivable/movements/edit/:movement' component={CLientMovementsUpdate} />
+  <Route exact path='/admin/receivable/movements/add' component={ClientMovementsCreate} />
+  <Route exact path='/admin/receivable/movements/edit/:movement' component={ClientMovementsUpdate} />
+
+  <Route exact path='/admin/receivable/statement/billmovements/:bill' component={BillMovement} />
 
 </div>
 

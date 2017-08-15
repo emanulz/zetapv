@@ -5,6 +5,7 @@ import React from 'react'
 
 import {connect} from 'react-redux'
 import {clientSelected, searchClient} from './actions'
+import {getClientDebt} from '../../../admin/utils/receivable'
 import {recalcCart} from '../../main/product/actions'
 
 @connect((store) => {
@@ -13,6 +14,8 @@ import {recalcCart} from '../../main/product/actions'
     cart: store.cart.cartItems,
     globalDiscount: store.cart.globalDiscount,
     client: store.clients.clientSelected,
+    movements: store.clientmovements.movements,
+    debt: store.clients.clientSelectedDebt,
     disabled: store.sales.completed}
 })
 export default class Clients extends React.Component {
@@ -20,6 +23,8 @@ export default class Clients extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientSelected != this.props.clientSelected) {
       this.props.dispatch(recalcCart(nextProps.cart, nextProps.globalDiscount, nextProps.client))
+      const debt = getClientDebt(nextProps.client._id, nextProps.movements)
+      this.props.dispatch({type: 'SET_CLIENT_DEBT', payload: debt})
     }
   }
 
@@ -96,7 +101,9 @@ export default class Clients extends React.Component {
             <b>Balance :
             </b>
           </span>
-          <span className='client-debt-amount credit-status credit-positive'>₡ 0</span>
+          <span className='client-debt-amount credit-status credit-negative'>
+            ₡ {this.props.debt.formatMoney(2, ',', '.')}
+          </span>
 
         </div>
 

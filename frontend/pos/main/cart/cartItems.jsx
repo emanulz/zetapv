@@ -57,10 +57,14 @@ export default class CartItems extends React.Component {
 
     const items = cartItems.map((item) => {
 
-      const taxesText = (item.product.useTaxes)
-        ? `${item.product.taxes}%`
-        : `0%`
+      const taxes1 = (item.product.useTaxes)
+        ? item.product.taxes
+        : 0
+      const taxes2 = (item.product.useTaxes2)
+        ? item.product.taxes2
+        : 0
 
+      const taxesText = `${taxes1 + taxes2}%`
       return <tr key={item.product.code}>
         <td>
           {item.product.code}

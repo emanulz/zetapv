@@ -3322,6 +3322,10 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     color: #5cb85c;
     font-size: 18px;
     font-weight: bolder; }
+  .client .credit-negative {
+    color: red;
+    font-size: 18px;
+    font-weight: bolder; }
 
 .totals {
   padding: 0 30px 0 20px; }

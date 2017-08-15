@@ -17,6 +17,7 @@ export default class Product extends React.Component {
   componentWillMount() {
     this.syncGeneralDb()
     this.syncUsersDb()
+    this.syncSalesDb()
   }
 
   componentDidMount() {
@@ -53,8 +54,8 @@ export default class Product extends React.Component {
       },
       {
         docType: 'CLIENT_MOVEMENT',
-        dispatchType: 'FETCH_CLIENTMOVEMENTS_FULFILLED',
-        dispatchErrorType: 'FETCH_CLIENTMOVEMENTS_REJECTED'
+        dispatchType: 'FETCH_CLIENT_MOVEMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_CLIENT_MOVEMENTS_REJECTED'
       }
 
     ]
@@ -114,6 +115,35 @@ export default class Product extends React.Component {
       docType: 'USER',
       dispatchType: 'FETCH_USERS_FULFILLED',
       dispatchErrorType: 'FETCH_USERS_REJECTED'
+    }
+
+    localDB.sync(remoteDB, {
+      retry: true
+    })
+      .on('change', function(change) {
+        console.log('change')
+        _this.props.dispatch(fetchItems(kwargs))
+
+      })
+
+    this.props.dispatch(fetchItems(kwargs))
+
+  }
+
+  syncSalesDb() {
+    const _this = this
+    const localDB = new PouchDB('sales')
+    const remoteDB = new PouchDB(`${this.props.remoteDB}/sales`)
+
+    localDB.createIndex({ index: {fields: ['docType']} })
+    localDB.createIndex({ index: {fields: ['docType', 'created']} })
+    localDB.createIndex({ index: {fields: ['docType', 'id']} })
+
+    const kwargs = {
+      db: 'sales',
+      docType: 'SALE',
+      dispatchType: 'FETCH_SALES_FULFILLED',
+      dispatchErrorType: 'FETCH_SALES_REJECTED'
     }
 
     localDB.sync(remoteDB, {

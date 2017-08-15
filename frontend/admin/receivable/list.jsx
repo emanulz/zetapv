@@ -19,14 +19,16 @@ export default class MovementsList extends React.Component {
 
   componentWillMount() {
     const kwargs = {
-      db: 'clientmovements',
-      dispatchType: 'FETCH_CLIENTMOVEMENTS_FULFILLED',
-      dispatchErrorType: 'FETCH_CLIENTMOVEMENTS_REJECTED'
+      db: 'general',
+      docType: 'CLIENT_MOVEMENT',
+      dispatchType: 'FETCH_CLIENT_MOVEMENTS_FULFILLED',
+      dispatchErrorType: 'FETCH_CLIENT_MOVEMENTS_REJECTED'
     }
     this.props.dispatch(fetchItems(kwargs)) // fetch client movements before mount, send dispatch to reducer.
 
     const kwargs2 = {
-      db: 'clients',
+      db: 'general',
+      docType: 'CLIENT',
       dispatchType: 'FETCH_CLIENTS_FULFILLED',
       dispatchErrorType: 'FETCH_CLIENTS_REJECTED'
     }

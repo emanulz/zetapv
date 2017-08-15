@@ -55,6 +55,30 @@ export function setItem(kwargs) {
   }
 }
 
+export function setItems(kwargs) {
+
+  return function(dispatch) {
+    const db = new PouchDB(kwargs.db)
+
+    db.find({
+      selector: {docType: kwargs.docType, [kwargs.lookUpField]: kwargs.lookUpValue}
+    }).then(function (result) {
+
+      if (result.docs.length) {
+
+        dispatch({type: kwargs.dispatchType, payload: result.docs})
+
+      } else {
+        alertify.alert('Error', `No hay ${kwargs.modelName} con el valor de ${kwargs.lookUpName}: ${kwargs.lookUpValue}`)
+      }
+
+    }).catch(function (err) {
+      alertify.alert('Error', `Error al cargar el elemento: ${err}`)
+    })
+
+  }
+}
+
 export function updateItem(kwargs) {
 
   const db = new PouchDB(kwargs.db)
@@ -130,6 +154,8 @@ export function fetchItemsBulk(kwargs) {
 
   db.createIndex({ index: {fields: ['docType']} })
   db.createIndex({ index: {fields: ['docType', 'code']} })
+  db.createIndex({ index: {fields: ['docType', 'document']} })
+  db.createIndex({ index: {fields: ['docType', 'sale_id']} })
 
   return function(dispatch) {
     kwargs.docTypes.map(docType => {

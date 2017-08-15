@@ -10,7 +10,8 @@ const saleActiveModel = {
 const stateConst = {
   sales: [],
   saleActive: saleActiveModel,
-  completed: false
+  completed: false,
+  saleActiveId: 0
 
 }
 
@@ -38,7 +39,15 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        saleActive: action.payload,
+        saleActive: action.payload
+      }
+    } // case
+
+    case 'SET_SALE_ID':
+    {
+      return {
+        ...state,
+        saleActiveId: action.payload,
         completed: true
       }
     } // case

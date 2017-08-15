@@ -16,19 +16,22 @@ export default class Fields extends React.Component {
 
   componentWillMount() {
 
+    this.props.dispatch({type: 'CLEAR_CLIENT_MOVEMENT', payload: ''})
+
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
 
-      const obj = {
-        db: 'clientmovements',
+      const kwargs = {
+        db: 'general',
+        docType: 'CLIENT_MOVEMENT',
         lookUpField: 'document',
-        lookUpValue: code,
+        lookUpValue: parseInt(code),
         lookUpName: 'documento',
         modelName: 'movimentos de clientes',
-        dispatchType: 'SET_CLIENTMOVEMENT'
+        dispatchType: 'SET_CLIENT_MOVEMENT'
       }
 
-      this.props.dispatch(setItem(obj))
+      this.props.dispatch(setItem(kwargs))
     }
   }
 
@@ -76,7 +79,7 @@ export default class Fields extends React.Component {
 
     movement[name] = value
 
-    this.props.dispatch({type: 'SET_CLIENTMOVEMENT', payload: movement})
+    this.props.dispatch({type: 'SET_CLIENT_MOVEMENT', payload: movement})
   }
 
   saveBtn() {
@@ -89,11 +92,11 @@ export default class Fields extends React.Component {
 
     if (fieldsOk) {
       const obj = {
-        db: 'clientmovements',
+        db: 'general',
         item: movement,
         sucessMessage: 'Movimiento creado correctamente',
         errorMessage: 'Hubo un error al crear el Movimiento, intente de nuevo.',
-        dispatchType: 'CLEAR_CLIENTMOVEMENT'
+        dispatchType: 'CLEAR_CLIENT_MOVEMENT'
       }
 
       this.props.dispatch(saveItem(obj))
@@ -108,10 +111,10 @@ export default class Fields extends React.Component {
 
     if (fieldsOk) {
       const obj = {
-        db: 'clientmovements',
+        db: 'general',
         item: movement,
-        modelName: 'Movimento de cliento',
-        dispatchType: 'SET_CLIENTMOVEMENT'
+        modelName: 'Movimento de cliente',
+        dispatchType: 'SET_CLIENT_MOVEMENT'
       }
       this.props.dispatch(updateItem(obj))
     }
@@ -122,10 +125,10 @@ export default class Fields extends React.Component {
     const movement = this.props.movement
     const _this = this
     const obj = {
-      db: 'clientmovements',
+      db: 'general',
       item: movement,
       modelName: 'Movimento de Producto',
-      dispatchType: 'CLEAR_CLIENTMOVEMENT'
+      dispatchType: 'CLEAR_CLIENT_MOVEMENT'
     }
     // ALERTIFY CONFIRM
     alertify.confirm('Eliminar', `Desea Eliminar el Movimento de Producto ${movement.document}? Esta acción no se puede deshacer.`, function() {

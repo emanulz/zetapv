@@ -1,10 +1,12 @@
 
 const clientmovementModel = {
   'document': 0,
+  'docType': 'CLIENT_MOVEMENT',
   'clientId': '',
   'type': 'CREDIT',
   'amount': 0,
   'date': new Date(),
+  'saleId': 0,
   'description': ''
 }
 
@@ -22,7 +24,7 @@ export default function reducer(state = stateConst, action) {
     // CLIENT MOVEMENTS
     // ***********************************
 
-    case 'FETCH_CLIENTMOVEMENTS_REJECTED':
+    case 'FETCH_CLIENT_MOVEMENTS_REJECTED':
     {
       return {
         ...state,
@@ -32,7 +34,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'FETCH_CLIENTMOVEMENTS_FULFILLED':
+    case 'FETCH_CLIENT_MOVEMENTS_FULFILLED':
     {
       return {
         ...state,
@@ -40,7 +42,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'SET_CLIENTMOVEMENT':
+    case 'SET_CLIENT_MOVEMENT':
     {
       return {
         ...state,
@@ -48,7 +50,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'CLEAR_CLIENTMOVEMENT':
+    case 'CLEAR_CLIENT_MOVEMENT':
     {
       return {
         ...state,

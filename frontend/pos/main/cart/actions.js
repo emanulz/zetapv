@@ -21,13 +21,18 @@ export function updateTotals(inCart) {
     const taxesCalc = (item.product.useTaxes)
       ? item.subtotal * (item.product.taxes / 100)
       : 0
-    taxes = taxes + taxesCalc
+
+    const taxesCalc2 = (item.product.useTaxes2)
+      ? item.subtotal * (item.product.taxes2 / 100)
+      : 0
+
+    taxes = taxes + taxesCalc + taxesCalc2
 
     discountTotal = discountTotal + item.discountCurrency // this is the value in currency
 
   })
   // TODO Config for round or not
-  total = Math.ceil(subtotal + taxes)
+  total = Math.round(subtotal + taxes)
 
   // returs a dispatch with a payload of the obtained values
   return {
