@@ -30,6 +30,7 @@ import InventoryMovementsUpdate from './inventories/products/movements/update.js
 
 import Receivable from './receivable/list.jsx'
 
+import Statement from './receivable/statement/statement.jsx'
 import BillMovement from './receivable/statement/billMovements/movements.jsx'
 
 import ClientMovementsList from './receivable/movements/list.jsx'
@@ -78,7 +79,8 @@ const routes = <div>
   <Route exact path='/admin/receivable/movements/add' component={ClientMovementsCreate} />
   <Route exact path='/admin/receivable/movements/edit/:movement' component={ClientMovementsUpdate} />
 
-  <Route exact path='/admin/receivable/statement/billmovements/:bill' component={BillMovement} />
+  <Route exact path='/admin/receivable/statement/:client' component={Statement} />
+  <Route exact path='/admin/receivable/statement/:client/billmovements/:bill' component={BillMovement} />
 
 </div>
 

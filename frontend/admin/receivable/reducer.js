@@ -13,7 +13,9 @@ const clientmovementModel = {
 const stateConst = {
   clientmovementsFetchError: '',
   clientmovements: {},
-  clientmovementActive: clientmovementModel
+  clientmovementActive: clientmovementModel,
+  clientActiveMovements: [],
+  clientActiveCreditSales: []
 }
 
 export default function reducer(state = stateConst, action) {
@@ -55,6 +57,38 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         clientmovementActive: clientmovementModel
+      }
+    } // case
+
+    case 'SET_CLIENT_ACTIVE_MOVEMENTS':
+    {
+      return {
+        ...state,
+        clientActiveMovements: action.payload
+      }
+    }
+
+    case 'CLEAR_CLIENT_ACTIVE_MOVEMENTS':
+    {
+      return {
+        ...state,
+        clientActiveMovements: []
+      }
+    } // case
+
+    case 'SET_CLIENT_ACTIVE_CREDIT_SALES':
+    {
+      return {
+        ...state,
+        clientActiveCreditSales: action.payload
+      }
+    }
+
+    case 'CLEAR_CLIENT_ACTIVE_CREDIT_SALES':
+    {
+      return {
+        ...state,
+        clientActiveCreditSales: []
       }
     } // case
 

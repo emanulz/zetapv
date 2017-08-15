@@ -7,7 +7,7 @@ import {fetchItems, setItem, setItems} from '../../../utils/api'
 
 @connect((store) => {
   return {
-    movements: store.receivable.clientmovements,
+    movements: store.sales.saleMovements,
     clients: store.clients.clients,
     sale: store.sales.saleActive
   }
@@ -47,7 +47,7 @@ export default class MovementsList extends React.Component {
   }
 
   componentWillReceiveProps(nextprops) {
-    if (nextprops.sale) {
+    if (nextprops.sale && !nextprops.movements.length) {
       const id = nextprops.sale._id
 
       const kwargs = {
@@ -64,12 +64,77 @@ export default class MovementsList extends React.Component {
     }
   }
 
+  movementItem(movement) {
+    const movClass = movement.type == 'CREDIT' ? 'credit' : 'debit'
+    const typeText = movement.type == 'CREDIT' ? 'Crédito' : 'Débito'
+    const date = new Date(movement.date)
+
+    return <tr className={`${movClass}`} key={movement._id}>
+      <td>{movement.document}</td>
+      <td>{`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</td>
+      <td>{typeText}</td>
+      <td>₡ {movement.amount.formatMoney(2, ',', '.')}</td>
+      <td>{movement.description}</td>
+    </tr>
+  }
+
   // Render the product
   render() {
+    const movements = this.props.movements
+    const sale = this.props.sale
+    let debits = 0
+    let credits = 0
+
+    movements.forEach(movement => {
+      if (movement.type == 'CREDIT') credits += movement.amount
+      if (movement.type == 'DEBIT') debits += movement.amount
+    })
+
+    const rows = movements.length
+      ? movements.map(movement => {
+        return this.movementItem(movement)
+      })
+      : <div>No hay movimientos</div>
 
     return <div className='list-container'>
 
-      <h1>Movimientos de factura:</h1>
+      <h1>Movimientos de factura #{sale.id}</h1>
+      <div className='row movements'>
+        <div className='col-xs-12 col-sm-8'>
+          <table className='table table-bordered'>
+            <thead>
+              <tr>
+                <th>Movimiento #</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
+        <div className='totals-sidebar col-xs-12 col-sm-4'>
+          <div className='col-xs-12'>
+            <table className='table table-bordered'>
+              <tr>
+                <th>Céditos</th>
+                <td>₡ {credits.formatMoney(2, ',', '.')}</td>
+              </tr>
+              <tr>
+                <th>Débitos</th>
+                <td>₡ {debits.formatMoney(2, ',', '.')}</td>
+              </tr>
+              <tr>
+                <th>Saldo:</th>
+                <td>₡ {(credits - debits).formatMoney(2, ',', '.')}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
 
     </div>
   }
