@@ -12,7 +12,7 @@ export default class Table extends React.Component {
     const cartItems = this.props.inCart
     const items = cartItems.map((item) => {
 
-      const taxesText = (item.product.usetaxes)
+      const taxesText = (item.product.useTaxes)
         ? `G`
         : `E`
 
@@ -36,7 +36,7 @@ export default class Table extends React.Component {
       <thead>
         <tr>
           <th>Cant</th>
-          <th>Articulo</th>
+          <th className='description-row'>Articulo</th>
           <th className='right-in-table'>IV</th>
           <th className='right-in-table'>Total</th>
         </tr>

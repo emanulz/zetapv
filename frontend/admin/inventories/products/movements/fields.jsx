@@ -16,19 +16,22 @@ export default class Fields extends React.Component {
 
   componentWillMount() {
 
+    this.props.dispatch({type: 'CLEAR_PRODUCT_MOVEMENT', payload: ''})
+
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
 
-      const obj = {
-        db: 'productmovements',
+      const kwargs = {
+        db: 'general',
+        docType: 'PRODUCT_MOVEMENT',
         lookUpField: 'document',
-        lookUpValue: code,
+        lookUpValue: parseInt(code),
         lookUpName: 'documento',
         modelName: 'movimentos de productos',
-        dispatchType: 'SET_PRODUCTMOVEMENT'
+        dispatchType: 'SET_PRODUCT_MOVEMENT'
       }
 
-      this.props.dispatch(setItem(obj))
+      this.props.dispatch(setItem(kwargs))
     }
   }
 
@@ -76,7 +79,7 @@ export default class Fields extends React.Component {
 
     movement[name] = value
 
-    this.props.dispatch({type: 'SET_PRODUCTMOVEMENT', payload: movement})
+    this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
   }
 
   saveBtn() {
@@ -88,12 +91,14 @@ export default class Fields extends React.Component {
     const fieldsOk = checkProductMovementData(movement, movements)
 
     if (fieldsOk) {
+      movement.created = new Date()
       const obj = {
-        db: 'productmovements',
+        db: 'general',
+        docType: 'PRODUCT_MOVEMENT',
         item: movement,
         sucessMessage: 'Movimiento creado correctamente',
         errorMessage: 'Hubo un error al crear el Movimiento, intente de nuevo.',
-        dispatchType: 'CLEAR_PRODUCTMOVEMENT'
+        dispatchType: 'CLEAR_PRODUCT_MOVEMENT'
       }
 
       this.props.dispatch(saveItem(obj))
@@ -107,11 +112,13 @@ export default class Fields extends React.Component {
     const fieldsOk = checkProductMovementData(movement, movements)
 
     if (fieldsOk) {
+      movement.updated = new Date()
       const obj = {
-        db: 'productmovements',
+        db: 'general',
+        docType: 'PRODUCT_MOVEMENT',
         item: movement,
         modelName: 'Movimento de producto',
-        dispatchType: 'SET_PRODUCTMOVEMENT'
+        dispatchType: 'SET_PRODUCT_MOVEMENT'
       }
       this.props.dispatch(updateItem(obj))
     }
@@ -122,10 +129,11 @@ export default class Fields extends React.Component {
     const movement = this.props.movement
     const _this = this
     const obj = {
-      db: 'productmovements',
+      db: 'general',
+      docType: 'PRODUCT_MOVEMENT',
       item: movement,
       modelName: 'Movimento de Producto',
-      dispatchType: 'CLEAR_PRODUCTMOVEMENT'
+      dispatchType: 'CLEAR_PRODUCT_MOVEMENT'
     }
     // ALERTIFY CONFIRM
     alertify.confirm('Eliminar', `Desea Eliminar el Movimento de Producto ${movement.document}? Esta acción no se puede deshacer.`, function() {
@@ -251,9 +259,9 @@ export default class Fields extends React.Component {
 
             <label>Departamento</label>
             <select value={this.props.movement.type} name='type' onChange={this.handleInputChange.bind(this)} className='form-control'>
-              <option value='Input'> Entrada </option>
-              <option value='Output'> Salida </option>
-              <option value='Adjust'> Ajuste </option>
+              <option value='INPUT'> Entrada </option>
+              <option value='OUTPUT'> Salida </option>
+              <option value='ADJUST'> Ajuste </option>
             </select>
 
           </div>

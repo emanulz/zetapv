@@ -19,14 +19,16 @@ export default class MovementsList extends React.Component {
 
   componentWillMount() {
     const kwargs = {
-      db: 'productmovements',
-      dispatchType: 'FETCH_PRODUCTMOVEMENTS_FULFILLED',
-      dispatchErrorType: 'FETCH_PRODUCTMOVEMENTS_REJECTED'
+      db: 'general',
+      docType: 'PRODUCT_MOVEMENT',
+      dispatchType: 'FETCH_PRODUCT_MOVEMENTS_FULFILLED',
+      dispatchErrorType: 'FETCH_PRODUCT_MOVEMENTS_REJECTED'
     }
     this.props.dispatch(fetchItems(kwargs)) // fetch products before mount, send dispatch to reducer.
 
     const kwargs2 = {
-      db: 'products',
+      db: 'general',
+      docType: 'PRODUCT',
       dispatchType: 'FETCH_PRODUCTS_FULFILLED',
       dispatchErrorType: 'FETCH_PRODUCTS_REJECTED'
     }

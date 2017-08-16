@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 
 const PouchDB = require('pouchdb')
+const compression = require('compression')
 
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -25,6 +26,8 @@ db.sync(remoteDb, {
   live: true,
   retry: true
 })
+
+app.use(compression())
 
 // BodyParser Middleware
 app.use(bodyParser.json())

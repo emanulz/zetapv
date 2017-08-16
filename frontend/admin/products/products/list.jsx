@@ -36,19 +36,19 @@ export default class Product extends React.Component {
         text: 'Descripción',
         type: 'text'
       }, {
-        field: 'cost',
-        text: 'Costo',
-        type: 'price'
-      }, {
-        field: 'usetaxes',
+        field: 'useTaxes',
         text: 'IV?',
         type: 'bool'
       }, {
         field: 'taxes',
         text: 'IV %'
       }, {
-        field: 'sellprice',
-        text: 'Precio de venta',
+        field: 'sellPrice',
+        text: 'Precio de venta 1',
+        type: 'price'
+      }, {
+        field: 'sellPrice2',
+        text: 'Precio de venta 2',
         type: 'price'
       }
     ]

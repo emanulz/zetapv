@@ -114,7 +114,7 @@ export default class Totals extends React.Component {
               <td className='price'>₡ {this.props.taxes.formatMoney(2, ',', '.')}</td>
             </tr>
             <tr>
-              <th>Total:</th>
+              <th onClick={this.showInvoicePanel.bind(this)}>Total:</th>
               <td className='price'>₡ {this.props.total.formatMoney(2, ',', '.')}</td>
 
             </tr>

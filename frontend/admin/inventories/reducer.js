@@ -1,8 +1,11 @@
 
 const productmovementModel = {
   'document': 0,
+  'docType': 'PRODUCT_MOVEMENT',
+  'created': '',
+  'updated': '',
   'productId': '',
-  'type': 'Input',
+  'type': 'INPUT',
   'amount': 0,
   'date': new Date(),
   'description': ''
@@ -22,7 +25,7 @@ export default function reducer(state = stateConst, action) {
     // PRODUCT MOVEMENTS
     // ***********************************
 
-    case 'FETCH_PRODUCTMOVEMENTS_REJECTED':
+    case 'FETCH_PRODUCT_MOVEMENTS_REJECTED':
     {
       return {
         ...state,
@@ -32,7 +35,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'FETCH_PRODUCTMOVEMENTS_FULFILLED':
+    case 'FETCH_PRODUCT_MOVEMENTS_FULFILLED':
     {
       return {
         ...state,
@@ -40,7 +43,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'SET_PRODUCTMOVEMENT':
+    case 'SET_PRODUCT_MOVEMENT':
     {
       return {
         ...state,
@@ -48,7 +51,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'CLEAR_PRODUCTMOVEMENT':
+    case 'CLEAR_PRODUCT_MOVEMENT':
     {
       return {
         ...state,

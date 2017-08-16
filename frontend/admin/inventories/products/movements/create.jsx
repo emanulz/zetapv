@@ -8,9 +8,6 @@ import {connect} from 'react-redux'
   return { movements: store.inventories.productmovements }
 })
 export default class Update extends React.Component {
-  componentWillMount() {
-    this.props.dispatch({type: 'CLEAR_PRODUCTMOVEMENT', payload: ''})
-  }
 
   render() {
     return <div className='create row'>

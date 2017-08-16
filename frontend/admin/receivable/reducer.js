@@ -2,6 +2,8 @@
 const clientmovementModel = {
   'document': 0,
   'docType': 'CLIENT_MOVEMENT',
+  'created': '',
+  'updated': '',
   'clientId': '',
   'type': 'CREDIT',
   'amount': 0,

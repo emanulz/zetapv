@@ -1,0 +1,40 @@
+[
+  {
+    "docType": "PRODUCT",
+    "created": "Tue Aug 15 2017 20:31:25 GMT-0600 (CST)",
+    "updated": "",
+    "code": "001",
+    "barcode": "",
+    "description": "LECHE",
+    "unit": "uni",
+    "department": "",
+    "subdepartment": "",
+    "costBased": false,
+    "cost": "",
+    "utility": "",
+    "price": "",
+    "sellPrice": "",
+    "utility2": "",
+    "usePrice2": false,
+    "price2": "",
+    "sellPrice2": "",
+    "utility3": "",
+    "usePrice3": false,
+    "price3": "",
+    "sellPrice3": "",
+    "useTaxes": false,
+    "taxes": 0,
+    "useTaxes2": false,
+    "taxes2": 0,
+    "hasDiscount": false,
+    "discount": "",
+    "isactive": true,
+    "isComposed": false,
+    "isForSale": false,
+    "inventory": "",
+    "minimum": "",
+    "useInventory": ""
+  }
+
+
+]

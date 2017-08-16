@@ -85,12 +85,13 @@ export default class Fields extends React.Component {
   saveBtn() {
     const movement = this.props.movement
     const movements = this.props.movements
-    console.log(movements)
+
     movement.document = getNextNumericCode(movements, 'document')
 
     const fieldsOk = checkClientMovementData(movement, movements)
 
     if (fieldsOk) {
+      movement.created = new Date()
       const obj = {
         db: 'general',
         item: movement,
@@ -110,6 +111,7 @@ export default class Fields extends React.Component {
     const fieldsOk = checkClientMovementData(movement, movements)
 
     if (fieldsOk) {
+      movement.updated = new Date()
       const obj = {
         db: 'general',
         item: movement,

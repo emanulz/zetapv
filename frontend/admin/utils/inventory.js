@@ -8,13 +8,13 @@ export function getAmount(key, movements) {
 
   for (const i in sortedMovements) {
 
-    if (sortedMovements[i].type == 'Input') {
+    if (sortedMovements[i].type == 'INPUT') {
       totalAmount += sortedMovements[i].amount
 
-    } else if (sortedMovements[i].type == 'Output') {
+    } else if (sortedMovements[i].type == 'OUTPUT') {
       totalAmount -= sortedMovements[i].amount
 
-    } else if (sortedMovements[i].type == 'Adjust') {
+    } else if (sortedMovements[i].type == 'ADJUST') {
       totalAmount += sortedMovements[i].amount
       break
     }

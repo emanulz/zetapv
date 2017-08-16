@@ -23,7 +23,6 @@ export default class Composed extends React.Component {
   // Main Layout
   render() {
     const childItems = this.props.childItems.map(item => {
-      console.log(item.noLink)
       const innerItem = item.noLink
         ? <a href={item.href}>
           <span className={`fa ${item.class}`} />
