@@ -4,6 +4,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
+const moment = require('moment')
 // data Tables
 const $ = require('jquery')
 $.DataTable = require('datatables.net')
@@ -84,8 +85,16 @@ export default class DataTable extends React.Component {
       return <tr key={el._id}>
         {headerOrder.map(header => {
 
-          const fieldName = header.field
-          const itemToRender = el[fieldName]
+          // const fieldName = header.field
+          // const itemToRender = el[fieldName]
+
+          const fieldNames = header.field.split('.')
+          let itemToRender = ''
+
+          if (fieldNames.length == 1) itemToRender = el[fieldNames[0]]
+          if (fieldNames.length == 2) itemToRender = el[fieldNames[0]][fieldNames[1]]
+          if (fieldNames.length == 3) itemToRender = el[fieldNames[0]][fieldNames[1]][fieldNames[2]]
+          if (fieldNames.length == 4) itemToRender = el[fieldNames[0]][fieldNames[1]][fieldNames[2]][fieldNames[3]]
 
           let item
           switch (header.type) {
@@ -93,6 +102,15 @@ export default class DataTable extends React.Component {
             {
               item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>
                 ₡ {parseFloat(itemToRender).formatMoney(2, ',', '.')}
+              </td>
+              break
+            }
+
+            case 'date':
+            {
+              const date = moment(itemToRender).format('DD-MM-YYYY HH:mm:ss')
+              item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>
+                {date}
               </td>
               break
             }

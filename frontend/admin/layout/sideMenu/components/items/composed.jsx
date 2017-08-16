@@ -23,11 +23,18 @@ export default class Composed extends React.Component {
   // Main Layout
   render() {
     const childItems = this.props.childItems.map(item => {
-      return <li key={item.text + item.href}>
-        <Link to={item.href}>
+      console.log(item.noLink)
+      const innerItem = item.noLink
+        ? <a href={item.href}>
+          <span className={`fa ${item.class}`} />
+          {item.text}
+        </a>
+        : <Link to={item.href}>
           <span className={`fa ${item.class}`} />
           {item.text}
         </Link>
+      return <li key={item.text + item.href}>
+        {innerItem}
       </li>
     })
     const visible = this.state.visible

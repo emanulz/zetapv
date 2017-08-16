@@ -37,6 +37,10 @@ export default class List extends React.Component {
         field: 'created',
         text: 'Fecha',
         type: 'date'
+      }, {
+        field: 'cart.cartTotal',
+        text: 'Monto',
+        type: 'price'
       }
     ]
 

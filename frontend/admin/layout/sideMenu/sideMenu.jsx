@@ -46,9 +46,26 @@ export default class SideMenu extends React.Component {
       }
     ]
 
+    const childSales = [
+      {
+        text: 'Punto de venta',
+        class: 'fa-shopping-cart',
+        href: '/pos',
+        noLink: true
+      }, {
+        text: 'Ventas',
+        class: 'fa-file-text',
+        href: '/admin/sales'
+      }, {
+        text: 'Donaciones',
+        class: 'fa-money',
+        href: '/admin/donations'
+      }
+    ]
+
     return <div id='sideMenu' className='sideMenu'>
 
-      <h3 className='sideMenu-header'>POS APP</h3>
+      <h3 className='sideMenu-header'>FUDESEMILLAS</h3>
 
       <Search />
 
@@ -60,11 +77,6 @@ export default class SideMenu extends React.Component {
               Inicio</a>
           </li>
           <li>
-            <a href='/pos/'>
-              <span className='fa fa-shopping-cart' />
-              Punto de Venta</a>
-          </li>
-          <li>
             <Link to='/admin'>
               <span className='fa fa-area-chart' />
               Sitio Administrador</Link>
@@ -74,11 +86,7 @@ export default class SideMenu extends React.Component {
               <span className='fa fa-user' />
               Usuarios</Link>
           </li>
-          <li>
-            <Link to='/admin/sales'>
-              <span className='fa fa-file-text' />
-              Ventas</Link>
-          </li>
+          <ComposedItem mainTittle='Ventas' mainIcon='fa-shopping-cart' childItems={childSales} />
           <ComposedItem mainTittle='Clientes' mainIcon='fa-users' childItems={childClients} />
           <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts} />
           <ComposedItem mainTittle='Inventarios' mainIcon='fa-sticky-note' childItems={childInventories} />

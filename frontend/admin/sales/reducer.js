@@ -1,7 +1,19 @@
+const donationModel = {
+  'docType': 'DONATION',
+  'id': 0,
+  'created': '',
+  'date': new Date(),
+  'updated': '',
+  'amount': '',
+  'document': ''
+}
+
 const stateConst = {
   sales: [],
   saleActive: '',
-  saleMovements: []
+  saleMovements: [],
+  donations: [],
+  donationActive: donationModel
 }
 
 export default function reducer(state = stateConst, action) {
@@ -46,6 +58,39 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         saleMovements: action.payload
+      }
+    } // case
+
+    case 'FETCH_DONATIONS_FULFILLED':
+    {
+      return {
+        ...state,
+        donations: action.payload
+      }
+
+    } // case
+
+    case 'FETCH_DONATIONS_REJECTED':
+    {
+      return {
+        ...state,
+        donations: []
+      }
+    } // case
+
+    case 'SET_DONATION':
+    {
+      return {
+        ...state,
+        donationActive: action.payload
+      }
+    } // case
+
+    case 'CLEAR_DONATION':
+    {
+      return {
+        ...state,
+        donationActive: donationModel
       }
     } // case
 

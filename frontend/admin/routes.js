@@ -39,6 +39,10 @@ import ClientMovementsUpdate from './receivable/movements/update.jsx'
 
 import Sales from './sales/list.jsx'
 
+import Donations from './sales/donations/list.jsx'
+import DonationsCreate from './sales/donations/create.jsx'
+import DonationsEdit from './sales/donations/update.jsx'
+
 const routes = <div>
 
   <Route exact path='/admin' render={() => {
@@ -46,14 +50,18 @@ const routes = <div>
   }} />
 
   <Route exact path='/admin/clients' component={ClientsList} />
-  <Route path='/admin/clients/add' component={ClientsCreate} />
-  <Route path='/admin/clients/edit/:client' component={ClientsEdit} />
+  <Route exact path='/admin/clients/add' component={ClientsCreate} />
+  <Route exact path='/admin/clients/edit/:client' component={ClientsEdit} />
 
   <Route exact path='/admin/users' component={UsersList} />
-  <Route path='/admin/users/add' component={UsersCreate} />
-  <Route path='/admin/users/edit/:user' component={UsersEdit} />
+  <Route exact path='/admin/users/add' component={UsersCreate} />
+  <Route exact path='/admin/users/edit/:user' component={UsersEdit} />
 
   <Route exact path='/admin/sales' component={Sales} />
+
+  <Route exact path='/admin/donations' component={Donations} />
+  <Route exact path='/admin/donations/add' component={DonationsCreate} />
+  <Route exact path='/admin/donations/edit/:donation' component={DonationsEdit} />
 
   <Route exact path='/admin/products' component={Products} />
   <Route exact path='/admin/products/add' component={CreateProduct} />

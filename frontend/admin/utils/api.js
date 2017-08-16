@@ -31,7 +31,7 @@ export function setItem(kwargs) {
     const db = new PouchDB(kwargs.db)
 
     db.find({
-      selector: {docType: kwargs.docType, [kwargs.lookUpField]: kwargs.lookUpValue}
+      selector: {docType: {$eq: kwargs.docType}, [kwargs.lookUpField]: {$eq: kwargs.lookUpValue}}
     }).then(function (result) {
 
       if (result.docs.length) {
@@ -61,7 +61,7 @@ export function setItems(kwargs) {
     const db = new PouchDB(kwargs.db)
 
     db.find({
-      selector: {docType: kwargs.docType, [kwargs.lookUpField]: kwargs.lookUpValue}
+      selector: {docType: {$eq: kwargs.docType}, [kwargs.lookUpField]: {$eq: kwargs.lookUpValue}}
     }).then(function (result) {
 
       if (result.docs.length) {
@@ -138,7 +138,7 @@ export function fetchItems(kwargs) {
 
   return function(dispatch) {
     db.find({
-      selector: {docType: kwargs.docType}
+      selector: {docType: {$eq: kwargs.docType}}
       // sort: [type.sortField]
     }).then(function (result) {
       dispatch({type: kwargs.dispatchType, payload: result.docs})

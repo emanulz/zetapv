@@ -146,6 +146,13 @@ export default class Product extends React.Component {
       dispatchErrorType: 'FETCH_SALES_REJECTED'
     }
 
+    const kwargs2 = {
+      db: 'sales',
+      docType: 'DONATION',
+      dispatchType: 'FETCH_DONATIONS_FULFILLED',
+      dispatchErrorType: 'FETCH_DONATIONS_REJECTED'
+    }
+
     localDB.sync(remoteDB, {
       retry: true
     })
@@ -156,6 +163,7 @@ export default class Product extends React.Component {
       })
 
     this.props.dispatch(fetchItems(kwargs))
+    this.props.dispatch(fetchItems(kwargs2))
 
   }
 

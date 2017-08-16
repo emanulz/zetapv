@@ -11,7 +11,7 @@ export default class SideMenu extends React.Component {
 
         return <div id='sideMenu' className='sideMenu'>
 
-                    <h3 className="sideMenu-header">POS APP</h3>
+                    <h3 className="sideMenu-header">FUDESEMILLAS</h3>
 
                     <ul className="sideMenu-items">
                 		<li><a href="/"><span className="fa fa-home"></span> Inicio</a></li>
