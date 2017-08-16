@@ -24,6 +24,7 @@ export default class Cart extends React.Component {
             <th>Des%</th>
             <th>IV</th>
             <th>Precio IVI</th>
+            <th>Lote</th>
             <th>x</th>
           </tr>
         </thead>

@@ -21,20 +21,26 @@ export default class InvoicePanel extends React.Component {
 
   }
 
+  toggleInvoice() {
+
+    this.props.dispatch({type: 'TOGGLE_INVOICE_DESING', payload: -1})
+
+  }
+
   printPanel() {
     window.printDiv('invoice-print')
   }
 
   render() {
 
-    let isVisible = (this.props.panelVisible)
+    const isVisible = (this.props.panelVisible)
       ? 'invoice-panel is-visible'
       : 'invoice-panel'
-    let isFullClass = (this.props.isFull)
+    const isFullClass = (this.props.isFull)
       ? ''
       : ' compact-invoice-on'
 
-    let componentToMount = (this.props.isFull)
+    const componentToMount = (this.props.isFull)
       ? <FullInvoice />
       : <CompactInvoice />
 
@@ -49,6 +55,7 @@ export default class InvoicePanel extends React.Component {
             <i onClick={this.hidePanel.bind(this)} className='fa fa-times' aria-hidden='true' />
             <i onClick={this.togglePanel.bind(this)} className='fa fa-file-text-o' aria-hidden='true' />
             <i onClick={this.printPanel.bind(this)} className='fa fa-print' aria-hidden='true' />
+            <i onClick={this.toggleInvoice.bind(this)} className='fa fa-coffee' aria-hidden='true' />
           </div>
         </div>
 

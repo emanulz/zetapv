@@ -4,7 +4,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateTotals, removeFromCart} from './actions'
-import {updateItemDiscount} from '../product/actions'
+import {updateItemDiscount, updateItemLote} from '../product/actions'
 
 @connect((store) => {
   return {inCart: store.cart.cartItems,
@@ -41,6 +41,28 @@ export default class CartItems extends React.Component {
       : 0
     this.props.dispatch(updateItemDiscount(this.props.inCart, code, discount, this.props.globalDiscount,
       this.props.client))
+
+  }
+
+  loteInputKeyPress(code, ev) {
+
+    if (ev.key == 'Enter') {
+      ev.preventDefault()
+      const lote = (ev.target.value)
+        ? ev.target.value
+        : 0
+      this.props.dispatch(updateItemLote(this.props.inCart, code, lote))
+
+    }
+
+  }
+
+  loteInputOnBlur(code, ev) {
+
+    const lote = (ev.target.value)
+      ? ev.target.value
+      : 0
+    this.props.dispatch(updateItemLote(this.props.inCart, code, lote))
 
   }
 
@@ -94,6 +116,17 @@ export default class CartItems extends React.Component {
         </td>
         <td>
           ₡ {item.totalWithIv.formatMoney(2, ',', '.')}
+        </td>
+        <td style={{
+          'padding': '0'
+        }}>
+          <input
+            disabled={this.props.disabled}
+            onKeyPress={this.loteInputKeyPress.bind(this, item.product.code)}
+            onBlur={this.loteInputOnBlur.bind(this, item.product.code)}
+            type='text' className='form-control'
+            style={{'width': '100px', 'height': '37px'}}
+          />
         </td>
         <td>
           <i disabled={this.props.disabled} onClick={this.removeItem.bind(this, item.product.code)} className='fa fa-minus-square' aria-hidden='true' style={{

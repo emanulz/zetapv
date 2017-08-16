@@ -1,6 +1,7 @@
 const stateConst = {
-  isVisible: false,
-  isFull: true
+  isVisible: true,
+  isFull: true,
+  defaultDesing: true
 }
 
 export default function reducer(state = stateConst, action) {
@@ -29,6 +30,15 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         isFull: !fullOrNot
+      }
+    } // case
+
+    case 'TOGGLE_INVOICE_DESING':
+    {
+      const desingOrNot = state.defaultDesing
+      return {
+        ...state,
+        defaultDesing: !desingOrNot
       }
     } // case
 

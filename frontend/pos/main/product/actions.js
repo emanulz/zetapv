@@ -81,6 +81,28 @@ export function updateItemDiscount(itemsInCart, code, discount, globalDiscount, 
 
 }
 
+// Function to update the inline discount of an item, and reflect it on store
+export function updateItemLote(itemsInCart, code, lote) {
+  const loteNum = !lote ? '-' : lote
+  const indexInCart = itemsInCart.findIndex(item => item.product.code == code) // checks if product exists
+
+  const res = (indexInCart == -1) // if not exists dispatch Not Found, if exists check if already in cart
+    ? {
+      type: 'PRODUCT_IN_CART_NOT_FOUND',
+      payload: -1
+    }
+    : {
+      type: 'UPDATE_CART_ITEM_LOTE',
+      payload: {
+        lote: loteNum,
+        index: indexInCart
+      }
+    }
+
+  return res
+
+}
+
 // When item is selected in code field
 export function productSelected(code, qty, products, itemsInCart, globalDiscount, client) {
 
@@ -118,7 +140,8 @@ function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, product
         discountCurrency: dataNewProd.discountCurrency,
         subTotalNoDiscount: dataNewProd.subTotalNoDiscount,
         subtotal: dataNewProd.subtotal,
-        totalWithIv: dataNewProd.totalWithIv
+        totalWithIv: dataNewProd.totalWithIv,
+        lote: '-'
       }
     }
 
@@ -175,7 +198,8 @@ function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDisc
     discount: productDiscount,
     subTotalNoDiscount: data.subTotalNoDiscount,
     subtotal: data.subtotal,
-    totalWithIv: data.totalWithIv
+    totalWithIv: data.totalWithIv,
+    lote: itemsInCart[index].lote
   }
 }
 

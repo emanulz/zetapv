@@ -35,6 +35,9 @@ export default class Table extends React.Component {
           {taxesText}
         </td>
         <td className='right-in-table'>
+          {item.lote}
+        </td>
+        <td className='right-in-table'>
           ₡ {item.totalWithIv.formatMoney(2, ',', '.')}
         </td>
       </tr>
@@ -49,6 +52,7 @@ export default class Table extends React.Component {
           <th className='right-in-table'>P.U</th>
           <th className='right-in-table'>Des%</th>
           <th className='right-in-table'>IV</th>
+          <th className='right-in-table'>Lote</th>
           <th className='right-in-table'>Precio IVI</th>
         </tr>
       </thead>

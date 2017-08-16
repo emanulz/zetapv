@@ -61,6 +61,18 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'UPDATE_CART_ITEM_LOTE':
+    {
+
+      const newCart = [...state.cartItems]
+      newCart[action.payload.index]['lote'] = action.payload.lote
+
+      return {
+        ...state,
+        cartItems: newCart
+      }
+    } // case
+
     case 'UPDATE_CART_TOTALS':
     {
 

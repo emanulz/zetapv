@@ -3406,6 +3406,10 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       right: 70px; }
       .invoice-panel-header i.fa-print:hover {
         color: black; }
+    .invoice-panel-header i.fa-coffee {
+      right: 100px; }
+      .invoice-panel-header i.fa-coffee:hover {
+        color: black; }
 
 .invoice-panel-container {
   position: absolute;
