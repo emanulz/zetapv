@@ -15,3 +15,17 @@ export function toggleLayout() {
   sideMenu.classList.add('pulled')
 
 }
+
+export function toggleConfigBar() {
+
+  const configBar = document.getElementById('configBar')
+
+  if (configBar.classList.contains('not-visible')) {
+
+    configBar.classList.remove('not-visible')
+    return true
+  }
+
+  configBar.classList.add('not-visible')
+
+}

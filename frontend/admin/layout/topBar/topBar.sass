@@ -6,17 +6,35 @@
     flex-flow: row
     justify-content: space-between
 
+    &-right
+      display: flex
+      flex-flow: row
+      justify-content: flex-end
+
     &-button
       text-align: center
       line-height: 60px
-      font-size: 30px
+      font-size: 27px
       height: 100%
       width: 70px
       color: white
       background-color: $SECONDARY-COLOR
+      cursor: pointer
       &:hover
         background-color: $SECONDARY-COLOR-ACCENT
       &-collapse
         visibility: hidden
         @media screen and (max-width: $BREAK-SMALL)
           visibility: visible
+
+    &-item
+      text-align: center
+      line-height: 60px
+      font-size: 23px
+      height: 100%
+      width: 70px
+      color: rgb(207, 203, 203)
+      cursor: pointer
+      &:hover
+        color: white
+      &-config

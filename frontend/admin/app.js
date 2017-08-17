@@ -11,6 +11,7 @@ import formatMoney from '../utils/formatMoney.js'
 import DbSync from './generalComponents/dbSync/dbSync.jsx'
 import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
+import Configbar from './layout/configBar/configBar.jsx'
 
 // Store
 import store from './store.js'
@@ -29,6 +30,7 @@ ReactDOM.render(
         <SideMenu />
         <div id='mainContainer' className='blur-div mainContainer'>
           <TopBar />
+          <Configbar />
           <div className='mainContainer-content'>
             {routes}
           </div>

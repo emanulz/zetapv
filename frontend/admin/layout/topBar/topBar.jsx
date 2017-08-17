@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import alertify from 'alertifyjs'
-import {toggleLayout} from './actions'
+import {toggleLayout, toggleConfigBar} from './actions'
 
 export default class TopBar extends React.Component {
 
@@ -26,6 +26,10 @@ export default class TopBar extends React.Component {
     })
   }
 
+  configClick() {
+    toggleConfigBar()
+  }
+
   // Main Layout
   render() {
 
@@ -33,8 +37,13 @@ export default class TopBar extends React.Component {
       <div onClick={this.menuClick.bind(this)} className='topBar-button topBar-button-collapse not-visible' >
         <span className='fa fa-bars' />
       </div>
-      <div onClick={this.logOutClick.bind(this)} className='topBar-button topBar-button-logout'>
-        <span className='fa fa-power-off' />
+      <div className='topBar-right'>
+        <div onClick={this.configClick.bind(this)} className='topBar-item topBar-item-config'>
+          <span className='fa fa-gears' />
+        </div>
+        <div onClick={this.logOutClick.bind(this)} className='topBar-button topBar-button-logout'>
+          <span className='fa fa-power-off' />
+        </div>
       </div>
     </div>
 
