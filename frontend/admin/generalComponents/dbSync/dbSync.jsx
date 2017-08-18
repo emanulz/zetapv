@@ -4,6 +4,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchItemsBulk, fetchItems} from '../../utils/api'
+import {loadConfig} from '../../config/actions'
 
 const PouchDB = require('pouchdb')
 
@@ -18,6 +19,7 @@ export default class Product extends React.Component {
     this.syncGeneralDb()
     this.syncUsersDb()
     this.syncSalesDb()
+    this.loadConfigs()
   }
 
   componentDidMount() {
@@ -165,6 +167,21 @@ export default class Product extends React.Component {
     this.props.dispatch(fetchItems(kwargs))
     this.props.dispatch(fetchItems(kwargs2))
 
+  }
+
+  loadConfigs() {
+    // COMPANY DEFAULT CONFIG
+    this.props.dispatch(
+      loadConfig(
+        'company', 'default', 'FETCH_COMPANY_DEFAULT_CONFIG_FULFILLED', 'FETCH_COMPANY_DEFAULT_CONFIG_FAILED'
+      )
+    )
+
+    this.props.dispatch(
+      loadConfig(
+        'company', 'user', 'FETCH_COMPANY_USER_CONFIG_FULFILLED', 'FETCH_COMPANY_USER_CONFIG_FAILED'
+      )
+    )
   }
 
   render() {

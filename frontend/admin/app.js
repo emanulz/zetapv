@@ -13,6 +13,8 @@ import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
 import Configbar from './layout/configBar/configBar.jsx'
 
+import {hideConfigBar} from './layout/configBar/actions'
+
 // Store
 import store from './store.js'
 // Routes
@@ -25,13 +27,13 @@ ReactDOM.render(
   <Provider store={store}>
 
     <Router>
-      <div>
+      <div >
         <DbSync remoteDB='http://emanuelziga:emma101421@192.168.9.108:5984' />
         <SideMenu />
         <div id='mainContainer' className='blur-div mainContainer'>
           <TopBar />
           <Configbar />
-          <div className='mainContainer-content'>
+          <div onClick={hideConfigBar} className='mainContainer-content'>
             {routes}
           </div>
 

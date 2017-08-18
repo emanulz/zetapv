@@ -7,6 +7,7 @@ import products from './products/reducer.js'
 import inventories from './inventories/reducer.js'
 import receivable from './receivable/reducer.js'
 import sales from './sales/reducer.js'
+import config from './config/reducer.js'
 
 export default combineReducers({
   sideMenu,
@@ -15,5 +16,6 @@ export default combineReducers({
   products,
   inventories,
   receivable,
-  sales
+  sales,
+  config
 })

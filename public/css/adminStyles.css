@@ -3377,6 +3377,26 @@ table {
         font-weight: lighter; }
     .configBar-header-bottom {
       margin-bottom: 15px; }
+  .configBar-content-group {
+    padding: 10px 0;
+    border-bottom: 1px solid #ededed; }
+    .configBar-content-group-item {
+      display: block;
+      box-sizing: content-box;
+      cursor: pointer;
+      padding: 0 20px;
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      font-size: 15px;
+      text-decoration: none;
+      color: black; }
+      .configBar-content-group-item:hover {
+        background-color: #354052;
+        text-decoration: none;
+        color: white; }
+      .configBar-content-group-item .text {
+        margin-left: 10px; }
 
 .dataTables {
   font-family: sans-serif;

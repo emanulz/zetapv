@@ -10,6 +10,7 @@ import pay from './pay/reducer.js'
 import invoice from './invoice/reducer.js'
 import sales from './sales/reducer.js'
 import clientmovements from './movements/clients/reducer'
+import config from './config/reducer'
 
 export default combineReducers({
   products,
@@ -21,5 +22,6 @@ export default combineReducers({
   pay,
   invoice,
   sales,
-  clientmovements
+  clientmovements,
+  config
 })

@@ -24,3 +24,4 @@ pip-log.txt
 /node_modules/*
 /venv/*
 .vscode/*
+/config/user/*.json

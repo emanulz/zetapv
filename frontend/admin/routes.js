@@ -43,11 +43,15 @@ import Donations from './sales/donations/list.jsx'
 import DonationsCreate from './sales/donations/create.jsx'
 import DonationsEdit from './sales/donations/update.jsx'
 
+import CompanyConfig from './config/company/company.jsx'
+
 const routes = <div>
 
   <Route exact path='/admin' render={() => {
     return <h1>HOME</h1>
   }} />
+
+  <Route exact path='/admin/config/company' component={CompanyConfig} />
 
   <Route exact path='/admin/clients' component={ClientsList} />
   <Route exact path='/admin/clients/add' component={ClientsCreate} />
