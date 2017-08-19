@@ -1,53 +1,40 @@
 const stateConst = {
   defaultCompany: {},
-  userCompany: {}
+  defaultSales: {},
+  defaultClients: {},
+
+  userCompany: {},
+  userSales: {},
+  userClients: {}
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
 
-    case 'FETCH_COMPANY_DEFAULT_CONFIG_FULFILLED':
+    case 'FETCH_CONFIG_FULFILLED':
     {
       return {
         ...state,
-        defaultCompany: action.payload
+        [action.payload.property]: action.payload.data
       }
 
     } // case
 
-    case 'FETCH_COMPANY_DEFAULT_CONFIG_REJECTED':
+    case 'FETCH_CONFIG_REJECTED':
     {
       return {
         ...state,
-        defaultCompany: {}
+        [action.payload.property]: {}
       }
 
     } // case
 
-    case 'FETCH_COMPANY_USER_CONFIG_FULFILLED':
+    case 'SET_CONFIG':
     {
       return {
         ...state,
-        userCompany: action.payload
-      }
-
-    } // case
-
-    case 'FETCH_COMPANY_USER_CONFIG_REJECTED':
-    {
-      return {
-        ...state,
-        userCompany: {}
-      }
-
-    } // case
-
-    case 'SET_COMPANY_USER_CONFIG':
-    {
-      return {
-        ...state,
-        userCompany: action.payload
+        [action.payload.property]: action.payload.data
       }
 
     } // case

@@ -50,7 +50,7 @@ export function updateTotals(inCart) {
 // Finds a code in the cart and sends a dispatch to remove it from cart based on index
 export function removeFromCart(itemsInCart, code) {
 
-  const indexInCart = itemsInCart.findIndex(item => item.product.code == code) // checks if product exists
+  const indexInCart = itemsInCart.findIndex(item => item.uuid == code) // checks if product exists
 
   const res = (indexInCart == -1) // if not exists dispatch Not Found, if exists check if already in cart
     ? {

@@ -11,6 +11,7 @@ import printDiv from '../utils/printDiv.js'
 import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
 import DbSync from './generalComponents/dbSync/dbSync.jsx'
+import Config from './config/config.jsx'
 
 // components
 import Main from './main/main.jsx'
@@ -32,6 +33,7 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <DbSync remoteDB='http://emanuelziga:emma101421@192.168.9.108:5984' />
+      <Config />
       <SideMenu />
       <div id='mainContainer' className='blur-div mainContainer'>
         <TopBar />

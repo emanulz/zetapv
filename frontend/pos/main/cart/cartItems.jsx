@@ -77,8 +77,8 @@ export default class CartItems extends React.Component {
   render() {
     const cartItems = this.props.inCart
 
-    const items = cartItems.map((item) => {
-
+    const items = cartItems.map((item, index) => {
+      console.log('INDEXXXX', index)
       const taxes1 = (item.product.useTaxes)
         ? item.product.taxes
         : 0
@@ -87,7 +87,7 @@ export default class CartItems extends React.Component {
         : 0
 
       const taxesText = `${taxes1 + taxes2}%`
-      return <tr key={item.product.code}>
+      return <tr key={item.uuid}>
         <td>
           {item.product.code}
         </td>
@@ -105,8 +105,8 @@ export default class CartItems extends React.Component {
         }}>
           <input
             disabled={this.props.disabled}
-            onKeyPress={this.discountInputKeyPress.bind(this, item.product.code)}
-            onBlur={this.discountInputOnBlur.bind(this, item.product.code)}
+            onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
+            onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
             type='number' className='form-control'
             style={{'width': '55px', 'height': '37px'}}
           />
@@ -122,14 +122,14 @@ export default class CartItems extends React.Component {
         }}>
           <input
             disabled={this.props.disabled}
-            onKeyPress={this.loteInputKeyPress.bind(this, item.product.code)}
-            onBlur={this.loteInputOnBlur.bind(this, item.product.code)}
+            onKeyPress={this.loteInputKeyPress.bind(this, item.uuid)}
+            onBlur={this.loteInputOnBlur.bind(this, item.uuid)}
             type='text' className='form-control'
             style={{'width': '100px', 'height': '37px'}}
           />
         </td>
         <td>
-          <i disabled={this.props.disabled} onClick={this.removeItem.bind(this, item.product.code)} className='fa fa-minus-square' aria-hidden='true' style={{
+          <i disabled={this.props.disabled} onClick={this.removeItem.bind(this, item.uuid)} className='fa fa-minus-square' aria-hidden='true' style={{
             cursor: 'pointer'
           }} />
         </td>

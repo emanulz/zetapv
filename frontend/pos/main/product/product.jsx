@@ -12,7 +12,9 @@ import {productSelected, searchProduct} from './actions'
     itemsInCart: store.cart.cartItems,
     inputVal: store.products.inputVal,
     globalDiscount: store.cart.globalDiscount,
-    disabled: store.sales.completed
+    disabled: store.sales.completed,
+    defaultConfig: store.config.defaultSales,
+    userConfig: store.config.userSales
   }
 })
 export default class Product extends React.Component {
@@ -42,7 +44,7 @@ export default class Product extends React.Component {
         : parseFloat(qty) // if no qty sets to 1
 
       this.props.dispatch(productSelected(code, qty, this.props.products, this.props.itemsInCart,
-        this.props.globalDiscount, this.props.client))
+        this.props.globalDiscount, this.props.client, this.props.defaultConfig, this.props.userConfig))
     } else {
       this.props.dispatch({type: 'SET_PRODUCT_FIELD_VALUE', payload: ev.target.value})
     }

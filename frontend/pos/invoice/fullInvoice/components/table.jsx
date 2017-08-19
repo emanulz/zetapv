@@ -16,7 +16,7 @@ export default class Table extends React.Component {
         ? `G`
         : `E`
 
-      return <tr key={item.product.code}>
+      return <tr key={item.uuid}>
         <td>
           {item.product.code}
         </td>

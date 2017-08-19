@@ -8,7 +8,8 @@ import alertify from 'alertifyjs'
 import formatMoney from '../utils/formatMoney.js'
 
 // layout components
-import DbSync from './generalComponents/dbSync/dbSync.jsx'
+import DbSync from './dbSync/dbSync.jsx'
+import Config from './config/config.jsx'
 import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
 import Configbar from './layout/configBar/configBar.jsx'
@@ -29,6 +30,7 @@ ReactDOM.render(
     <Router>
       <div >
         <DbSync remoteDB='http://emanuelziga:emma101421@192.168.9.108:5984' />
+        <Config />
         <SideMenu />
         <div id='mainContainer' className='blur-div mainContainer'>
           <TopBar />

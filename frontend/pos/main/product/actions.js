@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------------------
 // MODULE IMPORTS
 // ------------------------------------------------------------------------------------------
-
+const uuidv1 = require('uuid/v1')
 const PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-find'))
 
@@ -62,7 +62,7 @@ export function recalcCart(itemsInCart, globalDiscount, client) {
 // Function to update the inline discount of an item, and reflect it on store
 export function updateItemDiscount(itemsInCart, code, discount, globalDiscount, client) {
 
-  const indexInCart = itemsInCart.findIndex(item => item.product.code == code) // checks if product exists
+  const indexInCart = itemsInCart.findIndex(item => item.uuid == code) // checks if product exists
 
   const res = (indexInCart == -1) // if not exists dispatch Not Found, if exists check if already in cart
     ? {
@@ -72,7 +72,8 @@ export function updateItemDiscount(itemsInCart, code, discount, globalDiscount, 
     : {
       type: 'UPDATE_CART',
       payload: {
-        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty, discount, globalDiscount, client),
+        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty, discount, globalDiscount, client,
+          itemsInCart[indexInCart].uuid),
         index: indexInCart
       }
     }
@@ -84,7 +85,7 @@ export function updateItemDiscount(itemsInCart, code, discount, globalDiscount, 
 // Function to update the inline discount of an item, and reflect it on store
 export function updateItemLote(itemsInCart, code, lote) {
   const loteNum = !lote ? '-' : lote
-  const indexInCart = itemsInCart.findIndex(item => item.product.code == code) // checks if product exists
+  const indexInCart = itemsInCart.findIndex(item => item.uuid == code) // checks if product exists
 
   const res = (indexInCart == -1) // if not exists dispatch Not Found, if exists check if already in cart
     ? {
@@ -104,7 +105,9 @@ export function updateItemLote(itemsInCart, code, lote) {
 }
 
 // When item is selected in code field
-export function productSelected(code, qty, products, itemsInCart, globalDiscount, client) {
+export function productSelected(code, qty, products, itemsInCart, globalDiscount, client, defaultConfig, userConfig) {
+
+  const perLine = userConfig.cartSingleLinePerItem || defaultConfig.cartSingleLinePerItem
 
   const productSelected = products.findIndex(product => product.code == code) // checks if product exists
 
@@ -113,7 +116,7 @@ export function productSelected(code, qty, products, itemsInCart, globalDiscount
       type: 'PRODUCT_NOT_FOUND',
       payload: -1
     }
-    : checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client)
+    : checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client, perLine)
 
   return res
 
@@ -124,16 +127,48 @@ export function productSelected(code, qty, products, itemsInCart, globalDiscount
 // ------------------------------------------------------------------------------------------
 
 // checks in cart if item already exists
-function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client) {
+function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client, perLine) {
 
   const indexInCart = itemsInCart.findIndex(cart => cart.product.code == code) // check if product in cart
 
   const dataNewProd = caclSubtotal(products[productSelected], qty, 0, globalDiscount, client)
 
-  const res = (indexInCart == -1) // if not exists in cart Dispats ADD_TO_TABLE, if exists dispatch cart updated
-    ? {
+  // CHECK IF CONFIG ALLOWS MULTIPLE LINES OR NOT
+  if (perLine) {
+    const uuid = uuidv1()
+    const res = (indexInCart == -1) // if not exists in cart Dispats ADD_TO_TABLE, if exists dispatch cart updated
+      ? {
+        type: 'ADD_TO_CART',
+        payload: {
+          uuid: uuid,
+          product: products[productSelected],
+          qty: qty,
+          discount: 0,
+          discountCurrency: dataNewProd.discountCurrency,
+          subTotalNoDiscount: dataNewProd.subTotalNoDiscount,
+          subtotal: dataNewProd.subtotal,
+          totalWithIv: dataNewProd.totalWithIv,
+          lote: '-'
+        }
+      }
+
+      : {
+        type: 'UPDATE_CART',
+        payload: {
+          item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty + qty,
+            itemsInCart[indexInCart].discount, globalDiscount, client, itemsInCart[indexInCart].uuid),
+          index: indexInCart
+        }
+      }
+    return res
+
+  // IGNORE IF ALREADY IN CART IF CONFIG SAYS THAT
+  } else {
+    const uuid = uuidv1()
+    const res = {
       type: 'ADD_TO_CART',
       payload: {
+        uuid: uuid,
         product: products[productSelected],
         qty: qty,
         discount: 0,
@@ -144,17 +179,8 @@ function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, product
         lote: '-'
       }
     }
-
-    : {
-      type: 'UPDATE_CART',
-      payload: {
-        item: updatedCartItem(itemsInCart, indexInCart, itemsInCart[indexInCart].qty + qty,
-          itemsInCart[indexInCart].discount, globalDiscount, client),
-        index: indexInCart
-      }
-    }
-
-  return res
+    return res
+  }
 
 }
 
@@ -187,11 +213,12 @@ function caclSubtotal(product, qty, productDiscount, globalDiscount, client) {
 }
 
 // updates an item in the cart with new information, this aux funtion returns new updated object ready for replace the stored one
-function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDiscount, client) {
+function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDiscount, client, uuid) {
 
   const data = caclSubtotal(itemsInCart[index].product, newQty, productDiscount, globalDiscount, client)
 
   return {
+    uuid: uuid,
     product: itemsInCart[index].product,
     discountCurrency: data.discountCurrency,
     qty: newQty,

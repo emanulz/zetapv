@@ -41,9 +41,9 @@ export default class ConfigBar extends React.Component {
             </Link>
           </li>
           <li>
-            <Link to='/admin/config/products' className='configBar-content-group-item'>
-              <span className='fa fa-users' />
-              <span className='text'>Clientes</span>
+            <Link to='/admin/config/sales' className='configBar-content-group-item'>
+              <span className='fa fa-shopping-cart' />
+              <span className='text'>Ventas</span>
             </Link>
           </li>
         </ul>

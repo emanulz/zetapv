@@ -44,7 +44,7 @@ export default class Fields extends React.Component {
 
     userConfig[name] = value
 
-    this.props.dispatch({type: 'SET_COMPANY_USER_CONFIG', payload: userConfig})
+    this.props.dispatch({type: 'SET_CONFIG', payload: {data: userConfig, property: 'userCompany'}})
   }
 
   // BUTTONS
