@@ -53,6 +53,14 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'CLEAR_SALE_MOVEMENTS':
+    {
+      return {
+        ...state,
+        saleMovements: []
+      }
+    } // case
+
     case 'SET_SALE_MOVEMENTS':
     {
       return {

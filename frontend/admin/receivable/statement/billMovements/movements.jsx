@@ -15,6 +15,9 @@ import {fetchItems, setItem, setItems} from '../../../utils/api'
 export default class MovementsList extends React.Component {
 
   componentWillMount() {
+    this.props.dispatch({type: 'CLEAR_SALE', payload: ''})
+    this.props.dispatch({type: 'CLEAR_SALE_MOVEMENTS', payload: ''})
+
     const kwargs = {
       db: 'general',
       docType: 'CLIENT_MOVEMENT',
@@ -94,11 +97,13 @@ export default class MovementsList extends React.Component {
       ? movements.map(movement => {
         return this.movementItem(movement)
       })
-      : <div>No hay movimientos</div>
+      : <tr>
+        <td>NO HAY MOVIMIENTOS</td>
+      </tr>
 
     return <div className='list-container'>
 
-      <h1>Movimientos de factura #{sale.id}</h1>
+      <h1>Movimientos de factura # {sale.id}</h1>
       <div className='row movements'>
         <div className='col-xs-12 col-sm-8'>
           <table className='table table-bordered'>
@@ -119,18 +124,20 @@ export default class MovementsList extends React.Component {
         <div className='totals-sidebar col-xs-12 col-sm-4'>
           <div className='col-xs-12'>
             <table className='table table-bordered'>
-              <tr>
-                <th>Céditos</th>
-                <td>₡ {credits.formatMoney(2, ',', '.')}</td>
-              </tr>
-              <tr>
-                <th>Débitos</th>
-                <td>₡ {debits.formatMoney(2, ',', '.')}</td>
-              </tr>
-              <tr>
-                <th>Saldo:</th>
-                <td>₡ {(credits - debits).formatMoney(2, ',', '.')}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th>Céditos</th>
+                  <td>₡ {credits.formatMoney(2, ',', '.')}</td>
+                </tr>
+                <tr>
+                  <th>Débitos</th>
+                  <td>₡ {debits.formatMoney(2, ',', '.')}</td>
+                </tr>
+                <tr>
+                  <th>Saldo:</th>
+                  <td>₡ {(credits - debits).formatMoney(2, ',', '.')}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>

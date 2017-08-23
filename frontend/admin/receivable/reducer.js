@@ -17,7 +17,8 @@ const stateConst = {
   clientmovements: {},
   clientmovementActive: clientmovementModel,
   clientActiveMovements: [],
-  clientActiveCreditSales: []
+  clientActiveCreditSales: [],
+  clientActiveCreditSalesD: []
 }
 
 export default function reducer(state = stateConst, action) {
@@ -91,6 +92,21 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         clientActiveCreditSales: []
+      }
+    } // case
+
+    case 'SET_SALE_DEBT':
+    {
+      const sale = {...state.clientActiveCreditSales[action.payload.index]}
+      sale.debt = action.payload.debt
+      sale.credits = action.payload.credits
+      sale.debits = action.payload.debits
+
+      const sales = [...state.clientActiveCreditSales]
+      sales[action.payload.index] = sale
+      return {
+        ...state,
+        clientActiveCreditSales: sales
       }
     } // case
 

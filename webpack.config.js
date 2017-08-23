@@ -49,7 +49,7 @@ module.exports = {
                   }
                 }),
                 new ExtractTextPlugin({filename:"./css/[name].css", allChunks: true}),
-                new webpack.optimize.UglifyJsPlugin({ mangle: true, sourcemap: false, warnings: false })
+                new webpack.optimize.UglifyJsPlugin()
               ],
 
 };

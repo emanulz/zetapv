@@ -138,6 +138,7 @@ export default class Product extends React.Component {
     localDB.createIndex({ index: {fields: ['docType']} })
     localDB.createIndex({ index: {fields: ['docType', 'created']} })
     localDB.createIndex({ index: {fields: ['docType', 'id']} })
+    localDB.createIndex({ index: {fields: ['docType', 'client.code', 'pay.payMethod']} })
 
     const kwargs = {
       db: 'sales',

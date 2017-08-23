@@ -11,13 +11,6 @@ router.get('/*', ensureAuthenticated, function(req, res) {
   res.render(path.join(__dirname, '../../frontend/admin/index'))
 })
 
-// app.get('/admin', function (req, res) {
-//   res.render(__dirname + '/frontend/admin/index');
-// })
-// app.get('/admin/*', function (req, res) {
-//   res.render(__dirname + '/frontend/admin/index');
-// })
-
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()

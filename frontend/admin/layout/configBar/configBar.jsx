@@ -13,7 +13,7 @@ export default class ConfigBar extends React.Component {
   // Main Layout
   render() {
 
-    return <div id='configBar' className='configBar'>
+    return <div id='configBar' className='configBar not-visible'>
       <div className='configBar-header'>
         <div className='configBar-header-top' >
           <div>Configuración</div>
