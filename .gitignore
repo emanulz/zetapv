@@ -30,3 +30,11 @@ pip-log.txt
 /users-*/*
 /users
 /users-*
+
+users/CURRENT
+
+users/CURRENT
+
+users/LOG
+
+*.old

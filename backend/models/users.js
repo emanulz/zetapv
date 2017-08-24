@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const PouchDB = require('pouchdb')
-PouchDB.plugin(require('pouchdb-quick-search'))
+PouchDB.plugin(require('pouchdb-find'))
 
 const db = new PouchDB('users')
 
@@ -10,13 +10,12 @@ module.exports.getUserByUsername = function(username, callback) {
     callback(null, {username: username, _id: '123'})
   } else {
 
-    db.search({
-      query: username,
-      fields: ['username']
+    db.find({
+      selector: {username: {$eq: username}}
     }).then(function (res) {
 
-      if (res.rows.length) {
-        db.get(res.rows[0].id).then(item => {
+      if (res.docs.length) {
+        db.get(res.docs[0]._id).then(item => {
 
           callback(null, item)
           console.log(item)

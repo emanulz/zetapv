@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 
 const PouchDB = require('pouchdb')
+PouchDB.plugin(require('pouchdb-find'))
 const compression = require('compression')
 
 const cookieParser = require('cookie-parser')
@@ -13,6 +14,7 @@ const passport = require('passport')
 
 // Couch DB and Pouch Db init
 const db = new PouchDB('users')
+db.createIndex({ index: {fields: ['username']} })
 const remoteDb = new PouchDB(`http://emanuelziga:emma101421@165.227.110.216:5984/users`)
 
 // ROUTING IMPORT
