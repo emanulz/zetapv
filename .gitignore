@@ -25,3 +25,8 @@ pip-log.txt
 /venv/*
 .vscode/*
 /config/user/*.json
+
+/users/*
+/users-*/*
+/users
+/users-*

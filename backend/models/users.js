@@ -16,7 +16,14 @@ module.exports.getUserByUsername = function(username, callback) {
     }).then(function (res) {
 
       if (res.rows.length) {
-        db.get(res.rows[0].id).then(item => callback(null, item))
+        db.get(res.rows[0].id).then(item => {
+
+          callback(null, item)
+          console.log(item)
+
+        }).catch(function (err) {
+          callback(err, null)
+        })
       } else {
         throw new Error('User not Found')
       }
