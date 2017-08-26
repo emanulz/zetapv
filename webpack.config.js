@@ -11,7 +11,6 @@ module.exports = {
   devtool: debug ? "inline-sourcemap" : '',
   entry: {
     landing:"./frontend/landing/app.js",
-    test:"./frontend/test/app.js",
     landingStyles:"./frontend/landing/main.sass",
     pos:"./frontend/pos/app.js",
     posStyles:"./frontend/pos/styles/main.sass",

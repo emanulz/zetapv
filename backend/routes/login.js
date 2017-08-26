@@ -6,13 +6,14 @@ const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/users')
 
 router.get('/', function(req, res) {
-  res.render(path.join(__dirname, '../views/login'))
+  res.render(path.join(__dirname, '../views/login/login'))
 })
 
 passport.use(new LocalStrategy(function(username, password, done) {
   User.getUserByUsername(username, function(err, user) {
     if (err) throw err
     if (!user) {
+      console.log('User Not Found')
       return done(null, false, {message: 'Unknown User'})
     }
 

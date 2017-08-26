@@ -18,16 +18,15 @@ module.exports.getUserByUsername = function(username, callback) {
         db.get(res.docs[0]._id).then(item => {
 
           callback(null, item)
-          console.log(item)
 
         }).catch(function (err) {
-          callback(err, null)
+          throw err
         })
       } else {
-        throw new Error('User not Found')
+        callback(null, null)
       }
     }).catch(function (err) {
-      callback(err, null)
+      throw err
     })
   }
 
