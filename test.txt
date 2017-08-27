@@ -1,0 +1,5 @@
+location ~ ^/(assets/|images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {
+root /home/zetapv/public/;
+access_log off;
+expires 24h;
+}
