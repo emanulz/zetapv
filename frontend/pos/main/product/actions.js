@@ -50,6 +50,7 @@ export function recalcCart(itemsInCart, globalDiscount, client) {
     newItem.totalWithIv = data.totalWithIv
     newItem.discountCurrency = data.discountCurrency
     newItem.subTotalNoDiscount = data.subTotalNoDiscount
+    newItem.priceToUse = data.priceToUse
 
     return newItem
 
@@ -148,7 +149,8 @@ function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, product
           subTotalNoDiscount: dataNewProd.subTotalNoDiscount,
           subtotal: dataNewProd.subtotal,
           totalWithIv: dataNewProd.totalWithIv,
-          lote: '-'
+          lote: '-',
+          priceToUse: dataNewProd.priceToUse
         }
       }
 
@@ -176,7 +178,8 @@ function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, product
         subTotalNoDiscount: dataNewProd.subTotalNoDiscount,
         subtotal: dataNewProd.subtotal,
         totalWithIv: dataNewProd.totalWithIv,
-        lote: '-'
+        lote: '-',
+        priceToUse: dataNewProd.priceToUse
       }
     }
     return res
@@ -208,7 +211,11 @@ function caclSubtotal(product, qty, productDiscount, globalDiscount, client) {
 
   const discountCurrency = discountCurrencyInLine + discountCurrencyGlobal
 
-  return {subtotal: subTotal, totalWithIv: Math.round(totalWithIv), discountCurrency: discountCurrency, subTotalNoDiscount: subTotalNoDiscount}
+  return {subtotal: subTotal,
+    totalWithIv: Math.round(totalWithIv),
+    discountCurrency: discountCurrency,
+    subTotalNoDiscount: subTotalNoDiscount,
+    priceToUse: price}
 
 }
 
@@ -226,7 +233,8 @@ function updatedCartItem(itemsInCart, index, newQty, productDiscount, globalDisc
     subTotalNoDiscount: data.subTotalNoDiscount,
     subtotal: data.subtotal,
     totalWithIv: data.totalWithIv,
-    lote: itemsInCart[index].lote
+    lote: itemsInCart[index].lote,
+    priceToUse: data.priceToUse
   }
 }
 

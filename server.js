@@ -15,7 +15,7 @@ const passport = require('passport')
 // Couch DB and Pouch Db init
 const db = new PouchDB('users')
 db.createIndex({ index: {fields: ['username']} })
-const remoteDb = new PouchDB(`http://emanuelziga:emma101421@165.227.110.216:5984/users`)
+const remoteDb = new PouchDB(`http://emanuelziga:emma101421@165.227.114.237:5984/users`)
 
 // ROUTING IMPORT
 const landing = require('./backend/routes/landing')

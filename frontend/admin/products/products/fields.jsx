@@ -280,13 +280,30 @@ export default class Fields extends React.Component {
 
             <div className='inline-checkbox'>
 
-              <label>Impuesto 2 %</label>
+              <label>Impuestos 2 %</label>
               <input checked={this.props.product.useTaxes2} name='useTaxes2'
                 onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
 
             </div>
             <input disabled={!this.props.product.useTaxes2} value={this.props.product.taxes2}
               name='taxes2' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-product-input-block'>
+          <div className='col-xs-6 first'>
+
+            <div className='inline-checkbox'>
+
+              <label>Comercio Justo %</label>
+              <input checked={this.props.product.useFairTrade} name='useFairTrade'
+                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+
+            </div>
+            <input disabled={!this.props.product.useFairTrade} value={this.props.product.fairTrade}
+              name='fairTrade' onChange={this.handleInputChange.bind(this)}
               type='number' className='form-control' />
 
           </div>

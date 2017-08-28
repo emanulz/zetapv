@@ -25,6 +25,8 @@ const productModel = {
   'taxes': 0,
   'useTaxes2': false,
   'taxes2': 0,
+  'useFairTrade': false,
+  'fairTrade': 0,
   'hasDiscount': false,
   'discount': '',
   'isactive': true,

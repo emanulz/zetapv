@@ -78,7 +78,6 @@ export default class CartItems extends React.Component {
     const cartItems = this.props.inCart
 
     const items = cartItems.map((item, index) => {
-      console.log('INDEXXXX', index)
       const taxes1 = (item.product.useTaxes)
         ? item.product.taxes
         : 0
@@ -98,7 +97,7 @@ export default class CartItems extends React.Component {
           {item.qty}
         </td>
         <td>
-          ₡ {parseFloat(item.product.price).formatMoney(2, ',', '.')}
+          ₡ {parseFloat(item.priceToUse).formatMoney(2, ',', '.')}
         </td>
         <td style={{
           'padding': '0'
