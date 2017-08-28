@@ -44,6 +44,7 @@ import DonationsCreate from './sales/donations/create.jsx'
 import DonationsEdit from './sales/donations/update.jsx'
 
 import CompanyConfig from './config/company/company.jsx'
+import SalesConfig from './config/sales/sales.jsx'
 
 const routes = <div>
 
@@ -52,6 +53,7 @@ const routes = <div>
   }} />
 
   <Route exact path='/admin/config/company' component={CompanyConfig} />
+  <Route exact path='/admin/config/sales' component={SalesConfig} />
 
   <Route exact path='/admin/clients' component={ClientsList} />
   <Route exact path='/admin/clients/add' component={ClientsCreate} />
