@@ -43,6 +43,10 @@ export default class SideMenu extends React.Component {
         text: 'Cuentas por Cobrar',
         class: 'fa-money',
         href: '/admin/receivable'
+      }, {
+        text: 'Pagos',
+        class: 'fa-money',
+        href: '/admin/receivable/pays'
       }
     ]
 

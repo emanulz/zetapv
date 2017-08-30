@@ -66,7 +66,7 @@ export default class Statement extends React.Component {
 
       const kwargs2 = {
         db: 'sales',
-        query: {'docType': {$eq: 'SALE'}, 'client.code': {$eq: code}, 'pay.payMethod': {$eq: 'CREDIT'}},
+        query: {'docType': {$eq: 'SALE'}, 'client._id': {$eq: id}, 'pay.payMethod': {$eq: 'CREDIT'}},
         notFoundMsg: `No se encontraron facturas de crédito con el código de cliente: ${code}`,
         successDispatchType: 'SET_CLIENT_ACTIVE_CREDIT_SALES'
       }
@@ -81,6 +81,7 @@ export default class Statement extends React.Component {
   }
 
   statementItem(sale, client) {
+
     const movClass = sale.type == 'CREDIT' ? 'credit' : 'debit'
     const date = moment(sale.created).format('DD/MM/YYYY')
     const debt = sale.debt ? sale.debt : 0
@@ -100,6 +101,9 @@ export default class Statement extends React.Component {
   render() {
 
     const sales = this.props.creditSales
+    sales.sort((a, b) => {
+      return new Date(a.created) - new Date(b.created)
+    })
     const client = this.props.client
 
     const rows = sales.length
