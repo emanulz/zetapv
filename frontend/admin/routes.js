@@ -2,6 +2,9 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 
 // Routes Components
+
+import Home from './home/home.jsx'
+
 import ClientsList from './clients/list.jsx'
 import ClientsCreate from './clients/create.jsx'
 import ClientsEdit from './clients/update.jsx'
@@ -37,6 +40,8 @@ import ClientMovementsList from './receivable/movements/list.jsx'
 import ClientMovementsCreate from './receivable/movements/create.jsx'
 import ClientMovementsUpdate from './receivable/movements/update.jsx'
 
+import ReceivablePays from './receivable/payments/payments.jsx'
+
 import Sales from './sales/list.jsx'
 
 import Donations from './sales/donations/list.jsx'
@@ -48,9 +53,7 @@ import SalesConfig from './config/sales/sales.jsx'
 
 const routes = <div>
 
-  <Route exact path='/admin' render={() => {
-    return <h1>HOME</h1>
-  }} />
+  <Route exact path='/admin' component={Home} />
 
   <Route exact path='/admin/config/company' component={CompanyConfig} />
   <Route exact path='/admin/config/sales' component={SalesConfig} />
@@ -95,6 +98,7 @@ const routes = <div>
 
   <Route exact path='/admin/receivable/statement/:client' component={Statement} />
   <Route exact path='/admin/receivable/statement/:client/billmovements/:bill' component={BillMovement} />
+  <Route exact path='/admin/receivable/payments/' component={ReceivablePays} />
 
 </div>
 

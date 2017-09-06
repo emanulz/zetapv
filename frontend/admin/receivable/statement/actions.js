@@ -28,7 +28,11 @@ export function checkSalesDebt (sales, movementsDb) {
           if (totalDebits >= totalCredits) debt = 0
           else debt = totalCredits - totalDebits
 
-          dispatch({type: 'SET_SALE_DEBT', payload: {index: i, debt: debt, credits: totalCredits, debits: totalDebits}})
+          sale.debt = debt
+          sale.credits = totalCredits
+          sale.debits = totalDebits
+
+          dispatch({type: 'SET_SALE_DEBT', payload: {sale: sale, index: i}})
 
         } else {
           alertify.alert('Error', `No hay movimientos de crédito para la factura #${sale.id}`)

@@ -20,7 +20,7 @@ import SearchClient from './search/clients/searchPanel.jsx'
 import SearchProduct from './search/products/searchPanel.jsx'
 import Footer from './footer/footer.jsx'
 import PayPanel from './pay/payPanel.jsx'
-import InvoicePanel from './invoice/InvoicePanel/invoicePanel.jsx'
+import InvoicePanel from './invoice/invoicePanel/invoicePanel.jsx'
 
 // store
 import store from './store.js'
@@ -32,7 +32,7 @@ window.printDiv = printDiv
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <DbSync remoteDB='http://emanuelziga:emma101421@165.227.110.216:5984' />
+      <DbSync remoteDB={`${process.env.COUCHDB_REMOTE_SERVER}`} />
       <Config />
       <SideMenu />
       <div id='mainContainer' className='blur-div mainContainer'>

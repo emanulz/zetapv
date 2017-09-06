@@ -8,7 +8,7 @@ const path = require('path')
 // })
 
 router.get('/', ensureAuthenticated, function(req, res) {
-  res.render(path.join(__dirname, '../../frontend/pos/index'))
+  res.render(path.join(__dirname, '../../frontend/pos/index'), {user: req.user})
 })
 
 // app.get('/admin', function (req, res) {

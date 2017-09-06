@@ -7,6 +7,9 @@ const clientModel = {
   'last_name': '',
   'id': '',
   'code': '',
+  'telephone': '',
+  'email': '',
+  'adress': '',
   'has_credit': false,
   'credit_limit': '',
   'credit_days': 0

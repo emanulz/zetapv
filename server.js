@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
 
@@ -15,7 +17,9 @@ const passport = require('passport')
 // Couch DB and Pouch Db init
 const db = new PouchDB('users')
 db.createIndex({ index: {fields: ['username']} })
-const remoteDb = new PouchDB(`http://emanuelziga:emma101421@165.227.110.216:5984/users`)
+
+const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER
+const remoteDb = new PouchDB(`${REMOTE_DB_SERVER}/users`)
 
 // ROUTING IMPORT
 const landing = require('./backend/routes/landing')

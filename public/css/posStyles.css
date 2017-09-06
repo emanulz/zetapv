@@ -3184,6 +3184,29 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     -ms-flex-order: 1;
     order: 1; } }
 
+.sideMenu-user {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  height: 80px;
+  padding: 20px 20px 20px 5px;
+  background-color: #6F7E95; }
+  .sideMenu-user-avatar img {
+    line-height: 80px;
+    height: 40px;
+    border-radius: 50%; }
+  .sideMenu-user-name {
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 15px; }
+    .sideMenu-user-name hr {
+      margin-top: 0;
+      margin-bottom: 0;
+      border-top: 4px solid #eee; }
+  .sideMenu-user-lock {
+    line-height: 40px;
+    font-size: 18px; }
+
 .sideMenu {
   position: fixed;
   top: 0;

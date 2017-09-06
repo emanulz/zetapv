@@ -3,9 +3,17 @@
  */
 import React from 'react'
 import Search from './components/search/search.jsx'
+import User from './components/user/user.jsx'
 import ComposedItem from './components/items/composed.jsx'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
+@connect((store) => {
+  return {
+    userCompanyConfig: store.config.userCompany,
+    defaultCompanyConfig: store.config.defaultCompany
+  }
+})
 export default class SideMenu extends React.Component {
 
   // Main Layout
@@ -46,7 +54,7 @@ export default class SideMenu extends React.Component {
       }, {
         text: 'Pagos',
         class: 'fa-money',
-        href: '/admin/receivable/pays'
+        href: '/admin/receivable/payments'
       }
     ]
 
@@ -67,9 +75,12 @@ export default class SideMenu extends React.Component {
       }
     ]
 
+    // const title = this.props.userCompanyConfig.comercialName || this.props.defaultCompanyConfig.comercialName || 'APP'
+
     return <div id='sideMenu' className='sideMenu'>
 
-      <h3 className='sideMenu-header'>FUDESEMILLAS</h3>
+      {/* <h3 className='sideMenu-header'>{title.toUpperCase()}</h3> */}
+      <User />
 
       <Search />
 

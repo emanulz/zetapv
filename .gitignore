@@ -38,3 +38,4 @@ users/CURRENT
 users/LOG
 
 *.old
+*.env

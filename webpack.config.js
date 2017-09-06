@@ -4,6 +4,7 @@ var path = require('path');
 var CompressionPlugin = require('compression-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
+var Dotenv = require('dotenv-webpack');
 
 
 module.exports = {
@@ -38,14 +39,20 @@ module.exports = {
   },
 
   plugins: debug ?
-                [new ExtractTextPlugin({filename:"./css/[name].css", allChunks: true}),
-                new LiveReloadPlugin(),]
+                [new ExtractTextPlugin({filename: './css/[name].css', allChunks: true}),
+                new LiveReloadPlugin(), new Dotenv({
+                  path: './.env', // Path to .env file (this is the default)
+                  safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
+                })]
                 :
                 [
                 new webpack.DefinePlugin({
-                  'process.env':{
+                  'process.env': {
                     'NODE_ENV': JSON.stringify('production')
                   }
+                }), new Dotenv({
+                  path: './.env', // Path to .env file (this is the default)
+                  safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
                 }),
                 new ExtractTextPlugin({filename:"./css/[name].css", allChunks: true}),
                 new webpack.optimize.UglifyJsPlugin()

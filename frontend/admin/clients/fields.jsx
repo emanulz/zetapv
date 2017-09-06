@@ -187,27 +187,50 @@ export default class Fields extends React.Component {
 
         <div className='form-group'>
           <label>Nombre</label>
-          <input value={this.props.client.name} name='name' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+          <input value={this.props.client.name} name='name' onChange={this.handleInputChange.bind(this)} type='text'
+            className='form-control' />
         </div>
 
         <div className='form-group'>
           <label>Apellidos</label>
-          <input value={this.props.client.last_name} name='last_name' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+          <input value={this.props.client.last_name} name='last_name' onChange={this.handleInputChange.bind(this)}
+            type='text' className='form-control' />
         </div>
 
         <div className='form-group'>
           <label>Identificación</label>
-          <input value={this.props.client.id} onChange={this.handleInputChange.bind(this)} name='id' type='text' className='form-control' />
+          <input value={this.props.client.id} onChange={this.handleInputChange.bind(this)} name='id' type='text'
+            className='form-control' />
         </div>
 
         <div className='form-group'>
           <label>Código</label>
-          <input value={this.props.client.code} name='code' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+          <input value={this.props.client.code} name='code' onChange={this.handleInputChange.bind(this)} type='text'
+            className='form-control' />
+        </div>
+
+        <div className='form-group'>
+          <label>Dirección</label>
+          <input value={this.props.client.adress} name='adress' onChange={this.handleInputChange.bind(this)} type='text'
+            className='form-control' />
+        </div>
+
+        <div className='form-group'>
+          <label>Teléfono</label>
+          <input value={this.props.client.telephone} name='telephone' onChange={this.handleInputChange.bind(this)} type='text'
+            className='form-control' />
+        </div>
+
+        <div className='form-group'>
+          <label>Email</label>
+          <input value={this.props.client.email} name='email' onChange={this.handleInputChange.bind(this)} type='email'
+            className='form-control' />
         </div>
 
         <div className='form-group'>
           <label>Tipo</label>
-          <select onChange={this.handleInputChange.bind(this)} className='form-control' name='clientType' value={this.props.client.clientType} >
+          <select onChange={this.handleInputChange.bind(this)} className='form-control' name='clientType'
+            value={this.props.client.clientType} >
             <option value='GENERAL'>Cliente General</option>
             <option value='DISTRIB'>Distribuidor</option>
             <option value='WHOLESA'>Mayorista</option>
@@ -216,17 +239,20 @@ export default class Fields extends React.Component {
 
         <div className='form-group'>
           <label>Tiene Crédito</label>
-          <input checked={this.props.client.has_credit} name='has_credit' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+          <input checked={this.props.client.has_credit} name='has_credit' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
         </div>
 
         <div className='form-group'>
           <label>Límite de crédito</label>
-          <input value={this.props.client.credit_limit} name='credit_limit' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+          <input value={this.props.client.credit_limit} name='credit_limit' onChange={this.handleInputChange.bind(this)}
+            type='number' className='form-control' />
         </div>
 
         <div className='form-group'>
           <label>Días de crédito</label>
-          <input value={this.props.client.credit_days} name='credit_days' onChange={this.handleInputChange.bind(this)} type='number' className='form-control' />
+          <input value={this.props.client.credit_days} name='credit_days' onChange={this.handleInputChange.bind(this)}
+            type='number' className='form-control' />
         </div>
 
       </div>

@@ -70,7 +70,10 @@ export default class Clients extends React.Component {
 
       <div className='row'>
 
-        <div className='col-xs-2'><img disabled={this.props.disabled} onClick={this.searchClientClick.bind(this)} src='/img/profile.jpg' className='client-avatar' /></div>
+        <div className='col-xs-2'>
+          <img disabled={this.props.disabled} onClick={this.searchClientClick.bind(this)} src='/img/profile.jpg'
+            className='client-avatar' />
+        </div>
 
         <div className='col-xs-10'>
           <span>

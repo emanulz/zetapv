@@ -100,7 +100,7 @@ export default class Statement extends React.Component {
   // Render the product
   render() {
 
-    const sales = this.props.creditSales
+    const sales = this.props.creditSalesD
     sales.sort((a, b) => {
       return new Date(a.created) - new Date(b.created)
     })
