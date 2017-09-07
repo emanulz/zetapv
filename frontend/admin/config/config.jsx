@@ -27,6 +27,10 @@ export default class Config extends React.Component {
     this.fetchConfig('sales', 'default')
     this.fetchConfig('sales', 'user')
 
+    // SALES CONFIG
+    this.fetchConfig('products', 'default')
+    this.fetchConfig('products', 'user')
+
   }
 
   fetchConfig(config, type) {

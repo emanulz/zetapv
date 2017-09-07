@@ -2,10 +2,12 @@ const stateConst = {
   defaultCompany: {},
   defaultSales: {},
   defaultClients: {},
+  defaultProducts: {},
 
   userCompany: {},
   userSales: {},
-  userClients: {}
+  userClients: {},
+  userProducts: {}
 }
 
 export default function reducer(state = stateConst, action) {

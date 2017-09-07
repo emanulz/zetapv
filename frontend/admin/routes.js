@@ -48,8 +48,17 @@ import Donations from './sales/donations/list.jsx'
 import DonationsCreate from './sales/donations/create.jsx'
 import DonationsEdit from './sales/donations/update.jsx'
 
+import Expenses from './expenses/list.jsx'
+import ExpensesCreate from './expenses/create.jsx'
+import ExpensesEdit from './expenses/update.jsx'
+
+import ExpenseCategories from './expenses/categories/list.jsx'
+import ExpenseCategoriesCreate from './expenses/categories/create.jsx'
+import ExpenseCategoriesEdit from './expenses/categories/update.jsx'
+
 import CompanyConfig from './config/company/company.jsx'
 import SalesConfig from './config/sales/sales.jsx'
+import ProductsConfig from './config/products/products.jsx'
 
 const routes = <div>
 
@@ -57,6 +66,7 @@ const routes = <div>
 
   <Route exact path='/admin/config/company' component={CompanyConfig} />
   <Route exact path='/admin/config/sales' component={SalesConfig} />
+  <Route exact path='/admin/config/products' component={ProductsConfig} />
 
   <Route exact path='/admin/clients' component={ClientsList} />
   <Route exact path='/admin/clients/add' component={ClientsCreate} />
@@ -71,6 +81,14 @@ const routes = <div>
   <Route exact path='/admin/donations' component={Donations} />
   <Route exact path='/admin/donations/add' component={DonationsCreate} />
   <Route exact path='/admin/donations/edit/:donation' component={DonationsEdit} />
+
+  <Route exact path='/admin/expenses' component={Expenses} />
+  <Route exact path='/admin/expenses/add' component={ExpensesCreate} />
+  <Route exact path='/admin/expenses/edit/:expense' component={ExpensesEdit} />
+
+  <Route exact path='/admin/expenses/categories' component={ExpenseCategories} />
+  <Route exact path='/admin/expenses/categories/add' component={ExpenseCategoriesCreate} />
+  <Route exact path='/admin/expenses/categories/edit/:category' component={ExpenseCategoriesEdit} />
 
   <Route exact path='/admin/products' component={Products} />
   <Route exact path='/admin/products/add' component={CreateProduct} />

@@ -7,7 +7,9 @@ import {checkProductData, determinAmounts} from '../actions.js'
 @connect((store) => {
   return {
     product: store.products.productActive,
-    products: store.products.products
+    products: store.products.products,
+    userProductConfig: store.config.userProducts,
+    defaultProductConfig: store.config.defaultProducts
   }
 })
 
@@ -177,6 +179,53 @@ export default class Fields extends React.Component {
       </div>
 
     // ********************************************************************
+    // HIDDEN INPUTS BY CONFIG
+    // ********************************************************************
+    let taxes2Field = <div />
+    if (this.props.userProductConfig) {
+      const renderTaxes2 = 'taxes2Field' in this.props.userProductConfig ? this.props.userProductConfig.taxes2Field : false
+
+      if (renderTaxes2) {
+        taxes2Field = <div className='col-xs-6 second'>
+
+          <div className='inline-checkbox'>
+
+            <label>Impuestos 2 %</label>
+            <input checked={this.props.product.useTaxes2} name='useTaxes2'
+              onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+
+          </div>
+          <input disabled={!this.props.product.useTaxes2} value={this.props.product.taxes2}
+            name='taxes2' onChange={this.handleInputChange.bind(this)}
+            type='number' className='form-control' />
+        </div>
+      }
+    }
+
+    let fairTradeField = <div />
+    if (this.props.userProductConfig) {
+      const renderFairTrade = 'fairTradeField' in this.props.userProductConfig
+        ? this.props.userProductConfig.fairTradeField : false
+
+      if (renderFairTrade) {
+        fairTradeField = <div className='col-xs-6 first'>
+
+          <div className='inline-checkbox'>
+
+            <label>Comercio Justo %</label>
+            <input checked={this.props.product.useFairTrade} name='useFairTrade'
+              onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
+
+          </div>
+          <input disabled={!this.props.product.useFairTrade} value={this.props.product.fairTrade}
+            name='fairTrade' onChange={this.handleInputChange.bind(this)}
+            type='number' className='form-control' />
+
+        </div>
+      }
+    }
+
+    // ********************************************************************
     // RETURN BLOCK
     // ********************************************************************
     return <div className='col-xs-12 row'>
@@ -276,37 +325,12 @@ export default class Fields extends React.Component {
 
           </div>
 
-          <div className='col-xs-6 second'>
-
-            <div className='inline-checkbox'>
-
-              <label>Impuestos 2 %</label>
-              <input checked={this.props.product.useTaxes2} name='useTaxes2'
-                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
-
-            </div>
-            <input disabled={!this.props.product.useTaxes2} value={this.props.product.taxes2}
-              name='taxes2' onChange={this.handleInputChange.bind(this)}
-              type='number' className='form-control' />
-
-          </div>
+          {taxes2Field}
         </div>
 
         <div className='form-group row create-product-input-block'>
-          <div className='col-xs-6 first'>
+          {fairTradeField}
 
-            <div className='inline-checkbox'>
-
-              <label>Comercio Justo %</label>
-              <input checked={this.props.product.useFairTrade} name='useFairTrade'
-                onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
-
-            </div>
-            <input disabled={!this.props.product.useFairTrade} value={this.props.product.fairTrade}
-              name='fairTrade' onChange={this.handleInputChange.bind(this)}
-              type='number' className='form-control' />
-
-          </div>
         </div>
 
       </div>

@@ -257,7 +257,7 @@ export default class Fields extends React.Component {
 
           <div className='col-xs-12'>
 
-            <label>Departamento</label>
+            <label>Tipo</label>
             <select value={this.props.movement.type} name='type' onChange={this.handleInputChange.bind(this)} className='form-control'>
               <option value='INPUT'> Entrada </option>
               <option value='OUTPUT'> Salida </option>

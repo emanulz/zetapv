@@ -56,7 +56,7 @@ export default class Fields extends React.Component {
     // console.log(userConfig)
     this.props.dispatch(
       saveConfig(
-        'company', 'user', 'FETCH_COMPANY_USER_CONFIG_FULFILLED', 'FETCH_COMPANY_USER_CONFIG_FAILED', userConfig
+        'company', 'user', 'FETCH_CONFIG_FULFILLED', 'FETCH_CONFIG_FAILED', userConfig
       )
     )
 

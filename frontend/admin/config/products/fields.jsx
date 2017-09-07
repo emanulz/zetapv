@@ -4,7 +4,7 @@ import {saveConfig} from '../actions'
 
 @connect((store) => {
   return {
-    userConfig: store.config.userCompany
+    userConfig: store.config.userProducts
   }
 })
 
@@ -44,7 +44,7 @@ export default class Fields extends React.Component {
 
     userConfig[name] = value
 
-    this.props.dispatch({type: 'SET_CONFIG', payload: {data: userConfig, property: 'userCompany'}})
+    this.props.dispatch({type: 'SET_CONFIG', payload: {data: userConfig, property: 'userProducts'}})
   }
 
   // BUTTONS
@@ -56,12 +56,11 @@ export default class Fields extends React.Component {
     // console.log(userConfig)
     this.props.dispatch(
       saveConfig(
-        'company', 'user', 'FETCH_COMPANY_USER_CONFIG_FULFILLED', 'FETCH_COMPANY_USER_CONFIG_FAILED', userConfig
+        'products', 'user', 'FETCH_CONFIG_FULFILLED', 'FETCH_CONFIG_REJECTED', userConfig
       )
     )
 
   }
-
   render() {
     // ********************************************************************
     // BUTTONS
@@ -85,73 +84,15 @@ export default class Fields extends React.Component {
         <hr />
 
         <div className='form-group'>
-          <label>Razón Social</label>
-          <input value={this.props.userConfig.legalName || ''} name='legalName' onChange={this.handleInputChange.bind(this)}
-            type='text' className='form-control' />
+          <label>Impuesto 2</label>
+          <input checked={this.props.userConfig.taxes2Field || false} name='taxes2Field' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
         </div>
 
         <div className='form-group'>
-          <label>Nombre Comercial</label>
-          <input value={this.props.userConfig.comercialName || ''} name='comercialName' onChange={this.handleInputChange.bind(this)}
-            type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Tipo de Identificación</label>
-          <select onChange={this.handleInputChange.bind(this)} className='form-control' name='idType'
-            value={this.props.userConfig.idType || ''} >
-            <option value=''>-</option>
-            <option value='PERSON'>Física</option>
-            <option value='JURIDI'>Jurídica</option>
-          </select>
-        </div>
-
-        <div className='form-group'>
-          <label>Identificación</label>
-          <input value={this.props.userConfig.id || ''} onChange={this.handleInputChange.bind(this)} name='id'
-            type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Logo</label>
-          <input value={this.props.userConfig.logo || ''} onChange={this.handleInputChange.bind(this)} name='logo'
-            type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Direccion 1</label>
-          <input value={this.props.userConfig.address1 || ''} onChange={this.handleInputChange.bind(this)}
-            name='address1' type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Direccion 2</label>
-          <input value={this.props.userConfig.address2 || ''} onChange={this.handleInputChange.bind(this)}
-            name='address2' type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Provincia</label>
-          <input value={this.props.userConfig.province || ''} onChange={this.handleInputChange.bind(this)}
-            name='province' type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>País</label>
-          <input value={this.props.userConfig.country || ''} onChange={this.handleInputChange.bind(this)}
-            name='country' type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Teléfonos</label>
-          <input value={this.props.userConfig.telephones || ''} onChange={this.handleInputChange.bind(this)}
-            name='telephones'type='text' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Email</label>
-          <input value={this.props.userConfig.email || ''} onChange={this.handleInputChange.bind(this)} name='email'
-            type='text' className='form-control' />
+          <label>Comercio Justo</label>
+          <input checked={this.props.userConfig.fairTradeField || false} name='fairTradeField' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
         </div>
 
       </div>
