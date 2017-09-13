@@ -17,7 +17,7 @@ function done(err) {
 const backupDate = new Date()
 const dateFormated = `${backupDate.getDate()}-${backupDate.getMonth() + 1}-${backupDate.getFullYear()}`
 // backup
-cbr.backup(config, done).pipe(fs.createWriteStream(`./db/backup-${dateFormated}.tar.gz`))
+cbr.backup(config, done).pipe(fs.createWriteStream(`./backups/db/backup-${dateFormated}.tar.gz`))
 
 // restore
 // fs.createReadStream('./db-backup.tar.gz').pipe(cbr.restore(config, done))
