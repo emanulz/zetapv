@@ -4,27 +4,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchItemsBulk, fetchItems} from '../utils/api'
+import {getDbUrl} from './actions'
 
 const PouchDB = require('pouchdb')
 
 window.PouchDB = PouchDB
 
 @connect((store) => {
-  return {products: store.products.products}
+  return {
+    products: store.products.products,
+    dbUrl: store.dbSync.dbUrl
+  }
 })
 export default class Product extends React.Component {
 
   componentWillMount() {
-    this.syncGeneralDb()
-    this.syncUsersDb()
-    this.syncSalesDb()
+    this.props.dispatch(getDbUrl())
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.dbUrl != this.props.dbUrl && nextProps.dbUrl != '') {
+      this.syncGeneralDb(nextProps.dbUrl)
+      this.syncUsersDb(nextProps.dbUrl)
+      this.syncSalesDb(nextProps.dbUrl)
+    }
   }
 
   componentDidMount() {
     document.getElementById('loader').classList.remove('loader')
   }
 
-  syncGeneralDb() {
+  syncGeneralDb(remoteDBUrl) {
 
     const docTypes = [
       {
@@ -62,6 +72,7 @@ export default class Product extends React.Component {
 
     const kwargs = {
       db: 'general',
+      remoteDBUrl: remoteDBUrl,
       fecthFunc: fetchItemsBulk,
       docTypes: docTypes
     }
@@ -73,7 +84,8 @@ export default class Product extends React.Component {
     const _this = this
     // DBs declaration and sync
     const localDB = new PouchDB(kwargs.db)
-    const remoteDB = new PouchDB(`${this.props.remoteDB}/${kwargs.db}`)
+    console.log(this.props.dbUrl)
+    const remoteDB = new PouchDB(`${kwargs.remoteDBUrl}/${kwargs.db}`)
 
     // SYNC
     localDB.sync(remoteDB, {
@@ -102,10 +114,10 @@ export default class Product extends React.Component {
     this.props.dispatch(kwargs.fecthFunc(kwargs))
   }
 
-  syncUsersDb() {
+  syncUsersDb(remoteDBUrl) {
     const _this = this
     const localDB = new PouchDB('users')
-    const remoteDB = new PouchDB(`${this.props.remoteDB}/users`)
+    const remoteDB = new PouchDB(`${remoteDBUrl}/users`)
 
     localDB.createIndex({ index: {fields: ['docType']} })
     localDB.createIndex({ index: {fields: ['docType', 'username']} })
@@ -130,10 +142,10 @@ export default class Product extends React.Component {
 
   }
 
-  syncSalesDb() {
+  syncSalesDb(remoteDBUrl) {
     const _this = this
     const localDB = new PouchDB('sales')
-    const remoteDB = new PouchDB(`${this.props.remoteDB}/sales`)
+    const remoteDB = new PouchDB(`${remoteDBUrl}/sales`)
 
     localDB.createIndex({ index: {fields: ['docType']} })
     localDB.createIndex({ index: {fields: ['docType', 'created']} })

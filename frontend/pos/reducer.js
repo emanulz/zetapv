@@ -11,6 +11,7 @@ import invoice from './invoice/reducer.js'
 import sales from './sales/reducer.js'
 import clientmovements from './movements/clients/reducer'
 import config from './config/reducer'
+import dbSync from './dbSync/reducer.js'
 
 export default combineReducers({
   products,
@@ -23,5 +24,6 @@ export default combineReducers({
   invoice,
   sales,
   clientmovements,
-  config
+  config,
+  dbSync
 })

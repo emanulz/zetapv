@@ -29,7 +29,7 @@ ReactDOM.render(
 
     <Router>
       <div >
-        <DbSync remoteDB={`${process.env.COUCHDB_REMOTE_SERVER}`} />
+        <DbSync />
         <Config />
         <SideMenu />
         <div id='mainContainer' className='blur-div mainContainer'>

@@ -9,6 +9,7 @@ import receivable from './receivable/reducer.js'
 import sales from './sales/reducer.js'
 import config from './config/reducer.js'
 import expenses from './expenses/reducer.js'
+import dbSync from './dbSync/reducer.js'
 
 export default combineReducers({
   sideMenu,
@@ -19,5 +20,6 @@ export default combineReducers({
   receivable,
   sales,
   config,
-  expenses
+  expenses,
+  dbSync
 })

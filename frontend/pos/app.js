@@ -10,7 +10,7 @@ import printDiv from '../utils/printDiv.js'
 // layout components
 import TopBar from './layout/topBar/topBar.jsx'
 import SideMenu from './layout/sideMenu/sideMenu.jsx'
-import DbSync from './generalComponents/dbSync/dbSync.jsx'
+import DbSync from './dbSync/dbSync.jsx'
 import Config from './config/config.jsx'
 
 // components

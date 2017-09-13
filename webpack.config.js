@@ -40,19 +40,13 @@ module.exports = {
 
   plugins: debug ?
                 [new ExtractTextPlugin({filename: './css/[name].css', allChunks: true}),
-                new LiveReloadPlugin(), new Dotenv({
-                  path: './.env', // Path to .env file (this is the default)
-                  safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
-                })]
+                new LiveReloadPlugin()]
                 :
                 [
                 new webpack.DefinePlugin({
                   'process.env': {
                     'NODE_ENV': JSON.stringify('production')
                   }
-                }), new Dotenv({
-                  path: './.env', // Path to .env file (this is the default)
-                  safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
                 }),
                 new ExtractTextPlugin({filename:"./css/[name].css", allChunks: true}),
                 new webpack.optimize.UglifyJsPlugin()

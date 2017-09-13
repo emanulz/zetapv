@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const path = require('path')
@@ -16,6 +17,11 @@ router.get('/default/*', ensureAuthenticated, function(req, res) {
 router.get('/user/*', ensureAuthenticated, function(req, res) {
   const fileName = req.originalUrl.split('/').pop()
   res.sendFile(path.join(__dirname, `../../config/user/${fileName}.json`))
+})
+
+router.get('/db', ensureAuthenticated, function(req, res) {
+  const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER
+  res.send(REMOTE_DB_SERVER)
 })
 
 router.post('/user/*', ensureAuthenticated, function(req, res) {

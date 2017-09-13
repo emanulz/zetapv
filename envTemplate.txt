@@ -1,1 +1,1 @@
-COUCHDB_REMOTE_SERVER=
+COUCHDB_REMOTE_SERVER=http://emanuelziga:emma101421@app.compupz.com:5984
