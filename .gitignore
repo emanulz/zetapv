@@ -37,5 +37,7 @@ users/CURRENT
 
 users/LOG
 
+backups/db/*
+
 *.old
 *.env
