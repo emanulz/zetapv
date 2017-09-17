@@ -45,7 +45,8 @@ export default class Product extends React.Component {
       {
         docType: 'PRODUCT',
         dispatchType: 'FETCH_PRODUCTS_FULFILLED',
-        dispatchErrorType: 'FETCH_PRODUCTS_REJECTED'
+        dispatchErrorType: 'FETCH_PRODUCTS_REJECTED',
+        sortField: 'code'
       },
       {
         docType: 'PRODUCT_DEPARTMENT',

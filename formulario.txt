@@ -1,0 +1,76 @@
+Carrera Cadesur <info@cadesurcr.com>
+
+Web CADESUR <noreply@cadesurcr.com>
+
+Nuevo registro para la Carrera Cadesur 2017
+
+De: [nombre] - [correo_elect]
+
+<strong>Datos de Inscripción</strong>
+Nombre: [nombre]
+Primer Apellido: [apellido1]
+Segundo Apellido: [apellido2]
+Número de Cédula: [cedula]
+Teléfono: [telefono]
+Fecha de Nacimiento: [nacimiento]
+Edad: [edad]
+Correo: [correo_elect]
+Dirección: [direccion]
+Género: [sexo]
+Talla de camiseta: [talla]
+Lateralildad: [lateralidad]
+Categoría Masculina: <strong>[cat-masculina]</strong>
+Categoría Femenina: <strong>[cat-femenina]</strong>
+Padecimientos: [padecimientos]
+Comprobante (solo si ha realizado el depósito):[comprobante_pago]
+Beneficiario de la poliza: [beneficiario]
+Cédula del beneficiario: [bene_cedula]
+--
+Este e-mail se ha enviado vía formulario de contacto desde Comerciantes Detallistas del Sur http://www.cadesurcr.com
+
+
+[correo_elect]
+
+CADESUR <carrera@cadesurcr.com>
+
+Carrera Cadesur 2017
+
+
+Saludos [nombre]!
+
+Gracias por completar el formulario de inscripción.
+
+Recordar que para quedar debidamente inscrit@, debemos verificar su pago en PayPal, o su depósito bancario, para lo cual nos debe reportar  al correo carrera@cadesur.co.cr, <strong>el número de comprobante con su respectivo número de cédula</strong>.
+
+Su depósito bancario lo puede realizar en la siguiente cuenta del Banco de Costa Rica:
+
+Cuenta cliente: <strong>15201245000488795</strong>
+Cuenta Corriente: <strong>245-0004887-9</strong>
+
+Si ya realizó su pago a través de depósito bancario, puede enviarnos el número de comprobante, lo antes posible, al correo <strong>carrera@cadesur.co.cr</strong> para completar su inscripción, o solamente respondiendo este mensaje.
+
+Para cualquier consulta adicional, puede comunicarse con nosotros también vía telefónica al número (506)  2771-3282.
+
+Esto son los datos que recibimos.
+
+<strong>Datos de Inscripción</strong>
+Nombre: [nombre]
+Primer Apellido: [apellido1]
+Segundo Apellido: [apellido2]
+Número de Cédula: [cedula]
+Teléfono: [telefono]
+Fecha de Nacimiento: [nacimiento]
+Edad: [edad]
+Correo: [correo_elect]
+Dirección: [direccion]
+Género: [sexo]
+Talla de camiseta: [talla]
+Lateralildad: [lateralidad]
+Categoría Masculina: <strong>[cat-masculina]</strong>
+Categoría Femenina: <strong>[cat-femenina]</strong>
+Padecimientos: [padecimientos]
+Comprobante:[comprobante_pago]
+Beneficiario de la poliza: [beneficiario]
+Cédula del beneficiario: [bene_cedula]
+--
+Este e-mail se ha enviado vía formulario de contacto desde Comerciantes Detallistas del Sur http://www.cadesurcr.com

@@ -21,6 +21,10 @@ const productModel = {
   'usePrice3': false,
   'price3': '',
   'sellPrice3': '',
+  'utility4': '',
+  'usePrice4': false,
+  'price4': '',
+  'sellPrice4': '',
   'useTaxes': false,
   'taxes': 0,
   'useTaxes2': false,
@@ -62,13 +66,15 @@ const stateConst = {
   productsFetching: false,
   productsFected: false,
   productsFetchError: '',
-  products: {},
+  products: [],
   productActive: productModel,
-  departments: {},
+  departments: [],
   departmentActive: departmentModel,
-  subdepartments: {},
+  subdepartments: [],
   subdepartmentActive: subDepartmentModel,
-  inputVal: ''
+  inputVal: '',
+  nextProduct: 0,
+  previousProduct: 0
 }
 
 export default function reducer(state = stateConst, action) {
@@ -79,11 +85,29 @@ export default function reducer(state = stateConst, action) {
     // PRODUCTS
     // ***********************************
 
+    case 'SET_NEXT_PREV_PRODUCT':
+    {
+      return {
+        ...state,
+        nextProduct: action.payload.next,
+        previousProduct: action.payload.previous
+      }
+    } // case
+
+    case 'CLEAR_NEXT_PREV_PRODUCT':
+    {
+      return {
+        ...state,
+        nextProduct: 0,
+        previousProduct: 0
+      }
+    } // case
+
     case 'FETCH_PRODUCTS_REJECTED':
     {
       return {
         ...state,
-        products: {},
+        products: [],
         productsFetching: false,
         productsFetchError: action.payload
       }
@@ -132,7 +156,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        departments: {}
+        departments: []
       }
     } // case
 
@@ -169,7 +193,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        subdepartments: {}
+        subdepartments: []
       }
     } // case
 

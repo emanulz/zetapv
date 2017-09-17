@@ -3503,7 +3503,7 @@ table {
   padding: 0; }
 
 .create h1 {
-  font-size: 20px;
+  font-size: 18px;
   font-family: sans-serif; }
 
 .create-input-block .first {
@@ -3580,7 +3580,7 @@ table {
   font-family: sans-serif; }
 
 .products-list-container h1 {
-  font-size: 25px;
+  font-size: 20px;
   font-family: sans-serif; }
 
 .create-product .first {
@@ -3610,7 +3610,14 @@ table {
   padding-left: 10px; }
 
 .create-product-fields-container {
+  font-family: sans-serif;
   padding-top: 15px !important; }
+  .create-product-fields-container textarea {
+    resize: none !important;
+    height: 102px !important;
+    font-size: 13px; }
+  .create-product-fields-container input {
+    font-size: 13px !important; }
   .create-product-fields-container.first {
     padding-right: 10px; }
   .create-product-fields-container.second {
@@ -3623,7 +3630,7 @@ table {
     margin: 5px 0 15px 0;
     border-top: 1px solid #354052; }
   .create-product-fields-container label {
-    font-size: 14px;
+    font-size: 13px;
     font-family: sans-serif;
     font-weight: bold;
     margin-bottom: 5px; }
@@ -3634,9 +3641,35 @@ table {
       width: 20px;
       height: 18px;
       margin: 0 15px; }
-  .create-product-fields-container.buttons .col-xs-6 {
-    padding-right: 10px;
-    margin-bottom: 10px; }
+    .create-product-fields-container .inline-checkbox-after-field {
+      margin-top: 2px; }
+
+.inventory-block {
+  padding-top: 15px; }
+
+.buttons button {
+  font-family: sans-serif;
+  margin-bottom: 10px;
+  font-size: 13px !important; }
+
+.edit-header {
+  display: flex;
+  flex-flow: row; }
+  .edit-header span {
+    line-height: 16px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #354052; }
+    .edit-header span:hover {
+      color: #262E3B; }
+  .edit-header .previous {
+    margin-left: 20px; }
+  .edit-header .next {
+    margin-left: 10px; }
+  .edit-header .list {
+    font-size: 28px;
+    line-height: 18px;
+    margin-left: 50px; }
 
 .movements {
   padding-top: 20px; }

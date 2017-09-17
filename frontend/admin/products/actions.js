@@ -104,6 +104,12 @@ export function determinAmounts(product, fieldName, value) {
       product = fromSellPrice(product, value, 'price3', 'utility3')
       return product
     }
+
+    case 'sellPrice4':
+    {
+      product = fromSellPrice(product, value, 'price4', 'utility4')
+      return product
+    }
     case 'price':
     {
       product = fromPrice(product, value, 'sellPrice', 'utility')
@@ -117,6 +123,12 @@ export function determinAmounts(product, fieldName, value) {
     case 'price3':
     {
       product = fromPrice(product, value, 'sellPrice3', 'utility3')
+      return product
+    }
+
+    case 'price4':
+    {
+      product = fromPrice(product, value, 'sellPrice4', 'utility4')
       return product
     }
 
@@ -173,6 +185,11 @@ export function determinAmounts(product, fieldName, value) {
     case 'utility3':
     {
       product = fromUtility(product, value, 'price3', 'sellPrice3')
+      return product
+    }
+    case 'utility4':
+    {
+      product = fromUtility(product, value, 'price4', 'sellPrice4')
       return product
     }
 
@@ -240,9 +257,13 @@ function fromCost(product, cost) {
     price2 = price2 * (1 + fairTrade)
     product['price2'] = price2.toFixed(2)
 
-    let price3 = cost && product.utility2 ? parseFloat(cost) * (1 + (parseFloat(product.utility3) / 100)) : 0
+    let price3 = cost && product.utility3 ? parseFloat(cost) * (1 + (parseFloat(product.utility3) / 100)) : 0
     price3 = price3 * (1 + fairTrade)
     product['price3'] = price3.toFixed(2)
+
+    let price4 = cost && product.utility4 ? parseFloat(cost) * (1 + (parseFloat(product.utility4) / 100)) : 0
+    price4 = price4 * (1 + fairTrade)
+    product['price4'] = price4.toFixed(2)
 
     const sellPrice = (price * iv1) + (price * iv2) + price
     product['sellPrice'] = sellPrice.toFixed(2)
@@ -252,6 +273,9 @@ function fromCost(product, cost) {
 
     const sellPrice3 = (price3 * iv1) + (price3 * iv2) + price3
     product['sellPrice3'] = sellPrice3 ? sellPrice3.toFixed(2) : 0
+
+    const sellPrice4 = (price4 * iv1) + (price4 * iv2) + price4
+    product['sellPrice4'] = sellPrice4 ? sellPrice4.toFixed(2) : 0
 
     return product
 
@@ -264,6 +288,9 @@ function fromCost(product, cost) {
 
     const utility3 = ((parseFloat(product.price3) / parseFloat(cost)) - 1) * 100
     product['utility3'] = utility3.toFixed(2)
+
+    const utility4 = ((parseFloat(product.price4) / parseFloat(cost)) - 1) * 100
+    product['utility4'] = utility4.toFixed(2)
 
     return product
   }
@@ -299,6 +326,7 @@ function taxesChanged(product) {
     product = fromPrice(product, product.price, 'sellPrice', 'utility')
     product = fromPrice(product, product.price2, 'sellPrice2', 'utility2')
     product = fromPrice(product, product.price3, 'sellPrice3', 'utility3')
+    product = fromPrice(product, product.price3, 'sellPrice4', 'utility4')
 
     return product
   }

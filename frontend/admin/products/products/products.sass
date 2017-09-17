@@ -1,9 +1,10 @@
 .products-list-container
     & h1
-        font-size: 25px
+        font-size: 20px
         font-family: sans-serif
 
 .create-product
+
     & .first
         padding-right: 10px
     & .second
@@ -25,7 +26,15 @@
             padding-left: 10px
 
     &-fields-container
+        font-family: sans-serif
         padding-top: 15px !important
+
+        & textarea
+          resize: none !important
+          height: 102px !important
+          font-size: 13px
+        & input
+          font-size: 13px !important
 
         &.first
             padding-right: 10px
@@ -41,7 +50,7 @@
             border-top: 1px solid $PRIMARY-COLOR
 
         & label
-            font-size: 14px
+            font-size: 13px
             font-family: sans-serif
             font-weight: bold
             margin-bottom: 5px
@@ -53,9 +62,33 @@
                 width: 20px
                 height: 18px
                 margin: 0 15px
+            &-after-field
+              margin-top: 2px
 
-        &.buttons
-            & .col-xs-6
+.inventory-block
+  padding-top: 15px
 
-                padding-right: 10px
-                margin-bottom: 10px
+.buttons
+  & button
+    font-family: sans-serif
+    margin-bottom: 10px
+    font-size: 13px !important
+
+.edit-header
+  display: flex
+  flex-flow: row
+  & span
+    line-height: 16px
+    font-size: 32px
+    cursor: pointer
+    color: $PRIMARY-COLOR
+    &:hover
+      color: $PRIMARY-COLOR-ACCENT
+  & .previous
+    margin-left: 20px
+  & .next
+    margin-left: 10px
+  & .list
+    font-size: 28px
+    line-height: 18px
+    margin-left: 50px

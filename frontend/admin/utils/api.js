@@ -55,6 +55,34 @@ export function setItem(kwargs) {
   }
 }
 
+export function setNextPrevItem(kwargs) {
+
+  const code = kwargs.code
+  const items = kwargs.items
+  const codeField = kwargs.codeField
+  let previous = 0
+  let next = 0
+
+  items.sort((a, b) => {
+    return a[codeField] - b[codeField]
+  })
+
+  items.forEach((item, index) => {
+    if (item[codeField] == code) {
+      next = index + 1
+      previous = index - 1
+      return true
+    }
+  })
+
+  const nextCode = items[next] ? items[next][codeField] : items[0][codeField]
+  const prevCode = items[previous] ? items[previous][codeField] : items.pop()[codeField]
+
+  return function(dispatch) {
+    dispatch({type: kwargs.dispatchType, payload: {next: nextCode, previous: prevCode}})
+  }
+}
+
 export function setItems(kwargs) {
 
   return function(dispatch) {
@@ -186,7 +214,6 @@ export function fetchItemsBulk(kwargs) {
     kwargs.docTypes.map(docType => {
       db.find({
         selector: {docType: docType.docType}
-        // sort: [type.sortField]
       }).then(function (result) {
         dispatch({type: docType.dispatchType, payload: result.docs})
       }).catch(function (err) {
