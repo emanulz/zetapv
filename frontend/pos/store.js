@@ -1,11 +1,11 @@
-import { applyMiddleware, createStore } from "redux"
+import { applyMiddleware, createStore } from 'redux'
 
-import logger from "redux-logger"
-import thunk from "redux-thunk"
-import promise from "redux-promise-middleware"
+import logger from 'redux-logger'
+import thunk from 'redux-thunk'
+import promise from 'redux-promise-middleware'
 
-import reducer from "./reducer"
+import reducer from './reducer'
 
-const middleware = applyMiddleware(promise(), thunk, logger)
+const middleware = applyMiddleware(promise(), thunk)
 
 export default createStore(reducer, middleware)
