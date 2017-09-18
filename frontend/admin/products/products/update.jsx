@@ -4,6 +4,8 @@ import Fields from './fields.jsx'
 import {connect} from 'react-redux'
 import {setNextPrevItem} from '../../utils/api'
 import {Link} from 'react-router-dom'
+import ItemsBar from '../../layout/itemsBar/itemsBar.jsx'
+import {toggleItemsBar} from '../../layout/itemsBar/actions'
 
 @connect((store) => {
   return {
@@ -36,6 +38,10 @@ export default class Update extends React.Component {
     }
   }
 
+  toggleBar() {
+    toggleItemsBar()
+  }
+
   render() {
 
     const code = this.props.location.pathname.split('/').pop()
@@ -50,10 +56,12 @@ export default class Update extends React.Component {
         <Link to={`/admin/products/edit/${this.props.nextProduct}`}>
           <span className='next fa fa-chevron-circle-right' />
         </Link>
-        <span className='list fa fa-list' />
+        <span onClick={this.toggleBar.bind(this)} className='list fa fa-list' />
       </div>
 
       <Fields key={code} create={false} update location={this.props.location} />
+
+      <ItemsBar items={this.props.products} tittle='Productos' codeField='code' descriptionField='description' />
 
     </div>
 

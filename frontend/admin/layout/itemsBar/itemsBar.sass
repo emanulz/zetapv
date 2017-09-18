@@ -1,0 +1,42 @@
+.itemsBar
+  position: absolute
+  top: 60px
+  width: 400px
+  height: calc(100% - 60px)
+  right: 0
+  background-color: white
+  z-index: 2
+  box-shadow: -2px 5px 10px 1px rgba(0,0,0,.176)
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif
+  transition: right 0.2s ease
+  &.not-visible
+    right: -400px
+
+  &-header
+    padding: 15px
+    position: relative
+    top: 0
+    left: 0
+    border-bottom: 1px solid #ededed
+    &-top
+      display: flex
+      flex-flow: row
+      justify-content: space-between
+      margin-bottom: 15px
+      &-close span
+        cursor: pointer
+        position: absolute
+        top: 5px
+        right: 15px
+        font-size: 20px
+        font-weight: lighter
+
+  &-content
+    padding: 10px
+    max-height: calc(100% - 100px)
+    overflow: auto
+    font-size: 13px
+    & tr
+      cursor: pointer
+      &:nth-child(even)
+        background: #cacaca

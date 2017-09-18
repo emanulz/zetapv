@@ -11,11 +11,11 @@ export default class User extends React.Component {
     return <div className='sideMenu-user col-xs-12 '>
 
       <div className='sideMenu-user-avatar'>
-        <img src='/img/avatars/emanuel.jpeg' />
+        <img src='/img/avatars/profile.jpg' />
       </div>
 
       <div className='sideMenu-user-name'>
-        <span>Emanuel Zúniga I</span>
+        <span>Administrador Sistema</span>
         <hr />
       </div>
 

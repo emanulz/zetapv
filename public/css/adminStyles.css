@@ -3423,9 +3423,50 @@ table {
       .configBar-content-group-item .text {
         margin-left: 10px; }
 
+.itemsBar {
+  position: absolute;
+  top: 60px;
+  width: 400px;
+  height: calc(100% - 60px);
+  right: 0;
+  background-color: white;
+  z-index: 2;
+  box-shadow: -2px 5px 10px 1px rgba(0, 0, 0, 0.176);
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  transition: right 0.2s ease; }
+  .itemsBar.not-visible {
+    right: -400px; }
+  .itemsBar-header {
+    padding: 15px;
+    position: relative;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #ededed; }
+    .itemsBar-header-top {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+      margin-bottom: 15px; }
+      .itemsBar-header-top-close span {
+        cursor: pointer;
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        font-size: 20px;
+        font-weight: lighter; }
+  .itemsBar-content {
+    padding: 10px;
+    max-height: calc(100% - 100px);
+    overflow: auto;
+    font-size: 13px; }
+    .itemsBar-content tr {
+      cursor: pointer; }
+      .itemsBar-content tr:nth-child(even) {
+        background: #cacaca; }
+
 .dataTables {
   font-family: sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300; }
   .dataTables_length {
     font-size: 15px;
@@ -3550,16 +3591,19 @@ table {
 .select2 {
   width: 100% !important; }
   .select2 span {
-    font-size: 14px; }
+    font-size: 13px !important; }
 
 .select2-results__options li {
   font-family: sans-serif;
-  font-size: 14px; }
+  font-size: 13px !important; }
 
 .select2-container .select2-selection--single {
   height: 35px; }
   .select2-container .select2-selection--single span {
     line-height: 35px; }
+
+.select2-selection__placeholder {
+  font-size: 13px !important; }
 
 .list-container h1 {
   font-size: 25px;
@@ -3657,7 +3701,7 @@ table {
   flex-flow: row; }
   .edit-header span {
     line-height: 16px;
-    font-size: 32px;
+    font-size: 28px;
     cursor: pointer;
     color: #354052; }
     .edit-header span:hover {
@@ -3667,9 +3711,9 @@ table {
   .edit-header .next {
     margin-left: 10px; }
   .edit-header .list {
-    font-size: 28px;
-    line-height: 18px;
-    margin-left: 50px; }
+    font-size: 25px;
+    line-height: 20px;
+    margin-left: 20px; }
 
 .movements {
   padding-top: 20px; }

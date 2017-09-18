@@ -1,0 +1,85 @@
+/*
+ * Module dependencies
+ */
+import React from 'react'
+import {toggleItemsBar} from './actions'
+import {Link} from 'react-router-dom'
+
+export default class ConfigBar extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {items: props.items}
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.items.length && nextProps.items != this.props.items) {
+      this.setState({
+        items: nextProps.items
+      })
+    }
+  }
+
+  closeItemsBar() {
+    toggleItemsBar()
+  }
+
+  filterItems(event) {
+
+    const text = event.target.value.toUpperCase()
+    const items = this.props.items
+    const codeField = this.props.codeField
+    const descriptionField = this.props.descriptionField
+
+    const newItems = items.filter(item => {
+      return item[codeField].toUpperCase().indexOf(text) != -1 ||
+      item[descriptionField].toUpperCase().indexOf(text) != -1
+    })
+
+    this.setState({
+      items: newItems
+    })
+  }
+
+  // Main Layout
+  render() {
+    const codeField = this.props.codeField
+    const descriptionField = this.props.descriptionField
+    const items = this.state.items
+    items.sort((a, b) => {
+      return a[codeField] - b[codeField]
+    })
+    const itemsToRender = items.map(item => {
+      return <tr key={item[codeField]}>
+        <td><Link to={`/admin/products/edit/${item[codeField]}`} >{item[codeField]}</Link></td>
+        <td>{item[descriptionField]}</td>
+      </tr>
+    })
+
+    return <div id='itemsBar' className='itemsBar not-visible'>
+      <div className='itemsBar-header'>
+        <div className='itemsBar-header-top' >
+          <div>{this.props.tittle}</div>
+          <div className='itemsBar-header-top-close'>
+            <span onClick={this.closeItemsBar.bind(this)} className='fa fa-close' />
+          </div>
+        </div>
+        <div className='itemsBar-header-bottom' >
+          <input onChange={this.filterItems.bind(this)} placeholder='Filtrar...' type='text' className='form-control' />
+        </div>
+      </div>
+
+      <div className='itemsBar-content'>
+        <div className='col-xs-12'>
+          <table className='table table-bordered'>
+            <tbody>
+              {itemsToRender}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  }
+
+}

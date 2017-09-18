@@ -3,13 +3,16 @@ import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
 import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
 import {checkProductData, determinAmounts} from '../actions.js'
+import Select2 from 'react-select2-wrapper'
 
 @connect((store) => {
   return {
     product: store.products.productActive,
     products: store.products.products,
     userProductConfig: store.config.userProducts,
-    defaultProductConfig: store.config.defaultProducts
+    defaultProductConfig: store.config.defaultProducts,
+    departments: store.products.departments,
+    subdepartments: store.products.subdepartments
   }
 })
 
@@ -227,6 +230,29 @@ export default class Fields extends React.Component {
     }
 
     // ********************************************************************
+    // SELECT2 DATA
+    // ********************************************************************
+    const departments = this.props.departments
+
+    departments.sort((a, b) => {
+      return a.code - b.code
+    })
+
+    const departmentData = departments.map(department => {
+      return {text: `${department.code} - ${department.name}`, id: department._id}
+    })
+
+    const filteredDepartments = this.props.subdepartments.filter(el => {
+      return el.department == this.props.product.department
+    })
+    filteredDepartments.sort((a, b) => {
+      return a.code - b.code
+    })
+    const subdepartmentData = filteredDepartments.map(subdepartment => {
+      return {text: `${subdepartment.code} - ${subdepartment.name}`, id: subdepartment._id}
+    })
+
+    // ********************************************************************
     // RETURN BLOCK
     // ********************************************************************
     return <div className='col-xs-12 row'>
@@ -281,16 +307,35 @@ export default class Fields extends React.Component {
           <div className='col-xs-6 first'>
 
             <label>Familia</label>
-            <select value={this.props.product.department} name='department' onChange={this.handleInputChange.bind(this)}
-              className='form-control' />
+            <Select2
+              name='department'
+              value={this.props.product.department}
+              className='form-control'
+              onSelect={this.handleInputChange.bind(this)}
+              data={departmentData}
+              options={{
+                placeholder: 'Elija un departamento...',
+                noResultsText: 'Sin elementos'
+              }}
+
+            />
 
           </div>
 
           <div className='col-xs-6 second'>
 
             <label>Sub-Familia</label>
-            <select value={this.props.product.subdepartment} name='subdepartment'
-              onChange={this.handleInputChange.bind(this)} className='form-control' />
+            <Select2
+              name='subdepartment'
+              value={this.props.product.subdepartment}
+              className='form-control'
+              onSelect={this.handleInputChange.bind(this)}
+              data={subdepartmentData}
+              options={{
+                placeholder: 'Elija una sub Familia...',
+                noResultsText: 'Sin elementos'
+              }}
+            />
 
           </div>
         </div>
