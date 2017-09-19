@@ -25,7 +25,8 @@ export default class Update extends React.Component {
 
       <Fields create update={false} location={this.props.location} />
 
-      <ItemsBar items={this.props.products} tittle='Lista de Productos' codeField='code' descriptionField='description' />
+      <ItemsBar items={this.props.products} tittle='Lista de Productos' codeField='code' descriptionField='description'
+        editPath='/admin/products/edit/' />
 
     </div>
   }

@@ -3617,10 +3617,14 @@ table {
     margin-bottom: 25px; }
 
 .client-buttons button {
+  font-family: sans-serif;
   margin-top: 15px; }
 
 .clients-list-container h1 {
   font-size: 25px;
+  font-family: sans-serif; }
+
+.create-fields-container {
   font-family: sans-serif; }
 
 .products-list-container h1 {
@@ -3772,5 +3776,3 @@ table {
 
 .home {
   font-family: sans-serif; }
-
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9hZG1pblN0eWxlcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

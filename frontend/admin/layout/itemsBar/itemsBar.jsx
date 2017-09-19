@@ -45,14 +45,26 @@ export default class ConfigBar extends React.Component {
   render() {
     const codeField = this.props.codeField
     const descriptionField = this.props.descriptionField
+    const descriptionField2 = this.props.descriptionField2 ? this.props.descriptionField2 : ''
     const items = this.state.items
+
     items.sort((a, b) => {
-      return a[codeField] - b[codeField]
+      if (a[codeField] > b[codeField]) {
+        return 1
+      }
+      if (a[codeField] < b[codeField]) {
+        return -1
+      }
+      return 0
     })
+
     const itemsToRender = items.map(item => {
+      const description = this.props.descriptionField2
+        ? `${item[descriptionField]} ${item[descriptionField2]}`
+        : `${item[descriptionField]}`
       return <tr key={item[codeField]}>
-        <td><Link to={`/admin/products/edit/${item[codeField]}`} >{item[codeField]}</Link></td>
-        <td>{item[descriptionField]}</td>
+        <td><Link to={`${this.props.editPath}${item[codeField]}`} >{item[codeField]}</Link></td>
+        <td>{`${description}`}</td>
       </tr>
     })
 

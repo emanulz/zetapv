@@ -17,13 +17,33 @@ const clientModel = {
 
 const stateConst = {
   clientsFetchError: '',
-  clients: {},
-  clientActive: clientModel
+  clients: [],
+  clientActive: clientModel,
+  nextClient: 0,
+  previousClient: 0
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    case 'SET_NEXT_PREV_CLIENT':
+    {
+      return {
+        ...state,
+        nextClient: action.payload.next,
+        previousClient: action.payload.previous
+      }
+    } // case
+
+    case 'CLEAR_NEXT_PREV_CLIENT':
+    {
+      return {
+        ...state,
+        nextClient: 0,
+        previousClient: 0
+      }
+    } // case
 
     case 'FETCH_CLIENTS_FULFILLED':
     {
@@ -38,7 +58,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        clients: {},
+        clients: [],
         clientActive: clientModel
       }
     } // case

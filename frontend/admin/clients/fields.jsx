@@ -16,6 +16,7 @@ export default class Fields extends React.Component {
   componentWillMount() {
 
     this.props.dispatch({type: 'CLEAR_CLIENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_NEXT_PREV_CLIENT', payload: ''})
 
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
@@ -180,7 +181,7 @@ export default class Fields extends React.Component {
     // ********************************************************************
     return <div className='col-xs-12 row'>
 
-      <div className='col-xs-6 create-fields-container first'>
+      <div className='col-xs-12 col-sm-6 create-fields-container first'>
 
         <span>Datos generales</span>
         <hr />
@@ -210,6 +211,31 @@ export default class Fields extends React.Component {
         </div>
 
         <div className='form-group'>
+          <label>Tiene Crédito</label>
+          <input checked={this.props.client.has_credit} name='has_credit' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
+        </div>
+
+        <div className='form-group'>
+          <label>Límite de crédito</label>
+          <input value={this.props.client.credit_limit} name='credit_limit' onChange={this.handleInputChange.bind(this)}
+            type='number' className='form-control' />
+        </div>
+
+        <div className='form-group'>
+          <label>Días de crédito</label>
+          <input value={this.props.client.credit_days} name='credit_days' onChange={this.handleInputChange.bind(this)}
+            type='number' className='form-control' />
+        </div>
+
+      </div>
+
+      <div className='col-xs-12 col-sm-6 create-fields-container buttons second'>
+
+        <span>Contacto y Tipo</span>
+        <hr />
+
+        <div className='form-group'>
           <label>Dirección</label>
           <input value={this.props.client.adress} name='adress' onChange={this.handleInputChange.bind(this)} type='text'
             className='form-control' />
@@ -236,28 +262,6 @@ export default class Fields extends React.Component {
             <option value='WHOLESA'>Mayorista</option>
           </select>
         </div>
-
-        <div className='form-group'>
-          <label>Tiene Crédito</label>
-          <input checked={this.props.client.has_credit} name='has_credit' onChange={this.handleInputChange.bind(this)}
-            type='checkbox' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Límite de crédito</label>
-          <input value={this.props.client.credit_limit} name='credit_limit' onChange={this.handleInputChange.bind(this)}
-            type='number' className='form-control' />
-        </div>
-
-        <div className='form-group'>
-          <label>Días de crédito</label>
-          <input value={this.props.client.credit_days} name='credit_days' onChange={this.handleInputChange.bind(this)}
-            type='number' className='form-control' />
-        </div>
-
-      </div>
-
-      <div className='col-xs-12 col-sm-6 create-fields-container buttons second'>
 
         <span>Crear</span>
         <hr />

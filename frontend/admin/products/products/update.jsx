@@ -27,7 +27,9 @@ export default class Update extends React.Component {
     if (nextProps.nextProduct == 0 && nextProps.previousProduct == 0 && nextProps.products.length) {
       console.log(nextProps.products)
       const kwargs = {
-        items: nextProps.products,
+        items: [
+          ...nextProps.products
+        ],
         codeField: 'code',
         code: code,
         dispatchType: 'SET_NEXT_PREV_PRODUCT'
@@ -61,7 +63,8 @@ export default class Update extends React.Component {
 
       <Fields key={code} create={false} update location={this.props.location} />
 
-      <ItemsBar items={this.props.products} tittle='Productos' codeField='code' descriptionField='description' />
+      <ItemsBar items={this.props.products} tittle='Productos' codeField='code' descriptionField='description'
+        editPath='/admin/products/edit/' />
 
     </div>
 

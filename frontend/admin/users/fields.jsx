@@ -17,6 +17,7 @@ export default class Fields extends React.Component {
   componentWillMount() {
 
     this.props.dispatch({type: 'CLEAR_CLIENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_NEXT_PREV_USER', payload: ''})
 
     if (this.props.update) {
       const username = this.props.location.pathname.split('/').pop()
@@ -248,6 +249,13 @@ export default class Fields extends React.Component {
           <input checked={this.props.user.is_admin} name='is_admin' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
         </div>
 
+      </div>
+
+      <div className='col-xs-12 col-sm-6 create-fields-container buttons second'>
+
+        <span>Contraseña</span>
+        <hr />
+
         <div className='form-group'>
           <label>Contraseña</label>
           <input value={this.props.user.password} name='password' onChange={this.handleInputChange.bind(this)} type='password' className='form-control' />
@@ -257,10 +265,6 @@ export default class Fields extends React.Component {
           <label>Confirmar Contraseña</label>
           <input value={this.props.user.password2} name='password2' onChange={this.handleInputChange.bind(this)} type='password' className='form-control' />
         </div>
-
-      </div>
-
-      <div className='col-xs-12 col-sm-6 create-fields-container buttons second'>
 
         <span>Crear</span>
         <hr />

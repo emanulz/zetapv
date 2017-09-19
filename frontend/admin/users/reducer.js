@@ -16,12 +16,32 @@ const userModel = {
 const stateConst = {
   usersFetchError: '',
   users: [],
-  userActive: userModel
+  userActive: userModel,
+  nextUser: 0,
+  previousUser: 0
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    case 'SET_NEXT_PREV_USER':
+    {
+      return {
+        ...state,
+        nextUser: action.payload.next,
+        previousUser: action.payload.previous
+      }
+    } // case
+
+    case 'CLEAR_NEXT_PREV_USER':
+    {
+      return {
+        ...state,
+        nextUser: 0,
+        previousUser: 0
+      }
+    } // case
 
     case 'FETCH_USERS_FULFILLED':
     {
