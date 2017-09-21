@@ -67,6 +67,11 @@ export default class Product extends React.Component {
         docType: 'CLIENT_MOVEMENT',
         dispatchType: 'FETCH_CLIENT_MOVEMENTS_FULFILLED',
         dispatchErrorType: 'FETCH_CLIENT_MOVEMENTS_REJECTED'
+      },
+      {
+        docType: 'EXPENSE',
+        dispatchType: 'FETCH_EXPENSES_FULFILLED',
+        dispatchErrorType: 'FETCH_EXPENSES_REJECTED'
       }
 
     ]

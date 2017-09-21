@@ -34,6 +34,7 @@ export function setItem(kwargs) {
     db.find({
       selector: {docType: {$eq: kwargs.docType}, [kwargs.lookUpField]: {$eq: kwargs.lookUpValue}}
     }).then(function (result) {
+      console.log('RESSSS', result)
       if (result.docs.length) {
 
         if (kwargs.blankFields) {

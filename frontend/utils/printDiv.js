@@ -13,7 +13,7 @@ export default function PrintElem(elem) {
   setTimeout(function() {
     mywindow.print()
     mywindow.close()
-  }, 50)
+  }, 100)
 
   return true
 }

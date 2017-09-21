@@ -52,6 +52,10 @@ export default class SideMenu extends React.Component {
         class: 'fa-money',
         href: '/admin/receivable'
       }, {
+        text: 'Notas de Crédito',
+        class: 'fa-money',
+        href: '/admin/receivable/payments'
+      }, {
         text: 'Pagos',
         class: 'fa-money',
         href: '/admin/receivable/payments'
@@ -69,6 +73,10 @@ export default class SideMenu extends React.Component {
         class: 'fa-file-text',
         href: '/admin/sales'
       }, {
+        text: 'Devoluciones',
+        class: 'fa-money',
+        href: '/admin/donations'
+      }, {
         text: 'Donaciones',
         class: 'fa-money',
         href: '/admin/donations'
@@ -84,6 +92,22 @@ export default class SideMenu extends React.Component {
         text: 'Categorías',
         class: 'fa-file-text',
         href: '/admin/expenses/categories'
+      }
+    ]
+
+    const childSuppliers = [
+      {
+        text: 'Proveedores',
+        class: 'fa-sticky-note',
+        href: '/admin'
+      }, {
+        text: 'Cuentas por pagar',
+        class: 'fa-file-text',
+        href: '/admin'
+      }, {
+        text: 'Pagos',
+        class: 'fa-money',
+        href: '/admin'
       }
     ]
 
@@ -113,6 +137,7 @@ export default class SideMenu extends React.Component {
           <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts} />
           <ComposedItem mainTittle='Gastos' mainIcon='fa-money' childItems={childExpenses} />
           <ComposedItem mainTittle='Inventarios' mainIcon='fa-sticky-note' childItems={childInventories} />
+          <ComposedItem mainTittle='Proveedores' mainIcon='fa-users' childItems={childSuppliers} />
 
         </ul>
       </div>

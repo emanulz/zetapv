@@ -19,7 +19,7 @@ export default class Fields extends React.Component {
     this.props.dispatch({type: 'CLEAR_EXPENSE', payload: ''})
 
     if (this.props.update) {
-      const code = this.props.location.pathname.split('/').pop()
+      const code = parseInt(this.props.location.pathname.split('/').pop())
 
       const kwargs = {
         db: 'general',
