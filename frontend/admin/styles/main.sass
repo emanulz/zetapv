@@ -1,0 +1,46 @@
+@import "../../../public/vendor/side-panel/style"
+@import "../../../node_modules/alertifyjs/build/css/alertify"
+@import "../../../node_modules/alertifyjs/build/css/themes/bootstrap"
+
+@import "../../../node_modules/react-select2-wrapper/css/select2.min.css"
+
+//boostrap just forms and tables
+@import "../../../public/vendor/bootstrap/bootstrap.min"
+//grid system
+@import "../../../public/vendor/flexboxGrid/flexboxgrid.min"
+
+@import "reset"
+@import "adminVars"
+
+
+//defaults
+.mainContainer
+    width: calc(100% - 250px)
+    height: 100%
+    position: fixed
+    top: 0
+    left: 250px
+    z-index: 2
+    transition: left 200ms ease-out
+    @media screen and (max-width: $BREAK-SMALL)
+      left: 0px
+      width: 100%
+      &.pulled
+        left: 250px
+    &-content
+        height: calc(100% - 60px)
+        padding: 30px
+        overflow-y: auto
+        overflow-x: hidden
+
+//Modules Imports
+
+@import "../layout/layout"
+@import "../generalComponents/dataTable/dataTable"
+@import "./crud/createUpdate"
+@import "./crud/list"
+@import "../clients/clients"
+@import "../products/_all"
+@import "../receivable/_all"
+@import "../config/_all"
+@import "../home/home"

@@ -22,11 +22,12 @@ const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER
 const remoteDb = new PouchDB(`${REMOTE_DB_SERVER}/users`)
 
 // ROUTING IMPORT
-const landing = require('./backend/routes/landing')
 const admin = require('./backend/routes/admin')
-const pos = require('./backend/routes/pos')
-const login = require('./backend/routes/login')
 const config = require('./backend/routes/config')
+const inventories = require('./backend/routes/inventories')
+const landing = require('./backend/routes/landing')
+const login = require('./backend/routes/login')
+const pos = require('./backend/routes/pos')
 
 // SYNC DB
 db.sync(remoteDb, {
@@ -91,9 +92,10 @@ app.set('view engine', 'jade')
 // USING ROUTES
 app.use('/', landing)
 app.use('/admin', admin)
-app.use('/pos', pos)
-app.use('/login', login)
 app.use('/config', config)
+app.use('/inventories', inventories)
+app.use('/login', login)
+app.use('/pos', pos)
 
 // Set Port
 app.set('port', (process.env.PORT || 3000))

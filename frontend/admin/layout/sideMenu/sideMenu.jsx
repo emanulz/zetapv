@@ -123,9 +123,14 @@ export default class SideMenu extends React.Component {
       <div className='sideMenu-wrapper'>
         <ul className='sideMenu-items'>
           <li>
+            <a href='/'>
+              <span className='fa fa-home' />
+              Inicio</a>
+          </li>
+          <li>
             <Link to='/admin'>
               <span className='fa fa-area-chart' />
-              Inicio</Link>
+              Administración</Link>
           </li>
           <li>
             <Link to='/admin/users'>
