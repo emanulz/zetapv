@@ -1,0 +1,41 @@
+@import "./user/user"
+.sideMenu
+    position: fixed
+    top: 0
+    left: -250px
+    z-index: 1
+    width: 250px
+    height: 100%
+    background-color: $SIDE-MENU-PRIMARY
+    color: white
+    transition: left 200ms ease-out
+
+    &.visible
+        left: 0
+    &-header
+        display: block
+        font-size: 24px
+        margin: 20px
+        font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif
+        font-weight: 700
+
+    &-items
+        color: white
+        font-size: 14px
+
+        & a
+            font-family: 'Source Sans Pro', sans-serif
+            font-weight: 200
+            display: block
+            height: 25px
+            text-decoration: none
+            color: white
+            font-size: 13px
+            padding: 20px
+            line-height: 25px
+            box-sizing: content-box
+            transition: background-color 0.5s ease
+            & span.fa
+                margin-right: 5px
+            &:hover
+                background-color: $SIDE-MENU-PRIMARY-DARK

@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom'
 // UTILS
 import alertify from 'alertifyjs'
 // COMPONENTS
-import TopBar from '../pos/layout/topBar/topBar.jsx'
-import SideMenu from '../pos/layout/sideMenu/sideMenu.jsx'
+import TopBar from '../layout/topBar/topBar.jsx'
+import SideMenu from '../layout/sideMenu/sideMenu.jsx'
 import {Provider} from 'react-redux'
 import store from './store.js'
 import Config from './config/config.jsx'

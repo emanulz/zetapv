@@ -8,8 +8,8 @@ import formatMoney from '../utils/formatMoney.js'
 import printDiv from '../utils/printDiv.js'
 
 // layout components
-import TopBar from './layout/topBar/topBar.jsx'
-import SideMenu from './layout/sideMenu/sideMenu.jsx'
+import TopBar from '../layout/topBar/topBar.jsx'
+import SideMenu from '../layout/sideMenu/sideMenu.jsx'
 import DbSync from './dbSync/dbSync.jsx'
 import Config from './config/config.jsx'
 

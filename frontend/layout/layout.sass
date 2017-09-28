@@ -1,0 +1,45 @@
+@import "reset"
+@import "layoutVars"
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro')
+//boostrap just forms and tables
+@import "../../public/vendor/bootstrap/bootstrap.min"
+//grid system
+@import "../../public/vendor/flexboxGrid/flexboxgrid.min"
+
+@import "./sideMenu/sideMenu"
+
+//defaults
+.mainContainer
+  width: 100%
+  height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 2
+  transition: left 200ms ease-out
+  &.pulled
+    left: 250px
+
+.btn-danger-custom
+  color: #fff
+  background-color: $SIDE-MENU-SECONDARY
+  border-color: $SIDE-MENU-SECONDARY
+  &:hover
+    background-color: $SIDE-MENU-SECONDARY-DARK
+    border-color: $SIDE-MENU-SECONDARY-DARK
+    color: white
+  &:focus
+    color: white
+
+.btn-success-custom
+  color: #fff
+  background-color: $SIDE-MENU-PRIMARY
+  border-color: $SIDE-MENU-PRIMARY
+  &:hover
+    background-color: $SIDE-MENU-PRIMARY-DARK
+    border-color: $SIDE-MENU-PRIMARY-DARK
+    color: white
+  &:focus
+    color: white
+
+@import "./topBar/topBar"
