@@ -13,6 +13,7 @@ import Config from './config/config.jsx'
 
 import Filters from './filters/filters.jsx'
 import Products from './products/products.jsx'
+import SidePanel from './sidePanel/sidePanel.jsx'
 
 window.alertify = alertify
 // store
@@ -29,6 +30,7 @@ ReactDOM.render(
         <div className='mainContainer-content'>
           <Filters />
           <Products />
+          <SidePanel />
         </div>
 
       </div>

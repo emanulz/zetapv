@@ -12,11 +12,37 @@ import {filterProducts} from './actions'
     movements: store.products.productmovements,
     departmentActive: store.products.departmentActive,
     subdepartmentActive: store.products.subdepartmentActive,
-    filterText: store.products.filterText
+    filterText: store.products.filterText,
+    movement: store.products.productmovementActive
   }
 })
 export default class Products extends React.Component {
 
+  bntInputClick(product, event) {
+    this.props.dispatch({type: 'SET_PRODUCT', payload: {product: product, type: 'INPUT'}})
+    this.props.dispatch({type: 'TOGGLE_PANEL', payload: ''})
+    const movement = {
+      ...this.props.movement
+    }
+
+    movement.productId = product._id
+    movement.type = 'INPUT'
+
+    this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
+  }
+
+  bntOutputClick(product, event) {
+    this.props.dispatch({type: 'SET_PRODUCT', payload: {product: product, type: 'OUTPUT'}})
+    this.props.dispatch({type: 'TOGGLE_PANEL', payload: ''})
+    const movement = {
+      ...this.props.movement
+    }
+
+    movement.productId = product._id
+    movement.type = 'OUTPUT'
+
+    this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
+  }
   // Main Layout
   render() {
 
@@ -45,12 +71,19 @@ export default class Products extends React.Component {
     )
 
     const body = filtered.map(product => {
+      const inputBtn = <button onClick={this.bntInputClick.bind(this, product)} className='btn btn-success'>
+        <span className='fa fa-plus' />
+      </button>
+      const outputBtn = <button onClick={this.bntOutputClick.bind(this, product)} className='fa btn btn-danger'>
+        <span className='fa fa-minus' />
+      </button>
+
       return <tr key={product._id}>
         <td>{product.code}</td>
         <td>{product.description}</td>
         <td className='center'>{product.inventory}</td>
-        <td className='center'>0</td>
-        <td className='center'>0</td>
+        <td className='center'>{inputBtn}</td>
+        <td className='center'>{outputBtn}</td>
       </tr>
     })
 

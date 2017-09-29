@@ -231,7 +231,7 @@ export function getNextNumericCode(elements, field) {
 
     let keys = elements.map(element => element[field])
 
-    keys = keys.sort((a, b) => a > b)
+    keys = keys.sort((a, b) => a - b)
     const max = keys.pop()
     return parseInt(max) + 1
 

@@ -1,12 +1,24 @@
+const productmovementModel = {
+  'document': 0,
+  'docType': 'PRODUCT_MOVEMENT',
+  'created': '',
+  'updated': '',
+  'productId': '',
+  'type': 'INPUT',
+  'amount': 0,
+  'date': new Date(),
+  'description': ''
+}
 
 const stateConst = {
   products: [],
-  productActive: [],
+  productActive: false,
   departments: [],
   departmentActive: '',
   subdepartments: [],
   subdepartmentActive: '',
   productmovements: [],
+  productmovementActive: productmovementModel,
   filterText: ''
 }
 
@@ -50,7 +62,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        productActive: []
+        productActive: {}
       }
     } // case
 
@@ -167,6 +179,22 @@ export default function reducer(state = stateConst, action) {
         productmovements: action.payload
       }
     }
+
+    case 'SET_PRODUCT_MOVEMENT':
+    {
+      return {
+        ...state,
+        productmovementActive: action.payload
+      }
+    }
+
+    case 'CLEAR_PRODUCT_MOVEMENT':
+    {
+      return {
+        ...state,
+        productmovementActive: productmovementModel
+      }
+    } // case
 
   } // switch
 
