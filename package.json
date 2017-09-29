@@ -82,6 +82,7 @@
     "style-loader": "^0.18.2",
     "uuid": "^3.1.0",
     "webpack": "2.7.0",
-    "webpack-livereload-plugin": "^0.11.0"
+    "webpack-livereload-plugin": "^0.11.0",
+    "webpack-obfuscator": "^0.11.2"
   }
 }

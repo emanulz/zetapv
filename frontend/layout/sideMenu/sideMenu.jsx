@@ -39,7 +39,12 @@ export default class SideMenu extends React.Component {
             Sitio Administrador</a>
         </li>
         <li>
-          <a href='/admin/logout/'>
+          <a href='/inventories/'>
+            <span className='fa fa-gift' />
+            Inventarios</a>
+        </li>
+        <li>
+          <a href='/login/logout/'>
             <span className='fa fa-power-off' />
             Cerrar sesión</a>
         </li>

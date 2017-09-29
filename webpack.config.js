@@ -4,6 +4,7 @@ const path = require('path')
 // const CompressionPlugin = require('compression-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const LiveReloadPlugin = require('webpack-livereload-plugin')
+const JavaScriptObfuscator = require('webpack-obfuscator')
 
 const config = {
   // TODO: Add common Configuration
@@ -45,7 +46,20 @@ const jsConfig = Object.assign({}, config, {
           'NODE_ENV': JSON.stringify('production')
         }
       }),
-      new webpack.optimize.UglifyJsPlugin()
+      // new JavaScriptObfuscator({
+      //   rotateUnicodeArray: true
+      // }, []),
+      new webpack.optimize.UglifyJsPlugin({
+        comments: false,
+        compress: {
+          // remove warnings
+          warnings: false,
+
+          // Drop console statements
+          drop_console: true
+        }
+      }),
+      new webpack.optimize.OccurrenceOrderPlugin()
     ]
 
 })
@@ -86,7 +100,8 @@ const stylesConfig = Object.assign({}, config, {
         }
       }),
       new ExtractTextPlugin({filename: './css/[name].css', allChunks: true}),
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.OccurrenceOrderPlugin()
     ]
 
 })

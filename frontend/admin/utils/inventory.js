@@ -2,7 +2,7 @@
 export function getAmount(key, movements) {
 
   const filteredMovements = movements.filter((movement) => movement.productId == key)
-  const sortedMovements = filteredMovements.sort((a, b) => a.date < b.date)
+  const sortedMovements = filteredMovements.sort((a, b) => new Date(b.date) - new Date(a.date))
 
   let totalAmount = 0
 
@@ -19,8 +19,6 @@ export function getAmount(key, movements) {
       break
     }
   }
-
-  console.log(totalAmount)
 
   return totalAmount
 

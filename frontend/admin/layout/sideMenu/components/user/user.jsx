@@ -8,14 +8,21 @@ export default class User extends React.Component {
   // Main Layout
   render() {
 
+    const name = 'Emanuel'
+    const lastName = 'Zúñiga Infante'
+    const avatar = '/img/avatars/emanuel.jpeg'
+
+    let fullName = `${name} ${lastName}`
+    if (fullName.length > 17) fullName = fullName.substring(0, 17)
+
     return <div className='sideMenu-user col-xs-12 '>
 
       <div className='sideMenu-user-avatar'>
-        <img src='/img/avatars/profile.jpg' />
+        <img src={avatar} />
       </div>
 
       <div className='sideMenu-user-name'>
-        <span>Administrador Sistema</span>
+        <span>{fullName}</span>
         <hr />
       </div>
 

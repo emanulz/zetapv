@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {loadConfig} from '../../admin/config/actions'
 
 @connect((store) => {
-  // return {products: store.products.products}
+  return {products: store.products.products}
 })
 export default class Config extends React.Component {
 

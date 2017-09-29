@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-// import products from './main/product/reducer.js'
+import products from './products/reducer.js'
 // import cart from './main/cart/reducer.js'
 // import clients from './sidebar/clients/reducer.js'
 // import searchClients from './search/clients/reducer.js'
@@ -11,10 +11,10 @@ import { combineReducers } from 'redux'
 // import sales from './sales/reducer.js'
 // import clientmovements from './movements/clients/reducer'
 import config from './config/reducer'
-// import dbSync from './dbSync/reducer.js'
+import dbSync from './dbSync/reducer.js'
 
 export default combineReducers({
-  // products,
+  products,
   // cart,
   // clients,
   // searchClients,
@@ -24,6 +24,6 @@ export default combineReducers({
   // invoice,
   // sales,
   // clientmovements,
-  config
-  // dbSync
+  config,
+  dbSync
 })
