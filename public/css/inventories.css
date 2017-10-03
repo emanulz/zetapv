@@ -4291,16 +4291,24 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       font-size: 15px;
       margin-top: 10px;
       margin-bottom: 5px; }
-  .filters button {
-    font-family: 'Source Sans Pro Bold', sans-serif !important;
-    color: white;
-    margin-top: 10px;
-    background-color: #6f7e95; }
-    .filters button:hover {
+    .filters-container-inline {
+      margin-top: 15px;
+      display: flex;
+      flex-flow: row; }
+      .filters-container-inline input[type=checkbox] {
+        zoom: 1.5;
+        height: 15px;
+        margin: 6px 0 0 5px; }
+    .filters-container button {
+      font-family: 'Source Sans Pro Bold', sans-serif !important;
       color: white;
-      background-color: #435267; }
-    .filters button:focus {
-      color: white; }
+      margin-top: 15px;
+      background-color: #6f7e95; }
+      .filters-container button:hover {
+        color: white;
+        background-color: #435267; }
+      .filters-container button:focus {
+        color: white; }
 
 .products {
   padding: 10px;
@@ -4407,5 +4415,3 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
             background-color: #0e1a29; }
           .inventory-sidePanel-container-content-actions button:focus {
             background-color: #354052 !important; }
-
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9pbnZlbnRvcmllcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

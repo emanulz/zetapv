@@ -11,7 +11,8 @@ import {connect} from 'react-redux'
     subdepartments: store.products.subdepartments,
     departmentActive: store.products.departmentActive,
     subdepartmentActive: store.products.subdepartmentActive,
-    filterText: store.products.filterText
+    filterText: store.products.filterText,
+    isPhysicalTake: store.products.isPhysicalTake
   }
 })
 export default class Filters extends React.Component {
@@ -39,6 +40,10 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'CLEAR_FILTER_TEXT', payload: ''})
     this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
     this.props.dispatch({type: 'CLEAR_PRODUCT_DEPARTMENT', payload: ''})
+  }
+
+  togglePhysical () {
+    this.props.dispatch({type: 'TOGGLE_PHYSICAL_TAKE', payload: ''})
   }
 
   // Main Layout
@@ -110,7 +115,12 @@ export default class Filters extends React.Component {
           }}
         />
 
-        <button className='btn form-control' onClick={this.clearFilters.bind(this)}>Limpiar</button>
+        <button className='btn form-control'onClick={this.clearFilters.bind(this)}> Limpiar Filtros </button>
+
+        <div className='filters-container-inline' >
+          <h4>Toma Física:</h4>
+          <input onChange={this.togglePhysical.bind(this)} value={this.props.isPhysicalTake} type='checkbox' />
+        </div>
 
       </div>
 

@@ -73,6 +73,7 @@
     "react-router-dom": "^4.1.1",
     "react-select2": "^4.0.3",
     "react-select2-wrapper": "^1.0.4-beta5",
+    "react-table": "^6.6.0",
     "redux": "^3.7.1",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^4.2.1",

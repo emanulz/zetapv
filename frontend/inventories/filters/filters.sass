@@ -20,13 +20,22 @@
       font-size: 15px
       margin-top: 10px
       margin-bottom: 5px
-  & button
-    font-family: 'Source Sans Pro Bold', sans-serif !important
-    color: white
-    margin-top: 10px
-    background-color: $INV-SECONDARY
-    &:hover
+
+    &-inline
+      margin-top: 15px
+      display: flex
+      flex-flow: row
+      & input[type=checkbox]
+        zoom: 1.5
+        height: 15px
+        margin: 6px 0 0 5px
+    & button
+      font-family: 'Source Sans Pro Bold', sans-serif !important
       color: white
-      background-color: $INV-SECONDARY-DARK
-    &:focus
-      color: white
+      margin-top: 15px
+      background-color: $INV-SECONDARY
+      &:hover
+        color: white
+        background-color: $INV-SECONDARY-DARK
+      &:focus
+        color: white

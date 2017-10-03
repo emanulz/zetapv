@@ -13,7 +13,8 @@ import {filterProducts} from './actions'
     departmentActive: store.products.departmentActive,
     subdepartmentActive: store.products.subdepartmentActive,
     filterText: store.products.filterText,
-    movement: store.products.productmovementActive
+    movement: store.products.productmovementActive,
+    isPhysicalTake: store.products.isPhysicalTake
   }
 })
 export default class Products extends React.Component {
@@ -43,6 +44,9 @@ export default class Products extends React.Component {
 
     this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
   }
+  setProductActive(product, event) {
+    this.props.dispatch({type: 'SET_PRODUCT', payload: {product: product, type: 'OUTPUT'}})
+  }
   // Main Layout
   render() {
 
@@ -70,33 +74,62 @@ export default class Products extends React.Component {
       this.props.subdepartmentActive
     )
 
-    const body = filtered.map(product => {
-      const inputBtn = <button onClick={this.bntInputClick.bind(this, product)} className='btn btn-success'>
-        <span className='fa fa-plus' />
-      </button>
-      const outputBtn = <button onClick={this.bntOutputClick.bind(this, product)} className='fa btn btn-danger'>
-        <span className='fa fa-minus' />
-      </button>
-
-      return <tr key={product._id}>
-        <td>{product.code}</td>
-        <td>{product.description}</td>
-        <td className='center'>{product.inventory}</td>
-        <td className='center'>{inputBtn}</td>
-        <td className='center'>{outputBtn}</td>
+    // HEADER OF THE TABLE BASE OF WHETER IS PHYSICAL TAKE OR NOT
+    const header = this.props.isPhysicalTake
+      ? <tr>
+        <td className='code-row'>Código</td>
+        <td className='description-row'>Descripción</td>
+        <td className='existence-row center'>Existencia</td>
+        <td className='input-row center'>Cantidad</td>
+        <td className='output-row center'>Registrar</td>
       </tr>
-    })
+      : <tr>
+        <td className='code-row'>Código</td>
+        <td className='description-row'>Descripción</td>
+        <td className='existence-row center'>Existencia</td>
+        <td className='input-row center'>Entrada</td>
+        <td className='output-row center'>Salida</td>
+      </tr>
 
+    // BODY OF THE TABLE BASE OF WHETER IS PHYSICAL TAKE OR NOT
+    const body = this.props.isPhysicalTake
+      ? filtered.map(product => {
+        const amountField = <input className='form-control' />
+        const savePhysicalBtn = <button className='btn btn-primary'>
+          <span className='fa fa-check' />
+        </button>
+        // const activeClass = this.props.productActive._id == product._id ? 'active-row' : ''
+
+        return <tr onClick={this.setProductActive.bind(this, product)} key={product._id}>
+          <td>{product.code}</td>
+          <td>{product.description}</td>
+          <td className='center'>{product.inventory}</td>
+          <td className='center'>{amountField}</td>
+          <td className='center'>{savePhysicalBtn}</td>
+        </tr>
+      })
+      : filtered.map(product => {
+        const inputBtn = <button onClick={this.bntInputClick.bind(this, product)} className='btn btn-success'>
+          <span className='fa fa-plus' />
+        </button>
+        const outputBtn = <button onClick={this.bntOutputClick.bind(this, product)} className='fa btn btn-danger'>
+          <span className='fa fa-minus' />
+        </button>
+
+        return <tr key={product._id}>
+          <td>{product.code}</td>
+          <td>{product.description}</td>
+          <td className='center'>{product.inventory}</td>
+          <td className='center'>{inputBtn}</td>
+          <td className='center'>{outputBtn}</td>
+        </tr>
+      })
+
+    // RETURN BLOCK
     return <div className='products'>
       <table className='products-table table col-xs-12'>
         <thead>
-          <tr>
-            <td className='code-row'>Código</td>
-            <td className='description-row'>Descripción</td>
-            <td className='existence-row center'>Existencia</td>
-            <td className='input-row center'>Entrada</td>
-            <td className='output-row center'>Salida</td>
-          </tr>
+          {header}
         </thead>
         <tbody>
           {body}

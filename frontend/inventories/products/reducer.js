@@ -18,6 +18,7 @@ const stateConst = {
   subdepartments: [],
   subdepartmentActive: '',
   productmovements: [],
+  isPhysicalTake: false,
   productmovementActive: productmovementModel,
   filterText: ''
 }
@@ -25,6 +26,20 @@ const stateConst = {
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    // ***********************************
+    // PHYSICAL TAKE
+    // ***********************************
+
+    case 'TOGGLE_PHYSICAL_TAKE':
+    {
+      const physycalState = state.isPhysicalTake
+      return {
+        ...state,
+        isPhysicalTake: !physycalState
+
+      }
+    } // case
 
     // ***********************************
     // PRODUCTS
