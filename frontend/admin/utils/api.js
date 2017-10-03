@@ -19,6 +19,11 @@ export function saveItem(kwargs) {
 
     db.post(item).then((response) => {
       alertify.alert('Completado', kwargs.sucessMessage)
+        .set('onok', function() {
+          if (kwargs.redirectUrl) {
+            kwargs.history.push(kwargs.redirectUrl)
+          }
+        })
       dispatch({type: kwargs.dispatchType, payload: ''})
     }).catch((err) => {
       alertify.alert('Error', `${kwargs.errorMessage} ERROR: ${err}.`)
@@ -146,7 +151,11 @@ export function updateItem(kwargs) {
 
       db.put(item).then((response) => {
         alertify.alert('Completado', `${model} actualizado con éxito.`)
-
+          .set('onok', function() {
+            if (kwargs.redirectUrl) {
+              kwargs.history.push(kwargs.redirectUrl)
+            }
+          })
         db.get(response.id).then((dbItem) => {
           dispatch({type: kwargs.dispatchType, payload: dbItem})
         }).catch((err) => {
@@ -174,8 +183,15 @@ export function deleteItem(kwargs) {
       item._deleted = true
 
       db.put(item).then((response) => {
+
         alertify.alert('Completado', 'Elemento eliminado satifactoriamente')
+          .set('onok', function() {
+            if (kwargs.redirectUrl) {
+              kwargs.history.push(kwargs.redirectUrl)
+            }
+          })
         dispatch({type: kwargs.dispatchType, payload: ''})
+
       }).catch((err) => {
         alertify.alert('Error', `Hubo un error al eliminar el ${model} ${err}.`)
       })

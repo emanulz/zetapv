@@ -3,6 +3,8 @@ import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
 import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
 import {checkSubDepartmentData} from '../actions.js'
+import Select2 from 'react-select2-wrapper'
+import { withRouter } from 'react-router-dom'
 
 @connect((store) => {
   return {
@@ -11,11 +13,12 @@ import {checkSubDepartmentData} from '../actions.js'
     departments: store.products.departments}
 })
 
-export default class Fields extends React.Component {
+class Fields extends React.Component {
 
   componentWillMount() {
 
     this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_NEXT_PREV_SUBDEPARTMENT', payload: ''})
 
     if (this.props.update) {
       const code = this.props.location.pathname.split('/').pop()
@@ -60,18 +63,26 @@ export default class Fields extends React.Component {
     }
 
     const name = target.name
-    console.log(target.name)
 
     const subdepartment = {
       ...this.props.subdepartment
     }
 
-    subdepartment[name] = value
+    if (name == 'department') {
+      subdepartment[name] = value
+      subdepartment['firstCode'] = value.split('.')[1]
+      subdepartment['code'] = `${subdepartment.firstCode}.${subdepartment.codeId}`
+    } else if (name == 'codeId') {
+      subdepartment[name] = value
+      subdepartment['code'] = `${subdepartment.firstCode}.${value}`
+    } else {
+      subdepartment[name] = value
+    }
 
     this.props.dispatch({type: 'SET_PRODUCT_SUBDEPARTMENT', payload: subdepartment})
   }
 
-  saveBtn() {
+  saveBtn(redirect) {
     const subdepartment = this.props.subdepartment
     const subdepartments = this.props.subdepartments.filter(item => item.department == subdepartment.department)
     const fieldsOk = checkSubDepartmentData(subdepartment, subdepartments)
@@ -86,11 +97,16 @@ export default class Fields extends React.Component {
         dispatchType: 'CLEAR_PRODUCT_SUBDEPARTMENT'
       }
 
+      if (redirect) {
+        obj.redirectUrl = '/admin/products/subdepartments'
+        obj.history = this.props.history
+      }
+
       this.props.dispatch(saveItem(obj))
     }
   }
 
-  updateBtn() {
+  updateBtn(redirect) {
 
     const subdepartment = this.props.subdepartment
     const subdepartments = this.props.subdepartments.filter(item => item.department == subdepartment.department)
@@ -104,6 +120,12 @@ export default class Fields extends React.Component {
         modelName: 'Departamento',
         dispatchType: 'SET_PRODUCT_SUBDEPARTMENT'
       }
+
+      if (redirect) {
+        obj.redirectUrl = '/admin/products/subdepartments'
+        obj.history = this.props.history
+      }
+
       this.props.dispatch(updateItem(obj))
     }
   }
@@ -116,17 +138,34 @@ export default class Fields extends React.Component {
       db: 'general',
       item: subdepartment,
       modelName: 'Sub-Departamento',
-      dispatchType: 'CLEAR_PRODUCT_SUBDEPARTMENT'
+      dispatchType: 'CLEAR_PRODUCT_SUBDEPARTMENT',
+      redirectUrl: '/admin/products/subdepartments',
+      history: this.props.history
     }
     // ALERTIFY CONFIRM
-    alertify.confirm('Eliminar', `Desea Eliminar el Sub-departamento ${subdepartment.code} - ${subdepartment.name}? Esta acción no se puede deshacer.`, function() {
-      _this.props.dispatch(deleteItem(obj))
-    }, function() {
-      return true
-    }).set('labels', {
+    alertify.confirm('Eliminar', `Desea Eliminar el Sub-departamento ${subdepartment.code} - ${subdepartment.name}?
+      Esta acción no se puede deshacer.`, function() {
+        _this.props.dispatch(deleteItem(obj))
+      }, function() {
+        return true
+      }).set('labels', {
       ok: 'Si',
       cancel: 'No'
     })
+  }
+
+  backToList (event) {
+    // ALERTIFY CONFIRM
+    const _this = this
+    alertify.confirm('No guardar', `¿Desea salir al menú sin guardar los cambios?`, function() {
+      return true
+    }, function() {
+      _this.props.history.push('/admin/products/subdepartments')
+    }).set('labels', {
+      ok: 'Permanecer',
+      cancel: 'No guardar'
+    })
+
   }
 
   render() {
@@ -136,14 +175,14 @@ export default class Fields extends React.Component {
     const buttons = this.props.update
       ? <div className='col-xs-10 col-sm-offset-1'>
         <div className='col-xs-12'>
-          <button onClick={this.updateBtn.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.updateBtn.bind(this, true)} className=' form-control btn-success'>
             Actualizar
           </button>
         </div>
 
         <div className='col-xs-12'>
-          <button className='form-control btn-primary'>
-            Guardar y agregar otro
+          <button onClick={this.updateBtn.bind(this, false)} className='form-control btn-primary'>
+            Actualizar y Seguir
           </button>
         </div>
 
@@ -155,35 +194,37 @@ export default class Fields extends React.Component {
       </div>
       : <div className='col-xs-10 col-sm-offset-1'>
         <div className='col-xs-12'>
-          <button onClick={this.saveBtn.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.saveBtn.bind(this, true)} className=' form-control btn-success'>
             Guardar
           </button>
         </div>
 
         <div className='col-xs-12'>
-          <button className='form-control btn-primary'>
+          <button onClick={this.saveBtn.bind(this, false)} className='form-control btn-primary'>
             Guardar y agregar otro
           </button>
         </div>
 
         <div className='col-xs-12'>
-          <button className='form-control btn-danger'>
+          <button onClick={this.backToList.bind(this)} className='form-control btn-danger'>
             Cancelar
           </button>
         </div>
       </div>
-    // ********************************************************************
-    // SELECT OPTIONS
-    // ********************************************************************
-    const sortedDepartments = this.props.departments.length
-      ? this.props.departments.sort((a, b) => { return a.code > b.code })
-      : []
 
-    const departmentOptions = sortedDepartments.length
-      ? sortedDepartments.map(department => {
-        return <option key={department._id} value={department._id}> {department.code} - {department.name}</option>
-      })
-      : <option value={0}> No hay Departamentos</option>
+    // ********************************************************************
+    // SELECT2 DATA
+    // ********************************************************************
+    const departments = this.props.departments
+
+    departments.sort((a, b) => {
+      return a.code - b.code
+    })
+
+    const departmentData = departments.map(department => {
+      return {text: `${department.code} - ${department.name}`, id: `${department._id}.${department.code}`}
+    })
+
     // ********************************************************************
     // RETURN BLOCK
     // ********************************************************************
@@ -195,13 +236,35 @@ export default class Fields extends React.Component {
         <hr />
 
         <div className='form-group row create-input-block'>
+          <div className='col-xs-12'>
+
+            <label>Nombre</label>
+            <input value={this.props.subdepartment.name} name='name'
+              onChange={this.handleInputChange.bind(this)}
+              type='text'
+              className='form-control'
+            />
+          </div>
+        </div>
+
+        <div className='form-group row create-input-block'>
 
           <div className='col-xs-12'>
 
             <label>Departamento</label>
-            <select value={this.props.subdepartment.department} name='department' onChange={this.handleInputChange.bind(this)} className='form-control'>
-              {departmentOptions}
-            </select>
+
+            <Select2
+              name='department'
+              value={this.props.subdepartment.department}
+              className='form-control'
+              onSelect={this.handleInputChange.bind(this)}
+              data={departmentData}
+              options={{
+                placeholder: 'Elija un departamento...',
+                noResultsText: 'Sin elementos'
+              }}
+
+            />
 
           </div>
         </div>
@@ -210,17 +273,10 @@ export default class Fields extends React.Component {
           <div className='col-xs-12'>
 
             <label>Código</label>
-            <input value={this.props.subdepartment.code} name='code' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
-
-          </div>
-        </div>
-
-        <div className='form-group row create-input-block'>
-
-          <div className='col-xs-12'>
-
-            <label>Nombre</label>
-            <input value={this.props.subdepartment.name} name='name' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+            <input disabled={!this.props.subdepartment.department} value={this.props.subdepartment.codeId}
+              name='codeId' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control'
+            />
 
           </div>
         </div>
@@ -230,7 +286,10 @@ export default class Fields extends React.Component {
           <div className='col-xs-12'>
 
             <label>Descripción</label>
-            <input value={this.props.subdepartment.description} name='description' onChange={this.handleInputChange.bind(this)} type='text' className='form-control' />
+            <input value={this.props.subdepartment.description} name='description'
+              onChange={this.handleInputChange.bind(this)}
+              type='text'
+              className='form-control' />
 
           </div>
         </div>
@@ -247,3 +306,6 @@ export default class Fields extends React.Component {
     </div>
   }
 }
+
+// EXPORT THE CLASS WITH ROUTER
+export default withRouter(Fields)

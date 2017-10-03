@@ -147,6 +147,21 @@ export default class DataTable extends React.Component {
               break
             }
 
+            case 'foreingKey':
+            {
+              const code = header.split ? itemToRender.split(header.split)[header.splitIndex] : itemToRender
+
+              const filtered = header.iterable.filter(item => {
+                return item[header.lookUpField] == code
+              })
+
+              const returnItem = filtered.length ? filtered[0][header.foreingKeyField] : '-'
+              item = <td key={`${el._id}_${header.field}`} data-order={returnItem}>
+                {returnItem}
+              </td>
+              break
+            }
+
             default:
             {
               item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>

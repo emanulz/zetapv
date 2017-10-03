@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {saveItem, setItem, updateItem, deleteItem} from '../../utils/api'
 import {checkProductData, determinAmounts} from '../actions.js'
 import Select2 from 'react-select2-wrapper'
+import { withRouter } from 'react-router-dom'
 
 @connect((store) => {
   return {
@@ -16,7 +17,7 @@ import Select2 from 'react-select2-wrapper'
   }
 })
 
-export default class Fields extends React.Component {
+class Fields extends React.Component {
 
   // REACT METHODS
   componentWillMount() {
@@ -77,7 +78,7 @@ export default class Fields extends React.Component {
   }
 
   // BUTTONS
-  saveBtn() {
+  saveBtn(redirect) {
     const product = this.props.product
     const products = this.props.products
     const fieldsOk = checkProductData(product, products)
@@ -92,11 +93,16 @@ export default class Fields extends React.Component {
         dispatchType: 'CLEAR_PRODUCT'
       }
 
+      if (redirect) {
+        kwargs.redirectUrl = '/admin/products'
+        kwargs.history = this.props.history
+      }
+
       this.props.dispatch(saveItem(kwargs))
     }
   }
 
-  updateBtn() {
+  updateBtn(redirect) {
 
     const product = this.props.product
     const products = this.props.products
@@ -110,6 +116,12 @@ export default class Fields extends React.Component {
         modelName: 'Producto',
         dispatchType: 'SET_PRODUCT'
       }
+
+      if (redirect) {
+        kwargs.redirectUrl = '/admin/products'
+        kwargs.history = this.props.history
+      }
+
       this.props.dispatch(updateItem(kwargs))
     }
   }
@@ -122,7 +134,9 @@ export default class Fields extends React.Component {
       db: 'general',
       item: product,
       modelName: 'Producto',
-      dispatchType: 'CLEAR_PRODUCT'
+      dispatchType: 'CLEAR_PRODUCT',
+      redirectUrl: '/admin/products',
+      history: this.props.history
     }
     // ALERTIFY CONFIRM
     alertify.confirm(
@@ -138,6 +152,20 @@ export default class Fields extends React.Component {
     })
   }
 
+  backToList (event) {
+    // ALERTIFY CONFIRM
+    const _this = this
+    alertify.confirm('No guardar', `¿Desea salir al menú sin guardar los cambios?`, function() {
+      return true
+    }, function() {
+      _this.props.history.push('/admin/products')
+    }).set('labels', {
+      ok: 'Permanecer',
+      cancel: 'No guardar'
+    })
+
+  }
+
   render() {
     // ********************************************************************
     // BUTTONS
@@ -145,14 +173,14 @@ export default class Fields extends React.Component {
     const buttons = this.props.update
       ? <div className='row buttons'>
         <div className='col-xs-10 col-xs-offset-1'>
-          <button onClick={this.updateBtn.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.updateBtn.bind(this, true)} className=' form-control btn-success'>
             Actualizar
           </button>
         </div>
 
         <div className='col-xs-10 col-xs-offset-1'>
-          <button className='form-control btn-primary'>
-            Guardar y seguir editando
+          <button onClick={this.updateBtn.bind(this, false)} className='form-control btn-primary'>
+            Actualizar y Seguir
           </button>
         </div>
 
@@ -163,20 +191,20 @@ export default class Fields extends React.Component {
         </div>
       </div>
       : <div className='row buttons'>
-        <div className='col-xs-8 col-xs-offset-1'>
-          <button onClick={this.saveBtn.bind(this)} className=' form-control btn-success'>
+        <div className='col-xs-10 col-xs-offset-1'>
+          <button onClick={this.saveBtn.bind(this, true)} className=' form-control btn-success'>
             Guardar
           </button>
         </div>
 
-        <div className='col-xs-8 col-xs-offset-1'>
-          <button className='form-control btn-primary'>
+        <div className='col-xs-10 col-xs-offset-1'>
+          <button onClick={this.saveBtn.bind(this, false)} className='form-control btn-primary'>
             Guardar y agregar otro
           </button>
         </div>
 
-        <div className='col-xs-8 col-xs-offset-1'>
-          <button className='form-control btn-danger'>
+        <div className='col-xs-10 col-xs-offset-1'>
+          <button onClick={this.backToList.bind(this)} className='form-control btn-danger'>
             Cancelar
           </button>
         </div>
@@ -243,7 +271,7 @@ export default class Fields extends React.Component {
     })
 
     const filteredDepartments = this.props.subdepartments.filter(el => {
-      return el.department == this.props.product.department
+      return el.department.split('.')[0] == this.props.product.department
     })
     filteredDepartments.sort((a, b) => {
       return a.code - b.code
@@ -615,3 +643,6 @@ export default class Fields extends React.Component {
     </div>
   }
 }
+
+// EXPORT THE CLASS WITH ROUTER
+export default withRouter(Fields)

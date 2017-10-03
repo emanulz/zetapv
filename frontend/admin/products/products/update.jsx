@@ -15,6 +15,7 @@ import {toggleItemsBar} from '../../layout/itemsBar/actions'
     products: store.products.products
   }
 })
+
 export default class Update extends React.Component {
 
   componentDidMount() {
@@ -25,7 +26,6 @@ export default class Update extends React.Component {
     const code = this.props.location.pathname.split('/').pop()
 
     if (nextProps.nextProduct == 0 && nextProps.previousProduct == 0 && nextProps.products.length) {
-      console.log(nextProps.products)
       const kwargs = {
         items: [
           ...nextProps.products

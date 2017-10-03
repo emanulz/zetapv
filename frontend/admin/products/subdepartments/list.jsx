@@ -41,7 +41,12 @@ export default class Product extends React.Component {
       {
         field: 'department',
         text: 'Departamento',
-        type: 'text'
+        split: '.',
+        splitIndex: 0,
+        iterable: this.props.departments,
+        lookUpField: '_id',
+        type: 'foreingKey',
+        foreingKeyField: 'name'
       },
       {
         field: 'description',

@@ -56,6 +56,7 @@ const subDepartmentModel = {
   'created': '',
   'updated': '',
   'code': '',
+  'codeId': '',
   'description': '',
   'name': '',
   'department': 0
@@ -74,7 +75,11 @@ const stateConst = {
   subdepartmentActive: subDepartmentModel,
   inputVal: '',
   nextProduct: 0,
-  previousProduct: 0
+  previousProduct: 0,
+  nextDepartment: 0,
+  previousDepartment: 0,
+  nextSubdepartment: 0,
+  previousSubdepartment: 0
 }
 
 export default function reducer(state = stateConst, action) {
@@ -143,6 +148,24 @@ export default function reducer(state = stateConst, action) {
     // DEPARTMENTS
     // ***********************************
 
+    case 'SET_NEXT_PREV_DEPARTMENT':
+    {
+      return {
+        ...state,
+        nextDepartment: action.payload.next,
+        previousDepartment: action.payload.previous
+      }
+    } // case
+
+    case 'CLEAR_NEXT_PREV_DEPARTMENT':
+    {
+      return {
+        ...state,
+        nextDepartment: 0,
+        previousDepartment: 0
+      }
+    } // case
+
     case 'FETCH_PRODUCT_DEPARTMENTS_FULFILLED':
     {
       return {
@@ -179,6 +202,24 @@ export default function reducer(state = stateConst, action) {
     // ***********************************
     // SUB DEPARTMENTS
     // ***********************************
+
+    case 'SET_NEXT_PREV_SUBDEPARTMENT':
+    {
+      return {
+        ...state,
+        nextSubdepartment: action.payload.next,
+        previousSubdepartment: action.payload.previous
+      }
+    } // case
+
+    case 'CLEAR_NEXT_PREV_SUBDEPARTMENT':
+    {
+      return {
+        ...state,
+        nextSubdepartment: 0,
+        previousSubdepartment: 0
+      }
+    } // case
 
     case 'FETCH_PRODUCT_SUBDEPARTMENTS_FULFILLED':
     {
