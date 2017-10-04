@@ -4332,6 +4332,9 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       .products-table thead tr td {
         font-size: 14px;
         font-family: 'Source Sans Pro', sans-serif !important; }
+  .products-table tbody tr.active-row {
+    font-weight: 600;
+    border: 1px solid green; }
   .products-table tbody tr td {
     font-size: 14px;
     font-family: 'Quicksand', sans-serif !important; }
@@ -4415,3 +4418,5 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
             background-color: #0e1a29; }
           .inventory-sidePanel-container-content-actions button:focus {
             background-color: #354052 !important; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9pbnZlbnRvcmllcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

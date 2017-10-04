@@ -79,6 +79,7 @@ export default class Products extends React.Component {
       }
 
       this.props.dispatch(fetchItems(kwargs))
+      this.props.dispatch({type: 'CLEAR_PRODUCT', payload: ''})
     }
   }
   // Main Layout

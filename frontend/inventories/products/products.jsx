@@ -4,6 +4,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getAmount} from '../../admin/utils/inventory'
+import { saveItem, getNextNumericCode, fetchItems } from '../../admin/utils/api'
+import { checkProductMovementData } from '../sidePanel/actions'
 import {filterProducts} from './actions'
 
 @connect((store) => {
@@ -14,6 +16,7 @@ import {filterProducts} from './actions'
     subdepartmentActive: store.products.subdepartmentActive,
     filterText: store.products.filterText,
     movement: store.products.productmovementActive,
+    productActive: store.products.productActive,
     isPhysicalTake: store.products.isPhysicalTake
   }
 })
@@ -44,9 +47,87 @@ export default class Products extends React.Component {
 
     this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
   }
-  setProductActive(product, event) {
-    this.props.dispatch({type: 'SET_PRODUCT', payload: {product: product, type: 'OUTPUT'}})
+
+  saveBtn() {
+    const movement = this.props.movement
+    const movements = this.props.movements
+
+    movement.document = getNextNumericCode(movements, 'document')
+    const fieldsOk = checkProductMovementData(movement, movements)
+    movement.date = new Date()
+    if (fieldsOk) {
+      movement.created = new Date()
+      const obj = {
+        db: 'general',
+        docType: 'PRODUCT_MOVEMENT',
+        item: movement,
+        sucessMessage: 'Movimiento creado correctamente',
+        errorMessage: 'Hubo un error al crear el Movimiento, intente de nuevo.',
+        dispatchType: 'CLEAR_PRODUCT_MOVEMENT'
+      }
+
+      this.props.dispatch(saveItem(obj))
+
+      const kwargs = {
+        db: 'general',
+        docType: 'PRODUCT_MOVEMENT',
+        dispatchType: 'FETCH_PRODUCTMOVEMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_PRODUCTMOVEMENTS_REJECTED'
+      }
+
+      this.props.dispatch(fetchItems(kwargs))
+      this.props.dispatch({type: 'CLEAR_PRODUCT', payload: ''})
+    }
   }
+
+  setProductActive(product, event) {
+
+    const movement = {
+      ...this.props.movement
+    }
+
+    if (product._id != movement.productId) {
+      this.props.dispatch({type: 'CLEAR_PRODUCT_MOVEMENT', payload: ''})
+      this.props.dispatch({type: 'SET_PRODUCT', payload: {product: product, type: 'ADJUST'}})
+
+      movement.productId = product._id
+      movement.type = 'ADJUST'
+      movement.description = 'Ajuste por toma física.'
+
+      this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
+    }
+  }
+
+  handleInputChange(event) {
+
+    const target = event.target
+    let value
+
+    switch (target.type) {
+      case 'number':
+      {
+        value = parseFloat(target.value)
+          ? parseFloat(target.value)
+          : ''
+        break
+      }
+      default:
+      {
+        value = target.value
+      }
+    }
+
+    const name = target.name
+
+    const movement = {
+      ...this.props.movement
+    }
+
+    movement[name] = value
+
+    this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
+  }
+
   // Main Layout
   render() {
 
@@ -94,13 +175,20 @@ export default class Products extends React.Component {
     // BODY OF THE TABLE BASE OF WHETER IS PHYSICAL TAKE OR NOT
     const body = this.props.isPhysicalTake
       ? filtered.map(product => {
-        const amountField = <input className='form-control' />
-        const savePhysicalBtn = <button className='btn btn-primary'>
+        const productActiveId = this.props.productActive ? this.props.productActive.product._id : 0
+        const activeClass = productActiveId == product._id ? 'active-row' : ''
+        const value = productActiveId == product._id ? this.props.movement.amount : ''
+        const amountField = <input type='number' name='amount' onChange={this.handleInputChange.bind(this)}
+          disabled={!(productActiveId == product._id)}
+          className='form-control'
+          value={value}
+        />
+
+        const savePhysicalBtn = <button onClick={this.saveBtn.bind(this)} disabled={!(productActiveId == product._id)} className='btn btn-primary'>
           <span className='fa fa-check' />
         </button>
-        // const activeClass = this.props.productActive._id == product._id ? 'active-row' : ''
 
-        return <tr onClick={this.setProductActive.bind(this, product)} key={product._id}>
+        return <tr className={activeClass} onClick={this.setProductActive.bind(this, product)} key={product._id}>
           <td>{product.code}</td>
           <td>{product.description}</td>
           <td className='center'>{product.inventory}</td>

@@ -5,7 +5,7 @@ const productmovementModel = {
   'updated': '',
   'productId': '',
   'type': 'INPUT',
-  'amount': 0,
+  'amount': '',
   'date': new Date(),
   'description': ''
 }
@@ -77,7 +77,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        productActive: {}
+        productActive: false
       }
     } // case
 

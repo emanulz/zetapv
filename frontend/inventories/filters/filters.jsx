@@ -64,7 +64,7 @@ export default class Filters extends React.Component {
 
     const filteredSubDepartments = this.props.departmentActive
       ? this.props.subdepartments.filter(el => {
-        return el.department == this.props.departmentActive
+        return el.department.split('.')[0] == this.props.departmentActive
       })
       : []
 
