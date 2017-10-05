@@ -110,7 +110,9 @@ export function productSelected(code, qty, products, itemsInCart, globalDiscount
 
   const perLine = userConfig.cartSingleLinePerItem || defaultConfig.cartSingleLinePerItem
 
-  const productSelected = products.findIndex(product => product.code == code) // checks if product exists
+  const productSelected = products.findIndex(product => {
+    return product.code == code || product.barcode == code
+  }) // checks if product exists
 
   const res = (productSelected == -1) // if not exists dispatch Not Found, if exists check if already in cart
     ? {

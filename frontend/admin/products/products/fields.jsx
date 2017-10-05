@@ -40,6 +40,7 @@ class Fields extends React.Component {
 
       this.props.dispatch(setItem(kwargs))
     }
+
   }
 
   handleInputChange(event) {

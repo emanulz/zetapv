@@ -5,6 +5,7 @@ import React from 'react'
 
 import {connect} from 'react-redux'
 import {recalcCart} from '../../main/product/actions.js'
+import alertify from 'alertifyjs'
 
 @connect((store) => {
   return {
@@ -38,8 +39,15 @@ export default class Totals extends React.Component {
       const discount = (ev.target.value)
         ? ev.target.value
         : 0
-      this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
-      this.props.dispatch(recalcCart(this.props.itemsInCart, this.state.discountVal, this.props.client))
+      // CALC THE MAX DISCOUNT AND CHECKS IT ON FIELD
+      const maxDiscount = this.props.client.maxDiscount ? this.props.client.maxDiscount : 100
+      if (discount <= maxDiscount) {
+        this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
+        this.props.dispatch(recalcCart(this.props.itemsInCart, this.state.discountVal, this.props.client))
+      } else {
+        alertify.alert('Error', `El descuento para el cliente seleccionado no puede ser mayor al ${maxDiscount}%`)
+        document.getElementById('discountField').value = parseFloat(this.props.globalDiscount)
+      }
     } else {
       this.state.discountVal = (ev.target.value)
         ? parseFloat(ev.target.value)
@@ -54,8 +62,15 @@ export default class Totals extends React.Component {
     const discount = (ev.target.value)
       ? ev.target.value
       : 0
-    this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
-    this.props.dispatch(recalcCart(this.props.itemsInCart, this.state.discountVal, this.props.client))
+    // CALC THE MAX DISCOUNT AND CHECKS IT ON FIELD
+    const maxDiscount = this.props.client.maxDiscount ? this.props.client.maxDiscount : 100
+    if (discount <= maxDiscount) {
+      this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
+      this.props.dispatch(recalcCart(this.props.itemsInCart, this.state.discountVal, this.props.client))
+    } else {
+      alertify.alert('Error', `El descuento para el cliente seleccionado no puede ser mayor al ${maxDiscount}%`)
+      document.getElementById('discountField').value = parseFloat(this.props.globalDiscount)
+    }
 
   }
 
@@ -85,6 +100,7 @@ export default class Totals extends React.Component {
                 'padding': '0'
               }}>
                 <input
+                  id='discountField'
                   disabled={this.props.disabled}
                   onKeyPress={this.inputKeyPress.bind(this)}
                   onChange={this.inputKeyPress.bind(this)}
@@ -114,7 +130,8 @@ export default class Totals extends React.Component {
               <td className='price'>₡ {this.props.taxes.formatMoney(2, ',', '.')}</td>
             </tr>
             <tr>
-              <th onClick={this.showInvoicePanel.bind(this)}>Total:</th>
+              {/* <th onClick={this.showInvoicePanel.bind(this)}>Total:</th> */}
+              <th>Total:</th>
               <td className='price'>₡ {this.props.total.formatMoney(2, ',', '.')}</td>
 
             </tr>

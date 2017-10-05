@@ -3432,9 +3432,9 @@ table {
 
 .itemsBar {
   position: absolute;
-  top: 60px;
+  top: 70px;
   width: 400px;
-  height: calc(100% - 60px);
+  height: calc(100% - 70px);
   right: 0;
   background-color: white;
   z-index: 2;
@@ -3783,5 +3783,3 @@ table {
 
 .home {
   font-family: sans-serif; }
-
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9hZG1pbi5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

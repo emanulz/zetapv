@@ -3,6 +3,7 @@ import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
 import {saveItem, setItem, updateItem, deleteItem} from '../utils/api'
 import {checkClientData} from './actions'
+import { withRouter } from 'react-router-dom'
 
 @connect((store) => {
   return {
@@ -11,7 +12,7 @@ import {checkClientData} from './actions'
   }
 })
 
-export default class Fields extends React.Component {
+class Fields extends React.Component {
   // REACT METHODS
   componentWillMount() {
 
@@ -74,7 +75,7 @@ export default class Fields extends React.Component {
   }
 
   // BUTTONS
-  saveBtn() {
+  saveBtn(redirect) {
     const client = this.props.client
     const clients = this.props.clients
     const fieldsOk = checkClientData(client, clients)
@@ -89,11 +90,16 @@ export default class Fields extends React.Component {
         dispatchType: 'CLEAR_CLIENT'
       }
 
+      if (redirect) {
+        kwargs.redirectUrl = '/admin/clients'
+        kwargs.history = this.props.history
+      }
+
       this.props.dispatch(saveItem(kwargs))
     }
   }
 
-  updateBtn() {
+  updateBtn(redirect) {
 
     const client = this.props.client
     const clients = this.props.clients
@@ -107,6 +113,12 @@ export default class Fields extends React.Component {
         modelName: 'Cliente',
         dispatchType: 'SET_CLIENT'
       }
+
+      if (redirect) {
+        kwargs.redirectUrl = '/admin/clients'
+        kwargs.history = this.props.history
+      }
+
       this.props.dispatch(updateItem(kwargs))
     }
   }
@@ -119,7 +131,9 @@ export default class Fields extends React.Component {
       db: 'general',
       item: client,
       modelName: 'Cliente',
-      dispatchType: 'CLEAR_CLIENT'
+      dispatchType: 'CLEAR_CLIENT',
+      redirectUrl: '/admin/clients',
+      history: this.props.history
     }
     // ALERTIFY CONFIRM
     alertify.confirm('Eliminar', `Desea Eliminar el Cliente ${client.code} - ${client.name}? Esta acción no se puede deshacer.`, function() {
@@ -132,6 +146,20 @@ export default class Fields extends React.Component {
     })
   }
 
+  backToList (event) {
+    // ALERTIFY CONFIRM
+    const _this = this
+    alertify.confirm('No guardar', `¿Desea salir al menú sin guardar los cambios?`, function() {
+      return true
+    }, function() {
+      _this.props.history.push('/admin/clients')
+    }).set('labels', {
+      ok: 'Permanecer',
+      cancel: 'No guardar'
+    })
+
+  }
+
   render() {
     // ********************************************************************
     // BUTTONS
@@ -139,14 +167,14 @@ export default class Fields extends React.Component {
     const buttons = this.props.update
       ? <div className='col-xs-10 col-sm-offset-1'>
         <div className='col-xs-12'>
-          <button onClick={this.updateBtn.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.updateBtn.bind(this, true)} className=' form-control btn-success'>
             Actualizar
           </button>
         </div>
 
         <div className='col-xs-12'>
-          <button className='form-control btn-primary'>
-            Guardar y agregar otro
+          <button onClick={this.updateBtn.bind(this, false)} className='form-control btn-primary'>
+            Actualizar y Seguir
           </button>
         </div>
 
@@ -158,19 +186,19 @@ export default class Fields extends React.Component {
       </div>
       : <div className='col-xs-10 col-sm-offset-1'>
         <div className='col-xs-12'>
-          <button onClick={this.saveBtn.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.saveBtn.bind(this, true)} className=' form-control btn-success'>
             Guardar
           </button>
         </div>
 
         <div className='col-xs-12'>
-          <button className='form-control btn-primary'>
+          <button onClick={this.saveBtn.bind(this, false)} className='form-control btn-primary'>
             Guardar y agregar otro
           </button>
         </div>
 
         <div className='col-xs-12'>
-          <button className='form-control btn-danger'>
+          <button onClick={this.backToList.bind(this)} className='form-control btn-danger'>
             Cancelar
           </button>
         </div>
@@ -198,16 +226,44 @@ export default class Fields extends React.Component {
             type='text' className='form-control' />
         </div>
 
-        <div className='form-group'>
-          <label>Identificación</label>
-          <input value={this.props.client.id} onChange={this.handleInputChange.bind(this)} name='id' type='text'
-            className='form-control' />
+        <div className='form-group row create-product-input-block'>
+          <div className='col-xs-6 first'>
+
+            <label>Identificación</label>
+            <input value={this.props.client.id} onChange={this.handleInputChange.bind(this)} name='id' type='text'
+              className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Código</label>
+            <input value={this.props.client.code} name='code' onChange={this.handleInputChange.bind(this)} type='text'
+              className='form-control' />
+
+          </div>
         </div>
 
-        <div className='form-group'>
-          <label>Código</label>
-          <input value={this.props.client.code} name='code' onChange={this.handleInputChange.bind(this)} type='text'
-            className='form-control' />
+        <div className='form-group row create-product-input-block'>
+          <div className='col-xs-6 first'>
+
+            <label>Descuento Máximo %</label>
+            <input value={this.props.client.maxDiscount} name='maxDiscount'
+              onChange={this.handleInputChange.bind(this)}
+              type='number'
+              className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Descuento Predet %</label>
+            <input value={this.props.client.defaultDiscount} name='defaultDiscount'
+              onChange={this.handleInputChange.bind(this)}
+              type='number'
+              className='form-control' />
+
+          </div>
         </div>
 
         <div className='form-group'>
@@ -216,16 +272,22 @@ export default class Fields extends React.Component {
             type='checkbox' className='form-control' />
         </div>
 
-        <div className='form-group'>
-          <label>Límite de crédito</label>
-          <input value={this.props.client.credit_limit} name='credit_limit' onChange={this.handleInputChange.bind(this)}
-            type='number' className='form-control' />
-        </div>
+        <div className='form-group row create-product-input-block'>
+          <div className='col-xs-6 first'>
 
-        <div className='form-group'>
-          <label>Días de crédito</label>
-          <input value={this.props.client.credit_days} name='credit_days' onChange={this.handleInputChange.bind(this)}
-            type='number' className='form-control' />
+            <label>Límite de crédito</label>
+            <input value={this.props.client.credit_limit} name='credit_limit' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
+
+          <div className='col-xs-6 second'>
+
+            <label>Días de crédito</label>
+            <input value={this.props.client.credit_days} name='credit_days' onChange={this.handleInputChange.bind(this)}
+              type='number' className='form-control' />
+
+          </div>
         </div>
 
       </div>
@@ -271,3 +333,6 @@ export default class Fields extends React.Component {
     </div>
   }
 }
+
+// EXPORT THE CLASS WITH ROUTER
+export default withRouter(Fields)

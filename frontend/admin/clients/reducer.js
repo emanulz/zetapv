@@ -12,7 +12,9 @@ const clientModel = {
   'adress': '',
   'has_credit': false,
   'credit_limit': '',
-  'credit_days': 0
+  'credit_days': 0,
+  'maxDiscount': '',
+  'defaultDiscount': ''
 }
 
 const stateConst = {

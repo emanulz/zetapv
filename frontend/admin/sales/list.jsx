@@ -32,11 +32,16 @@ export default class List extends React.Component {
     const headerOrder = [
       {
         field: 'id',
-        text: 'Código'
+        text: '# Factura'
       }, {
         field: 'created',
         text: 'Fecha',
         type: 'date'
+      }, {
+        field: 'client.name',
+        field2: 'client.last_name',
+        text: 'Nombre Cliente',
+        type: 'composed'
       }, {
         field: 'cart.cartTotal',
         text: 'Monto',

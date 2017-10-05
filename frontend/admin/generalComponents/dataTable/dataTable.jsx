@@ -96,6 +96,14 @@ export default class DataTable extends React.Component {
           if (fieldNames.length == 3) itemToRender = el[fieldNames[0]][fieldNames[1]][fieldNames[2]]
           if (fieldNames.length == 4) itemToRender = el[fieldNames[0]][fieldNames[1]][fieldNames[2]][fieldNames[3]]
 
+          const fieldNames2 = header.field2 ? header.field2.split('.') : []
+          let itemToRender2 = ''
+
+          if (fieldNames2.length == 1) itemToRender2 = el[fieldNames2[0]]
+          if (fieldNames2.length == 2) itemToRender2 = el[fieldNames2[0]][fieldNames2[1]]
+          if (fieldNames2.length == 3) itemToRender2 = el[fieldNames2[0]][fieldNames2[1]][fieldNames2[2]]
+          if (fieldNames2.length == 4) itemToRender2 = el[fieldNames2[0]][fieldNames2[1]][fieldNames2[2]][fieldNames2[3]]
+
           let item
           switch (header.type) {
             case 'price':
@@ -158,6 +166,14 @@ export default class DataTable extends React.Component {
               const returnItem = filtered.length ? filtered[0][header.foreingKeyField] : '-'
               item = <td key={`${el._id}_${header.field}`} data-order={returnItem}>
                 {returnItem}
+              </td>
+              break
+            }
+
+            case 'composed':
+            {
+              item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>
+                {`${itemToRender} ${itemToRender2}`}
               </td>
               break
             }

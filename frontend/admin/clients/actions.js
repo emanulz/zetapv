@@ -21,6 +21,21 @@ export function checkClientData(client, clients) {
     return false
   }
 
+  if (client.maxDiscount > 100 || client.maxDiscount < 0) {
+    alertify.alert('Error', 'El descuento Máximo debe estar entre 0% y 100%')
+    return false
+  }
+
+  if (client.defaultDiscount > 100 || client.defaultDiscount < 0) {
+    alertify.alert('Error', 'El descuento Predeterminado debe estar entre 0% y 100%')
+    return false
+  }
+
+  if (client.defaultDiscount > client.maxDiscount) {
+    alertify.alert('Error', 'El descuento Predeterminado no puede ser mayor al descuento Máximo')
+    return false
+  }
+
   // UNIQUE FIELDS
   clients.forEach((clientData) => {
     if (client.code == clientData.code) {

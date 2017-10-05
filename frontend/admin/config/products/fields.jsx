@@ -84,6 +84,12 @@ export default class Fields extends React.Component {
         <hr />
 
         <div className='form-group'>
+          <label>Numeración Automática</label>
+          <input checked={this.props.userConfig.nextNumericAuto || false} name='nextNumericAuto' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
+        </div>
+
+        <div className='form-group'>
           <label>Impuesto 2</label>
           <input checked={this.props.userConfig.taxes2Field || false} name='taxes2Field' onChange={this.handleInputChange.bind(this)}
             type='checkbox' className='form-control' />

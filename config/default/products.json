@@ -1,4 +1,5 @@
 {
   "fairTradeField": false,
-  "taxes2Field": false
+  "taxes2Field": false,
+  "nextNumericAuto": false
 }
