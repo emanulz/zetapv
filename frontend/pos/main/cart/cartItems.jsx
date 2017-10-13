@@ -75,6 +75,7 @@ export default class CartItems extends React.Component {
   // Render the items in cart using table rows
 
   render() {
+
     const cartItems = this.props.inCart
 
     const items = cartItems.map((item, index) => {
@@ -86,6 +87,30 @@ export default class CartItems extends React.Component {
         : 0
 
       const taxesText = `${taxes1 + taxes2}%`
+
+      const removeIcon = this.props.disabled
+        ? ''
+        : <i onClick={this.removeItem.bind(this, item.uuid)} className='fa fa-minus-square' aria-hidden='true' style={{
+          cursor: 'pointer'
+        }} />
+
+      const inputField = this.props.client.saleLoaded
+        ? <input
+          disabled={this.props.disabled}
+          onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
+          onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
+          type='number' className='form-control'
+          style={{'width': '55px', 'height': '37px'}}
+          value={item.discount}
+        />
+        : <input
+          disabled={this.props.disabled}
+          onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
+          onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
+          type='number' className='form-control'
+          style={{'width': '55px', 'height': '37px'}}
+        />
+
       return <tr key={item.uuid}>
         <td>
           {item.product.code}
@@ -102,13 +127,7 @@ export default class CartItems extends React.Component {
         <td style={{
           'padding': '0'
         }}>
-          <input
-            disabled={this.props.disabled}
-            onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
-            onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
-            type='number' className='form-control'
-            style={{'width': '55px', 'height': '37px'}}
-          />
+          {inputField}
         </td>
         <td>
           {taxesText}
@@ -128,9 +147,7 @@ export default class CartItems extends React.Component {
           />
         </td>
         <td>
-          <i disabled={this.props.disabled} onClick={this.removeItem.bind(this, item.uuid)} className='fa fa-minus-square' aria-hidden='true' style={{
-            cursor: 'pointer'
-          }} />
+          {removeIcon}
         </td>
       </tr>
     })

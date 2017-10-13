@@ -11,13 +11,30 @@ const stateConst = {
   sales: [],
   saleActive: saleActiveModel,
   completed: false,
-  saleActiveId: 0
+  saleActiveId: 0,
+  isSalesPanelVisible: false
 
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    case 'SHOW_SALES_PANEL':
+    {
+      return {
+        ...state,
+        isSalesPanelVisible: true
+      }
+    } // case
+
+    case 'HIDE_SALES_PANEL':
+    {
+      return {
+        ...state,
+        isSalesPanelVisible: false
+      }
+    } // case
 
     case 'FETCH_SALES_REJECTED':
     {
@@ -60,6 +77,15 @@ export default function reducer(state = stateConst, action) {
         ...state, sales: sales
       }
     } // case
+
+    case 'LOADED_SALE':
+    {
+      return {
+        ...state,
+        saleActive: action.payload,
+        saleActiveId: action.payload.id
+      }
+    }
 
   } // switch
 

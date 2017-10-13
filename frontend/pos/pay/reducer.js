@@ -66,6 +66,17 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'LOADED_SALE':
+    {
+      return {
+        ...state,
+        payMethod: action.payload.pay.payMethod,
+        cashAmount: action.payload.pay.cashAmount,
+        cardDigits: action.payload.pay.cardDigits,
+        cardAuth: action.payload.pay.cardAuth
+      }
+    }
+
   } // switch
 
   return state // default return

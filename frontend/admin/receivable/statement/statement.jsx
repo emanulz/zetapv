@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {fetchItems, setItem, setItems, setItemsQuery} from '../../utils/api'
 import {checkSalesDebt} from './actions'
 import {Link} from 'react-router-dom'
-const moment = require('moment')
+import {formatDate} from '../../../utils/formatDate.js'
 
 @connect((store) => {
   return {
@@ -83,7 +83,8 @@ export default class Statement extends React.Component {
   statementItem(sale, client) {
 
     const movClass = sale.type == 'CREDIT' ? 'credit' : 'debit'
-    const date = moment(sale.created).format('DD/MM/YYYY')
+    // const date = moment(sale.created).format('DD/MM/YYYY')
+    const date = formatDate(sale.created)
     const debt = sale.debt ? sale.debt : 0
     if (debt > 0) {
       return <tr className={`${movClass}`} key={sale._id}>

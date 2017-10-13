@@ -15,8 +15,12 @@ export default class Buttons extends React.Component {
   showInoicePanel() {
     this.props.dispatch({type: 'SHOW_INVOICE_PANEL', payload: -1})
   }
+  showSalePanel() {
+    this.props.dispatch({type: 'SHOW_SALES_PANEL', payload: -1})
+  }
   newSale() {
-    window.location.reload()
+    // window.location.reload()
+    window.location.href = '/pos'
     // this.props.dispatch({type: 'NEW_SALE', payload: -1})
   }
 
@@ -35,7 +39,7 @@ export default class Buttons extends React.Component {
           className='btn btn-default buttons-payButton'>
           Factura
           <span>
-            <i className='fa fa-credit-card' />
+            <i className='fa fa-money' />
           </span>
         </button>
         <button
@@ -48,7 +52,7 @@ export default class Buttons extends React.Component {
           className='btn btn-default buttons-payButton'>
           Nueva Venta
           <span>
-            <i className='fa fa-credit-card' />
+            <i className='fa fa-refresh' />
           </span>
         </button>
       </div>
@@ -74,7 +78,23 @@ export default class Buttons extends React.Component {
           <i className='fa fa-credit-card' />
         </span>
       </button>
+
+      <button
+        onClick={this.showSalePanel.bind(this)}
+        style={{
+          'height': '48px',
+          'width': '49%',
+          'marginTop': '10px'
+        }}
+        className='btn btn-default buttons-payButton'>
+        Ventas del día
+        <span>
+          <i className='fa fa-list' />
+        </span>
+      </button>
+
       {buttons}
+
     </div>
 
   }

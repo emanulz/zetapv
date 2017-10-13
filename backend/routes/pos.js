@@ -7,7 +7,7 @@ const path = require('path')
 //   res.render('index')
 // })
 
-router.get('/', ensureAuthenticated, function(req, res) {
+router.get('/*', ensureAuthenticated, function(req, res) {
   res.render(path.join(__dirname, '../../frontend/pos/index'), {user: req.user})
 })
 

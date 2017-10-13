@@ -22,6 +22,8 @@ import Footer from './footer/footer.jsx'
 import PayPanel from './pay/payPanel.jsx'
 import InvoicePanel from './invoice/invoicePanel/invoicePanel.jsx'
 
+import SalesPanel from './sales/dailySales.jsx'
+
 // store
 import store from './store.js'
 
@@ -32,7 +34,7 @@ window.printDiv = printDiv
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <DbSync remoteDB={`${process.env.COUCHDB_REMOTE_SERVER}`} />
+      <DbSync />
       <Config />
       <SideMenu />
       <div id='mainContainer' className='blur-div mainContainer'>
@@ -53,6 +55,7 @@ ReactDOM.render(
 
         <PayPanel />
         <InvoicePanel />
+        <SalesPanel />
 
       </div>
 

@@ -10,7 +10,8 @@ const clientSelectedModel = {
   id: '000000000',
   last_name: 'Contado',
   name: 'Cliente',
-  updated: ''
+  updated: '',
+  saleLoaded: false
 }
 
 const stateConst = {
@@ -77,6 +78,14 @@ export default function reducer(state = stateConst, action) {
         ...state, clients: clients
       }
     } // case
+
+    case 'LOADED_SALE':
+    {
+      return {
+        ...state,
+        clientSelected: action.payload.client
+      }
+    }
 
   } // switch
 

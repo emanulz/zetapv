@@ -3,8 +3,8 @@
  */
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {formatDateTimeAmPm} from '../../../utils/formatDate.js'
 
-const moment = require('moment')
 // data Tables
 const $ = require('jquery')
 $.DataTable = require('datatables.net')
@@ -116,7 +116,8 @@ export default class DataTable extends React.Component {
 
             case 'date':
             {
-              const date = moment(itemToRender).format('DD-MM-YYYY HH:mm:ss')
+              // const date = moment(itemToRender).format('DD-MM-YYYY HH:mm:ss')
+              const date = formatDateTimeAmPm(itemToRender)
               item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>
                 {date}
               </td>
@@ -151,6 +152,20 @@ export default class DataTable extends React.Component {
                 }}>
                   {itemToRender}
                 </Link>
+              </td>
+              break
+            }
+
+            case 'link':
+            {
+
+              item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>
+                {/* <Link to={`/admin/${model}/edit#${itemToRender}`}>
+                                              {itemToRender}
+                                          </Link> */}
+                <a target='_blank' href={`${header.baseLink}/${itemToRender}`}>
+                  {itemToRender}
+                </a>
               </td>
               break
             }

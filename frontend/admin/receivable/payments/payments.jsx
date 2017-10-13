@@ -4,8 +4,7 @@ import Select2 from 'react-select2-wrapper'
 import {fetchItems, setItemsQuery} from '../../utils/api'
 import {checkSalesDebt} from '../statement/actions'
 import alertify from 'alertifyjs'
-
-const moment = require('moment')
+import {formatDate} from '../../../utils/formatDate.js'
 
 @connect((store) => {
   return {
@@ -72,7 +71,7 @@ export default class Update extends React.Component {
   paymentTableItem(sale) {
 
     const movClass = sale.type == 'CREDIT' ? 'credit' : 'debit'
-    const date = moment(sale.created).format('DD/MM/YYYY')
+    const date = formatDate(sale.created)
     const debt = sale.debt ? sale.debt : 0
     if (debt > 0) {
       return <tr className={`${movClass}`} key={sale._id}>

@@ -122,6 +122,23 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'LOADED_SALE':
+    {
+      return {
+        ...state,
+        created: action.payload.cart.created,
+        isNull: action.payload.cart.isNull,
+        cartHasItems: action.payload.cart.cartHasItems, // var to check if cart has items
+        cartItems: action.payload.cart.cartItems, // the list of items in cart
+        cartSubtotalNoDiscount: action.payload.cart.cartSubtotalNoDiscount, // subtotal without discount and taxes
+        cartSubtotal: action.payload.cart.cartSubtotal, // the subtotal including discounts without taxes
+        cartTaxes: action.payload.cart.cartTaxes, // total amount of taxes in cart in currency
+        cartTotal: action.payload.cart.cartTotal, // cart total after discount and taxes
+        globalDiscount: action.payload.cart.globalDiscount, // discount %
+        discountTotal: action.payload.cart.discountTotal // discount in currency
+      }
+    }
+
   } // switch
 
   return state // default return

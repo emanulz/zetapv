@@ -32,7 +32,9 @@ export default class List extends React.Component {
     const headerOrder = [
       {
         field: 'id',
-        text: '# Factura'
+        text: '# Factura',
+        baseLink: '/pos',
+        type: 'link'
       }, {
         field: 'created',
         text: 'Fecha',

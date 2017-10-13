@@ -1,5 +1,5 @@
 import React from 'react'
-import {saveItem} from '../actions'
+import {saveItem, loadSale} from '../actions'
 import {connect} from 'react-redux'
 
 @connect((store) => {
@@ -16,6 +16,20 @@ import {connect} from 'react-redux'
   }
 })
 export default class PaySideBar extends React.Component {
+
+  componentWillUpdate(nextProps) {
+
+    if (nextProps.sales.length && nextProps.sales != this.props.sales) {
+
+      const sale = window.location.href.split('/').pop()
+
+      // If is loading sale
+      if (sale != 'pos') {
+        this.props.dispatch(loadSale(sale, nextProps.sales))
+      }
+    }
+
+  }
 
   saveBtn() {
     const sales = this.props.sales
