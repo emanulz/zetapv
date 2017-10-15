@@ -1,0 +1,72 @@
+
+.report
+  padding: 10px
+  width: calc(100% - 350px)
+  position: absolute
+  left: 350px
+  transition: all 200ms ease-out
+  &.collapsed
+    width: 100%
+    left: 0
+  &-header
+    width: 100%
+    height: 50px
+    line-height: 50px
+    font-size: 20px
+    font-family: 'Source Sans Pro', sans-serif
+    background-color: $REP-SECONDARY-DARK
+    color: white
+    padding-left: 10px
+
+    & .fa-chevron-right
+      transition: all 200ms ease-out
+      margin-left: 15px
+      cursor: pointer
+      &:hover
+        color: rgb(226, 227, 230)
+
+    & button
+      color: white
+      background: $SECONDARY-COLOR
+      height: 40px
+      line-height: 25px
+      float: right
+      margin-right: 70px
+      margin-top: 5px
+      & i
+        margin-left: 10px
+      &:hover
+        background-color: $SECONDARY-COLOR-ACCENT
+        color: white
+  &-content
+
+  &-table
+    & .code-row
+      width: 15%
+    & .description-row
+      width: 50%
+    & .existence-row
+      width: 15%
+    & .input-row
+      width: 10%
+    & .output-row
+      width: 10%
+    & thead
+      background-color: $REP-SECONDARY-DARK
+      color: white
+      & tr
+        height: 40px !important
+        line-height: 40px !important
+        & td
+          font-size: 14px
+          font-family: 'Source Sans Pro', sans-serif !important
+    & tbody
+      & tr
+        &.active-row
+          font-weight: 600
+          border: 1px solid green
+        & td
+          font-size: 14px
+          font-family: 'Quicksand', sans-serif !important
+    & .center
+      text-align: center

@@ -7,7 +7,7 @@ export function filterProducts(products, text, department, subdepartment) {
     if (text) {
       filtered = filtered.filter(el => {
         return el.code.indexOf(text) != -1 ||
-        el.barcode.indexOf(text) != -1 ||
+        el.barcode.toString().indexOf(text) != -1 ||
         el.description.toUpperCase().indexOf(text.toUpperCase()) != -1
       })
     }

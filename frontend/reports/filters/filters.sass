@@ -1,0 +1,62 @@
+.filters
+  padding-top: 10px
+  width: 350px
+  position: absolute
+  left: 0
+  transition: all 200ms ease-out
+  &.collapsed
+    left: -350px
+  &-header
+    position: relative
+    top: 0
+    right: 0
+    width: 100%
+    height: 50px
+    line-height: 50px
+    background-color: $REP-SECONDARY-DARK
+    padding-left: 12px
+    font-size: 20px
+    font-family: 'Source Sans Pro', sans-serif
+    color: white
+    & i
+      float: right
+      margin-right: 20px
+      line-height: 55px
+      cursor: pointer
+      &:hover
+        color: rgb(226, 227, 230)
+  &-container
+    padding: 10px
+    & h4
+      font-family: 'Source Sans Pro Bold', sans-serif
+      font-weight: bold
+      font-size: 15px
+      margin-top: 10px
+      margin-bottom: 5px
+
+    &-inline
+      margin-top: 15px
+      display: flex
+      flex-flow: row
+      & input[type=checkbox]
+        zoom: 1.5
+        height: 15px
+        margin: 6px 0 0 5px
+    & button
+      font-family: 'Source Sans Pro Bold', sans-serif !important
+      color: white
+      margin-top: 15px
+      background-color: $REP-SECONDARY
+      &:hover
+        color: white
+        background-color: $REP-SECONDARY-DARK
+      &:focus
+        color: white
+    &-dates
+      display: flex
+      flex-flow: row
+      &-initial
+        max-width: 50%
+        padding-right: 5px
+      &-final
+        max-width: 50%

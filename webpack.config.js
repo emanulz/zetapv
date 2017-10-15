@@ -20,7 +20,8 @@ const jsConfig = Object.assign({}, config, {
     admin: './frontend/admin/app.js',
     inventories: './frontend/inventories/app.js',
     landing: './frontend/landing/app.js',
-    pos: './frontend/pos/app.js'
+    pos: './frontend/pos/app.js',
+    reports: './frontend/reports/app.js'
   },
   module: {
     rules: [
@@ -73,7 +74,8 @@ const stylesConfig = Object.assign({}, config, {
     admin: './frontend/admin/styles/main.sass',
     inventories: './frontend/inventories/styles/main.sass',
     landing: './frontend/landing/main.sass',
-    pos: './frontend/pos/styles/main.sass'
+    pos: './frontend/pos/styles/main.sass',
+    reports: './frontend/reports/styles/main.sass'
   },
   module: {
     rules: [
