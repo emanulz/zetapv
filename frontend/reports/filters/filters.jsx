@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 
 @connect((store) => {
   return {
+    isActive: store.reports.isActive,
     isCollapsed: store.reports.isCollapsed,
     reportActive: store.reports.reportActive,
     iniDateActive: store.reports.iniDateActive,
@@ -16,7 +17,8 @@ import {connect} from 'react-redux'
     subdepartmentActive: store.reports.subdepartmentActive,
     departments: store.reports.departments,
     clients: store.reports.clients,
-    subdepartments: store.reports.subdepartments
+    subdepartments: store.reports.subdepartments,
+    filtersActive: store.reports.filtersActive
   }
 })
 export default class Filters extends React.Component {
@@ -24,7 +26,9 @@ export default class Filters extends React.Component {
   setClientActive(event) {
     const target = event.target
     const value = target.value
-    this.props.dispatch({type: 'SET_CLIENT', payload: value})
+    const id = value.split('/')[0]
+    const name = value.split('/')[1]
+    this.props.dispatch({type: 'SET_CLIENT', payload: {id: id, name: name, value: value}})
   }
 
   setReportActive(event) {
@@ -50,22 +54,37 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'CLEAR_REPORT', payload: ''})
     this.props.dispatch({type: 'CLEAR_INI_DATE', payload: ''})
     this.props.dispatch({type: 'CLEAR_END_DATE', payload: ''})
+    this.props.dispatch({type: 'SET_FILTERS_ACTIVE', payload: ''})
+    this.props.dispatch({type: 'CLEAR_REPORT_GENERATED', payload: ''})
   }
 
   collapseFilters() {
     this.props.dispatch({type: 'TOGGLE_FILTERS', payload: ''})
   }
 
+  setReportAreaActive() {
+    this.props.dispatch({type: 'SET_REPORT_GENERATED', payload: ''})
+    this.props.dispatch({type: 'SET_FILTERS_INACTIVE', payload: ''})
+  }
+
   // Main Layout
   render() {
 
+    // ********************************************************************
+    // BUTTONS
+    // ********************************************************************
+    const buttons = this.props.isActive
+      ? <button className='btn form-control'onClick={this.clearFilters.bind(this)}> Limpiar Filtros </button>
+      : <button className='btn form-control'onClick={this.setReportAreaActive.bind(this)}>
+        Generar
+        <i class='fa fa-tasks' aria-hidden='true' />
+      </button>
     // ********************************************************************
     // SELECT2 DATA
     // ********************************************************************
 
     const departmentData = [
-      {text: `Ventas`, id: 1},
-      {text: `Descuentos`, id: 2}
+      {text: `Ventas`, id: 1}
     ]
 
     const filteredSubDepartments = this.props.departmentActive
@@ -87,10 +106,11 @@ export default class Filters extends React.Component {
     })
 
     const clientsData = sortedClients.map(client => {
-      return {text: `${client.code} - ${client.name} ${client.last_name}`, id: client._id}
+      return {text: `${client.code} - ${client.name} ${client.last_name}`,
+        id: `${client._id}/${client.name} ${client.last_name} - ${client.code}`}
     })
 
-    clientsData.unshift({text: 'Todos los clientes', id: 0})
+    clientsData.unshift({text: 'Todos los clientes', id: '0/Todos los clientes'})
 
     const filterClass = this.props.isCollapsed ? 'filters collapsed' : 'filters'
     // ********************************************************************
@@ -105,7 +125,8 @@ export default class Filters extends React.Component {
 
         <h4>Tipo de Reporte:</h4>
         <Select2
-          name='department'
+          disabled={!this.props.filtersActive}
+          name='report'
           value={this.props.reportActive}
           className='form-control'
           onSelect={this.setReportActive.bind(this)}
@@ -121,6 +142,7 @@ export default class Filters extends React.Component {
           <div className='filters-container-dates-initial'>
             <h4>Fecha inicial:</h4>
             <input className='form-control' type='date'
+              disabled={!this.props.filtersActive}
               value={this.props.iniDateActive}
               onChange={this.setIniDateActive.bind(this)}
             />
@@ -129,6 +151,7 @@ export default class Filters extends React.Component {
           <div className='filters-container-dates-final'>
             <h4>Fecha final:</h4>
             <input className='form-control' type='date'
+              disabled={!this.props.filtersActive}
               value={this.props.endDateActive}
               onChange={this.setEndDateActive.bind(this)}
             />
@@ -138,7 +161,8 @@ export default class Filters extends React.Component {
 
         <h4>Cliente:</h4>
         <Select2
-          name='subdepartment'
+          disabled={!this.props.filtersActive}
+          name='client'
           value={this.props.clientActive}
           onSelect={this.setClientActive.bind(this)}
           className='form-control'
@@ -148,8 +172,7 @@ export default class Filters extends React.Component {
             noResultsText: 'Sin elementos'
           }}
         />
-
-        <button className='btn form-control'onClick={this.clearFilters.bind(this)}> Limpiar Filtros </button>
+        {buttons}
 
       </div>
 

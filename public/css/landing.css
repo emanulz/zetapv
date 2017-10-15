@@ -4158,7 +4158,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   height: 100%;
   background-color: #354052;
   color: white;
-  transition: left 200ms ease-out; }
+  transition: left 200ms ease-out;
+  z-index: 15; }
   .sideMenu.visible {
     left: 0; }
   .sideMenu-header {

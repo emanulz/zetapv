@@ -4159,7 +4159,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   height: 100%;
   background-color: #354052;
   color: white;
-  transition: left 200ms ease-out; }
+  transition: left 200ms ease-out;
+  z-index: 15; }
   .sideMenu.visible {
     left: 0; }
   .sideMenu-header {
@@ -4274,10 +4275,13 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .filters {
   padding-top: 10px;
+  padding-right: 10px;
   width: 350px;
   position: absolute;
   left: 0;
-  transition: all 200ms ease-out; }
+  transition: all 200ms ease-out;
+  height: calc(100% - 65px);
+  overflow-y: auto; }
   .filters.collapsed {
     left: -350px; }
   .filters-header {
@@ -4300,6 +4304,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       .filters-header i:hover {
         color: #e2e3e6; }
   .filters-container {
+    width: 100%;
     padding: 10px; }
     .filters-container h4 {
       font-family: 'Source Sans Pro Bold', sans-serif;
@@ -4320,6 +4325,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       color: white;
       margin-top: 15px;
       background-color: #6f7e95; }
+      .filters-container button i {
+        margin-left: 10px; }
       .filters-container button:hover {
         color: white;
         background-color: #435267; }
@@ -4335,10 +4342,12 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         max-width: 50%; }
 
 .report {
-  padding: 10px;
+  padding: 10px 0 0 0;
   width: calc(100% - 350px);
   position: absolute;
   left: 350px;
+  height: calc(100% - 80px);
+  overflow-y: auto;
   transition: all 200ms ease-out; }
   .report.collapsed {
     width: 100%;
@@ -4371,32 +4380,62 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       .report-header button:hover {
         background-color: #5c759d;
         color: white; }
-  .report-table .code-row {
-    width: 15%; }
-  .report-table .description-row {
-    width: 50%; }
-  .report-table .existence-row {
-    width: 15%; }
-  .report-table .input-row {
-    width: 10%; }
-  .report-table .output-row {
-    width: 10%; }
-  .report-table thead {
-    background-color: #435267;
-    color: white; }
-    .report-table thead tr {
-      height: 40px !important;
-      line-height: 40px !important; }
-      .report-table thead tr td {
-        font-size: 14px;
-        font-family: 'Source Sans Pro', sans-serif !important; }
-  .report-table tbody tr.active-row {
-    font-weight: 600;
-    border: 1px solid green; }
-  .report-table tbody tr td {
-    font-size: 14px;
-    font-family: 'Quicksand', sans-serif !important; }
-  .report-table .center {
-    text-align: center; }
+      .report-header button:focus {
+        background-color: #5c759d;
+        color: white; }
+  .report-content {
+    padding: 10px;
+    font-family: 'Source Sans Pro', sans-serif; }
+    .report-content-header {
+      text-align: center;
+      font-size: 20px; }
+      .report-content-header hr {
+        margin-top: 10px;
+        margin-bottom: 10px; }
+    .report-content-filters {
+      font-family: 'Source Sans Pro Bold', sans-serif;
+      margin-top: 15px; }
+    .report-content-body table {
+      font-size: 14px;
+      margin-top: 15px; }
+      .report-content-body table thead {
+        background-color: #435267;
+        color: white; }
+        .report-content-body table thead tr {
+          height: 30px !important;
+          line-height: 30px !important; }
+    .report-content-body-totals {
+      font-family: 'Source Sans Pro Bold', sans-serif;
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end; }
+      .report-content-body-totals-text {
+        width: 45%;
+        font-size: 20px;
+        font-weight: bold; }
+      .report-content-body-totals table {
+        width: 45%;
+        border: none; }
+        .report-content-body-totals table th {
+          width: 40%;
+          text-align: right;
+          padding-right: 20px;
+          background: none;
+          color: black;
+          font-size: 12px; }
+        .report-content-body-totals table td {
+          padding: 2px;
+          font-size: 12px;
+          text-align: right; }
+      .report-content-body-totals .total-row th {
+        font-size: 16px;
+        font-weight: bold;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; }
+      .report-content-body-totals .total-row td {
+        font-size: 16px;
+        font-weight: bold;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; }
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9yZXBvcnRzLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/

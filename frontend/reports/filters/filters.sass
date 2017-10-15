@@ -1,9 +1,12 @@
 .filters
   padding-top: 10px
+  padding-right: 10px
   width: 350px
   position: absolute
   left: 0
   transition: all 200ms ease-out
+  height: calc(100% - 65px)
+  overflow-y: auto
   &.collapsed
     left: -350px
   &-header
@@ -26,6 +29,7 @@
       &:hover
         color: rgb(226, 227, 230)
   &-container
+    width: 100%
     padding: 10px
     & h4
       font-family: 'Source Sans Pro Bold', sans-serif
@@ -47,6 +51,8 @@
       color: white
       margin-top: 15px
       background-color: $REP-SECONDARY
+      & i
+        margin-left: 10px
       &:hover
         color: white
         background-color: $REP-SECONDARY-DARK

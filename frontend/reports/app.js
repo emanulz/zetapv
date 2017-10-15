@@ -10,12 +10,14 @@ import SideMenu from '../layout/sideMenu/sideMenu.jsx'
 import {Provider} from 'react-redux'
 import store from './store.js'
 import Config from './config/config.jsx'
+import formatMoney from '../utils/formatMoney.js'
 
 import Filters from './filters/filters.jsx'
 import Report from './reports/reports.jsx'
 // import SidePanel from './sidePanel/sidePanel.jsx'
 
 window.alertify = alertify
+formatMoney()
 // store
 
 ReactDOM.render(

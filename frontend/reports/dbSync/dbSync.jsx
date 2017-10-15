@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchItemsBulk} from '../../admin/utils/api'
+import {fetchItemsBulk, fetchItems} from '../../admin/utils/api'
 import {getDbUrl} from './actions'
 
 const PouchDB = require('pouchdb')
@@ -23,6 +23,7 @@ export default class Product extends React.Component {
   componentWillUpdate(nextProps) {
     if (nextProps.dbUrl != this.props.dbUrl && nextProps.dbUrl != '') {
       this.syncGeneralDb(nextProps.dbUrl)
+      this.syncSalesDb(nextProps.dbUrl)
     }
   }
 
@@ -104,6 +105,36 @@ export default class Product extends React.Component {
 
     // Fecth items
     this.props.dispatch(kwargs.fecthFunc(kwargs))
+  }
+
+  syncSalesDb(remoteDBUrl) {
+    const _this = this
+    const localDB = new PouchDB('sales')
+    const remoteDB = new PouchDB(`${remoteDBUrl}/sales`)
+
+    localDB.createIndex({ index: {fields: ['docType']} })
+    localDB.createIndex({ index: {fields: ['docType', 'created']} })
+    localDB.createIndex({ index: {fields: ['docType', 'id']} })
+    localDB.createIndex({ index: {fields: ['docType', 'client.code', 'pay.payMethod']} })
+
+    const kwargs = {
+      db: 'sales',
+      docType: 'SALE',
+      dispatchType: 'FETCH_SALES_FULFILLED',
+      dispatchErrorType: 'FETCH_SALES_REJECTED'
+    }
+
+    localDB.sync(remoteDB, {
+      retry: true
+    })
+      .on('change', function(change) {
+        console.log('change')
+        _this.props.dispatch(fetchItems(kwargs))
+
+      })
+
+    this.props.dispatch(fetchItems(kwargs))
+
   }
 
   render() {

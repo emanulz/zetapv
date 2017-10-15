@@ -1,32 +1,22 @@
-const productmovementModel = {
-  'document': 0,
-  'docType': 'PRODUCT_MOVEMENT',
-  'created': '',
-  'updated': '',
-  'productId': '',
-  'type': 'INPUT',
-  'amount': '',
-  'date': new Date(),
-  'description': ''
-}
 
 const stateConst = {
+  isActive: false,
+  filtersActive: true,
   isCollapsed: false,
-  reportActive: '',
+  reportActive: 0,
   iniDateActive: '',
   endDateActive: '',
   products: [],
   productActive: '',
   clients: [],
   clientActive: '',
+  clientActiveName: '',
+  clientActiveId: '',
   departments: [],
   departmentActive: '',
   subdepartments: [],
   subdepartmentActive: '',
-  productmovements: [],
-  isPhysicalTake: false,
-  productmovementActive: productmovementModel,
-  filterText: ''
+  sales: []
 }
 
 export default function reducer(state = stateConst, action) {
@@ -42,6 +32,22 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         isCollapsed: collapsed
+      }
+    } // case
+
+    case 'SET_FILTERS_ACTIVE':
+    {
+      return {
+        ...state,
+        filtersActive: true
+      }
+    } // case
+
+    case 'SET_FILTERS_INACTIVE':
+    {
+      return {
+        ...state,
+        filtersActive: false
       }
     } // case
 
@@ -61,7 +67,27 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        reportActive: ''
+        reportActive: 0
+      }
+    } // case
+
+    // ***********************************
+    // GENERATE REPORT
+    // ***********************************
+
+    case 'SET_REPORT_GENERATED':
+    {
+      return {
+        ...state,
+        isActive: true
+      }
+    } // case
+
+    case 'CLEAR_REPORT_GENERATED':
+    {
+      return {
+        ...state,
+        isActive: false
       }
     } // case
 
@@ -167,7 +193,9 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        clientActive: action.payload
+        clientActive: action.payload.value,
+        clientActiveId: action.payload.id,
+        clientActiveName: action.payload.name
       }
     } // case
 
@@ -175,7 +203,30 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        clientActive: ''
+        clientActive: '',
+        clientActiveId: '',
+        clientActiveName: ''
+      }
+    } // case
+
+    // ***********************************
+    // SALES
+    // ***********************************
+
+    case 'FETCH_SALES_REJECTED':
+    {
+      return {
+        ...state,
+        sales: [],
+        salesFetchError: action.payload
+      }
+    } // case
+
+    case 'FETCH_SALES_FULFILLED':
+    {
+      return {
+        ...state,
+        sales: action.payload
       }
     } // case
 
@@ -272,42 +323,6 @@ export default function reducer(state = stateConst, action) {
         subdepartmentActive: ''
       }
     }
-
-    // ***********************************
-    // PRODUCT MOVEMENTS
-    // ***********************************
-
-    case 'FETCH_PRODUCTMOVEMENTS_REJECTED':
-    {
-      return {
-        ...state,
-        productmovements: []
-      }
-    }
-
-    case 'FETCH_PRODUCTMOVEMENTS_FULFILLED':
-    {
-      return {
-        ...state,
-        productmovements: action.payload
-      }
-    }
-
-    case 'SET_PRODUCT_MOVEMENT':
-    {
-      return {
-        ...state,
-        productmovementActive: action.payload
-      }
-    }
-
-    case 'CLEAR_PRODUCT_MOVEMENT':
-    {
-      return {
-        ...state,
-        productmovementActive: productmovementModel
-      }
-    } // case
 
   } // switch
 

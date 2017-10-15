@@ -24,7 +24,7 @@ export default class PaySideBar extends React.Component {
       const sale = window.location.href.split('/').pop()
 
       // If is loading sale
-      if (sale != 'pos') {
+      if (sale != 'pos' && sale != '') {
         this.props.dispatch(loadSale(sale, nextProps.sales))
       }
     }
