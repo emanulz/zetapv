@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Select2 from 'react-select2-wrapper'
 import {fetchItems, setItemsQuery} from '../../utils/api'
+import {getClientDebt} from '../../utils/receivable'
 import {checkSalesDebt} from '../statement/actions'
 import alertify from 'alertifyjs'
 import {formatDate} from '../../../utils/formatDate.js'
@@ -9,9 +10,12 @@ import {formatDate} from '../../../utils/formatDate.js'
 @connect((store) => {
   return {
     movement: store.receivable.clientmovementActive,
+    movements: store.receivable.clientmovements,
+    paymentArray: store.receivable.paymentArray,
     clients: store.clients.clients,
     clientId: store.receivable.paymentClientSelected,
     creditSales: store.receivable.clientActiveCreditSales,
+    debt: store.receivable.clientActiveDebt,
     creditSalesD: store.receivable.clientActiveCreditSalesD
   }
 })
@@ -47,6 +51,23 @@ export default class Update extends React.Component {
     const value = target.value
 
     this.props.dispatch({type: 'SET_PAYMENT_CLIENT_SELECTED', payload: value})
+    const debt = getClientDebt(value, this.props.movements)
+    this.props.dispatch({type: 'SET_PAYMENT_CLIENT_SELECTED_DEBT', payload: debt})
+  }
+
+  paySaleComplete(sale, debt, event) {
+
+    if (event.target.checked) {
+      const item = {
+        sale: sale,
+        amount: debt,
+        complete: true
+      }
+      this.props.dispatch({type: 'ADD_TO_PAYMENT_ARRAY', payload: item})
+
+    } else {
+      this.props.dispatch({type: 'REMOVE_FROM_PAYMENT_ARRAY', payload: sale})
+    }
   }
 
   onConsultBtn() {
@@ -82,6 +103,7 @@ export default class Update extends React.Component {
         <td>
           <input
             type='checkbox'
+            onClick={this.paySaleComplete.bind(this, sale._id, debt)}
           />
         </td>
         <td>
@@ -105,11 +127,11 @@ export default class Update extends React.Component {
     // ********************************************************************
     const clients = this.props.clients
 
-    const productsWithCredit = clients.length
-      ? clients.filter(product => product.has_credit)
+    const clientsWithCredit = clients.length
+      ? clients.filter(client => client.has_credit)
       : []
 
-    const clientsSelect = productsWithCredit.map(client => {
+    const clientsSelect = clientsWithCredit.map(client => {
       return {text: `${client.code} - ${client.name} ${client.last_name}`, id: client._id}
     })
 
@@ -125,6 +147,18 @@ export default class Update extends React.Component {
       : <tr>
         <td>-</td>
       </tr>
+
+    const clientDebt = this.props.debt
+    let paymentTotal = 0
+    const array = this.props.paymentArray
+
+    console.log(array)
+
+    array.map(item => {
+      paymentTotal = paymentTotal + item.amount
+    })
+
+    const amountLeft = clientDebt - paymentTotal
 
     return <div className='create'>
       <h1>Registrar pago a Facturas:</h1>
@@ -157,15 +191,15 @@ export default class Update extends React.Component {
                 <tbody>
                   <tr>
                     <th>Saldo Anterior</th>
-                    <td>₡ 0</td>
+                    <td>₡ {clientDebt.formatMoney(2, ',', '.')}</td>
                   </tr>
                   <tr>
                     <th>Abono:</th>
-                    <td>₡ 0</td>
+                    <td>₡ {paymentTotal.formatMoney(2, ',', '.')}</td>
                   </tr>
                   <tr>
                     <th>Saldo:</th>
-                    <td>₡ 0</td>
+                    <td>₡ {amountLeft.formatMoney(2, ',', '.')}</td>
                   </tr>
                 </tbody>
               </table>

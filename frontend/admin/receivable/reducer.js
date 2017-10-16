@@ -17,14 +17,43 @@ const stateConst = {
   clientmovements: {},
   clientmovementActive: clientmovementModel,
   clientActiveMovements: [],
+  clientActiveDebt: 0,
   clientActiveCreditSales: [],
   clientActiveCreditSalesD: [],
-  paymentClientSelected: ''
+  paymentClientSelected: '',
+  paymentArray: []
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    // ***********************************
+    // CLIENT MOVEMENTS
+    // ***********************************
+
+    case 'ADD_TO_PAYMENT_ARRAY':
+    {
+      const array = [...state.paymentArray]
+      array.push(action.payload)
+      return {
+        ...state,
+        paymentArray: array
+      }
+    }
+
+    case 'REMOVE_FROM_PAYMENT_ARRAY':
+    {
+      const array = [...state.paymentArray]
+      const indexInArray = array.findIndex(item => item.sale == action.payload) // checks if product exists
+      if (indexInArray != -1) {
+        array.splice(indexInArray, 1)
+      }
+      return {
+        ...state,
+        paymentArray: array
+      }
+    }
 
     // ***********************************
     // CLIENT MOVEMENTS
@@ -114,6 +143,14 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         paymentClientSelected: action.payload
+      }
+    } // case
+
+    case 'SET_PAYMENT_CLIENT_SELECTED_DEBT':
+    {
+      return {
+        ...state,
+        clientActiveDebt: action.payload
       }
     } // case
 

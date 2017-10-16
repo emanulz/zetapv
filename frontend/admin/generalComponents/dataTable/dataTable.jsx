@@ -156,6 +156,25 @@ export default class DataTable extends React.Component {
               break
             }
 
+            case 'primaryNoEdit':
+            {
+
+              item = <td key={`${el._id}_${header.field}`} data-order={itemToRender}>
+                {/* <Link to={`/admin/${model}/edit#${itemToRender}`}>
+                                              {itemToRender}
+                                          </Link> */}
+                <Link to={{
+                  pathname: `/admin/${model}/${itemToRender}`,
+                  state: {
+                    el: el
+                  }
+                }}>
+                  {itemToRender}
+                </Link>
+              </td>
+              break
+            }
+
             case 'link':
             {
 

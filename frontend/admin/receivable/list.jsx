@@ -57,7 +57,7 @@ export default class MovementsList extends React.Component {
       {
         field: 'code',
         text: 'Código',
-        type: 'text'
+        type: 'primaryNoEdit'
       }, {
         field: 'name',
         text: 'Nombre',
@@ -75,7 +75,7 @@ export default class MovementsList extends React.Component {
       {
         field: 'debt',
         text: 'Saldo',
-        type: 'text'
+        type: 'price'
       }
     ]
 
@@ -83,7 +83,7 @@ export default class MovementsList extends React.Component {
 
       <h1>Saldos:</h1>
 
-      <DataTable headerOrder={headerOrder} model='receivable/movements' data={dataFiltered} addLink='/admin/receivable/movements/add' />
+      <DataTable headerOrder={headerOrder} model='receivable/statement' data={dataFiltered} addLink='/admin/receivable/movements/add' />
 
     </div>
   }

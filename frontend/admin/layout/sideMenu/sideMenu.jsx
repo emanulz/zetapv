@@ -24,6 +24,19 @@ export default class SideMenu extends React.Component {
         text: 'Productos',
         class: 'fa-truck',
         href: '/admin/inventories/products'
+      }, {
+        text: 'Bodegas',
+        class: 'fa-building',
+        href: '/admin/inventories/products'
+      }, {
+        text: 'Traslados entre bodegas',
+        class: 'fa-exchange',
+        href: '/admin/inventories/products'
+      }, {
+        text: 'Toma de inventarios',
+        class: 'fa-list',
+        href: '/inventories',
+        noLink: true
       }
     ]
     const childProducts = [
@@ -49,11 +62,11 @@ export default class SideMenu extends React.Component {
         href: '/admin/clients'
       }, {
         text: 'Cuentas por Cobrar',
-        class: 'fa-money',
+        class: 'fa-reorder',
         href: '/admin/receivable'
       }, {
         text: 'Notas de Crédito',
-        class: 'fa-money',
+        class: 'fa-ticket',
         href: '/admin/receivable/payments'
       }, {
         text: 'Pagos',
