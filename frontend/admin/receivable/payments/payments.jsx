@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Select2 from 'react-select2-wrapper'
-import {fetchItems, setItemsQuery} from '../../utils/api'
+import {fetchItems, setItemsQuery, getNextNumericCode, saveItem} from '../../utils/api'
 import {getClientDebt} from '../../utils/receivable'
 import {checkSalesDebt} from '../statement/actions'
 import alertify from 'alertifyjs'
@@ -55,19 +55,44 @@ export default class Update extends React.Component {
     this.props.dispatch({type: 'SET_PAYMENT_CLIENT_SELECTED_DEBT', payload: debt})
   }
 
-  paySaleComplete(sale, debt, event) {
+  paySaleComplete(sale, event) {
+
+    this.props.dispatch({type: 'REMOVE_FROM_PAYMENT_ARRAY', payload: sale._id})
 
     if (event.target.checked) {
       const item = {
         sale: sale,
-        amount: debt,
+        amount: sale.debt,
         complete: true
       }
       this.props.dispatch({type: 'ADD_TO_PAYMENT_ARRAY', payload: item})
 
     } else {
-      this.props.dispatch({type: 'REMOVE_FROM_PAYMENT_ARRAY', payload: sale})
+      this.props.dispatch({type: 'REMOVE_FROM_PAYMENT_ARRAY', payload: sale._id})
     }
+  }
+
+  paySaleAmount(sale, event) {
+
+    this.props.dispatch({type: 'REMOVE_FROM_PAYMENT_ARRAY', payload: sale._id})
+
+    if (event.target.checked) {
+      const item = {
+        sale: sale,
+        amount: 0,
+        complete: false
+      }
+      this.props.dispatch({type: 'ADD_TO_PAYMENT_ARRAY', payload: item})
+
+    } else {
+      this.props.dispatch({type: 'REMOVE_FROM_PAYMENT_ARRAY', payload: sale._id})
+    }
+  }
+
+  setPaySaleAmount(sale, event) {
+    const target = event.target
+    const value = parseFloat(target.value)
+    this.props.dispatch({type: 'SET_AMOUNT_PAYMENT_ARRAY', payload: {amount: value, sale: sale}})
   }
 
   onConsultBtn() {
@@ -103,23 +128,54 @@ export default class Update extends React.Component {
         <td>
           <input
             type='checkbox'
-            onClick={this.paySaleComplete.bind(this, sale._id, debt)}
+            onClick={this.paySaleComplete.bind(this, sale)}
           />
         </td>
         <td>
           <input
             type='checkbox'
+            onClick={this.paySaleAmount.bind(this, sale)}
           />
         </td>
         <td>
           <input
             type='number'
+            onChange={this.setPaySaleAmount.bind(this, sale)}
           />
         </td>
       </tr>
     }
   }
 
+  saveMovements() {
+    const movements = this.props.movements
+    const paymentArray = this.props.paymentArray
+    paymentArray.map(item => {
+      const movement = {
+        'document': 0,
+        'docType': 'CLIENT_MOVEMENT',
+        'created': new Date(),
+        'updated': '',
+        'clientId': this.props.clientId,
+        'type': 'DEBIT',
+        'amount': item.amount,
+        'date': new Date(),
+        'saleId': item.sale.id,
+        'sale_id': item.sale._id,
+        'description': `Pago a Factura # ${item.sale.id}`
+      }
+      movement.document = getNextNumericCode(movements, 'document')
+      const obj = {
+        db: 'general',
+        item: movement,
+        sucessMessage: 'Movimiento creado correctamente',
+        errorMessage: 'Hubo un error al crear el Movimiento, intente de nuevo.',
+        dispatchType: ''
+      }
+
+      this.props.dispatch(saveItem(obj))
+    })
+  }
   render() {
 
     // ********************************************************************
@@ -206,7 +262,7 @@ export default class Update extends React.Component {
             </div>
 
             <div className='col-xs-12 col-sm-4 col-sm-offset-1 paymentBlock'>
-              <button className='form-control btn-success'>
+              <button onClick={this.saveMovements.bind(this)} disabled={!this.props.paymentArray.length} className='form-control btn-success'>
                 Registrar
               </button>
             </div>

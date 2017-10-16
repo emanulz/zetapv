@@ -45,9 +45,22 @@ export default function reducer(state = stateConst, action) {
     case 'REMOVE_FROM_PAYMENT_ARRAY':
     {
       const array = [...state.paymentArray]
-      const indexInArray = array.findIndex(item => item.sale == action.payload) // checks if product exists
+      const indexInArray = array.findIndex(item => item.sale._id == action.payload)
       if (indexInArray != -1) {
         array.splice(indexInArray, 1)
+      }
+      return {
+        ...state,
+        paymentArray: array
+      }
+    }
+
+    case 'SET_AMOUNT_PAYMENT_ARRAY':
+    {
+      const array = [...state.paymentArray]
+      const indexInArray = array.findIndex(item => item.sale._id == action.payload.sale._id)
+      if (indexInArray != -1) {
+        array[indexInArray]['amount'] = action.payload.amount
       }
       return {
         ...state,

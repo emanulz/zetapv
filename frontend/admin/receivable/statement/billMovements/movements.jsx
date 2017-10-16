@@ -84,6 +84,7 @@ export default class MovementsList extends React.Component {
   // Render the product
   render() {
     const movements = this.props.movements
+    console.log(movements)
     const sale = this.props.sale
     let debits = 0
     let credits = 0
