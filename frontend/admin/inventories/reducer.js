@@ -11,10 +11,23 @@ const productmovementModel = {
   'description': ''
 }
 
+const warehouseModel = {
+  'docType': 'WAREHOUSE',
+  'code': '',
+  'created': '',
+  'updated': '',
+  'name': '',
+  'location': ''
+}
+
 const stateConst = {
   productmovementsFetchError: '',
-  productmovements: {},
-  productmovementActive: productmovementModel
+  productmovements: [],
+  productmovementActive: productmovementModel,
+  warehouses: [],
+  warehouseActive: warehouseModel,
+  nextWarehouse: 0,
+  previousWarehouse: 0
 }
 
 export default function reducer(state = stateConst, action) {
@@ -29,7 +42,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        productmovements: {},
+        productmovements: [],
         productmovementsFetchError: action.payload,
         productmovementActive: productmovementModel
       }
@@ -56,6 +69,61 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         productmovementActive: productmovementModel
+      }
+    } // case
+
+    // ***********************************
+    // WAREHOUSES
+    // ***********************************
+
+    case 'FETCH_WAREHOUSES_REJECTED':
+    {
+      return {
+        ...state,
+        warehouses: [],
+        warehouseActive: warehouseModel
+      }
+    }
+
+    case 'FETCH_WAREHOUSES_FULFILLED':
+    {
+      return {
+        ...state,
+        warehouses: action.payload
+      }
+    }
+
+    case 'SET_WAREHOUSE':
+    {
+      return {
+        ...state,
+        warehouseActive: action.payload
+      }
+    }
+
+    case 'CLEAR_WAREHOUSE':
+    {
+      return {
+        ...state,
+        warehouseActive: warehouseModel
+      }
+    } // case
+
+    case 'SET_NEXT_PREV_CLIENT':
+    {
+      return {
+        ...state,
+        nextWarehouse: action.payload.next,
+        previousWarehouse: action.payload.previous
+      }
+    } // case
+
+    case 'CLEAR_NEXT_PREV_CLIENT':
+    {
+      return {
+        ...state,
+        nextWarehouse: 0,
+        previousWarehouse: 0
       }
     } // case
 

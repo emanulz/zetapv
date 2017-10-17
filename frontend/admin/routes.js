@@ -31,6 +31,10 @@ import InventoryMovementsList from './inventories/products/movements/list.jsx'
 import InventoryMovementsCreate from './inventories/products/movements/create.jsx'
 import InventoryMovementsUpdate from './inventories/products/movements/update.jsx'
 
+import WarehousesList from './inventories/warehouses/list.jsx'
+import WarehousesCreate from './inventories/warehouses/create.jsx'
+import WarehousesUpdate from './inventories/warehouses/update.jsx'
+
 import Receivable from './receivable/list.jsx'
 
 import Statement from './receivable/statement/statement.jsx'
@@ -107,6 +111,10 @@ const routes = <div>
   <Route exact path='/admin/inventories/products/movements' component={InventoryMovementsList} />
   <Route exact path='/admin/inventories/products/movements/add' component={InventoryMovementsCreate} />
   <Route exact path='/admin/inventories/products/movements/edit/:movement' component={InventoryMovementsUpdate} />
+
+  <Route exact path='/admin/inventories/warehouses' component={WarehousesList} />
+  <Route exact path='/admin/inventories/warehouses/add' component={WarehousesCreate} />
+  <Route exact path='/admin/inventories/warehouses/edit/:warehouse' component={WarehousesUpdate} />
 
   <Route exact path='/admin/receivable' component={Receivable} />
 

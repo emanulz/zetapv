@@ -72,6 +72,11 @@ export default class Product extends React.Component {
         docType: 'EXPENSE',
         dispatchType: 'FETCH_EXPENSES_FULFILLED',
         dispatchErrorType: 'FETCH_EXPENSES_REJECTED'
+      },
+      {
+        docType: 'WAREHOUSE',
+        dispatchType: 'FETCH_WAREHOUSES_FULFILLED',
+        dispatchErrorType: 'FETCH_WAREHOUSES_REJECTED'
       }
 
     ]

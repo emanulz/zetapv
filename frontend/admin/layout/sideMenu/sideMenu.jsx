@@ -27,7 +27,7 @@ export default class SideMenu extends React.Component {
       }, {
         text: 'Bodegas',
         class: 'fa-building',
-        href: '/admin/inventories/products'
+        href: '/admin/inventories/warehouses'
       }, {
         text: 'Traslados entre bodegas',
         class: 'fa-exchange',
