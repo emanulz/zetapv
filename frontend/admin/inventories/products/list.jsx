@@ -40,7 +40,7 @@ export default class MovementsList extends React.Component {
     const movements = this.props.movements
     const products = this.props.products
 
-    const data = products.length && movements.length
+    const data = products.length
       ? products.map(product => {
         if (product.useInventory) {
           product.inventory = getAmount(product._id, movements)

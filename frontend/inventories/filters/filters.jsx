@@ -12,6 +12,8 @@ import {connect} from 'react-redux'
     departmentActive: store.products.departmentActive,
     subdepartmentActive: store.products.subdepartmentActive,
     filterText: store.products.filterText,
+    warehouses: store.products.warehouses,
+    warehouseActive: store.products.warehouseActive,
     isPhysicalTake: store.products.isPhysicalTake
   }
 })
@@ -30,6 +32,12 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'SET_PRODUCT_SUBDEPARTMENT', payload: value})
   }
 
+  setWarehouseActive(event) {
+    const target = event.target
+    const value = target.value
+    this.props.dispatch({type: 'SET_WAREHOUSE', payload: value})
+  }
+
   setFilterText (event) {
     const target = event.target
     const value = target.value
@@ -40,6 +48,7 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'CLEAR_FILTER_TEXT', payload: ''})
     this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
     this.props.dispatch({type: 'CLEAR_PRODUCT_DEPARTMENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_WAREHOUSES', payload: ''})
   }
 
   togglePhysical () {
@@ -78,6 +87,14 @@ export default class Filters extends React.Component {
       return {text: `${subdepartment.code} - ${subdepartment.name}`, id: subdepartment._id}
     })
 
+    const warehouses = this.props.warehouses
+    warehouses.sort((a, b) => {
+      return a.code - b.code
+    })
+    const warehousesData = warehouses.map(warehouse => {
+      return {text: `${warehouse.code} - ${warehouse.name}`, id: warehouse._id}
+    })
+
     // ********************************************************************
     // RETURN BLOCK
     // ********************************************************************
@@ -86,10 +103,12 @@ export default class Filters extends React.Component {
         Filtros
       </div>
       <div className='filters-container'>
+
         <input value={this.props.filterText} onChange={this.setFilterText.bind(this)} type='text'
           placeholder='Filtrar...' className='form-control' />
 
         <h4>Familia:</h4>
+
         <Select2
           name='department'
           value={this.props.departmentActive}
@@ -111,6 +130,19 @@ export default class Filters extends React.Component {
           data={subdepartmentData}
           options={{
             placeholder: 'Elija una sub Familia...',
+            noResultsText: 'Sin elementos'
+          }}
+        />
+
+        <h4>Bodega:</h4>
+        <Select2
+          name='department'
+          value={this.props.warehouseActive}
+          className='form-control'
+          onSelect={this.setWarehouseActive.bind(this)}
+          data={warehousesData}
+          options={{
+            placeholder: 'Elija una Bodega...',
             noResultsText: 'Sin elementos'
           }}
         />

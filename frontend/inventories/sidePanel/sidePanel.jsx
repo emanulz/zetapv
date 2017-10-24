@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
+import Select2 from 'react-select2-wrapper'
 import { saveItem, getNextNumericCode, fetchItems } from '../../admin/utils/api'
 import { checkProductMovementData } from './actions'
 
@@ -11,7 +12,13 @@ import { checkProductMovementData } from './actions'
     movements: store.products.productmovements,
     productActive: store.products.productActive,
     visible: store.sidePanel.visible,
-    movement: store.products.productmovementActive
+    movement: store.products.productmovementActive,
+    departments: store.products.departments,
+    subdepartments: store.products.subdepartments,
+    warehouses: store.products.warehouses,
+    warehouseActive: store.products.warehouseActive,
+    warehouseInputActive: store.products.warehouseInputActive,
+    warehouseOutputActive: store.products.warehouseOutputActive
   }
 })
 export default class Products extends React.Component {
@@ -65,7 +72,7 @@ export default class Products extends React.Component {
         item: movement,
         sucessMessage: 'Movimiento creado correctamente',
         errorMessage: 'Hubo un error al crear el Movimiento, intente de nuevo.',
-        dispatchType: 'CLEAR_PRODUCT_MOVEMENT'
+        dispatchType: 'CLEAR_PRODUCT_MOVEMENTS'
       }
 
       this.props.dispatch(saveItem(obj))
@@ -74,12 +81,13 @@ export default class Products extends React.Component {
       const kwargs = {
         db: 'general',
         docType: 'PRODUCT_MOVEMENT',
-        dispatchType: 'FETCH_PRODUCTMOVEMENTS_FULFILLED',
-        dispatchErrorType: 'FETCH_PRODUCTMOVEMENTS_REJECTED'
+        dispatchType: 'FETCH_PRODUCT_MOVEMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_PRODUC_TMOVEMENTS_REJECTED'
       }
 
       this.props.dispatch(fetchItems(kwargs))
       this.props.dispatch({type: 'CLEAR_PRODUCT', payload: ''})
+
     }
   }
   // Main Layout
@@ -89,8 +97,18 @@ export default class Products extends React.Component {
       ? 'inventory-sidePanel visible'
       : 'inventory-sidePanel'
 
-    const product = this.props.productActive.product
-    const type = this.props.productActive.type
+    const product = this.props.productActive
+
+    const department = this.props.departments.filter(department => {
+      return department._id == product.department
+    })
+
+    const subdepartment = this.props.subdepartments.filter(subdepartment => {
+      return subdepartment._id == product.subdepartment
+    })
+
+    const productDepartment = department.length ? `${department[0].code} - ${department[0].name}` : '-'
+    const productSubDepartment = subdepartment.length ? `${subdepartment[0].code} - ${subdepartment[0].name}` : '-'
 
     const table = this.props.productActive
       ? <table className='table table-bordered'>
@@ -105,21 +123,50 @@ export default class Products extends React.Component {
           </tr>
           <tr>
             <th>Familia:</th>
-            <td>{product.department}</td>
+            <td>{productDepartment}</td>
           </tr>
           <tr>
             <th>Sub-Familia:</th>
-            <td>{product.subdepartment}</td>
+            <td>{productSubDepartment}</td>
           </tr>
           <tr>
             <th>Existencia:</th>
-            <td>{`${product.inventory} ${product.unit}`}</td>
+            <td>{`${product.inventory.total} ${product.unit}`}</td>
           </tr>
         </tbody>
       </table>
       : <div />
 
-    const movText = (type == 'INPUT') ? 'Entrada de producto:' : (type == 'OUTPUT' ? 'Salida de Producto:' : 'Movimiento:')
+    const table2Content = this.props.warehouses.map(warehouse => {
+      return product.inventory
+        ? <tr key={warehouse._id}>
+          <th>{warehouse.code} - {warehouse.name}</th>
+          <td>{product['inventory'][warehouse._id]} {product.unit}</td>
+        </tr>
+        : <tr key={warehouse._id}>
+          <th>{warehouse.code} - {warehouse.name}</th>
+          <td>-</td>
+        </tr>
+    })
+
+    // ********************************************************************
+    // SELECT2 DATA
+    // ********************************************************************
+    const warehouses = this.props.warehouses
+
+    warehouses.sort((a, b) => {
+      return a.code - b.code
+    })
+
+    const warehousesData = warehouses.map(warehouse => {
+      return {text: `${warehouse.code} - ${warehouse.name}`, id: warehouse._id}
+    })
+
+    const movementTypeData = [
+      {text: `1 - Entrada`, id: 'INPUT'},
+      {text: `2 - Salida`, id: 'OUTPUT'},
+      {text: `3 - Traslado entre bodegas`, id: 'OUTPUT-INPUT'}
+    ]
 
     return <div className={panelClass}>
       <div className='inventory-sidePanel-container'>
@@ -131,9 +178,37 @@ export default class Products extends React.Component {
           <div className='inventory-sidePanel-container-content-product'>
             Datos del Producto:
             {table}
+            Existencia por Bodegas:
+            <table className='table table-bordered'>
+              <tbody>
+                {table2Content}
+              </tbody>
+            </table>
           </div>
           <div className='inventory-sidePanel-container-content-actions'>
-            {movText}
+            Movimiento de Producto
+            <Select2
+              name='type'
+              className='form-control'
+              value={this.props.movement.type}
+              onSelect={this.handleInputChange.bind(this)}
+              data={movementTypeData}
+              options={{
+                placeholder: 'Elija una Tipo de Movimiento...',
+                noResultsText: 'Sin elementos'
+              }}
+            />
+            <Select2
+              name='warehouse'
+              value={this.props.movement.warehouse}
+              onSelect={this.handleInputChange.bind(this)}
+              className='form-control'
+              data={warehousesData}
+              options={{
+                placeholder: 'Elija una Bodega...',
+                noResultsText: 'Sin elementos'
+              }}
+            />
             <input value={this.props.movement.amount} name='amount' type='number' placeholder='Cantidad'
               onChange={this.handleInputChange.bind(this)} className='form-control' />
             <input value={this.props.movement.description} name='description' type='text' placeholder='Descripción'

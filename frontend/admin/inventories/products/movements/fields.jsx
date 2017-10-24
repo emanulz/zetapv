@@ -9,7 +9,8 @@ import { checkProductMovementData } from '../actions'
   return {
     movements: store.inventories.productmovements,
     movement: store.inventories.productmovementActive,
-    products: store.products.products
+    products: store.products.products,
+    warehouses: store.inventories.warehouses
   }
 })
 export default class Fields extends React.Component {
@@ -85,7 +86,6 @@ export default class Fields extends React.Component {
   saveBtn() {
     const movement = this.props.movement
     const movements = this.props.movements
-    console.log(movements)
     movement.document = getNextNumericCode(movements, 'document')
 
     const fieldsOk = checkProductMovementData(movement, movements)
@@ -204,6 +204,19 @@ export default class Fields extends React.Component {
     })
 
     // ********************************************************************
+    // WAREHOUSES FOR SELECT
+    // ********************************************************************
+    const warehouses = this.props.warehouses
+
+    warehouses.sort((a, b) => {
+      return a.code - b.code
+    })
+
+    const warehousesSelect = warehouses.map(warehouse => {
+      return {text: `${warehouse.code} - ${warehouse.name}`, id: warehouse._id}
+    })
+
+    // ********************************************************************
     // DATE TO SET
     // ********************************************************************
     let date = this.props.movement.date
@@ -247,6 +260,24 @@ export default class Fields extends React.Component {
               data={productsSelect}
               options={{
                 placeholder: 'Elija un producto...'
+              }}
+            />
+
+          </div>
+        </div>
+
+        <div className='form-group row create-input-block'>
+          <div className='col-xs-12'>
+
+            <label>Bodega</label>
+            <Select2
+              name='warehouse'
+              value={this.props.movement.warehouse}
+              className='form-control'
+              onSelect={this.handleInputChange.bind(this)}
+              data={warehousesSelect}
+              options={{
+                placeholder: 'Elija una bodega...'
               }}
             />
 

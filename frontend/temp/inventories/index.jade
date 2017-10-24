@@ -1,0 +1,14 @@
+extends ../base
+
+block title
+  title Inventarios
+
+block js
+  script(type='application/javascript' src='/js/inventories.js')
+  |   <script type="text/javascript">
+  |       alertify.defaults.theme.ok = "btn btn-success";
+  |       alertify.defaults.theme.cancel = "btn btn-danger";
+  |   </script>
+    
+block styles
+  link(rel="stylesheet", href="/css/inventories.css")

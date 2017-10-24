@@ -4,6 +4,7 @@ const productmovementModel = {
   'docType': 'PRODUCT_MOVEMENT',
   'created': '',
   'updated': '',
+  'warehouse': '',
   'productId': '',
   'type': 'INPUT',
   'amount': 0,

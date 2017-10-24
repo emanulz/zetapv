@@ -51,8 +51,13 @@ export default class Product extends React.Component {
       },
       {
         docType: 'PRODUCT_MOVEMENT',
-        dispatchType: 'FETCH_PRODUCTMOVEMENTS_FULFILLED',
-        dispatchErrorType: 'FETCH_PRODUCTMOVEMENTS_REJECTED'
+        dispatchType: 'FETCH_PRODUCT_MOVEMENTS_FULFILLED',
+        dispatchErrorType: 'FETCH_PRODUCT_MOVEMENTS_REJECTED'
+      },
+      {
+        docType: 'WAREHOUSE',
+        dispatchType: 'FETCH_WAREHOUSES_FULFILLED',
+        dispatchErrorType: 'FETCH_WAREHOUSES_REJECTED'
       }
 
     ]

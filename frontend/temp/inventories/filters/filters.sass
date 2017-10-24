@@ -1,0 +1,41 @@
+.filters
+  padding-top: 10px
+  width: 250px
+  &-header
+    position: relative
+    top: 0
+    right: 0
+    width: 100%
+    height: 40px
+    line-height: 40px
+    background-color: $INV-SECONDARY-DARK
+    padding-left: 12px
+    font-size: 20px
+    color: white
+  &-container
+    padding: 10px
+    & h4
+      font-family: 'Source Sans Pro Bold', sans-serif
+      font-weight: bold
+      font-size: 15px
+      margin-top: 10px
+      margin-bottom: 5px
+
+    &-inline
+      margin-top: 15px
+      display: flex
+      flex-flow: row
+      & input[type=checkbox]
+        zoom: 1.5
+        height: 15px
+        margin: 6px 0 0 5px
+    & button
+      font-family: 'Source Sans Pro Bold', sans-serif !important
+      color: white
+      margin-top: 15px
+      background-color: $INV-SECONDARY
+      &:hover
+        color: white
+        background-color: $INV-SECONDARY-DARK
+      &:focus
+        color: white

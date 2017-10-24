@@ -3,6 +3,20 @@ const productmovementModel = {
   'docType': 'PRODUCT_MOVEMENT',
   'created': '',
   'updated': '',
+  'warehouse': '',
+  'productId': '',
+  'type': '',
+  'amount': '',
+  'date': new Date(),
+  'description': ''
+}
+
+const productmovemenInputModel = {
+  'document': 0,
+  'docType': 'PRODUCT_MOVEMENT',
+  'created': '',
+  'updated': '',
+  'warehouse': '',
   'productId': '',
   'type': 'INPUT',
   'amount': '',
@@ -10,9 +24,26 @@ const productmovementModel = {
   'description': ''
 }
 
+const productmovementOutputModel = {
+  'document': 0,
+  'docType': 'PRODUCT_MOVEMENT',
+  'created': '',
+  'updated': '',
+  'warehouse': '',
+  'productId': '',
+  'type': 'OUTPUT',
+  'amount': '',
+  'date': new Date(),
+  'description': ''
+}
+
 const stateConst = {
   products: [],
-  productActive: false,
+  warehouseActive: '',
+  warehouseInputActive: '',
+  warehouseOutputActive: '',
+  warehouses: [],
+  productActive: '',
   departments: [],
   departmentActive: '',
   subdepartments: [],
@@ -20,6 +51,8 @@ const stateConst = {
   productmovements: [],
   isPhysicalTake: false,
   productmovementActive: productmovementModel,
+  productmovementInputActive: productmovemenInputModel,
+  productmovementOutputActive: productmovementOutputModel,
   filterText: ''
 }
 
@@ -38,6 +71,60 @@ export default function reducer(state = stateConst, action) {
         ...state,
         isPhysicalTake: !physycalState
 
+      }
+    } // case
+
+    // ***********************************
+    // WAREHOUSES
+    // ***********************************
+
+    case 'FETCH_WAREHOUSES_REJECTED':
+    {
+      return {
+        ...state,
+        warehouses: []
+      }
+    } // case
+
+    case 'FETCH_WAREHOUSES_FULFILLED':
+    {
+      return {
+        ...state,
+        warehouses: action.payload
+      }
+    } // case
+
+    case 'SET_WAREHOUSE':
+    {
+      return {
+        ...state,
+        warehouseActive: action.payload
+      }
+    } // case
+
+    case 'SET_WAREHOUSE_INPUT':
+    {
+      return {
+        ...state,
+        warehouseInputActive: action.payload
+      }
+    } // case
+
+    case 'SET_WAREHOUSE_OUTPUT':
+    {
+      return {
+        ...state,
+        warehouseOutputActive: action.payload
+      }
+    } // case
+
+    case 'CLEAR_WAREHOUSES':
+    {
+      return {
+        ...state,
+        warehouseActive: '',
+        warehouseOutputActive: '',
+        arehouseInputActive: ''
       }
     } // case
 
@@ -77,7 +164,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        productActive: false
+        productActive: ''
       }
     } // case
 
@@ -179,7 +266,7 @@ export default function reducer(state = stateConst, action) {
     // PRODUCT MOVEMENTS
     // ***********************************
 
-    case 'FETCH_PRODUCTMOVEMENTS_REJECTED':
+    case 'FETCH_PRODUCT_MOVEMENTS_REJECTED':
     {
       return {
         ...state,
@@ -187,7 +274,7 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'FETCH_PRODUCTMOVEMENTS_FULFILLED':
+    case 'FETCH_PRODUCT_MOVEMENTS_FULFILLED':
     {
       return {
         ...state,
@@ -203,11 +290,29 @@ export default function reducer(state = stateConst, action) {
       }
     }
 
-    case 'CLEAR_PRODUCT_MOVEMENT':
+    case 'SET_PRODUCT_MOVEMENT_INPUT':
     {
       return {
         ...state,
-        productmovementActive: productmovementModel
+        productmovementInputActive: action.payload
+      }
+    }
+
+    case 'SET_PRODUCT_MOVEMENT_OUTPUT':
+    {
+      return {
+        ...state,
+        productmovementOutputActive: action.payload
+      }
+    }
+
+    case 'CLEAR_PRODUCT_MOVEMENTS':
+    {
+      return {
+        ...state,
+        productmovementActive: productmovementModel,
+        productmovementInputActive: productmovemenInputModel,
+        productmovementOutputActive: productmovementOutputModel
       }
     } // case
 

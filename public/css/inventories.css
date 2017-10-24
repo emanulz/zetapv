@@ -4414,6 +4414,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         padding: 15px; }
         .inventory-sidePanel-container-content-actions input {
           margin-top: 10px; }
+        .inventory-sidePanel-container-content-actions .select2-container {
+          margin-top: 10px; }
         .inventory-sidePanel-container-content-actions button {
           margin-top: 10px;
           width: 50%;
@@ -4422,3 +4424,5 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
             background-color: #0e1a29; }
           .inventory-sidePanel-container-content-actions button:focus {
             background-color: #354052 !important; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9pbnZlbnRvcmllcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

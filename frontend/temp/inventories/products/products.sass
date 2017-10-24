@@ -1,0 +1,34 @@
+
+.products
+  padding: 10px
+  width: calc(100% - 250px)
+  &-table
+    & .code-row
+      width: 15%
+    & .description-row
+      width: 50%
+    & .existence-row
+      width: 15%
+    & .input-row
+      width: 10%
+    & .output-row
+      width: 10%
+    & thead
+      background-color: $INV-SECONDARY-DARK
+      color: white
+      & tr
+        height: 40px !important
+        line-height: 40px !important
+        & td
+          font-size: 14px
+          font-family: 'Source Sans Pro', sans-serif !important
+    & tbody
+      & tr
+        &.active-row
+          font-weight: 600
+          border: 1px solid green
+        & td
+          font-size: 14px
+          font-family: 'Quicksand', sans-serif !important
+    & .center
+      text-align: center
