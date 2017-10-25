@@ -21,3 +21,8 @@ cbr.backup(config, done).pipe(fs.createWriteStream(`./backups/db/backup-${dateFo
 
 // restore
 // fs.createReadStream('./db-backup.tar.gz').pipe(cbr.restore(config, done))
+
+// cdbdump -u emanuelziga -p emma101421 -h 127.0.0.1 -P 6984 -r https -d general
+// cdbdump -u emanuelziga -p emma101421 -d general
+// cdbdump -u emanuelziga -p emma101421 -d general
+// cdbload -u emanuelziga -p emma101421 -d general2 < general.json

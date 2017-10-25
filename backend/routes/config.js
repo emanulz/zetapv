@@ -3,6 +3,9 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 const fs = require('fs')
+const nodeCryptojs = require('node-cryptojs-aes')
+const CryptoJS = nodeCryptojs.CryptoJS
+const JsonFormatter = nodeCryptojs.JsonFormatter
 
 // Get Homepage
 // router.get('/', ensureAuthenticated, function(req, res) {
@@ -21,7 +24,10 @@ router.get('/user/*', ensureAuthenticated, function(req, res) {
 
 router.get('/sync', ensureAuthenticated, function(req, res) {
   const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER
-  res.send(REMOTE_DB_SERVER)
+  // console.log(REMOTE_DB_SERVER)
+  const REMOTE_DB_SERVER_CRYPTED = CryptoJS.AES.encrypt(REMOTE_DB_SERVER, 'Emma101421##', { format: JsonFormatter })
+  // console.log(REMOTE_DB_SERVER_CRYPTED)
+  res.send({data: REMOTE_DB_SERVER_CRYPTED.toString()})
 })
 
 router.post('/user/*', ensureAuthenticated, function(req, res) {
