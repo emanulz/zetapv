@@ -66,6 +66,10 @@ import CompanyConfig from './config/company/company.jsx'
 import SalesConfig from './config/sales/sales.jsx'
 import ProductsConfig from './config/products/products.jsx'
 
+import BankAccountsList from './banks/accounts/list.jsx'
+import BankAccountsCreate from './banks/accounts/create.jsx'
+import BankAccountsEdit from './banks/accounts/update.jsx'
+
 const routes = <div>
 
   <Route exact path='/admin' component={Home} />
@@ -129,6 +133,10 @@ const routes = <div>
   <Route exact path='/admin/receivable/statement/:client' component={Statement} />
   <Route exact path='/admin/receivable/statement/:client/billmovements/:bill' component={BillMovement} />
   <Route exact path='/admin/receivable/payments/' component={ReceivablePays} />
+
+  <Route exact path='/admin/banks/accounts' component={BankAccountsList} />
+  <Route exact path='/admin/banks/accounts/add' component={BankAccountsCreate} />
+  <Route exact path='/admin/banks/accounts/edit/:account' component={BankAccountsEdit} />
 
 </div>
 

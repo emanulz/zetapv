@@ -86,6 +86,10 @@ export default class SideMenu extends React.Component {
         class: 'fa-file-text',
         href: '/admin/sales'
       }, {
+        text: 'Turnos',
+        class: 'fa-shield',
+        href: '/admin/sales'
+      }, {
         text: 'Devoluciones',
         class: 'fa-money',
         href: '/admin/donations'
@@ -124,6 +128,18 @@ export default class SideMenu extends React.Component {
       }
     ]
 
+    const childBanks = [
+      {
+        text: 'Cuentas',
+        class: 'fa-cc',
+        href: '/admin/banks/accounts'
+      }, {
+        text: 'Depósitos',
+        class: 'fa-money',
+        href: '/admin'
+      }
+    ]
+
     // const title = this.props.userCompanyConfig.comercialName || this.props.defaultCompanyConfig.comercialName || 'APP'
 
     return <div id='sideMenu' className='sideMenu'>
@@ -155,6 +171,7 @@ export default class SideMenu extends React.Component {
           <ComposedItem mainTittle='Productos' mainIcon='fa-gift' childItems={childProducts} />
           <ComposedItem mainTittle='Gastos' mainIcon='fa-money' childItems={childExpenses} />
           <ComposedItem mainTittle='Inventarios' mainIcon='fa-sticky-note' childItems={childInventories} />
+          <ComposedItem mainTittle='Bancos y cuentas' mainIcon='fa-university' childItems={childBanks} />
           <ComposedItem mainTittle='Proveedores' mainIcon='fa-users' childItems={childSuppliers} />
 
         </ul>

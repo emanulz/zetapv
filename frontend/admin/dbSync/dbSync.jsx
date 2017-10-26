@@ -77,6 +77,11 @@ export default class Product extends React.Component {
         docType: 'WAREHOUSE',
         dispatchType: 'FETCH_WAREHOUSES_FULFILLED',
         dispatchErrorType: 'FETCH_WAREHOUSES_REJECTED'
+      },
+      {
+        docType: 'BANK_ACCOUNT',
+        dispatchType: 'FETCH_BANK_ACCOUNTS_FULFILLED',
+        dispatchErrorType: 'FETCH_BANK_ACCOUNTS_REJECTED'
       }
 
     ]
