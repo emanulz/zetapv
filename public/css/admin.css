@@ -3783,6 +3783,57 @@ table {
 .home {
   font-family: sans-serif; }
 
+.details-container {
+  margin: 0; }
+  .details-container-data {
+    padding-left: 0; }
+    .details-container-data-product {
+      font-family: 'Source Sans Pro', sans-serif !important;
+      width: 100%;
+      height: 100%;
+      font-size: 20px;
+      color: black;
+      padding: 15px;
+      padding-left: 0; }
+      .details-container-data-product table {
+        margin-top: 10px;
+        width: 100%; }
+        .details-container-data-product table tbody tr th {
+          line-height: 100%;
+          padding-left: 10px;
+          width: 40%;
+          color: white;
+          background-color: #435267;
+          font-size: 15px;
+          font-family: 'Source Sans Pro', sans-serif !important; }
+        .details-container-data-product table tbody tr td {
+          font-family: 'Source Sans Pro', sans-serif !important;
+          padding-left: 10px;
+          color: black;
+          border-color: white;
+          font-size: 15px; }
+    .details-container-data-movements {
+      font-family: 'Source Sans Pro', sans-serif !important;
+      font-size: 20px;
+      padding: 15px;
+      padding-left: 0; }
+      .details-container-data-movements table {
+        margin-top: 10px;
+        width: 100%; }
+        .details-container-data-movements table thead th {
+          line-height: 100%;
+          color: white;
+          background-color: #435267;
+          font-size: 15px;
+          font-family: 'Source Sans Pro', sans-serif !important;
+          border-color: white; }
+        .details-container-data-movements table tbody td {
+          font-family: 'Source Sans Pro', sans-serif !important;
+          padding-left: 10px;
+          color: black;
+          border-color: white;
+          font-size: 15px; }
+
 .warehouse {
   font-family: sans-serif;
   font-size: 15px; }
@@ -3800,3 +3851,5 @@ table {
 
 .create-fields-container {
   font-family: sans-serif; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9hZG1pbi5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

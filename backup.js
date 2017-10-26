@@ -24,5 +24,8 @@ cbr.backup(config, done).pipe(fs.createWriteStream(`./backups/db/backup-${dateFo
 
 // cdbdump -u emanuelziga -p emma101421 -h 127.0.0.1 -P 6984 -r https -d general
 // cdbdump -u emanuelziga -p emma101421 -d general
+// cdbdump -d general
 // cdbdump -u emanuelziga -p emma101421 -d general
-// cdbload -u emanuelziga -p emma101421 -d general2 < general.json
+// cdbload -u emanuelziga -p emma101421 -d general < general.json
+// cdbload -u emanuelziga -p emma101421 -d sales < sales.json
+// cdbload -u emanuelziga -p emma101421 -d users < users.json

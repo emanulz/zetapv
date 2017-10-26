@@ -4,7 +4,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchItems} from '../../utils/api'
-import {getAmount} from '../../utils/inventory'
+import {getAmountWarehouse} from '../../utils/inventory'
 
 // components
 import DataTable from '../../generalComponents/dataTable/dataTable.jsx'
@@ -12,7 +12,8 @@ import DataTable from '../../generalComponents/dataTable/dataTable.jsx'
 @connect((store) => {
   return {
     movements: store.inventories.productmovements,
-    products: store.products.products
+    products: store.products.products,
+    warehouses: store.inventories.warehouses
   }
 })
 export default class MovementsList extends React.Component {
@@ -39,46 +40,54 @@ export default class MovementsList extends React.Component {
   render() {
     const movements = this.props.movements
     const products = this.props.products
+    const warehouses = this.props.warehouses
+    let warehouseName = ''
 
     const data = products.length
       ? products.map(product => {
         if (product.useInventory) {
-          product.inventory = getAmount(product._id, movements)
+          product.inventory = {}
+          let amount = 0
+          warehouses.map(warehouse => {
+            warehouseName = warehouse._id == this.props.warehouseActive ? warehouse.name : warehouseName
+            const amountWarehouse = getAmountWarehouse(product._id, warehouse._id, movements)
+            product.inventory[warehouse._id] = amountWarehouse
+            amount = amount + amountWarehouse
+          })
+          // product.inventory = getAmount(product._id, movements)
+          product.inventory.total = amount
         } else {
           product.inventory = '-'
         }
         return product
       })
       : []
-    const dataFiltered = data.filter(el => el.useInventory)
+    // Just use products that use inventory
+    const filteredData = data.filter((el) => el.useInventory)
+    const sortedData = filteredData.sort((a, b) => a.code - b.code)
 
     const headerOrder = [
       {
         field: 'code',
         text: 'Código',
-        type: 'text'
+        type: 'primaryNoEdit'
       }, {
         field: 'description',
         text: 'Descripción',
         type: 'text'
       },
       {
-        field: 'useInventory',
-        text: 'Usa Inventarios',
-        type: 'bool'
-      },
-      {
-        field: 'inventory',
-        text: 'Existencia',
+        field: 'inventory.total',
+        text: 'Existencia Total',
         type: 'text'
       }
     ]
 
     return <div className='list-container'>
 
-      <h1>Movimientos:</h1>
+      <h1>Inventario de Productos:</h1>
 
-      <DataTable headerOrder={headerOrder} model='inventories/products/movements' data={dataFiltered} addLink='/admin/inventories/products/movements/add' />
+      <DataTable headerOrder={headerOrder} model='inventories/products/detail' data={sortedData} addLink='/admin/inventories/products/movements/add' />
 
     </div>
   }

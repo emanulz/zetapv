@@ -27,6 +27,8 @@ import SubDepartmentUpdate from './products/subdepartments/update.jsx'
 
 import Productinventory from './inventories/products/list.jsx'
 
+import ProductInventoryDetail from './inventories/products/details/productDetail.jsx'
+
 import InventoryMovementsList from './inventories/products/movements/list.jsx'
 import InventoryMovementsCreate from './inventories/products/movements/create.jsx'
 import InventoryMovementsUpdate from './inventories/products/movements/update.jsx'
@@ -111,6 +113,8 @@ const routes = <div>
   <Route exact path='/admin/inventories/products/movements' component={InventoryMovementsList} />
   <Route exact path='/admin/inventories/products/movements/add' component={InventoryMovementsCreate} />
   <Route exact path='/admin/inventories/products/movements/edit/:movement' component={InventoryMovementsUpdate} />
+
+  <Route exact path='/admin/inventories/products/detail/:product' component={ProductInventoryDetail} />
 
   <Route exact path='/admin/inventories/warehouses' component={WarehousesList} />
   <Route exact path='/admin/inventories/warehouses/add' component={WarehousesCreate} />

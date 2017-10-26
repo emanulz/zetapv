@@ -28,7 +28,8 @@ const stateConst = {
   warehouses: [],
   warehouseActive: warehouseModel,
   nextWarehouse: 0,
-  previousWarehouse: 0
+  previousWarehouse: 0,
+  productDetailActive: false
 }
 
 export default function reducer(state = stateConst, action) {
@@ -70,6 +71,26 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         productmovementActive: productmovementModel
+      }
+    } // case
+
+    // ***********************************
+    // PRODUCT DETAIL ACTIVE
+    // ***********************************
+
+    case 'SET_PRODUCT_DETAIL':
+    {
+      return {
+        ...state,
+        productDetailActive: action.payload
+      }
+    }
+
+    case 'CLEAR_PRODUCT_DETAIL':
+    {
+      return {
+        ...state,
+        productDetailActive: false
       }
     } // case
 
