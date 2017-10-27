@@ -21,7 +21,8 @@ const jsConfig = Object.assign({}, config, {
     inventories: './frontend/inventories/app.js',
     landing: './frontend/landing/app.js',
     pos: './frontend/pos/app.js',
-    reports: './frontend/reports/app.js'
+    reports: './frontend/reports/app.js',
+    sales: './frontend/sales/app.js'
   },
   module: {
     rules: [
@@ -75,7 +76,8 @@ const stylesConfig = Object.assign({}, config, {
     inventories: './frontend/inventories/styles/main.sass',
     landing: './frontend/landing/main.sass',
     pos: './frontend/pos/styles/main.sass',
-    reports: './frontend/reports/styles/main.sass'
+    reports: './frontend/reports/styles/main.sass',
+    sales: './frontend/sales/styles/main.sass'
   },
   module: {
     rules: [

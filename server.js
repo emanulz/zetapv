@@ -29,6 +29,7 @@ const landing = require('./backend/routes/landing')
 const login = require('./backend/routes/login')
 const pos = require('./backend/routes/pos')
 const reports = require('./backend/routes/reports')
+const sales = require('./backend/routes/sales')
 
 // SYNC DB
 db.sync(remoteDb, {
@@ -98,6 +99,7 @@ app.use('/inventories', inventories)
 app.use('/login', login)
 app.use('/pos', pos)
 app.use('/reports', reports)
+app.use('/sales', sales)
 
 // Set Port
 app.set('port', (process.env.PORT || 3000))

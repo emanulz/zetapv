@@ -77,12 +77,12 @@ export default class SideMenu extends React.Component {
 
     const childSales = [
       {
-        text: 'Punto de venta',
+        text: 'App Ventas',
         class: 'fa-shopping-cart',
         href: '/pos',
         noLink: true
       }, {
-        text: 'Ventas',
+        text: 'Listado de Ventas',
         class: 'fa-file-text',
         href: '/admin/sales'
       }, {

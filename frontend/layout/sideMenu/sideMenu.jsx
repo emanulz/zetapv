@@ -29,9 +29,9 @@ export default class SideMenu extends React.Component {
             Inicio</a>
         </li>
         <li>
-          <a href='/pos/'>
+          <a href='/sales/'>
             <span className='fa fa-shopping-cart' />
-            Punto de Venta</a>
+            Ventas</a>
         </li>
         <li>
           <a href='/admin/'>
