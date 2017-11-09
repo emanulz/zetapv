@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import SideBar from './sideBar.jsx'
-import Content from './content.jsx'
+import Content from './content/content.jsx'
 
 export default class Home extends React.Component {
 
