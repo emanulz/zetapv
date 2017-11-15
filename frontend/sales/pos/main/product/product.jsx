@@ -36,15 +36,17 @@ export default class Product extends React.Component {
   inputKeyPress(ev) {
     // if Key pressed id Enter
     if (ev.key == 'Enter') {
+      if (ev.target.value) {
+        const code = ev.target.value.split('*')[0] // Split val [0] is code [1] is qty
+        let qty = ev.target.value.split('*')[1]
+        qty = (isNaN(qty))
+          ? 1
+          : parseFloat(qty) // if no qty sets to 1
 
-      const code = ev.target.value.split('*')[0] // Split val [0] is code [1] is qty
-      let qty = ev.target.value.split('*')[1]
-      qty = (isNaN(qty))
-        ? 1
-        : parseFloat(qty) // if no qty sets to 1
-
-      this.props.dispatch(productSelected(code, qty, this.props.products, this.props.itemsInCart,
-        this.props.globalDiscount, this.props.client, this.props.defaultConfig, this.props.userConfig))
+        this.props.dispatch(productSelected(code, qty, this.props.products, this.props.itemsInCart,
+          this.props.globalDiscount, this.props.client, this.props.defaultConfig, this.props.userConfig))
+        this.props.dispatch({type: 'CLEAR_PRODUCT_FIELD_VALUE', payload: 0})
+      }
     } else {
       this.props.dispatch({type: 'SET_PRODUCT_FIELD_VALUE', payload: ev.target.value})
     }
@@ -63,7 +65,7 @@ export default class Product extends React.Component {
       <div className='product-inputs'>
         <div className='product-inputs-code'>
           <i className='fa fa-barcode' />
-          <input disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)} ref={(input) => {
+          <input id='productCodeInputField' disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)} ref={(input) => {
             this.codeInput = input
           }} type='text' placeholder='Ingrese el Código del Producto' className='product-inputs-code-input mousetrap form-control input-lg' />
 

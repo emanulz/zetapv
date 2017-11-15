@@ -45,6 +45,14 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'CLEAR_PRODUCT_FIELD_VALUE':
+    {
+      return {
+        ...state,
+        inputVal: ''
+      }
+    } // case
+
     case 'NEW_SALE':
     {
       const products = state.products
