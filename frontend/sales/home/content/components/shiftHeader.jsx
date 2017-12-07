@@ -9,7 +9,7 @@ export default class Content extends React.Component {
   render() {
 
     return <div className='sales-home-content-shift-header'>
-
+      
     </div>
 
   }

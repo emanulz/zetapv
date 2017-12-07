@@ -18,7 +18,7 @@ const passport = require('passport')
 const db = new PouchDB('users')
 db.createIndex({ index: {fields: ['username']} })
 
-const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER
+const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER_NO_SECURE
 const remoteDb = new PouchDB(`${REMOTE_DB_SERVER}/users`)
 
 // ROUTING IMPORT
