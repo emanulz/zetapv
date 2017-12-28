@@ -37,7 +37,11 @@ export function setItem(kwargs) {
     const db = new PouchDB(kwargs.db)
 
     db.find({
-      selector: {docType: {$eq: kwargs.docType}, [kwargs.lookUpField]: {$eq: kwargs.lookUpValue}}
+      selector: {
+        $or: [
+          {docType: {$eq: kwargs.docType}, [kwargs.lookUpField]: {$eq: parseInt(kwargs.lookUpValue)}},
+          {docType: {$eq: kwargs.docType}, [kwargs.lookUpField]: {$eq: kwargs.lookUpValue.toString()}}
+        ]}
     }).then(function (result) {
       console.log('RESSSS', result)
       if (result.docs.length) {
@@ -250,7 +254,8 @@ export function getNextNumericCode(elements, field) {
 
     keys = keys.sort((a, b) => a - b)
     const max = keys.pop()
-    return parseInt(max) + 1
+    const next = parseInt(max) + 1
+    return next.toString()
 
   }
 

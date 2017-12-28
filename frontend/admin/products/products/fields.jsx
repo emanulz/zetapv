@@ -60,6 +60,11 @@ class Fields extends React.Component {
           : ''
         break
       }
+      case 'text':
+      {
+        value = target.value.toString()
+        break
+      }
       default:
       {
         value = target.value

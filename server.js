@@ -19,6 +19,7 @@ const db = new PouchDB('users')
 db.createIndex({ index: {fields: ['username']} })
 
 const REMOTE_DB_SERVER = process.env.COUCHDB_REMOTE_SERVER_NO_SECURE
+console.log(REMOTE_DB_SERVER)
 const remoteDb = new PouchDB(`${REMOTE_DB_SERVER}/users`)
 
 // ROUTING IMPORT
