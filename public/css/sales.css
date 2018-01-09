@@ -5899,6 +5899,395 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     .sales-panel-container tbody {
       font-family: 'Source Sans Pro', sans-serif; }
 
+.client {
+  padding: 20px 10px;
+  font-size: 15px; }
+  .client-code {
+    width: 40%; }
+  .client-avatar {
+    height: 50px;
+    border-radius: 50%; }
+  .client .fa-edit {
+    margin-left: 10px; }
+  .client .fa-check-square {
+    color: #5cb85c; }
+  .client .fa-times-circle {
+    color: red; }
+  .client .credit-positive {
+    color: #5cb85c;
+    font-size: 18px;
+    font-weight: bolder; }
+  .client .credit-negative {
+    color: red;
+    font-size: 18px;
+    font-weight: bolder; }
+
+.totals {
+  padding: 0 30px 0 20px; }
+  .totals-table {
+    margin-top: 15px; }
+    .totals-table th {
+      background-color: #354052;
+      color: white; }
+    .totals-table td {
+      border: 1px solid #ddd;
+      font-size: 16px; }
+
+.buttons {
+  padding: 0 30px 0 20px; }
+  .buttons-payButton {
+    color: white;
+    background-color: #6f7e95;
+    transition: background-color 0.5s ease; }
+    .buttons-payButton:hover {
+      color: white;
+      background-color: #435267; }
+  .buttons i {
+    margin-left: 10px; }
+
+.proformaInvoice-panel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 15;
+  background-color: rgba(145, 145, 145, 0.67);
+  background-size: 100%;
+  transition: all 0.3s ease-in-out; }
+  .proformaInvoice-panel.is-visible {
+    position: absolute;
+    top: 0;
+    z-index: 15; }
+
+.proformaInvoice-panel-main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 820px;
+  min-height: 100%;
+  margin: auto;
+  overflow-x: auto; }
+  .proformaInvoice-panel-main.compact-proformaInvoice-on {
+    max-width: 400px; }
+
+.proformaInvoice-panel-header {
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background-color: #6F7E95;
+  color: white;
+  font-size: 16px; }
+  .proformaInvoice-panel-header i {
+    position: absolute;
+    top: 4px;
+    cursor: pointer;
+    font-size: 18px; }
+    .proformaInvoice-panel-header i.fa-times {
+      right: 10px; }
+      .proformaInvoice-panel-header i.fa-times:hover {
+        color: black; }
+    .proformaInvoice-panel-header i.fa-file-text-o {
+      right: 40px; }
+      .proformaInvoice-panel-header i.fa-file-text-o:hover {
+        color: black; }
+    .proformaInvoice-panel-header i.fa-print {
+      right: 70px; }
+      .proformaInvoice-panel-header i.fa-print:hover {
+        color: black; }
+    .proformaInvoice-panel-header i.fa-coffee {
+      right: 100px; }
+      .proformaInvoice-panel-header i.fa-coffee:hover {
+        color: black; }
+
+.proformaInvoice-panel-container {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  height: calc(100% - 30px);
+  background-color: white;
+  padding: 60px 80px 0px 50px;
+  overflow-y: auto;
+  overflow-x: auto; }
+  .proformaInvoice-panel-container.compact-proformaInvoice-on {
+    padding: 20px 40px 0px 20px; }
+
+.full-proformaInvoice {
+  position: relative;
+  height: 100%;
+  width: 100%; }
+
+.full-proformaInvoice-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+  .full-proformaInvoice-header-logo img {
+    width: 110px; }
+  .full-proformaInvoice-header-info {
+    flex-grow: 1;
+    text-align: right; }
+    .full-proformaInvoice-header-info h2 {
+      font-size: 14px;
+      margin: 0 0 5px 0;
+      font-weight: bold; }
+    .full-proformaInvoice-header-info h3 {
+      font-size: 11px;
+      margin: 0 0 2px 0;
+      font-weight: normal; }
+
+.full-proformaInvoice-separator {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+  line-height: 40px;
+  text-transform: uppercase; }
+  .full-proformaInvoice-separator h1 {
+    font-size: 18px;
+    margin: 0 15px;
+    line-height: 50px; }
+  .full-proformaInvoice-separator span {
+    flex-grow: 1;
+    margin-top: 25px;
+    height: 1px;
+    border-top: 1px solid #ccc;
+    vertical-align: middle; }
+
+.full-proformaInvoice-data {
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between; }
+  .full-proformaInvoice-data .client-table {
+    border: none;
+    width: 60%; }
+    .full-proformaInvoice-data .client-table th {
+      height: 20px;
+      background: none;
+      color: black;
+      padding: 0; }
+    .full-proformaInvoice-data .client-table td {
+      height: 20px;
+      padding: 0;
+      font-size: 16px;
+      font-weight: bold; }
+  .full-proformaInvoice-data .datenum-table {
+    float: right;
+    width: 40%;
+    border: none; }
+    .full-proformaInvoice-data .datenum-table th {
+      height: 15px;
+      background: none;
+      color: black;
+      padding: 0;
+      font-weight: bold;
+      font-size: 14px; }
+    .full-proformaInvoice-data .datenum-table td {
+      height: 15px;
+      padding: 0;
+      font-size: 14px; }
+
+.full-proformaInvoice-table {
+  margin-top: 20px;
+  border: 1px solid #ccc; }
+  .full-proformaInvoice-table thead tr {
+    height: 30px;
+    background: #1d1d1d;
+    color: white;
+    font-size: 13px;
+    font-weight: normal; }
+    .full-proformaInvoice-table thead tr th {
+      background: none;
+      padding: 5px;
+      border-right: 1px solid #ccc; }
+    .full-proformaInvoice-table thead tr :last-child {
+      border-right: none; }
+  .full-proformaInvoice-table tbody tr td {
+    padding: 5px;
+    font-size: 12px;
+    border-right: 1px solid #ccc; }
+  .full-proformaInvoice-table tbody tr :last-child {
+    border-right: none; }
+  .full-proformaInvoice-table .right-in-table {
+    text-align: right; }
+  .full-proformaInvoice-table .description-row {
+    width: 30%; }
+
+.full-proformaInvoice-totals {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end; }
+  .full-proformaInvoice-totals table {
+    width: 45%;
+    border: none; }
+    .full-proformaInvoice-totals table th {
+      width: 55%;
+      text-align: right;
+      padding-right: 20px;
+      background: none;
+      color: black;
+      font-size: 12px; }
+    .full-proformaInvoice-totals table td {
+      padding: 2px;
+      font-size: 12px;
+      text-align: right; }
+  .full-proformaInvoice-totals .total-row th {
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; }
+  .full-proformaInvoice-totals .total-row td {
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; }
+
+.full-proformaInvoice-notes {
+  width: 40%;
+  font-size: 11px;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  margin-top: 20px; }
+  .full-proformaInvoice-notes h1 {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0; }
+
+.compact-proformaInvoice {
+  position: relative;
+  height: 100%;
+  width: 100%; }
+
+.compact-proformaInvoice-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+  .compact-proformaInvoice-header-info {
+    flex-grow: 1;
+    text-align: center; }
+    .compact-proformaInvoice-header-info h2 {
+      font-size: 14px;
+      margin: 0 0 2px 0;
+      font-weight: bold; }
+    .compact-proformaInvoice-header-info h3 {
+      font-size: 11px;
+      margin: 0 0 1px 0;
+      font-weight: normal; }
+
+.compact-proformaInvoice-separator {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40px;
+  line-height: 40px;
+  text-transform: uppercase; }
+  .compact-proformaInvoice-separator h1 {
+    font-size: 14px;
+    margin: 0 5px;
+    line-height: 40px; }
+  .compact-proformaInvoice-separator span {
+    flex-grow: 1;
+    margin-top: 20px;
+    height: 1px;
+    border-top: 1px solid #ccc;
+    vertical-align: middle; }
+
+.compact-proformaInvoice-data {
+  position: relative;
+  display: flex;
+  flex-flow: column; }
+  .compact-proformaInvoice-data .datenum-table {
+    float: right;
+    border: none; }
+    .compact-proformaInvoice-data .datenum-table th {
+      width: 18%;
+      height: 15px;
+      background: none;
+      color: black;
+      padding: 0;
+      font-weight: bold;
+      font-size: 13px; }
+    .compact-proformaInvoice-data .datenum-table td {
+      height: 15px;
+      padding: 0;
+      font-size: 13px; }
+
+.compact-proformaInvoice-table {
+  margin-top: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc; }
+  .compact-proformaInvoice-table thead tr {
+    height: 30px;
+    background: white;
+    color: black;
+    font-size: 13px;
+    font-weight: normal; }
+    .compact-proformaInvoice-table thead tr th {
+      color: black;
+      background: none;
+      padding: 5px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc; }
+    .compact-proformaInvoice-table thead tr :last-child {
+      border-right: none; }
+  .compact-proformaInvoice-table tbody tr td {
+    padding: 5px;
+    font-size: 12px; }
+  .compact-proformaInvoice-table .right-in-table {
+    text-align: right; }
+  .compact-proformaInvoice-table .description-row {
+    width: 45%; }
+
+.compact-proformaInvoice-totals {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end; }
+  .compact-proformaInvoice-totals table {
+    width: 60%;
+    border: none; }
+    .compact-proformaInvoice-totals table th {
+      width: 55%;
+      text-align: right;
+      padding-right: 20px;
+      background: none;
+      color: black;
+      font-size: 12px; }
+    .compact-proformaInvoice-totals table td {
+      padding: 2px;
+      font-size: 12px;
+      text-align: right; }
+  .compact-proformaInvoice-totals .total-row th {
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; }
+  .compact-proformaInvoice-totals .total-row td {
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; }
+
+.compact-proformaInvoice-notes {
+  width: 100%;
+  font-size: 11px;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  margin-top: 20px; }
+  .compact-proformaInvoice-notes h1 {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0; }
+
 .sideMenu-item-composed.visible a.visible {
   background-color: #0e1a29; }
 
@@ -5985,3 +6374,5 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     width: calc(100% - 300px); }
   .sales-home-sidebar {
     width: 300px; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9zYWxlcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

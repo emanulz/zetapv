@@ -90,6 +90,12 @@ export default class Fields extends React.Component {
             type='checkbox' className='form-control' />
         </div>
 
+        <div className='form-group'>
+          <label>Productos Usan Lote</label>
+          <input checked={this.props.userConfig.cartItemUseLote || false} name='cartItemUseLote' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
+        </div>
+
       </div>
 
       <div className='col-xs-12 col-sm-6 create-fields-container buttons second'>

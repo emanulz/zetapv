@@ -125,6 +125,23 @@ export function productSelected(code, qty, products, itemsInCart, globalDiscount
 
 }
 
+// Updates Amount based on qty input field
+
+export function updateQty (code, qty, itemsInCart, globalDiscount, client) {
+
+  const indexInCart = itemsInCart.findIndex(item => item.uuid == code)
+  const qtyNum = parseFloat(qty)
+  const res = {
+    type: 'UPDATE_CART',
+    payload: {
+      item: updatedCartItem(itemsInCart, indexInCart, qtyNum, itemsInCart[indexInCart].discount, globalDiscount, client,
+        itemsInCart[indexInCart].uuid),
+      index: indexInCart
+    }
+  }
+  return res
+}
+
 // ------------------------------------------------------------------------------------------
 // LOCAL AUX FUNCTIONS
 // ------------------------------------------------------------------------------------------

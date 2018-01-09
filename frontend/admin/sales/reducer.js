@@ -13,12 +13,30 @@ const stateConst = {
   saleActive: '',
   saleMovements: [],
   donations: [],
-  donationActive: donationModel
+  donationActive: donationModel,
+  proformas: []
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    case 'FETCH_PROFORMAS_FULFILLED':
+    {
+      return {
+        ...state,
+        proformas: action.payload
+      }
+
+    } // case
+
+    case 'FETCH_PROFORMAS_REJECTED':
+    {
+      return {
+        ...state,
+        proformas: []
+      }
+    } // case
 
     case 'FETCH_SALES_FULFILLED':
     {

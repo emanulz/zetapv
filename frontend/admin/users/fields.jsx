@@ -3,6 +3,7 @@ import alertify from 'alertifyjs'
 import {connect} from 'react-redux'
 import {saveItem, setItem, updateItem, deleteItem} from '../utils/api'
 import {checkUserData} from './actions'
+import { withRouter } from 'react-router-dom'
 const bcrypt = require('bcryptjs')
 
 @connect((store) => {
@@ -12,7 +13,7 @@ const bcrypt = require('bcryptjs')
   }
 })
 
-export default class Fields extends React.Component {
+class Fields extends React.Component {
   // REACT METHODS
   componentWillMount() {
 
@@ -112,7 +113,7 @@ export default class Fields extends React.Component {
     }
   }
 
-  updateBtn() {
+  updateBtn(redirect) {
 
     const _this = this
     const user = this.props.user
@@ -141,6 +142,12 @@ export default class Fields extends React.Component {
             modelName: 'Usuario',
             dispatchType: 'UPDATED_USER'
           }
+
+          if (redirect) {
+            kwargs.redirectUrl = '/admin/users'
+            kwargs.history = _this.props.history
+          }
+
           _this.props.dispatch(updateItem(kwargs))
 
         })
@@ -177,14 +184,8 @@ export default class Fields extends React.Component {
     const buttons = this.props.update
       ? <div className='col-xs-10 col-sm-offset-1'>
         <div className='col-xs-12'>
-          <button onClick={this.updateBtn.bind(this)} className=' form-control btn-success'>
+          <button onClick={this.updateBtn.bind(this, true)} className=' form-control btn-success'>
             Actualizar
-          </button>
-        </div>
-
-        <div className='col-xs-12'>
-          <button className='form-control btn-primary'>
-            Guardar y agregar otro
           </button>
         </div>
 
@@ -274,3 +275,6 @@ export default class Fields extends React.Component {
     </div>
   }
 }
+
+// EXPORT THE CLASS WITH ROUTER
+export default withRouter(Fields)

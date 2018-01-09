@@ -1,5 +1,4 @@
 const stateConst = {
-  docType: 'SALE',
   editable: true,
   created: '',
   updated: '',

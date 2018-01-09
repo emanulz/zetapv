@@ -12,6 +12,8 @@ import searchProducts from './pos/search/products/reducer.js'
 import messages from './pos/messages/reducer.js'
 import pay from './pos/pay/reducer.js'
 import invoice from './pos/invoice/reducer.js'
+import proforma from './proformas/reducer.js'
+import proformaInvoice from './proformas/invoice/reducer.js'
 
 export default combineReducers({
   dbSync,
@@ -25,5 +27,7 @@ export default combineReducers({
   searchProducts,
   messages,
   pay,
-  invoice
+  invoice,
+  proforma,
+  proformaInvoice
 })

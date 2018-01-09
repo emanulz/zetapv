@@ -41,3 +41,4 @@ backups/db/*
 
 *.old
 *.env
+yarn.lock

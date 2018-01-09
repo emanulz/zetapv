@@ -231,6 +231,7 @@ export function fetchItemsBulk(kwargs) {
   db.createIndex({ index: {fields: ['docType', 'document']} })
   db.createIndex({ index: {fields: ['docType', 'sale_id']} })
   db.createIndex({ index: {fields: ['docType', 'clientId']} })
+  db.createIndex({ index: {fields: ['docType', 'proforma_id']} })
 
   return function(dispatch) {
     kwargs.docTypes.map(docType => {

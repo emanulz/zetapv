@@ -4,13 +4,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateTotals, removeFromCart} from './actions'
-import {updateItemDiscount, updateItemLote} from '../product/actions'
+import {updateItemDiscount, updateItemLote, updateQty} from '../product/actions'
 
 @connect((store) => {
   return {inCart: store.cart.cartItems,
     client: store.clients.clientSelected,
     globalDiscount: store.cart.globalDiscount,
-    disabled: store.sales.completed}
+    disabled: store.sales.completed,
+    defaultConfig: store.config.defaultSales,
+    userConfig: store.config.userSales}
 })
 export default class CartItems extends React.Component {
 
@@ -41,6 +43,17 @@ export default class CartItems extends React.Component {
       : 0
     this.props.dispatch(updateItemDiscount(this.props.inCart, code, discount, this.props.globalDiscount,
       this.props.client))
+
+  }
+
+  qtyInputChange(code, ev) {
+
+    console.log(code)
+
+    const qty = parseFloat((ev.target.value))
+      ? ev.target.value
+      : 0
+    this.props.dispatch(updateQty(code, qty, this.props.inCart, this.props.globalDiscount, this.props.client))
 
   }
 
@@ -111,6 +124,29 @@ export default class CartItems extends React.Component {
           style={{'width': '55px', 'height': '37px'}}
         />
 
+      const qtyField = <input
+        disabled={this.props.disabled}
+        onChange={this.qtyInputChange.bind(this, item.uuid)}
+        type='number'
+        className='form-control'
+        style={{'width': '90%', 'height': '37px'}}
+        value={item.qty}
+      />
+
+      const loteField = this.props.defaultConfig.cartItemUseLote || this.props.userConfig.cartItemUseLote
+        ? <td style={{
+          'padding': '0'
+        }}>
+          <input
+            disabled={this.props.disabled}
+            onKeyPress={this.loteInputKeyPress.bind(this, item.uuid)}
+            onBlur={this.loteInputOnBlur.bind(this, item.uuid)}
+            type='text' className='form-control'
+            style={{'width': '100px', 'height': '37px'}}
+          />
+        </td>
+        : <td />
+
       return <tr key={item.uuid}>
         <td>
           {item.product.code}
@@ -118,8 +154,10 @@ export default class CartItems extends React.Component {
         <td>
           {item.product.description}
         </td>
-        <td>
-          {item.qty}
+        <td style={{
+          'padding': '0'
+        }}>
+          {qtyField}
         </td>
         <td>
           ₡ {parseFloat(item.priceToUse).formatMoney(2, ',', '.')}
@@ -135,7 +173,7 @@ export default class CartItems extends React.Component {
         <td>
           ₡ {item.totalWithIv.formatMoney(2, ',', '.')}
         </td>
-        <td style={{
+        {/* <td style={{
           'padding': '0'
         }}>
           <input
@@ -145,7 +183,8 @@ export default class CartItems extends React.Component {
             type='text' className='form-control'
             style={{'width': '100px', 'height': '37px'}}
           />
-        </td>
+        </td> */}
+        {loteField}
         <td>
           {removeIcon}
         </td>

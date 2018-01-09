@@ -86,6 +86,10 @@ export default class SideMenu extends React.Component {
         class: 'fa-file-text',
         href: '/admin/sales'
       }, {
+        text: 'Listado de Proformas',
+        class: 'fa-file-text-o',
+        href: '/admin/proformas'
+      }, {
         text: 'Turnos',
         class: 'fa-shield',
         href: '/admin/sales'

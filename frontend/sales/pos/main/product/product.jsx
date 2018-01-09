@@ -24,7 +24,7 @@ export default class Product extends React.Component {
   }
 
   componentDidUpdate() {
-    this.codeInput.focus()
+    // this.codeInput.focus()
   }
 
   searchProductClick() {

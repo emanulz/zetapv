@@ -37,6 +37,9 @@ db.sync(remoteDb, {
   live: true,
   retry: true
 })
+  .on('change', function(change) {
+    console.log('change')
+  })
 
 app.use(compression())
 

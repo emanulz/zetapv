@@ -5,11 +5,13 @@ import {Route} from 'react-router-dom'
 
 import Home from './home/home.jsx'
 import Pos from './pos/pos.jsx'
+import Proformas from './proformas/proformas.jsx'
 
 const routes = <div className='mainContainer-content-wrapper'>
 
   <Route exact path='/sales' component={Home} />
   <Route exact path='/sales/pos' component={Pos} />
+  <Route exact path='/sales/proforma' component={Proformas} />
 
 </div>
 

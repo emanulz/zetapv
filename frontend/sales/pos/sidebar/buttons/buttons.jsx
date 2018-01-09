@@ -20,7 +20,7 @@ export default class Buttons extends React.Component {
   }
   newSale() {
     // window.location.reload()
-    window.location.href = '/pos'
+    window.location.href = '/sales/pos'
     // this.props.dispatch({type: 'NEW_SALE', payload: -1})
   }
 

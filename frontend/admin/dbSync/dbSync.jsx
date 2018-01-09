@@ -96,6 +96,66 @@ export default class Product extends React.Component {
     this.syncDB(kwargs)
   }
 
+  syncSalesDb(remoteDBUrl) {
+
+    const docTypes = [
+      {
+        docType: 'SALE',
+        dispatchType: 'FETCH_SALES_FULFILLED',
+        dispatchErrorType: 'FETCH_SALES_REJECTED'
+      },
+      {
+        docType: 'DONATION',
+        dispatchType: 'FETCH_DONATIONS_FULFILLED',
+        dispatchErrorType: 'FETCH_DONATIONS_REJECTED'
+      },
+      {
+        docType: 'PROFORMA',
+        dispatchType: 'FETCH_PROFORMAS_FULFILLED',
+        dispatchErrorType: 'FETCH_PROFORMAS_REJECTED'
+      }
+    ]
+
+    const kwargs = {
+      db: 'sales',
+      remoteDBUrl: remoteDBUrl,
+      fecthFunc: fetchItemsBulk,
+      docTypes: docTypes
+    }
+
+    this.syncDB(kwargs)
+
+  }
+
+  syncUsersDb(remoteDBUrl) {
+    const _this = this
+    const localDB = new PouchDB('users')
+    const remoteDB = new PouchDB(`${remoteDBUrl}/users`)
+
+    localDB.createIndex({ index: {fields: ['docType']} })
+    localDB.createIndex({ index: {fields: ['docType', 'username']} })
+
+    const kwargs = {
+      db: 'users',
+      docType: 'USER',
+      dispatchType: 'FETCH_USERS_FULFILLED',
+      dispatchErrorType: 'FETCH_USERS_REJECTED'
+    }
+
+    localDB.sync(remoteDB, {
+      live: true,
+      retry: true
+    })
+      .on('change', function(change) {
+        console.log('change')
+        _this.props.dispatch(fetchItems(kwargs))
+
+      })
+
+    this.props.dispatch(fetchItems(kwargs))
+
+  }
+
   syncDB(kwargs) {
     const _this = this
     // DBs declaration and sync
@@ -128,72 +188,6 @@ export default class Product extends React.Component {
 
     // Fecth items
     this.props.dispatch(kwargs.fecthFunc(kwargs))
-  }
-
-  syncUsersDb(remoteDBUrl) {
-    const _this = this
-    const localDB = new PouchDB('users')
-    const remoteDB = new PouchDB(`${remoteDBUrl}/users`)
-
-    localDB.createIndex({ index: {fields: ['docType']} })
-    localDB.createIndex({ index: {fields: ['docType', 'username']} })
-
-    const kwargs = {
-      db: 'users',
-      docType: 'USER',
-      dispatchType: 'FETCH_USERS_FULFILLED',
-      dispatchErrorType: 'FETCH_USERS_REJECTED'
-    }
-
-    localDB.sync(remoteDB, {
-      retry: true
-    })
-      .on('change', function(change) {
-        console.log('change')
-        _this.props.dispatch(fetchItems(kwargs))
-
-      })
-
-    this.props.dispatch(fetchItems(kwargs))
-
-  }
-
-  syncSalesDb(remoteDBUrl) {
-    const _this = this
-    const localDB = new PouchDB('sales')
-    const remoteDB = new PouchDB(`${remoteDBUrl}/sales`)
-
-    localDB.createIndex({ index: {fields: ['docType']} })
-    localDB.createIndex({ index: {fields: ['docType', 'created']} })
-    localDB.createIndex({ index: {fields: ['docType', 'id']} })
-    localDB.createIndex({ index: {fields: ['docType', 'client.code', 'pay.payMethod']} })
-
-    const kwargs = {
-      db: 'sales',
-      docType: 'SALE',
-      dispatchType: 'FETCH_SALES_FULFILLED',
-      dispatchErrorType: 'FETCH_SALES_REJECTED'
-    }
-
-    const kwargs2 = {
-      db: 'sales',
-      docType: 'DONATION',
-      dispatchType: 'FETCH_DONATIONS_FULFILLED',
-      dispatchErrorType: 'FETCH_DONATIONS_REJECTED'
-    }
-
-    localDB.sync(remoteDB, {
-      retry: true
-    })
-      .on('change', function(change) {
-        console.log('change')
-        _this.props.dispatch(fetchItems(kwargs))
-
-      })
-
-    this.props.dispatch(fetchItems(kwargs))
-    this.props.dispatch(fetchItems(kwargs2))
-
   }
 
   render() {
