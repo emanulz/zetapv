@@ -119,6 +119,12 @@ export default class Fields extends React.Component {
         </div>
 
         <div className='form-group'>
+          <label>Ancho del Logo px</label>
+          <input value={this.props.userConfig.logoWidth || ''} onChange={this.handleInputChange.bind(this)} name='logoWidth'
+            type='text' className='form-control' />
+        </div>
+
+        <div className='form-group'>
           <label>Direccion 1</label>
           <input value={this.props.userConfig.address1 || ''} onChange={this.handleInputChange.bind(this)}
             name='address1' type='text' className='form-control' />

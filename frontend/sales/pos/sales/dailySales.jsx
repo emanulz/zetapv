@@ -39,7 +39,7 @@ export default class SalesPanel extends React.Component {
 
     const itemsToRender = filteredSales.map(sale => {
       return <tr key={sale._id}>
-        <td><a href={`/pos/${sale.id}`} target='_blank'>{sale.id}</a></td>
+        <td><a href={`/sales/pos/${sale.id}`} target='_blank'>{sale.id}</a></td>
         <td>{`${formatDateTimeAmPm(sale.created)}`}</td>
         <td>{`${sale.client.name} ${sale.client.last_name}`}</td>
         <td>₡ {parseFloat(sale.cart.cartTotal).formatMoney(2, ',', '.')}</td>

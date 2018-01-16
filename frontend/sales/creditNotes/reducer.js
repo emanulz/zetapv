@@ -3,7 +3,8 @@ const stateConst = {
   salesFiltered: [],
   clientFilter: '',
   saleFilter: '',
-  saleActive: {}
+  saleActive: {},
+  creditPanelVisible: true
 
 }
 
@@ -72,6 +73,15 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         saleFilter: ''
+      }
+    } // case
+
+    case 'TOGGLE_CREDIT_NOTE_PANEL':
+    {
+      const visible = state.creditPanelVisible
+      return {
+        ...state,
+        creditPanelVisible: !visible
       }
     } // case
 

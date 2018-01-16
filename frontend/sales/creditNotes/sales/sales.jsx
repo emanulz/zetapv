@@ -10,17 +10,11 @@ import {formatDateTimeAmPm} from '../../../utils/formatDate.js'
     sales: store.creditNotes.salesFiltered
   }
 })
-export default class Products extends React.Component {
+export default class Sales extends React.Component {
 
-  bntMovementClick(product, event) {
-    this.props.dispatch({type: 'SET_PRODUCT', payload: product})
-    this.props.dispatch({type: 'TOGGLE_PANEL', payload: ''})
-    const movement = {
-      ...this.props.movement
-    }
-
-    movement.productId = product._id
-    this.props.dispatch({type: 'SET_PRODUCT_MOVEMENT', payload: movement})
+  bntCreditNoteClick(sale, event) {
+    this.props.dispatch({type: 'SET_SALE_SELECTED', payload: sale})
+    this.props.dispatch({type: 'TOGGLE_CREDIT_NOTE_PANEL', payload: ''})
   }
 
   // Main Layout
@@ -39,8 +33,8 @@ export default class Products extends React.Component {
 
     // BODY OF THE TABLE
     const body = sales.map(sale => {
-      const selectBtn = <button onClick={this.bntMovementClick.bind(this, sale)} className='btn btn-success'>
-        <span className='fa fa-exchange' />
+      const selectBtn = <button onClick={this.bntCreditNoteClick.bind(this, sale)} className='btn btn-success'>
+        <span className='fa fa-ticket' />
       </button>
 
       const date = formatDateTimeAmPm(sale.created)
@@ -50,7 +44,7 @@ export default class Products extends React.Component {
         <td>{date}</td>
         <td>{`${sale.client.name} ${sale.client.last_name}`}</td>
         <td>₡ {sale.cart.cartTotal.formatMoney(2, ',', '.')}</td>
-        <td>{selectBtn}</td>
+        <td className='center'>{selectBtn}</td>
       </tr>
     })
 

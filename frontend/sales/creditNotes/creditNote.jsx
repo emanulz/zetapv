@@ -5,6 +5,7 @@ import React from 'react'
 
 import Filters from './filters/filters.jsx'
 import Sales from './sales/sales.jsx'
+import SidePanel from './sidePanel/sidePanel.jsx'
 // components
 
 export default class CreditNote extends React.Component {
@@ -13,10 +14,10 @@ export default class CreditNote extends React.Component {
   render() {
 
     return <div className='creditNote'>
-      <h2>Notas de Crédito:</h2>
       <div className='creditNote-container'>
         <Filters />
         <Sales />
+        <SidePanel />
       </div>
     </div>
 

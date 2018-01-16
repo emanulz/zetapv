@@ -8,8 +8,8 @@ import TopBar from '../layout/topBar/topBar.jsx'
 import SideMenu from '../layout/sideMenu/sideMenu.jsx'
 import Body from './body/body.jsx'
 import {Provider} from 'react-redux'
-import store from '../pos/store.js'
-import Config from '../pos/config/config.jsx'
+import store from '../sales/store.js'
+import Config from '../sales/config/config.jsx'
 
 window.alertify = alertify
 // store

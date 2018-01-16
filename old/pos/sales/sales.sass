@@ -1,0 +1,38 @@
+.sales-panel
+  position: absolute
+  top: 0
+  right: -600px
+  width: 600px
+  height: 100%
+  background-color: white
+  box-shadow: -2px 5px 10px 1px rgba(0,0,0,.176)
+  transition: all 0.3s ease-in-out
+  overflow-y: auto
+  &.is-visible
+      right: 0
+      z-index: 15
+  &-header
+    width: 100%
+    height: 40px
+    text-align: center
+    background-color: $PRIMARY-COLOR-ACCENT
+    color: white
+    font-size: 20px
+    line-height: 40px
+    font-family: 'Source Sans Pro', sans-serif
+    & i
+        position: absolute
+        right: 5px
+        top: 2px
+        cursor: pointer
+        &:hover
+            font-size: 25px
+  &-container
+    margin-top: 15px
+    & thead
+      & tr
+        background-color: $PRIMARY-COLOR
+        color: white
+        font-family: 'Source Sans Pro', sans-serif
+    & tbody
+      font-family: 'Source Sans Pro', sans-serif

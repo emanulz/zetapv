@@ -16,6 +16,7 @@ export default class Header extends React.Component {
     const headertext = this.props.sale.pay.payMethod == 'CREDIT' ? 'Factura de crédito' : 'Factura de contado'
     // LOGO
     const logo = this.props.userCompanyConfig.logo || this.props.defaultCompanyConfig.logo || ''
+    const logoWidth = this.props.userCompanyConfig.logoWidth || this.props.defaultCompanyConfig.logoWidth || '130px'
     const logoUrl = this.props.defaultDesing ? `/img/logos/${logo}` : '/img/logos/chocoprisma.jpg'
 
     // BILL DATA
@@ -36,7 +37,7 @@ export default class Header extends React.Component {
       <div className='full-invoice-header'>
 
         <div className='full-invoice-header-logo'>
-          <img src={logoUrl} />
+          <img style={{'width': `${logoWidth}`}} src={logoUrl} />
         </div>
         <div className='full-invoice-header-info'>
           <h2>{headerName.toUpperCase()}</h2>

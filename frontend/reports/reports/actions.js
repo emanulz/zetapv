@@ -52,7 +52,7 @@ export function salesReport(sales, iniDate, endDate, client) {
     totalIv = totalIv + parseFloat(sale.cart.cartTaxes)
 
     return <tr key={sale._id}>
-      <td><a target='_blank' href={`/pos/${sale.id}`}>{sale.id}</a></td>
+      <td><a target='_blank' href={`/sales/pos/${sale.id}`}>{sale.id}</a></td>
       <td>{formatDate(sale.created)}</td>
       <td>{`${sale.client.name} ${sale.client.last_name}`}</td>
       <td>₡ {parseFloat(sale.cart.cartSubtotal).formatMoney(2, ',', '.')}</td>

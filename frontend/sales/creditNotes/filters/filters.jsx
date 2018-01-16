@@ -63,9 +63,11 @@ export default class Filters extends React.Component {
     // ********************************************************************
     return <div className='creditNote-filters'>
       <div className='creditNote-filters-header'>
-        Filtros
+        Nota de Crédito
       </div>
       <div className='creditNote-filters-container'>
+
+        <h3>Buscar factura:</h3>
 
         <h4>Venta #:</h4>
 
