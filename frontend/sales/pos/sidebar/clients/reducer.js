@@ -18,7 +18,7 @@ const stateConst = {
   clientsFetching: false,
   clientsFected: false,
   clientsFetchError: '',
-  clients: {},
+  clients: [],
   clientSelected: clientSelectedModel,
   clientSelectedDebt: 0
 }

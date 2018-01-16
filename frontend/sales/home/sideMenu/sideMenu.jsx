@@ -169,6 +169,12 @@ export default class SideMenu extends React.Component {
               Anular Factura</Link>
           </li>
 
+          <li>
+            <Link to='/sales/creditnote'>
+              <span className='fa fa-user' />
+              Devolución / Nota de Crédito</Link>
+          </li>
+
         </ul>
       </div>
 

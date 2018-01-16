@@ -1,0 +1,81 @@
+.inventory-sidePanel
+  position: absolute
+  top: -100%
+  width: 100%
+  height: 100%
+  transition: all 0.2s ease-in-out
+  background-color: rgba(232, 232, 232, 0.5)
+  &.visible
+    top: 0
+  &-container
+    position: absolute
+    top: 0
+    width: 80%
+    height: 100%
+    left: 10%
+    background-color: white
+    &-header
+      width: 100%
+      height: 40px
+      text-align: center
+      background-color: $INV-SECONDARY-DARK
+      color: white
+      line-height: 40px
+      font-size: 20px
+      font-family: 'Source Sans Pro', sans-serif
+      & span
+        font-size: 25px
+        position: absolute
+        right: 15px
+        top: 5px
+        cursor: pointer
+        &:hover
+          color: rgb(194, 194, 194)
+    &-content
+      display: flex
+      flex-flow: row
+      &-product
+        font-family: 'Source Sans Pro', sans-serif !important
+        width: 50%
+        height: 100%
+        font-size: 20px
+        color: $INV-PRIMARY-DARK
+        padding: 15px
+        & table
+          margin-top: 10px
+          width: 100%
+          & tbody
+            & tr
+              & th
+                line-height: 100%
+                padding-left: 10px
+                width: 30%
+                color: white
+                background-color: $INV-SECONDARY-DARK
+                font-size: 15px
+                font-family: 'Source Sans Pro', sans-serif !important
+              & td
+                font-family: 'Quicksand', sans-serif !important
+                padding-left: 10px
+                color: black
+                border-color: white
+                font-size: 14px
+      &-actions
+        font-family: 'Source Sans Pro', sans-serif !important
+        width: 50%
+        height: 100%
+        font-size: 20px
+        color: $INV-PRIMARY-DARK
+        padding: 15px
+        & input
+          margin-top: 10px
+        & .select2-container
+          margin-top: 10px
+        & button
+          margin-top: 10px
+          width: 50%
+          background-color: $INV-PRIMARY
+          &:hover
+            background-color: $INV-PRIMARY-DARK
+          &:focus
+            background-color: $INV-PRIMARY !important

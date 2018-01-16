@@ -1,1 +1,2 @@
 COUCHDB_REMOTE_SERVER=https://emanuelziga:emma101421@app.compupz.com:6984
+COUCHDB_REMOTE_SERVER_NO_SECURE=http://emanuelziga:emma101421@app.compupz.com:5984

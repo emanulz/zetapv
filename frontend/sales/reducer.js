@@ -15,6 +15,8 @@ import invoice from './pos/invoice/reducer.js'
 import proforma from './proformas/reducer.js'
 import proformaInvoice from './proformas/invoice/reducer.js'
 
+import creditNotes from './creditNotes/reducer.js'
+
 export default combineReducers({
   dbSync,
   config,
@@ -29,5 +31,6 @@ export default combineReducers({
   pay,
   invoice,
   proforma,
-  proformaInvoice
+  proformaInvoice,
+  creditNotes
 })
