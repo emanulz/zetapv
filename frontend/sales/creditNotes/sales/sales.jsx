@@ -21,6 +21,7 @@ export default class Sales extends React.Component {
   render() {
 
     const sales = this.props.sales
+    const sortedSales = sales.sort((a, b) => b.id - a.id)
 
     // HEADER OF THE TABLE BASE OF WHETER IS PHYSICAL TAKE OR NOT
     const header = <tr>
@@ -32,7 +33,7 @@ export default class Sales extends React.Component {
     </tr>
 
     // BODY OF THE TABLE
-    const body = sales.map(sale => {
+    const body = sortedSales.map(sale => {
       const selectBtn = <button onClick={this.bntCreditNoteClick.bind(this, sale)} className='btn btn-success'>
         <span className='fa fa-ticket' />
       </button>

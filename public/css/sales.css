@@ -6309,6 +6309,11 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     padding: 0;
     margin: 0; }
 
+.proforma-header-tittle {
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 20px; }
+
 .sideMenu-item-composed.visible a.visible {
   background-color: #0e1a29; }
 
@@ -6472,6 +6477,19 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   .creditNoteSales-table .center {
     text-align: center; }
 
+.creditNote-input-th {
+  width: 120px;
+  text-align: center; }
+
+.creditNote-input-td {
+  padding-right: 10px !important;
+  padding-top: 5px !important; }
+  .creditNote-input-td input {
+    border-right: 1px solid #ccc !important;
+    height: 25px !important;
+    font-size: 12px;
+    text-align: center; }
+
 .creditNote-sidePanel {
   position: absolute;
   top: -100%;
@@ -6485,8 +6503,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     position: absolute;
     top: 0;
     width: 90%;
-    height: 100%;
     left: 5%;
+    height: 100%;
     background-color: white; }
     .creditNote-sidePanel-container-header {
       width: 100%;
@@ -6495,7 +6513,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       background-color: #435267;
       color: white;
       line-height: 40px;
-      font-size: 20px;
+      font-size: 18px;
       font-family: 'Source Sans Pro', sans-serif; }
       .creditNote-sidePanel-container-header span {
         font-size: 25px;
@@ -6516,31 +6534,42 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         font-size: 20px;
         color: #0e1a29; }
         .creditNote-sidePanel-container-content-table table {
-          margin-top: 10px;
-          width: 100%; }
+          margin-top: 15px;
+          width: 100%;
+          border: none; }
           .creditNote-sidePanel-container-content-table table tbody tr th {
             line-height: 100%;
             padding-left: 10px;
             width: 30%;
             color: white;
             background-color: #435267;
-            font-size: 15px;
+            font-size: 12px;
             font-family: 'Source Sans Pro', sans-serif !important; }
           .creditNote-sidePanel-container-content-table table tbody tr td {
             font-family: 'Quicksand', sans-serif !important;
             padding-left: 10px;
             color: black;
             border-color: white;
-            font-size: 14px; }
+            font-size: 12px; }
         .creditNote-sidePanel-container-content-table-data {
           margin-top: 20px;
           display: flex;
           flex-flow: row; }
-          .creditNote-sidePanel-container-content-table-data h3 {
-            font-size: 20px; }
           .creditNote-sidePanel-container-content-table-data div {
-            padding-right: 50px; }
+            width: 33%;
+            padding-right: 10px; }
+            .creditNote-sidePanel-container-content-table-data div:last-child {
+              padding-right: 0;
+              width: 34%; }
+          .creditNote-sidePanel-container-content-table-data h3 {
+            padding-left: 5px;
+            font-size: 18px;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            background-color: #0e1a29; }
           .creditNote-sidePanel-container-content-table-data span {
+            padding-left: 5px;
             font-size: 16px; }
       .creditNote-sidePanel-container-content-side {
         font-family: 'Source Sans Pro', sans-serif !important;
@@ -6548,7 +6577,39 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         height: 100%;
         font-size: 20px;
         color: #0e1a29;
-        padding: 15px; }
+        padding: 0;
+        padding-left: 15px; }
+        .creditNote-sidePanel-container-content-side-header {
+          font-size: 16px;
+          text-align: center;
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          background-color: #0e1a29;
+          color: white;
+          overflow: hidden;
+          margin-top: 20px; }
+        .creditNote-sidePanel-container-content-side-data .tag {
+          background-color: #606b7e;
+          width: 100%;
+          height: 40px;
+          font-size: 14px;
+          margin-top: 10px;
+          text-align: center;
+          color: white;
+          height: 30px;
+          line-height: 30px;
+          overflow: hidden; }
+          .creditNote-sidePanel-container-content-side-data .tag.tag2 {
+            margin-top: 10px;
+            background-color: #0e1a29; }
+        .creditNote-sidePanel-container-content-side-data .amount {
+          text-align: center;
+          font-size: 18px; }
+        .creditNote-sidePanel-container-content-side-data button {
+          width: 100% !important;
+          margin-top: 20px !important;
+          display: block !important; }
         .creditNote-sidePanel-container-content-side input {
           margin-top: 10px; }
         .creditNote-sidePanel-container-content-side .select2-container {
@@ -6576,3 +6637,5 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     overflow-x: hidden;
     display: flex;
     flex-flow: row; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9zYWxlcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

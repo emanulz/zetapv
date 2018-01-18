@@ -1,3 +1,16 @@
+.creditNote-input-th
+  width: 120px
+  text-align: center
+.creditNote-input-td
+  padding-right: 10px !important
+  padding-top: 5px !important
+
+  & input
+    border-right: 1px solid #ccc !important
+    height: 25px !important
+    font-size: 12px
+    text-align: center
+
 .creditNote-sidePanel
   position: absolute
   top: -100%
@@ -11,8 +24,8 @@
     position: absolute
     top: 0
     width: 90%
-    height: 100%
     left: 5%
+    height: 100%
     background-color: white
     &-header
       width: 100%
@@ -21,7 +34,7 @@
       background-color: $SALES-SECONDARY-DARK
       color: white
       line-height: 40px
-      font-size: 20px
+      font-size: 18px
       font-family: 'Source Sans Pro', sans-serif
       & span
         font-size: 25px
@@ -35,6 +48,7 @@
       display: flex
       flex-flow: row
       padding: 0 25px
+
       &-table
         font-family: 'Source Sans Pro', sans-serif !important
         width: 70%
@@ -42,8 +56,9 @@
         font-size: 20px
         color: $SALES-PRIMARY-DARK
         & table
-          margin-top: 10px
+          margin-top: 15px
           width: 100%
+          border: none
           & tbody
             & tr
               & th
@@ -52,25 +67,34 @@
                 width: 30%
                 color: white
                 background-color: $SALES-SECONDARY-DARK
-                font-size: 15px
+                font-size: 12px
                 font-family: 'Source Sans Pro', sans-serif !important
               & td
                 font-family: 'Quicksand', sans-serif !important
                 padding-left: 10px
                 color: black
                 border-color: white
-                font-size: 14px
+                font-size: 12px
         &-data
           margin-top: 20px
           display: flex
           flex-flow: row
-          & h3
-            font-size: 20px
           & div
-            padding-right: 50px
+            width: 33%
+            padding-right: 10px
+            &:last-child
+              padding-right: 0
+              width: 34%
+          & h3
+            padding-left: 5px
+            font-size: 18px
+            height: 30px
+            line-height: 30px
+            color: white
+            background-color: $SALES-PRIMARY-DARK
           & span
+            padding-left: 5px
             font-size: 16px
-
 
       &-side
         font-family: 'Source Sans Pro', sans-serif !important
@@ -78,7 +102,41 @@
         height: 100%
         font-size: 20px
         color: $SALES-PRIMARY-DARK
-        padding: 15px
+        padding: 0
+        padding-left: 15px
+        &-header
+          font-size: 16px
+          text-align: center
+          width: 100%
+          height: 30px
+          line-height: 30px
+          background-color: $SALES-PRIMARY-DARK
+          color: white
+          overflow: hidden
+          margin-top: 20px
+        &-data
+          & .tag
+            background-color: $SALES-PRIMARY-LIGHT
+            width: 100%
+            height: 40px
+            font-size: 14px
+            margin-top: 10px
+            text-align: center
+            color: white
+            height: 30px
+            line-height: 30px
+            overflow: hidden
+            &.tag2
+              margin-top: 10px
+              background-color: $SALES-PRIMARY-DARK
+          & .amount
+            text-align: center
+            font-size: 18px
+          & button
+            width: 100% !important
+            margin-top: 20px !important
+            display: block !important
+
         & input
           margin-top: 10px
         & .select2-container

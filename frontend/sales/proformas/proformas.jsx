@@ -17,6 +17,7 @@ export default class Pos extends React.Component {
   render() {
 
     return <div>
+      <div className='proforma-header-tittle'>Factura Proforma:</div>
       <div className='row' style={{'margin': '0'}}>
         <Main />
         <Sidebar />

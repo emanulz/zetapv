@@ -154,7 +154,7 @@ export default class SideMenu extends React.Component {
           <li>
             <Link to='/sales/proforma'>
               <span className='fa fa-user' />
-              Cotización</Link>
+              Cotización / Proforma</Link>
           </li>
 
           <li>

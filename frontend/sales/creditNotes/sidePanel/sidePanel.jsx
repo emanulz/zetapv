@@ -39,9 +39,10 @@ export default class SidePanel extends React.Component {
     const cartItems = sale.cart ? sale.cart.cartItems : []
     const items = cartItems.map((item) => {
 
-      const taxesText = (item.product.useTaxes)
-        ? `G`
-        : `E`
+      const qtyField = <input
+        type='number'
+        className='form-control'
+      />
 
       return <tr key={item.uuid}>
         <td>
@@ -54,23 +55,23 @@ export default class SidePanel extends React.Component {
           {item.qty}
         </td>
         <td className='right-in-table'>
-          ₡ {parseFloat(item.product.price).formatMoney(2, ',', '.')}
-        </td>
-        <td className='right-in-table'>
-          {item.discount}</td>
-        <td className='right-in-table'>
-          {taxesText}
-        </td>
-        <td className='right-in-table'>
           ₡ {item.totalWithIv.formatMoney(2, ',', '.')}
+        </td>
+        <td className='creditNote-input-td'>
+          {qtyField}
         </td>
       </tr>
     })
 
+    const selectData = [
+      {text: 'Nota de crédito', id: 'creditNote'},
+      {text: 'Devolución de efectivo', id: 'moneyBack'}
+    ]
+
     return <div className={panelClass}>
       <div className='creditNote-sidePanel-container'>
         <div className='creditNote-sidePanel-container-header'>
-          Registrar Nota de crédito a factura
+          Registrar Nota de crédito a factura #{id}
           <span onClick={this.togglePanel.bind(this)} className='fa fa-close' />
         </div>
         <div className='creditNote-sidePanel-container-content'>
@@ -78,7 +79,7 @@ export default class SidePanel extends React.Component {
           <div className='creditNote-sidePanel-container-content-table'>
             <div className='creditNote-sidePanel-container-content-table-data'>
               <div><h3>Cliente:</h3> <span>{client}</span></div>
-              <div><h3>Factuta:</h3> <span>{id}</span></div>
+              <div><h3>Factura #</h3> <span>{id}</span></div>
               <div><h3>Fecha:</h3> <span>{date}</span></div>
             </div>
 
@@ -88,10 +89,8 @@ export default class SidePanel extends React.Component {
                   <th>Código</th>
                   <th className='description-row'>Descripción</th>
                   <th className='right-in-table'>Cantidad</th>
-                  <th className='right-in-table'>P.U</th>
-                  <th className='right-in-table'>Des%</th>
-                  <th className='right-in-table'>IV</th>
                   <th className='right-in-table'>Precio IVI</th>
+                  <th className='creditNote-input-th'>Devolver</th>
                 </tr>
               </thead>
               <tbody className=''>
@@ -103,6 +102,52 @@ export default class SidePanel extends React.Component {
           </div>
 
           <div className='creditNote-sidePanel-container-content-side'>
+
+            <div className='creditNote-sidePanel-container-content-side-header'>
+              Datos de la devolución
+            </div>
+
+            <div className='creditNote-sidePanel-container-content-side-data'>
+
+              <div className='tag'>
+                Total Factura
+              </div>
+
+              <div className='amount'>
+                1500
+              </div>
+
+              <div className='tag'>
+                Elementos 2
+              </div>
+
+              <div className='tag'>
+                Monto de la devolución
+              </div>
+
+              <div className='amount'>
+                700
+              </div>
+
+              <div className='tag'>
+                Tipo de devolución
+              </div>
+
+              <Select2
+                name='returnType'
+                className='form-control'
+                data={selectData}
+                options={{
+                  placeholder: 'Elija un tipo de devolución...',
+                  noResultsText: 'Sin elementos'
+                }}
+              />
+
+              <button className='btn btn-primary form-control'>
+                Registrar
+              </button>
+
+            </div>
 
           </div>
 

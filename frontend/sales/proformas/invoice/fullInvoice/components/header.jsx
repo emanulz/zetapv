@@ -17,6 +17,7 @@ export default class Header extends React.Component {
     // LOGO
     const logo = this.props.userCompanyConfig.logo || this.props.defaultCompanyConfig.logo || ''
     const logoUrl = this.props.defaultDesing ? `/img/logos/${logo}` : '/img/logos/chocoprisma.jpg'
+    const logoWidth = this.props.userCompanyConfig.logoWidth || this.props.defaultCompanyConfig.logoWidth || '130px'
 
     // BILL DATA
     const headerName = this.props.defaultDesing
@@ -31,7 +32,7 @@ export default class Header extends React.Component {
       <div className='full-proformaInvoice-header'>
 
         <div className='full-proformaInvoice-header-logo'>
-          <img src={logoUrl} />
+          <img style={{'width': `${logoWidth}`}} src={logoUrl} />
         </div>
         <div className='full-proformaInvoice-header-info'>
           <h2>{headerName.toUpperCase()}</h2>
