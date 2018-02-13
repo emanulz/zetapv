@@ -82,9 +82,9 @@ export default class Totals extends React.Component {
         'paddingTop': '0',
         'marginTop': '0'
       }} className='bg-white right-item'>
-        <span>
+        {/* <span>
           <b>Totales:</b>
-        </span><br />
+        </span><br /> */}
         <table className='table totals-table'>
           <tbody>
             <tr>

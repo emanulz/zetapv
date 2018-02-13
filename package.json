@@ -26,6 +26,7 @@
     "express-session": "^1.15.5",
     "express-validator": "^3.2.1",
     "jade": "^1.11.0",
+    "mousetrap": "^1.6.1",
     "node-cryptojs-aes": "^0.4.0",
     "nodemon": "^1.14.6",
     "passport": "^0.3.2",

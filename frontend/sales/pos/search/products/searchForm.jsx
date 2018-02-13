@@ -4,7 +4,10 @@ import {connect} from 'react-redux'
 import {searchProduct} from './actions'
 
 @connect((store) => {
-  return {products: store.products.products}
+  return {
+    products: store.products.products,
+    searchValue: store.searchProducts.searchValue
+  }
 })
 export default class searchForm extends React.Component {
 
@@ -18,17 +21,18 @@ export default class searchForm extends React.Component {
   inputKeyPress(ev) {
 
     if (ev.key == 'Enter') {
+
       ev.preventDefault()
       this.searchProductAction()
+
     } else {
-      this.state.searchVal = ev.target.value
+      this.props.dispatch({type: 'SET_PRODUCT_SEARCH_FIELD_VALUE', payload: ev.target.value})
     }
 
   }
 
   searchProductAction() {
-    const val = this.state.searchVal
-    this.props.dispatch(searchProduct(val, this.props.products))
+    this.props.dispatch(searchProduct(this.props.searchValue, this.props.products))
   }
 
   render() {
@@ -40,9 +44,9 @@ export default class searchForm extends React.Component {
         </div>
         <div className='col-xs-12 row'>
           <div className='col-xs-7 col-sm-8'>
-            <input onKeyPress={this.inputKeyPress.bind(this)} onChange={this.inputKeyPress.bind(this)} type='text' style={{
+            <input onKeyDown={this.inputKeyPress.bind(this)} onChange={this.inputKeyPress.bind(this)} value={this.props.searchValue} type='text' style={{
               'width': '100%'
-            }} id='product-search-input' className='form-control input-lg' />
+            }} id='product-search-input' className='form-control input-lg mousetrap' />
           </div>
           <div className='col-xs-2'>
             <button onClick={this.searchProductAction.bind(this)} type='button' id='product-search-btn' style={{

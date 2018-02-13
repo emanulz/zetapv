@@ -5293,7 +5293,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .cart {
   padding: 0 20px;
-  padding-top: 20px; }
+  padding-top: 20px;
+  padding-bottom: 75px; }
   .cart-table tbody {
     border-color: inherit;
     border: 1px solid #ddd; }
@@ -5354,6 +5355,9 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       background-color: #435267; }
   .buttons i {
     margin-left: 10px; }
+
+.sideBar {
+  padding-bottom: 75px !important; }
 
 .invoice-panel {
   width: 100%;

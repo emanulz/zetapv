@@ -60,9 +60,9 @@ export default class Buttons extends React.Component {
 
     return <div className='col-xs-12 buttons'>
 
-      <span>
+      {/* <span>
         <b>Pago:<br /></b>
-      </span>
+      </span> */}
 
       <button
         disabled={this.props.disabled}

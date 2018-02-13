@@ -84,7 +84,8 @@ export default class Filters extends React.Component {
     // ********************************************************************
 
     const departmentData = [
-      {text: `Ventas`, id: 1}
+      {text: `Ventas`, id: 1},
+      {text: `Descuentos`, id: 2}
     ]
 
     const filteredSubDepartments = this.props.departmentActive

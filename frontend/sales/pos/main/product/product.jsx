@@ -57,17 +57,21 @@ export default class Product extends React.Component {
   render() {
 
     return <div className='product'>
-      <div className='product-title'>
+      {/* <div className='product-title'>
         <span>
           <b>Producto:</b>
         </span>
-      </div>
+      </div> */}
       <div className='product-inputs'>
         <div className='product-inputs-code'>
           <i className='fa fa-barcode' />
-          <input id='productCodeInputField' disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)} value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)} ref={(input) => {
-            this.codeInput = input
-          }} type='text' placeholder='Ingrese el Código del Producto' className='product-inputs-code-input mousetrap form-control input-lg' />
+          <input id='productCodeInputField' disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)}
+            value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)}
+            ref={(input) => {
+              this.codeInput = input
+            }}
+            type='text' placeholder='Ingrese el Código del Producto'
+            className='product-inputs-code-input mousetrap form-control input-lg' />
 
         </div>
         <button disabled={this.props.disabled} onClick={this.searchProductClick.bind(this)} style={{

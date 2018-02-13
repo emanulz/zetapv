@@ -7,6 +7,15 @@ export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
 
+    case 'SEARCH_CLIENT_TOGGLE_PANEL':
+    {
+      const visible = !state.visible
+      return {
+        ...state,
+        visible: visible
+      }
+    } // case
+
     case 'CLIENT_SHOW_PANEL':
     {
       return {

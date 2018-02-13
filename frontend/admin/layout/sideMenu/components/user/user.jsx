@@ -8,9 +8,9 @@ export default class User extends React.Component {
   // Main Layout
   render() {
 
-    const name = 'Emanuel'
-    const lastName = 'Zúñiga Infante'
-    const avatar = '/img/avatars/emanuel.jpeg'
+    const name = 'Administrador'
+    const lastName = 'Del Sistema'
+    const avatar = '/img/avatars/profile.jpg'
 
     let fullName = `${name} ${lastName}`
     if (fullName.length > 17) fullName = fullName.substring(0, 17)

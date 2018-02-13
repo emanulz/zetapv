@@ -67,13 +67,13 @@ export default class Clients extends React.Component {
       ? `${this.props.clientSelected.name} ${this.props.clientSelected.last_name}`
       : 'Cliente Contado'
 
-    const creditIcon = (this.props.clientSelected && this.props.clientSelected.has_credit)
-      ? 'fa fa-check-square'
-      : 'fa fa-times-circle'
+    // const creditIcon = (this.props.clientSelected && this.props.clientSelected.has_credit)
+    //   ? 'fa fa-check-square'
+    //   : 'fa fa-times-circle'
 
     return <div className='col-xs-12 client'>
 
-      <span>
+      {/* <span>
         <b>
           Datos del Cliente:
           <span>
@@ -82,7 +82,7 @@ export default class Clients extends React.Component {
         </b>
       </span>
 
-      <br /><br />
+      <br /><br /> */}
 
       <div className='row'>
 
@@ -93,19 +93,18 @@ export default class Clients extends React.Component {
 
         <div className='col-xs-10'>
           <span>
-            <b>Código :
+            <b>Cliente :
             </b>
           </span>
 
           <input disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)} type='text' className='client-code' />
-          <i className='fa fa-street-view' /><br />
-
+          <br />
           <span>
             <b>Nombre :
             </b>
           </span>
           <span className='client-name'>{clientToShow}</span>
-          <br />
+          {/* <br />
           <span>
             <b>Crédito :
             </b>
@@ -122,7 +121,7 @@ export default class Clients extends React.Component {
           </span>
           <span className='client-debt-amount credit-status credit-negative'>
             ₡ {this.props.debt.formatMoney(2, ',', '.')}
-          </span>
+          </span> */}
 
         </div>
 

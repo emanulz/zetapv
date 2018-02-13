@@ -1,8 +1,10 @@
 // ------------------------------------------------------------------------------------------
 // MODULE IMPORTS
 // ------------------------------------------------------------------------------------------
+const Mousetrap = require('mousetrap')
 const uuidv1 = require('uuid/v1')
 const PouchDB = require('pouchdb')
+
 PouchDB.plugin(require('pouchdb-find'))
 
 // ------------------------------------------------------------------------------------------
@@ -33,7 +35,6 @@ export function fetchProducts() {
 
 // opens the product search panel
 export function searchProduct() {
-
   return {type: 'PRODUCT_SHOW_PANEL', payload: -1}
 }
 

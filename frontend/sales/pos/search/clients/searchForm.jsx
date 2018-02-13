@@ -42,7 +42,7 @@ export default class searchForm extends React.Component {
           <div className='col-xs-7 col-sm-8'>
             <input onKeyPress={this.inputKeyPress.bind(this)} onChange={this.inputKeyPress.bind(this)} type='text' style={{
               'width': '100%'
-            }} id='client-search-input' className='form-control input-lg' />
+            }} id='client-search-input' className='form-control input-lg mousetrap' />
           </div>
           <div className='col-xs-2'>
             <button onClick={this.searchClientAction.bind(this)} type='button' id='client-search-btn' style={{
