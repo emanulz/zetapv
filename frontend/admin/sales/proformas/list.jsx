@@ -33,7 +33,7 @@ export default class List extends React.Component {
       {
         field: 'id',
         text: '# Proforma',
-        baseLink: '/sales/proformas',
+        baseLink: '/sales/proforma',
         type: 'link'
       }, {
         field: 'created',
@@ -55,7 +55,7 @@ export default class List extends React.Component {
 
       <h1>Proformas:</h1>
 
-      <DataTable headerOrder={headerOrder} model='proformas' data={this.props.proformas} addLink='/sales/proformas' />
+      <DataTable headerOrder={headerOrder} model='proformas' data={this.props.proformas} addLink='/sales/proforma' />
 
     </div>
 

@@ -82,7 +82,8 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         proformaActive: action.payload,
-        proformaActiveId: action.payload.id
+        proformaActiveId: action.payload.id,
+        completed: true
       }
     }
 

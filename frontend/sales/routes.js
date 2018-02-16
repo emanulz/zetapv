@@ -12,7 +12,9 @@ const routes = <div className='mainContainer-content-wrapper'>
 
   <Route exact path='/sales' component={Home} />
   <Route exact path='/sales/pos' component={Pos} />
+  <Route exact path='/sales/pos/:sale' component={Pos} />
   <Route exact path='/sales/proforma' component={Proformas} />
+  <Route exact path='/sales/proforma/:proforma' component={Proformas} />
   <Route exact path='/sales/creditnote' component={CreditNote} />
 
 </div>

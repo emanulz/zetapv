@@ -1,6 +1,7 @@
 import React from 'react'
 import {saveItem, loadSale} from '../actions'
 import {connect} from 'react-redux'
+const Mousetrap = require('mousetrap')
 
 @connect((store) => {
   return {
@@ -26,6 +27,9 @@ export default class PaySideBar extends React.Component {
       // If is loading sale
       if (sale != 'pos' && sale != '' && sale != 'proforma') {
         this.props.dispatch(loadSale(sale, nextProps.sales))
+
+        Mousetrap.reset()
+
       }
     }
 
