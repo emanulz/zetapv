@@ -81,3 +81,30 @@ export function salesReport(sales, iniDate, endDate, client) {
   return {thead: thead, tbody: tbody, totals: totals}
 
 }
+
+export function pricesReport(products, price1, price2, price3, cost) {
+
+  const thead = <thead>
+    <tr>
+      <td>Código</td>
+      <td>Descripción</td>
+      <td>Costo</td>
+      <td>Precio1</td>
+      <td>Precio2</td>
+      <td>Precio3</td>
+    </tr>
+  </thead>
+
+  const tbody = products.map(product => {
+    return <tr key={product._id}>
+      <td>{product.code}</td>
+      <td>{product.description}</td>
+      <td>₡ {parseFloat(product.cost).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(product.price1).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(product.price2).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(product.price3).formatMoney(2, ',', '.')}</td>
+    </tr>
+  })
+
+  return {thead: thead, tbody: tbody, totals: ''}
+}

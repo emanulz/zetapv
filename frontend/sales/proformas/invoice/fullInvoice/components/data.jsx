@@ -2,7 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 @connect((store) => {
-  return {sale: store.sales.saleActive}
+  return {
+    sale: store.sales.saleActive
+  }
 })
 export default class Data extends React.Component {
 

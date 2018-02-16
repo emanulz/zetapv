@@ -14,10 +14,12 @@ import formatMoney from '../utils/formatMoney.js'
 
 import Filters from './filters/filters.jsx'
 import Report from './reports/reports.jsx'
+import printDiv from '../utils/printDiv.js'
 // import SidePanel from './sidePanel/sidePanel.jsx'
 
 window.alertify = alertify
 formatMoney()
+window.printDiv = printDiv
 // store
 
 ReactDOM.render(

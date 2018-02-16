@@ -3,6 +3,7 @@ export default function PrintElem(elem) {
 
   mywindow.document.write('<html><head><title>' + document.title + '</title>')
   mywindow.document.write('<link href="/css/sales.css" rel="stylesheet">')
+  mywindow.document.write('<link href="/css/reports.css" rel="stylesheet">')
   mywindow.document.write('</head><body >')
   mywindow.document.write(document.getElementById(elem).innerHTML)
   mywindow.document.write('</body></html>')

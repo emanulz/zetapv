@@ -3,10 +3,12 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {salesReport} from './actions'
+import {salesReport, pricesReport} from './actions'
 import Header from './components/header.jsx'
 import FiltersData from './components/filtersData.jsx'
+import FiltersDataPrices from './components/filtersDataPrices.jsx'
 import Body from './components/body.jsx'
+import BodyPrices from './components/bodyPrices.jsx'
 
 @connect((store) => {
   return {
@@ -22,7 +24,8 @@ import Body from './components/body.jsx'
     departments: store.reports.departments,
     clients: store.reports.clients,
     subdepartments: store.reports.subdepartments,
-    sales: store.reports.sales
+    sales: store.reports.sales,
+    products: store.reports.products
   }
 })
 export default class Report extends React.Component {
@@ -52,6 +55,16 @@ export default class Report extends React.Component {
           header = <Header tittle='REPORTE DE VENTAS' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
+          break
+        }
+
+        case '4' :
+        {
+          const reportData = pricesReport(this.props.products, true, true, true, true)
+          header = <Header tittle='LISTA DE PRECIOS' date={new Date()} />
+          filters = <FiltersDataPrices />
+          body = <BodyPrices tbody={reportData.tbody} thead={reportData.thead} />
+          break
         }
       }
     }
@@ -61,7 +74,7 @@ export default class Report extends React.Component {
         Reporte:
         <i class={iconClass} aria-hidden='true' onClick={this.collapseFilters.bind(this)} />
       </div>
-      <div className='report-content'>
+      <div id='report-content' className='report-content'>
         {header}
         {filters}
         {body}

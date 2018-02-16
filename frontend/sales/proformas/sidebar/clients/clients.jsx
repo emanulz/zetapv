@@ -105,25 +105,6 @@ export default class Clients extends React.Component {
             </b>
           </span>
           <span className='client-name'>{clientToShow}</span>
-          <br />
-          <span>
-            <b>Crédito :
-            </b>
-          </span>
-          <span>
-            <i>
-              <span className={creditIcon} />
-            </i>
-          </span>
-          <br />
-          <span>
-            <b>Balance :
-            </b>
-          </span>
-          <span className='client-debt-amount credit-status credit-negative'>
-            ₡ {this.props.debt.formatMoney(2, ',', '.')}
-          </span>
-
         </div>
 
       </div>

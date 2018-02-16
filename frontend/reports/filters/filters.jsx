@@ -67,6 +67,10 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'SET_FILTERS_INACTIVE', payload: ''})
   }
 
+  printReport() {
+    window.printDiv('report-content')
+  }
+
   // Main Layout
   render() {
 
@@ -79,6 +83,13 @@ export default class Filters extends React.Component {
         Generar
         <i class='fa fa-tasks' aria-hidden='true' />
       </button>
+
+    const printButton = this.props.isActive
+      ? <button className='btn form-control'onClick={this.printReport.bind(this)}>
+        Imprimir
+        <i class='fa fa-print' aria-hidden='true' />
+      </button>
+      : ''
     // ********************************************************************
     // SELECT2 DATA
     // ********************************************************************
@@ -176,6 +187,8 @@ export default class Filters extends React.Component {
           }}
         />
         {buttons}
+
+        {printButton}
 
       </div>
 
