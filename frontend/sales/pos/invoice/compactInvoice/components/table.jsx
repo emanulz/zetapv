@@ -27,7 +27,7 @@ export default class Table extends React.Component {
           {taxesText}
         </td>
         <td className='right-in-table'>
-          ₡ {item.totalWithIv.formatMoney(2, ',', '.')}
+          ₡ {item.subTotalNoDiscount.formatMoney(2, ',', '.')}
         </td>
       </tr>
     })

@@ -4,13 +4,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateTotals, removeFromCart} from './actions'
-import {updateItemDiscount, updateItemLote, updateQty} from '../product/actions'
+import {updateItemDiscount, updateItemLote, updateQty, addSubOne, updateQtyCode} from '../product/actions'
+import alertify from 'alertifyjs'
+const Mousetrap = require('mousetrap')
 
 @connect((store) => {
   return {inCart: store.cart.cartItems,
     client: store.clients.clientSelected,
     globalDiscount: store.cart.globalDiscount,
     disabled: store.sales.completed,
+    cartItemActive: store.cart.cartItemActive,
     defaultConfig: store.config.defaultSales,
     userConfig: store.config.userSales}
 })
@@ -20,6 +23,53 @@ export default class CartItems extends React.Component {
   componentDidUpdate() {
     this.props.dispatch(updateTotals(this.props.inCart))
 
+  }
+
+  componentWillMount() {
+
+    const _this = this
+    Mousetrap.bind('mod+plus', function(e) {
+
+      if (e.preventDefault) {
+        e.preventDefault()
+      } else {
+      // internet explorer
+        e.returnValue = false
+      }
+
+      _this.props.dispatch(addSubOne(_this.props.cartItemActive, true, _this.props.inCart, _this.props.globalDiscount,
+        _this.props.client))
+    })
+
+    Mousetrap.bind('mod+-', function(e) {
+      if (e.preventDefault) {
+        e.preventDefault()
+      } else {
+      // internet explorer
+        e.returnValue = false
+      }
+      _this.props.dispatch(addSubOne(_this.props.cartItemActive, false, _this.props.inCart, _this.props.globalDiscount,
+        _this.props.client))
+    })
+
+    Mousetrap.bind('mod+*', function(e) {
+
+      if (e.preventDefault) {
+        e.preventDefault()
+      } else {
+      // internet explorer
+        e.returnValue = false
+      }
+
+      const __this = _this
+      alertify.prompt(`Nueva cantidad para el producto ${__this.props.cartItemActive}`, 'Ingrese la nueva cantidad para el producto seleccionado', ''
+        , function(evt, value) {
+          __this.props.dispatch(updateQtyCode(__this.props.cartItemActive, value, __this.props.inCart,
+            __this.props.globalDiscount, __this.props.client))
+        }
+        , function() {})
+        .set('labels', {ok: 'Ok', cancel: 'Cancelar'})
+    })
   }
 
   discountInputKeyPress(code, ev) {
@@ -79,10 +129,20 @@ export default class CartItems extends React.Component {
 
   }
 
+  setCartItemActive(code, ev) {
+
+    this.props.dispatch({type: 'SET_PRODUCT_ACTIVE_IN_CART', payload: code})
+
+  }
+
   removeItem(code, ev) {
 
     this.props.dispatch(removeFromCart(this.props.inCart, code))
 
+  }
+
+  fieldFocus(ev) {
+    ev.target.select()
   }
 
   // Render the items in cart using table rows
@@ -112,6 +172,7 @@ export default class CartItems extends React.Component {
           disabled={this.props.disabled}
           onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
           onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
+          onFocus={this.fieldFocus.bind(this)}
           type='number' className='form-control'
           style={{'width': '55px', 'height': '37px'}}
           value={item.discount}
@@ -120,6 +181,7 @@ export default class CartItems extends React.Component {
           disabled={this.props.disabled}
           onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
           onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
+          onFocus={this.fieldFocus.bind(this)}
           type='number' className='form-control'
           style={{'width': '55px', 'height': '37px'}}
         />
@@ -127,6 +189,7 @@ export default class CartItems extends React.Component {
       const qtyField = <input
         disabled={this.props.disabled}
         onChange={this.qtyInputChange.bind(this, item.uuid)}
+        onFocus={this.fieldFocus.bind(this)}
         type='number'
         className='form-control'
         style={{'width': '90%', 'height': '37px'}}
@@ -140,6 +203,7 @@ export default class CartItems extends React.Component {
           <input
             disabled={this.props.disabled}
             onKeyPress={this.loteInputKeyPress.bind(this, item.uuid)}
+            onFocus={this.fieldFocus.bind(this)}
             onBlur={this.loteInputOnBlur.bind(this, item.uuid)}
             type='text' className='form-control'
             style={{'width': '100px', 'height': '37px'}}
@@ -147,7 +211,9 @@ export default class CartItems extends React.Component {
         </td>
         : <td />
 
-      return <tr key={item.uuid}>
+      const activeClass = item.product.code == this.props.cartItemActive ? 'cart-activeRow' : ''
+
+      return <tr className={activeClass} key={item.uuid} onClick={this.setCartItemActive.bind(this, item.product.code)}>
         <td>
           {item.product.code}
         </td>

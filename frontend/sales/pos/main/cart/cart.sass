@@ -1,20 +1,32 @@
 .cart
-    padding: 0 20px
-    padding-top: 20px
-    padding-bottom: 75px
-    &-table
-        & tbody
-            border-color: inherit
-            border: 1px solid $TABLE-BORDER-COLOR
-        & th
-            font-size: 12px
-            background-color: $PRIMARY-COLOR
-            color: white
-            font-weight: normal
-        & tr
-            &:hover
-                background-color: rgb(195, 195, 195)
-                & input
-                    background-color: rgb(195, 195, 195)
-        & td
-            font-size: 12px
+  padding: 0 20px
+  padding-top: 20px
+  padding-bottom: 75px
+  &-table
+    height: 100%
+    & tbody
+      border-color: inherit
+      border: 1px solid $TABLE-BORDER-COLOR
+    & th
+      font-size: 12px
+      background-color: $PRIMARY-COLOR
+      color: white
+      font-weight: normal
+    & tr
+      &:hover
+        background-color: rgb(229, 229, 229)
+        & input
+          background-color: rgb(229, 229, 229)
+    & td
+      font-size: 12px
+      & input
+        font-size: 12px
+  &-activeRow
+    background-color: rgb(195, 195, 195)
+    & input
+      background-color: rgb(195, 195, 195)
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0

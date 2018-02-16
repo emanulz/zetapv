@@ -1,7 +1,6 @@
 // ------------------------------------------------------------------------------------------
 // MODULE IMPORTS
 // ------------------------------------------------------------------------------------------
-const Mousetrap = require('mousetrap')
 const uuidv1 = require('uuid/v1')
 const PouchDB = require('pouchdb')
 
@@ -132,6 +131,38 @@ export function updateQty (code, qty, itemsInCart, globalDiscount, client) {
 
   const indexInCart = itemsInCart.findIndex(item => item.uuid == code)
   const qtyNum = parseFloat(qty)
+  const res = {
+    type: 'UPDATE_CART',
+    payload: {
+      item: updatedCartItem(itemsInCart, indexInCart, qtyNum, itemsInCart[indexInCart].discount, globalDiscount, client,
+        itemsInCart[indexInCart].uuid),
+      index: indexInCart
+    }
+  }
+  return res
+}
+
+export function updateQtyCode (code, qty, itemsInCart, globalDiscount, client) {
+
+  const indexInCart = itemsInCart.findIndex(item => item.product.code == code)
+  const qtyNum = parseFloat(qty)
+  const res = {
+    type: 'UPDATE_CART',
+    payload: {
+      item: updatedCartItem(itemsInCart, indexInCart, qtyNum, itemsInCart[indexInCart].discount, globalDiscount, client,
+        itemsInCart[indexInCart].uuid),
+      index: indexInCart
+    }
+  }
+  return res
+}
+
+// Updates Amount based on qty input field
+
+export function addSubOne (code, subOrAdd, itemsInCart, globalDiscount, client) {
+
+  const indexInCart = itemsInCart.findIndex(item => item.product.code == code)
+  const qtyNum = subOrAdd ? parseFloat(itemsInCart[indexInCart].qty + 1) : parseFloat(itemsInCart[indexInCart].qty - 1)
   const res = {
     type: 'UPDATE_CART',
     payload: {

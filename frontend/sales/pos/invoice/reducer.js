@@ -1,5 +1,5 @@
 const stateConst = {
-  isVisible: false,
+  isVisible: true,
   isFull: true,
   defaultDesing: true
 }

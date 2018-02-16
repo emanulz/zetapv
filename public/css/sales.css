@@ -5295,20 +5295,33 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   padding: 0 20px;
   padding-top: 20px;
   padding-bottom: 75px; }
-  .cart-table tbody {
-    border-color: inherit;
-    border: 1px solid #ddd; }
-  .cart-table th {
-    font-size: 12px;
-    background-color: #354052;
-    color: white;
-    font-weight: normal; }
-  .cart-table tr:hover {
+  .cart-table {
+    height: 100%; }
+    .cart-table tbody {
+      border-color: inherit;
+      border: 1px solid #ddd; }
+    .cart-table th {
+      font-size: 12px;
+      background-color: #354052;
+      color: white;
+      font-weight: normal; }
+    .cart-table tr:hover {
+      background-color: #e5e5e5; }
+      .cart-table tr:hover input {
+        background-color: #e5e5e5; }
+    .cart-table td {
+      font-size: 12px; }
+      .cart-table td input {
+        font-size: 12px; }
+  .cart-activeRow {
     background-color: #c3c3c3; }
-    .cart-table tr:hover input {
+    .cart-activeRow input {
       background-color: #c3c3c3; }
-  .cart-table td {
-    font-size: 12px; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
 
 .client {
   padding: 20px 10px;
@@ -6641,3 +6654,5 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
     overflow-x: hidden;
     display: flex;
     flex-flow: row; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9zYWxlcy5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

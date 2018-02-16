@@ -17,7 +17,15 @@ export default class Cart extends React.Component {
 
   componentWillMount() {
     const _this = this
-    Mousetrap.bind('mod+b', function() {
+    Mousetrap.bind('mod+b', function(e) {
+
+      if (e.preventDefault) {
+        e.preventDefault()
+      } else {
+      // internet explorer
+        e.returnValue = false
+      }
+
       _this.props.dispatch({type: 'SEARCH_PRODUCT_TOGGLE_PANEL', payload: -1})
       document.getElementById('product-search-input').focus()
       document.getElementById('product-search-input').value = ''
@@ -30,7 +38,15 @@ export default class Cart extends React.Component {
       })
     })
 
-    Mousetrap.bind('mod+c', function() {
+    Mousetrap.bind('mod+c', function(e) {
+
+      if (e.preventDefault) {
+        e.preventDefault()
+      } else {
+      // internet explorer
+        e.returnValue = false
+      }
+
       _this.props.dispatch({type: 'SEARCH_CLIENT_TOGGLE_PANEL', payload: -1})
       document.getElementById('client-search-input').focus()
       document.getElementById('client-search-input').value = ''
@@ -63,7 +79,7 @@ export default class Cart extends React.Component {
             <th>Cód</th>
             <th>Art</th>
             <th style={{
-              'width': '12%'
+              'width': '10%'
             }}>Can</th>
             <th>P.Uni</th>
             <th>Des%</th>

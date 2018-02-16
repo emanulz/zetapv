@@ -10,7 +10,8 @@ const stateConst = {
   cartTaxes: 0, // total amount of taxes in cart in currency
   cartTotal: 0, // cart total after discount and taxes
   globalDiscount: 0, // discount %
-  discountTotal: 0 // discount in currency
+  discountTotal: 0, // discount in currency
+  cartItemActive: false
 }
 
 export default function reducer(state = stateConst, action) {
@@ -137,6 +138,14 @@ export default function reducer(state = stateConst, action) {
         discountTotal: action.payload.cart.discountTotal // discount in currency
       }
     }
+
+    case 'SET_PRODUCT_ACTIVE_IN_CART':
+    {
+      return {
+        ...state,
+        cartItemActive: action.payload
+      }
+    } // case
 
   } // switch
 

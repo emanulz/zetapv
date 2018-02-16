@@ -46,6 +46,7 @@ export default class Product extends React.Component {
         this.props.dispatch(productSelected(code, qty, this.props.products, this.props.itemsInCart,
           this.props.globalDiscount, this.props.client, this.props.defaultConfig, this.props.userConfig))
         this.props.dispatch({type: 'CLEAR_PRODUCT_FIELD_VALUE', payload: 0})
+        this.props.dispatch({type: 'SET_PRODUCT_ACTIVE_IN_CART', payload: code})
       }
     } else {
       this.props.dispatch({type: 'SET_PRODUCT_FIELD_VALUE', payload: ev.target.value})
@@ -65,8 +66,10 @@ export default class Product extends React.Component {
       <div className='product-inputs'>
         <div className='product-inputs-code'>
           <i className='fa fa-barcode' />
-          <input id='productCodeInputField' disabled={this.props.disabled} onKeyDown={this.inputKeyPress.bind(this)}
-            value={this.props.inputVal} onChange={this.inputKeyPress.bind(this)}
+          <input id='productCodeInputField' disabled={this.props.disabled}
+            onKeyDown={this.inputKeyPress.bind(this)}
+            value={this.props.inputVal}
+            onChange={this.inputKeyPress.bind(this)}
             ref={(input) => {
               this.codeInput = input
             }}
