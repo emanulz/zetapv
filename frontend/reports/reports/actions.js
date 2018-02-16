@@ -100,7 +100,7 @@ export function pricesReport(products, price1, price2, price3, cost) {
       <td>{product.code}</td>
       <td>{product.description}</td>
       <td>₡ {parseFloat(product.cost).formatMoney(2, ',', '.')}</td>
-      <td>₡ {parseFloat(product.price1).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(product.price).formatMoney(2, ',', '.')}</td>
       <td>₡ {parseFloat(product.price2).formatMoney(2, ',', '.')}</td>
       <td>₡ {parseFloat(product.price3).formatMoney(2, ',', '.')}</td>
     </tr>
