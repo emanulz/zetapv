@@ -156,7 +156,6 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
 
     const localCost = subCost.reduce((a, b) => a + b, 0)
     cost = parseFloat(cost) + parseFloat(localCost)
-    console.log(cost)
 
     return <tr key={sale._id}>
       <td><a target='_blank' href={`/sales/pos/${sale.id}`}>{sale.id}</a></td>
@@ -199,16 +198,42 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
 
 }
 
-export function pricesReport(products, price1, price2, price3, cost) {
+export function pricesReport(products, cost, price1, price2, price3) {
+
+  let theadCost = ''
+  let theadPrice1 = ''
+  let theadPrice2 = ''
+  let theadPrice3 = ''
+
+  let tbodyCost = ''
+  let tbodyPrice1 = ''
+  let tbodyPrice2 = ''
+  let tbodyPrice3 = ''
+
+  if (cost) {
+    theadCost = <td>Costo</td>
+  }
+
+  if (price1) {
+    theadPrice1 = <td>Precio 1</td>
+  }
+
+  if (price2) {
+    theadPrice2 = <td>Precio 2</td>
+  }
+
+  if (price3) {
+    theadPrice3 = <td>Precio 3</td>
+  }
 
   const thead = <thead>
     <tr>
       <td>Código</td>
       <td>Descripción</td>
-      <td>Costo</td>
-      <td>Precio1</td>
-      <td>Precio2</td>
-      <td>Precio3</td>
+      {theadCost}
+      {theadPrice1}
+      {theadPrice2}
+      {theadPrice3}
     </tr>
   </thead>
 
@@ -225,13 +250,30 @@ export function pricesReport(products, price1, price2, price3, cost) {
   })
 
   const tbody = localProducts.map(product => {
+
+    if (cost) {
+      tbodyCost = <td>₡ {parseFloat(product.cost).formatMoney(2, ',', '.')}</td>
+    }
+
+    if (price1) {
+      tbodyPrice1 = <td>₡ {parseFloat(product.price).formatMoney(2, ',', '.')}</td>
+    }
+
+    if (price2) {
+      tbodyPrice2 = <td>₡ {parseFloat(product.price2).formatMoney(2, ',', '.')}</td>
+    }
+
+    if (price3) {
+      tbodyPrice3 = <td>₡ {parseFloat(product.price3).formatMoney(2, ',', '.')}</td>
+    }
+
     return <tr key={product._id}>
       <td>{product.code}</td>
       <td>{product.description}</td>
-      <td>₡ {parseFloat(product.cost).formatMoney(2, ',', '.')}</td>
-      <td>₡ {parseFloat(product.price).formatMoney(2, ',', '.')}</td>
-      <td>₡ {parseFloat(product.price2).formatMoney(2, ',', '.')}</td>
-      <td>₡ {parseFloat(product.price3).formatMoney(2, ',', '.')}</td>
+      {tbodyCost}
+      {tbodyPrice1}
+      {tbodyPrice2}
+      {tbodyPrice3}
     </tr>
   })
 

@@ -25,7 +25,11 @@ import BodyPrices from './components/bodyPrices.jsx'
     clients: store.reports.clients,
     subdepartments: store.reports.subdepartments,
     sales: store.reports.sales,
-    products: store.reports.products
+    products: store.reports.products,
+    costFilter: store.reports.costFilter,
+    price1Filter: store.reports.price1Filter,
+    price2Filter: store.reports.price2Filter,
+    price3Filter: store.reports.price3Filter
   }
 })
 export default class Report extends React.Component {
@@ -69,7 +73,8 @@ export default class Report extends React.Component {
 
         case '4' :
         {
-          const reportData = pricesReport(this.props.products, true, true, true, true)
+          const reportData = pricesReport(this.props.products, this.props.costFilter, this.props.price1Filter,
+            this.props.price2Filter, this.props.price3Filter)
           header = <Header tittle='LISTA DE PRECIOS' date={new Date()} />
           filters = <FiltersDataPrices />
           body = <BodyPrices tbody={reportData.tbody} thead={reportData.thead} />

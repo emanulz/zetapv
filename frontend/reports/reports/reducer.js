@@ -16,7 +16,11 @@ const stateConst = {
   departmentActive: '',
   subdepartments: [],
   subdepartmentActive: '',
-  sales: []
+  sales: [],
+  costFilter: false,
+  price1Filter: false,
+  price2Filter: false,
+  price3Filter: false
 }
 
 export default function reducer(state = stateConst, action) {
@@ -321,6 +325,32 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         subdepartmentActive: ''
+      }
+    }
+
+    // ***********************************
+    // PRICES
+    // ***********************************
+
+    case 'SET_PRICES_FILTER':
+    {
+      return {
+        ...state,
+        costFilter: action.payload.cost,
+        price1Filter: action.payload.price1,
+        price2Filter: action.payload.price2,
+        price3Filter: action.payload.price3
+      }
+    }
+
+    case 'CLEAR_PRICES_FILTER':
+    {
+      return {
+        ...state,
+        costFilter: false,
+        price1Filter: false,
+        price2Filter: false,
+        price3Filter: false
       }
     }
 

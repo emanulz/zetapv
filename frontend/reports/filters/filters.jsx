@@ -18,7 +18,11 @@ import {connect} from 'react-redux'
     departments: store.reports.departments,
     clients: store.reports.clients,
     subdepartments: store.reports.subdepartments,
-    filtersActive: store.reports.filtersActive
+    filtersActive: store.reports.filtersActive,
+    costFilter: store.reports.costFilter,
+    price1Filter: store.reports.price1Filter,
+    price2Filter: store.reports.price2Filter,
+    price3Filter: store.reports.price3Filter
   }
 })
 export default class Filters extends React.Component {
@@ -49,6 +53,36 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'SET_INI_DATE', payload: value})
   }
 
+  setPricesFilterActive(val, event) {
+    const target = event.target
+    const value = target.checked
+    const payload = {
+      cost: this.props.costFilter,
+      price1: this.props.price1Filter,
+      price2: this.props.price2Filter,
+      price3: this.props.price3Filter
+    }
+
+    if (val == 'cost') {
+      payload.cost = value
+    }
+
+    if (val == 'price1') {
+      payload.price1 = value
+    }
+
+    if (val == 'price2') {
+      payload.price2 = value
+    }
+
+    if (val == 'price3') {
+      payload.price3 = value
+    }
+
+    this.props.dispatch({type: 'SET_PRICES_FILTER', payload: payload})
+
+  }
+
   clearFilters () {
     this.props.dispatch({type: 'CLEAR_CLIENT', payload: ''})
     this.props.dispatch({type: 'CLEAR_REPORT', payload: ''})
@@ -56,6 +90,7 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'CLEAR_END_DATE', payload: ''})
     this.props.dispatch({type: 'SET_FILTERS_ACTIVE', payload: ''})
     this.props.dispatch({type: 'CLEAR_REPORT_GENERATED', payload: ''})
+    this.props.dispatch({type: 'CLEAR_PRICES_FILTER', payload: ''})
   }
 
   collapseFilters() {
@@ -90,6 +125,7 @@ export default class Filters extends React.Component {
         <i class='fa fa-print' aria-hidden='true' />
       </button>
       : ''
+
     // ********************************************************************
     // SELECT2 DATA
     // ********************************************************************
@@ -98,7 +134,7 @@ export default class Filters extends React.Component {
       {text: `Ventas`, id: 1},
       {text: `Utilidades`, id: 2},
       {text: `Descuentos`, id: 3},
-      {text: `Precios`, id: 4}
+      {text: `Lista de Precios`, id: 4}
     ]
 
     const filteredSubDepartments = this.props.departmentActive
@@ -126,6 +162,89 @@ export default class Filters extends React.Component {
 
     clientsData.unshift({text: 'Todos los clientes', id: '0/Todos los clientes'})
 
+    // ********************************************************************
+    // FILTERS
+    // ********************************************************************
+
+    const pricesToShowFilter = <div className='filters-container-prices'>
+      <h4>Precios a mostrar:</h4>
+      <label><input checked={this.props.costFilter} onChange={this.setPricesFilterActive.bind(this, 'cost')}
+        type='checkbox' disabled={!this.props.filtersActive} />Costo</label> <br />
+      <label><input checked={this.props.price1Filter} onChange={this.setPricesFilterActive.bind(this, 'price1')}
+        type='checkbox' disabled={!this.props.filtersActive} />Precio 1</label> <br />
+      <label><input checked={this.props.price2Filter} onChange={this.setPricesFilterActive.bind(this, 'price2')}
+        type='checkbox' disabled={!this.props.filtersActive} />Precio 2</label> <br />
+      <label><input checked={this.props.price3Filter} onChange={this.setPricesFilterActive.bind(this, 'price3')}
+        type='checkbox' disabled={!this.props.filtersActive} />Precio 3</label> <br />
+    </div>
+
+    const clientFilter = <div>
+      <h4>Cliente:</h4>
+      <Select2
+        disabled={!this.props.filtersActive}
+        name='client'
+        value={this.props.clientActive}
+        onSelect={this.setClientActive.bind(this)}
+        className='form-control'
+        data={clientsData}
+        options={{
+          placeholder: 'Elija un Cliente...',
+          noResultsText: 'Sin elementos'
+        }}
+      />
+    </div>
+
+    const datesFilter = <div className='filters-container-dates'>
+      <div className='filters-container-dates-initial'>
+        <h4>Fecha inicial:</h4>
+        <input className='form-control' type='date'
+          disabled={!this.props.filtersActive}
+          value={this.props.iniDateActive}
+          onChange={this.setIniDateActive.bind(this)}
+        />
+      </div>
+
+      <div className='filters-container-dates-final'>
+        <h4>Fecha final:</h4>
+        <input className='form-control' type='date'
+          disabled={!this.props.filtersActive}
+          value={this.props.endDateActive}
+          onChange={this.setEndDateActive.bind(this)}
+        />
+      </div>
+
+    </div>
+
+    let filters = <div />
+
+    switch (this.props.reportActive) {
+      case '1' :
+      {
+        filters = <div>
+          {datesFilter}
+          {clientFilter}
+        </div>
+        break
+      }
+
+      case '2' :
+      {
+        filters = <div>
+          {datesFilter}
+          {clientFilter}
+        </div>
+        break
+      }
+
+      case '4' :
+      {
+        filters = <div>
+          {pricesToShowFilter}
+        </div>
+        break
+      }
+    }
+
     const filterClass = this.props.isCollapsed ? 'filters collapsed' : 'filters'
     // ********************************************************************
     // RETURN BLOCK
@@ -151,41 +270,8 @@ export default class Filters extends React.Component {
           }}
         />
 
-        <div className='filters-container-dates'>
+        {filters}
 
-          <div className='filters-container-dates-initial'>
-            <h4>Fecha inicial:</h4>
-            <input className='form-control' type='date'
-              disabled={!this.props.filtersActive}
-              value={this.props.iniDateActive}
-              onChange={this.setIniDateActive.bind(this)}
-            />
-          </div>
-
-          <div className='filters-container-dates-final'>
-            <h4>Fecha final:</h4>
-            <input className='form-control' type='date'
-              disabled={!this.props.filtersActive}
-              value={this.props.endDateActive}
-              onChange={this.setEndDateActive.bind(this)}
-            />
-          </div>
-
-        </div>
-
-        <h4>Cliente:</h4>
-        <Select2
-          disabled={!this.props.filtersActive}
-          name='client'
-          value={this.props.clientActive}
-          onSelect={this.setClientActive.bind(this)}
-          className='form-control'
-          data={clientsData}
-          options={{
-            placeholder: 'Elija un Cliente...',
-            noResultsText: 'Sin elementos'
-          }}
-        />
         {buttons}
 
         {printButton}

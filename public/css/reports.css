@@ -4340,6 +4340,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
         padding-right: 5px; }
       .filters-container-dates-final {
         max-width: 50%; }
+    .filters-container-prices input[type=checkbox] {
+      margin-right: 10px; }
 
 .report {
   padding: 10px 0 0 0;
@@ -4396,7 +4398,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       font-family: 'Source Sans Pro Bold', sans-serif;
       margin-top: 15px; }
     .report-content-body table {
-      font-size: 14px;
+      font-size: 13px;
       margin-top: 15px; }
       .report-content-body table thead {
         background-color: #435267;
