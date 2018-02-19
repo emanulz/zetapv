@@ -250,6 +250,12 @@ class Fields extends React.Component {
           <input checked={this.props.user.is_admin} name='is_admin' onChange={this.handleInputChange.bind(this)} type='checkbox' className='form-control' />
         </div>
 
+        <div className='form-group'>
+          <label>Es Vendedor</label>
+          <input checked={this.props.user.is_seller || false} name='is_seller' onChange={this.handleInputChange.bind(this)}
+            type='checkbox' className='form-control' />
+        </div>
+
       </div>
 
       <div className='col-xs-12 col-sm-6 create-fields-container buttons second'>

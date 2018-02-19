@@ -15,6 +15,12 @@ export default class Data extends React.Component {
       : '01/01/1970'
     const client = sale.client ? `${sale.client.name} ${sale.client.last_name}` : 'Cliente de Contado'
     const id = sale.id ? sale.id : '0001'
+    const clientAdress = sale.client.adress
+      ? <tr>
+        <th>Direc:</th>
+        <td>{sale.client.adress}</td>
+      </tr>
+      : ''
 
     return <div className='compact-invoice-data'>
 
@@ -32,8 +38,9 @@ export default class Data extends React.Component {
           <tr>
             <th>Cliente:</th>
             <td>{client}</td>
-
           </tr>
+
+          {clientAdress}
 
         </tbody>
 

@@ -38,6 +38,7 @@ export default class Filters extends React.Component {
   setReportActive(event) {
     const target = event.target
     const value = target.value
+    this.clearFilters()
     this.props.dispatch({type: 'SET_REPORT', payload: value})
   }
 

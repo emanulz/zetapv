@@ -15,6 +15,11 @@ export default class Data extends React.Component {
       ${sale.created.getFullYear()}`
       : '01/01/1970'
     const client = sale.client ? `${sale.client.name} ${sale.client.last_name}` : 'Cliente de Contado'
+    const clientAdress = sale.client.adress
+      ? <tr>
+        <td className='clientAdress'>DIRECCIÓN: {sale.client.adress}</td>
+      </tr>
+      : ''
     const id = sale.id ? sale.id : '00001'
 
     return <div className='full-invoice-data'>
@@ -29,6 +34,7 @@ export default class Data extends React.Component {
           <tr>
             <td>{client}</td>
           </tr>
+          {clientAdress}
         </tbody>
 
       </table>

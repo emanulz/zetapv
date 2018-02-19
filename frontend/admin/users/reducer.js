@@ -10,7 +10,8 @@ const userModel = {
   'username': '',
   'password': '',
   'password2': '',
-  'is_admin': false
+  'is_admin': false,
+  'is_seller': false
 }
 
 const stateConst = {

@@ -89,9 +89,9 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
 
   const filteredSales = sales.filter(sale => {
     const saleDate = new Date(sale.created)
-    console.log('Sale Date', saleDate.getDate())
-    console.log('Initial Date', initialDate.getDate())
-    console.log('Final Date', finalDate.getDate())
+    // console.log('Sale Date', saleDate.getDate())
+    // console.log('Initial Date', initialDate.getDate())
+    // console.log('Final Date', finalDate.getDate())
     // saleDate.setDate(saleDate.getDate() + 1)
     if (client == 0) {
 
@@ -200,7 +200,6 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
 
 export function pricesReport(products, cost, price1, price2, price3, department, subdepartment) {
 
-
   let theadCost = ''
   let theadPrice1 = ''
   let theadPrice2 = ''
@@ -250,10 +249,10 @@ export function pricesReport(products, cost, price1, price2, price3, department,
 
   // Sort by code
   localProducts.sort((a, b) => {
-    if (a.code > b.code) {
+    if (a.description > b.description) {
       return 1
     }
-    if (a.code < b.code) {
+    if (a.description < b.description) {
       return -1
     }
     return 0
@@ -266,15 +265,15 @@ export function pricesReport(products, cost, price1, price2, price3, department,
     }
 
     if (price1) {
-      tbodyPrice1 = <td>₡ {parseFloat(product.price).formatMoney(2, ',', '.')}</td>
+      tbodyPrice1 = <td>₡ {parseFloat(product.sellPrice).formatMoney(2, ',', '.')}</td>
     }
 
     if (price2) {
-      tbodyPrice2 = <td>₡ {parseFloat(product.price2).formatMoney(2, ',', '.')}</td>
+      tbodyPrice2 = <td>₡ {parseFloat(product.sellPrice2).formatMoney(2, ',', '.')}</td>
     }
 
     if (price3) {
-      tbodyPrice3 = <td>₡ {parseFloat(product.price3).formatMoney(2, ',', '.')}</td>
+      tbodyPrice3 = <td>₡ {parseFloat(product.sellPrice3).formatMoney(2, ',', '.')}</td>
     }
 
     return <tr key={product._id}>
