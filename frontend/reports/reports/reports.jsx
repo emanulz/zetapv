@@ -55,7 +55,8 @@ export default class Report extends React.Component {
       switch (this.props.reportActive) {
         case '1' :
         {
-          const reportData = salesReport(this.props.sales, this.props.iniDateActive, this.props.endDateActive, this.props.clientActiveId)
+          const reportData = salesReport(this.props.sales, this.props.iniDateActive, this.props.endDateActive,
+            this.props.clientActiveId)
           header = <Header tittle='REPORTE DE VENTAS' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
@@ -64,7 +65,8 @@ export default class Report extends React.Component {
 
         case '2' :
         {
-          const reportData = utilitiesReport(this.props.sales, this.props.iniDateActive, this.props.endDateActive, this.props.clientActiveId)
+          const reportData = utilitiesReport(this.props.sales, this.props.iniDateActive, this.props.endDateActive,
+            this.props.clientActiveId)
           header = <Header tittle='REPORTE DE UTILIDADES' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
@@ -74,7 +76,8 @@ export default class Report extends React.Component {
         case '4' :
         {
           const reportData = pricesReport(this.props.products, this.props.costFilter, this.props.price1Filter,
-            this.props.price2Filter, this.props.price3Filter)
+            this.props.price2Filter, this.props.price3Filter, this.props.departmentActive,
+            this.props.subdepartmentActive)
           header = <Header tittle='LISTA DE PRECIOS' date={new Date()} />
           filters = <FiltersDataPrices />
           body = <BodyPrices tbody={reportData.tbody} thead={reportData.thead} />

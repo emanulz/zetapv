@@ -198,7 +198,8 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
 
 }
 
-export function pricesReport(products, cost, price1, price2, price3) {
+export function pricesReport(products, cost, price1, price2, price3, department, subdepartment) {
+
 
   let theadCost = ''
   let theadPrice1 = ''
@@ -237,8 +238,17 @@ export function pricesReport(products, cost, price1, price2, price3) {
     </tr>
   </thead>
 
-  const localProducts = products
+  let localProducts = products
 
+  // Filter by dep and sub
+  if (department) {
+    localProducts = localProducts.filter(el => el.department == department)
+  }
+  if (subdepartment) {
+    localProducts = localProducts.filter(el => el.subdepartment == subdepartment)
+  }
+
+  // Sort by code
   localProducts.sort((a, b) => {
     if (a.code > b.code) {
       return 1

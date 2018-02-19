@@ -53,6 +53,19 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'SET_INI_DATE', payload: value})
   }
 
+  setDepartmentActive(event) {
+    const target = event.target
+    const value = target.value
+    this.props.dispatch({type: 'SET_PRODUCT_DEPARTMENT', payload: value})
+    this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
+  }
+
+  setSubDepartmentActive(event) {
+    const target = event.target
+    const value = target.value
+    this.props.dispatch({type: 'SET_PRODUCT_SUBDEPARTMENT', payload: value})
+  }
+
   setPricesFilterActive(val, event) {
     const target = event.target
     const value = target.checked
@@ -91,6 +104,21 @@ export default class Filters extends React.Component {
     this.props.dispatch({type: 'SET_FILTERS_ACTIVE', payload: ''})
     this.props.dispatch({type: 'CLEAR_REPORT_GENERATED', payload: ''})
     this.props.dispatch({type: 'CLEAR_PRICES_FILTER', payload: ''})
+    this.props.dispatch({type: 'CLEAR_PRODUCT_DEPARTMENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
+  }
+
+  clearDepartment() {
+    this.props.dispatch({type: 'CLEAR_PRODUCT_DEPARTMENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
+  }
+
+  clearReport() {
+    this.clearFilters()
+  }
+
+  clearSubDepartment() {
+    this.props.dispatch({type: 'CLEAR_PRODUCT_SUBDEPARTMENT', payload: ''})
   }
 
   collapseFilters() {
@@ -130,12 +158,25 @@ export default class Filters extends React.Component {
     // SELECT2 DATA
     // ********************************************************************
 
-    const departmentData = [
+    // Reports
+    const reportsData = [
       {text: `Ventas`, id: 1},
       {text: `Utilidades`, id: 2},
-      {text: `Descuentos`, id: 3},
+      // {text: `Descuentos`, id: 3},
       {text: `Lista de Precios`, id: 4}
     ]
+
+    // Department and Sub
+
+    const departments = this.props.departments
+
+    departments.sort((a, b) => {
+      return a.code - b.code
+    })
+
+    const departmentData = departments.map(department => {
+      return {text: `${department.code} - ${department.name}`, id: department._id}
+    })
 
     const filteredSubDepartments = this.props.departmentActive
       ? this.props.subdepartments.filter(el => {
@@ -148,6 +189,12 @@ export default class Filters extends React.Component {
         return a.code - b.code
       })
     }
+
+    const subdepartmentData = filteredSubDepartments.map(subdepartment => {
+      return {text: `${subdepartment.code} - ${subdepartment.name}`, id: subdepartment._id}
+    })
+
+    // Clients
 
     const clients = this.props.clients
 
@@ -215,6 +262,41 @@ export default class Filters extends React.Component {
 
     </div>
 
+    const departmentFilters = <div>
+      <h4>Familia:</h4>
+
+      <Select2
+        disabled={!this.props.filtersActive}
+        name='department'
+        value={this.props.departmentActive}
+        className='form-control'
+        onSelect={this.setDepartmentActive.bind(this)}
+        onUnselect={this.clearDepartment.bind(this)}
+        data={departmentData}
+        options={{
+          placeholder: 'Elija una Familia...',
+          noResultsText: 'Sin elementos',
+          allowClear: true
+        }}
+      />
+
+      <h4>Sub-Familia:</h4>
+      <Select2
+        disabled={!this.props.filtersActive}
+        name='subdepartment'
+        value={this.props.subdepartmentActive}
+        className='form-control'
+        onSelect={this.setSubDepartmentActive.bind(this)}
+        onUnselect={this.clearSubDepartment.bind(this)}
+        data={subdepartmentData}
+        options={{
+          placeholder: 'Elija una sub Familia...',
+          noResultsText: 'Sin elementos',
+          allowClear: true
+        }}
+      />
+    </div>
+
     let filters = <div />
 
     switch (this.props.reportActive) {
@@ -240,6 +322,7 @@ export default class Filters extends React.Component {
       {
         filters = <div>
           {pricesToShowFilter}
+          {departmentFilters}
         </div>
         break
       }
@@ -263,10 +346,12 @@ export default class Filters extends React.Component {
           value={this.props.reportActive}
           className='form-control'
           onSelect={this.setReportActive.bind(this)}
-          data={departmentData}
+          onUnselect={this.clearReport.bind(this)}
+          data={reportsData}
           options={{
             placeholder: 'Elija un Reporte...',
-            noResultsText: 'Sin elementos'
+            noResultsText: 'Sin elementos',
+            allowClear: true
           }}
         />
 

@@ -13,9 +13,9 @@ const stateConst = {
   clientActiveName: '',
   clientActiveId: '',
   departments: [],
-  departmentActive: '',
+  departmentActive: false,
   subdepartments: [],
-  subdepartmentActive: '',
+  subdepartmentActive: false,
   sales: [],
   costFilter: false,
   price1Filter: false,
@@ -287,7 +287,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        departmentActive: ''
+        departmentActive: false
       }
     }
 
@@ -324,7 +324,7 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        subdepartmentActive: ''
+        subdepartmentActive: false
       }
     }
 
