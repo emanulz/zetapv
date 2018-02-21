@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 @connect((store) => {
   return {
-    sale: store.sales.saleActive
+    sale: store.proforma.proformaActive
   }
 })
 export default class Data extends React.Component {

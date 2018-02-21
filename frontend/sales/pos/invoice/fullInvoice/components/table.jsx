@@ -30,7 +30,7 @@ export default class Table extends React.Component {
           {item.qty}
         </td>
         <td className='right-in-table'>
-          ₡ {parseFloat(item.product.price).formatMoney(2, ',', '.')}
+          ₡ {parseFloat(item.priceToUse).formatMoney(2, ',', '.')}
         </td>
         <td className='right-in-table'>
           {item.discount}</td>
