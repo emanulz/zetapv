@@ -9,6 +9,7 @@ const Mousetrap = require('mousetrap')
     payMethod: store.pay.payMethod,
     pay: store.pay,
     client: store.clients.clientSelected,
+    user: store.clients.userSelected,
     debt: store.clients.clientSelectedDebt,
     sales: store.sales.sales,
     saleId: store.sales.saleActiveId,
@@ -55,6 +56,7 @@ export default class PaySideBar extends React.Component {
       docType: 'SALE',
       cart: this.props.cart,
       client: this.props.client,
+      user: this.props.user,
       pay: this.props.pay,
       created: new Date()
     }
@@ -72,6 +74,7 @@ export default class PaySideBar extends React.Component {
     }
 
     this.props.dispatch(saveItem(kwargs))
+    Mousetrap.reset()
 
   }
 

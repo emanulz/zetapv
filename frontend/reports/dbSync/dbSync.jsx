@@ -108,34 +108,61 @@ export default class Product extends React.Component {
   }
 
   syncSalesDb(remoteDBUrl) {
-    const _this = this
-    const localDB = new PouchDB('sales')
-    const remoteDB = new PouchDB(`${remoteDBUrl}/sales`)
 
-    localDB.createIndex({ index: {fields: ['docType']} })
-    localDB.createIndex({ index: {fields: ['docType', 'created']} })
-    localDB.createIndex({ index: {fields: ['docType', 'id']} })
-    localDB.createIndex({ index: {fields: ['docType', 'client.code', 'pay.payMethod']} })
+    const docTypes = [
+      {
+        docType: 'SALE',
+        dispatchType: 'FETCH_SALES_FULFILLED',
+        dispatchErrorType: 'FETCH_SALES_REJECTED'
+      },
+      {
+        docType: 'PROFORMA',
+        dispatchType: 'FETCH_PROFORMAS_FULFILLED',
+        dispatchErrorType: 'FETCH_PROFORMAS_REJECTED'
+      }
+
+    ]
 
     const kwargs = {
       db: 'sales',
-      docType: 'SALE',
-      dispatchType: 'FETCH_SALES_FULFILLED',
-      dispatchErrorType: 'FETCH_SALES_REJECTED'
+      remoteDBUrl: remoteDBUrl,
+      fecthFunc: fetchItemsBulk,
+      docTypes: docTypes
     }
 
-    localDB.sync(remoteDB, {
-      retry: true
-    })
-      .on('change', function(change) {
-        console.log('change')
-        _this.props.dispatch(fetchItems(kwargs))
-
-      })
-
-    this.props.dispatch(fetchItems(kwargs))
+    this.syncDB(kwargs)
 
   }
+
+  // syncSalesDb(remoteDBUrl) {
+  //   const _this = this
+  //   const localDB = new PouchDB('sales')
+  //   const remoteDB = new PouchDB(`${remoteDBUrl}/sales`)
+  //
+  //   localDB.createIndex({ index: {fields: ['docType']} })
+  //   localDB.createIndex({ index: {fields: ['docType', 'created']} })
+  //   localDB.createIndex({ index: {fields: ['docType', 'id']} })
+  //   localDB.createIndex({ index: {fields: ['docType', 'client.code', 'pay.payMethod']} })
+  //
+  //   const kwargs = {
+  //     db: 'sales',
+  //     docType: 'SALE',
+  //     dispatchType: 'FETCH_SALES_FULFILLED',
+  //     dispatchErrorType: 'FETCH_SALES_REJECTED'
+  //   }
+  //
+  //   localDB.sync(remoteDB, {
+  //     retry: true
+  //   })
+  //     .on('change', function(change) {
+  //       console.log('change')
+  //       _this.props.dispatch(fetchItems(kwargs))
+  //
+  //     })
+  //
+  //   this.props.dispatch(fetchItems(kwargs))
+  //
+  // }
 
   render() {
     return null

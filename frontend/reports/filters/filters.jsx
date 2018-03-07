@@ -162,9 +162,11 @@ export default class Filters extends React.Component {
     // Reports
     const reportsData = [
       {text: `Ventas`, id: 1},
+      {text: `Proformas`, id: 6},
       {text: `Utilidades`, id: 2},
       // {text: `Descuentos`, id: 3},
-      {text: `Lista de Precios`, id: 4}
+      {text: `Lista de Precios`, id: 4},
+      {text: `Lista de Clientes`, id: 5}
     ]
 
     // Department and Sub
@@ -324,6 +326,19 @@ export default class Filters extends React.Component {
         filters = <div>
           {pricesToShowFilter}
           {departmentFilters}
+        </div>
+        break
+      }
+      case '5' :
+      {
+        filters = <div />
+        break
+      }
+      case '6' :
+      {
+        filters = <div>
+          {datesFilter}
+          {clientFilter}
         </div>
         break
       }

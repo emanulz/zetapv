@@ -14,12 +14,22 @@ const clientSelectedModel = {
   saleLoaded: false
 }
 
+const userSelectedModel = {
+  user: '0000',
+  name: '',
+  last_name: '',
+  id: '0000',
+  _id: 0
+}
+
 const stateConst = {
   clientsFetching: false,
   clientsFected: false,
   clientsFetchError: '',
   clients: [],
+  users: [],
   clientSelected: clientSelectedModel,
+  userSelected: userSelectedModel,
   clientSelectedDebt: 0
 }
 
@@ -62,6 +72,41 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    // ******** USERS ********
+    case 'FETCH_USERS_REJECTED':
+    {
+      return {
+        ...state,
+        userSelected: userSelectedModel
+      }
+    } // case
+
+    case 'FETCH_USERS_FULFILLED':
+    {
+      return {
+        ...state,
+        users: action.payload
+      }
+    } // case
+
+    case 'USER_SELECTED':
+    {
+      return {
+        ...state,
+        userSelected: action.payload.user
+      }
+    } // case
+
+    case 'USER_CLEAR':
+    {
+      return {
+        ...state,
+        userSelected: userSelectedModel
+      }
+    } // case
+
+    // ******** USERS ********
+
     case 'SET_CLIENT_DEBT':
     {
       return {
@@ -83,7 +128,8 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        clientSelected: action.payload.client
+        clientSelected: action.payload.client,
+        userSelected: action.payload.user
       }
     }
 

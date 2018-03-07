@@ -11,11 +11,13 @@ const Mousetrap = require('mousetrap')
     defaultConfig: store.config.defaultSales,
     userConfig: store.config.userSales,
     productSearchpanelVisible: store.searchProducts.visible
+
   }
 })
 export default class Cart extends React.Component {
 
   componentWillMount() {
+
     const _this = this
     Mousetrap.bind('mod+b', function(e) {
 
@@ -73,7 +75,7 @@ export default class Cart extends React.Component {
     return <div style={{
       'marginTop': '10px'
     }} className='bg-white left-item cart col-xs-12'>
-      <table className='table cart-table'>
+      {/* <table className='table cart-table'>
         <thead>
           <tr>
             <th>Cód</th>
@@ -89,8 +91,31 @@ export default class Cart extends React.Component {
             <th>x</th>
           </tr>
         </thead>
-        <CartItems />
-      </table>
+      </table> */}
+      <div className='cart-header'>
+        <div className='cart-header-code'>
+          <h5>Cód</h5>
+        </div>
+        <div className='cart-header-description'>
+          <h5>Art</h5>
+        </div>
+        <div className='cart-header-qty'>
+          <h5>Cant</h5>
+        </div>
+        <div className='cart-header-unitPrice'>
+          <h5>P Unit</h5>
+        </div>
+        <div className='cart-header-discount'>
+          <h5>Desc</h5>
+        </div>
+        <div className='cart-header-iva'>
+          <h5>IV</h5>
+        </div>
+        <div className='cart-header-total'>
+          <h5>Total IVI</h5>
+        </div>
+      </div>
+      <CartItems />
     </div>
 
   }

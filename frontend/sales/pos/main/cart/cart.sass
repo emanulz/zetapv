@@ -30,3 +30,153 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button
     -webkit-appearance: none
     margin: 0
+
+
+.cart
+  font-size: 13px
+  font-family: 'Source Sans Pro', sans-serif
+  &-header
+    border: 1px solid #cacaca
+    display: flex
+    flex-flow: row
+    flex-wrap: wrap
+    justify-content: flex-start
+    color: white
+    background-color: $PRIMARY-COLOR
+    height: 40px
+    font-size: 13px
+    &-code
+      padding-left: 5px
+      display: flex
+      align-items: center
+      width: 7%
+    &-description
+      display: flex
+      align-items: center
+      width: 35%
+    &-qty
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      width: 10%
+    &-unitPrice
+      display: flex
+      width: 15%
+      align-items: center
+      justify-content: center
+    &-discount
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      width: 10%
+    &-iva
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 8%
+    &-total
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      padding-right: 10px
+      width: 15%
+    @media screen and (max-width: 1000px)
+      display: none
+
+  &-body
+    &-item
+      padding: 1px 5px
+      border: 1px solid #cacaca
+      border-radius: 5px
+      margin: 3px 0
+      display: flex
+      flex-flow: row
+      flex-wrap: wrap
+      justify-content: flex-start
+      position: relative
+      & h5
+        font-size: 15px
+        width: 100%
+      &-code
+        width: 20%
+      &-description
+        width: 50%
+      &-qty
+        width: 30%
+        & input
+          font-size: 13px
+      &-unitPrice
+        width: 20%
+      &-discount
+        width: 25%
+        & input
+          font-size: 13px
+      &-iva
+        text-align: center
+        width: 25%
+      &-total
+        text-align: center
+        width: 30%
+      & .removeItemIcon
+        position: absolute
+        right: -10px
+        top: -5px
+        & i
+          cursor: pointer
+          font-size: 25px
+          color: $SECONDARY-COLOR
+          &:hover
+            font-size: 40px
+      @media screen and (min-width: 1000px)
+        justify-content: space-between
+        & .removeItemIcon
+          position: absolute
+          right: -5px
+          top: -5px
+          & i
+            cursor: pointer
+            font-size: 15px
+            color: $SECONDARY-COLOR
+            &:hover
+              font-size: 25px
+        & .disabled
+          display: none
+
+        & h5
+          display: none
+        &-code
+          padding-left: 5px
+          display: flex
+          align-items: center
+          width: 7%
+        &-description
+          display: flex
+          align-items: center
+          width: 35%
+        &-qty
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          width: 10%
+        &-unitPrice
+          display: flex
+          width: 15%
+          align-items: center
+          justify-content: center
+        &-discount
+          display: flex
+          align-items: center
+          text-align: center
+          justify-content: center
+          width: 10%
+        &-iva
+          display: flex
+          align-items: center
+          justify-content: center
+          width: 8%
+        &-total
+          display: flex
+          align-items: center
+          justify-content: flex-end
+          padding-right: 10px
+          width: 15%

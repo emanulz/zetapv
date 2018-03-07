@@ -144,7 +144,7 @@ export function updateQty (code, qty, itemsInCart, globalDiscount, client) {
 
 export function updateQtyCode (code, qty, itemsInCart, globalDiscount, client) {
 
-  const indexInCart = itemsInCart.findIndex(item => item.product.code == code)
+  const indexInCart = itemsInCart.findIndex(item => item.product.code == code || item.product.barcode == code)
   const qtyNum = parseFloat(qty)
   const res = {
     type: 'UPDATE_CART',
@@ -181,7 +181,8 @@ export function addSubOne (code, subOrAdd, itemsInCart, globalDiscount, client) 
 // checks in cart if item already exists
 function checkIfInCart(code, qty, products, itemsInCart, globalDiscount, productSelected, client, perLine) {
 
-  const indexInCart = itemsInCart.findIndex(cart => cart.product.code == code) // check if product in cart
+  // check if product in cart
+  const indexInCart = itemsInCart.findIndex(cart => cart.product.code == code || cart.product.barcode == code)
 
   const dataNewProd = caclSubtotal(products[productSelected], qty, 0, globalDiscount, client)
 

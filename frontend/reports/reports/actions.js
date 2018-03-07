@@ -288,3 +288,121 @@ export function pricesReport(products, cost, price1, price2, price3, department,
 
   return {thead: thead, tbody: tbody, totals: ''}
 }
+
+export function clientsReport(clients) {
+
+  const thead = <thead>
+    <tr>
+      <td>Código</td>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>Dirección</td>
+    </tr>
+  </thead>
+
+  const localClients = clients
+
+  // Sort by code
+  localClients.sort((a, b) => {
+    if (a.code > b.code) {
+      return 1
+    }
+    if (a.code < b.code) {
+      return -1
+    }
+    return 0
+  })
+
+  const tbody = localClients.map(client => {
+
+    return <tr key={client._id}>
+      <td>{client.code}</td>
+      <td>{client.name}</td>
+      <td>{client.last_name}</td>
+      <td>{client.adress}</td>
+    </tr>
+  })
+
+  return {thead: thead, tbody: tbody, totals: ''}
+}
+
+export function proformasReport(proformas, iniDate, endDate, client) {
+
+  const initialDate = iniDate != '' ? new Date(iniDate).setHours(0, 0, 0, 0) : new Date('01-01-1980').setHours(0, 0, 0, 0)
+  const finalDate = endDate != '' ? new Date(endDate).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
+
+  const filteredSales = proformas.filter(proforma => {
+    const proformaDate = new Date(proforma.created).setHours(0, 0, 0, 0)
+
+    if (client == 0) {
+
+      return proformaDate >= initialDate && proformaDate <= finalDate
+
+    } else {
+
+      return proforma.client._id == client && proformaDate >= initialDate && proformaDate <= finalDate
+    }
+
+  })
+
+  filteredSales.sort((a, b) => {
+    if (a.id > b.id) {
+      return 1
+    }
+    if (a.id < b.id) {
+      return -1
+    }
+    return 0
+  })
+
+  const thead = <thead>
+    <tr>
+      <td># Proforma</td>
+      <td>Fecha</td>
+      <td>Cliente</td>
+      <td>Sub-Total</td>
+      <td>IV</td>
+      <td>Total</td>
+    </tr>
+  </thead>
+
+  let total = 0
+  let subtotal = 0
+  let totalIv = 0
+
+  const tbody = filteredSales.map(proforma => {
+
+    total = total + parseFloat(proforma.cart.cartTotal)
+    subtotal = subtotal + parseFloat(proforma.cart.cartSubtotal)
+    totalIv = totalIv + parseFloat(proforma.cart.cartTaxes)
+
+    return <tr key={proforma._id}>
+      <td><a target='_blank' href={`/sales/proforma/${proforma.id}`}>{proforma.id}</a></td>
+      <td>{formatDate(proforma.created)}</td>
+      <td>{`${proforma.client.name} ${proforma.client.last_name}`}</td>
+      <td>₡ {parseFloat(proforma.cart.cartSubtotal).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(proforma.cart.cartTaxes).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(proforma.cart.cartTotal).formatMoney(2, ',', '.')}</td>
+    </tr>
+  })
+
+  const totals = <table className='table'>
+    <tbody>
+      <tr>
+        <th>Sub-total</th>
+        <td>₡ {subtotal.formatMoney(2, ',', '.')}</td>
+      </tr>
+      <tr>
+        <th>IV</th>
+        <td>₡ {totalIv.formatMoney(2, ',', '.')}</td>
+      </tr>
+      <tr className='total-row'>
+        <th>Total</th>
+        <td>₡ {total.formatMoney(2, ',', '.')}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  return {thead: thead, tbody: tbody, totals: totals}
+
+}

@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {salesReport, pricesReport, utilitiesReport} from './actions'
+import {salesReport, pricesReport, utilitiesReport, clientsReport, proformasReport} from './actions'
 import Header from './components/header.jsx'
 import FiltersData from './components/filtersData.jsx'
 import FiltersDataPrices from './components/filtersDataPrices.jsx'
@@ -25,6 +25,7 @@ import BodyPrices from './components/bodyPrices.jsx'
     clients: store.reports.clients,
     subdepartments: store.reports.subdepartments,
     sales: store.reports.sales,
+    proformas: store.reports.proformas,
     products: store.reports.products,
     costFilter: store.reports.costFilter,
     price1Filter: store.reports.price1Filter,
@@ -81,6 +82,24 @@ export default class Report extends React.Component {
           header = <Header tittle='LISTA DE PRECIOS' date={new Date()} />
           filters = <FiltersDataPrices />
           body = <BodyPrices tbody={reportData.tbody} thead={reportData.thead} />
+          break
+        }
+        case '5' :
+        {
+          const reportData = clientsReport(this.props.clients)
+          header = <Header tittle='LISTA DE CLIENTES' date={new Date()} />
+          filters = <div />
+          body = <Body tbody={reportData.tbody} thead={reportData.thead} />
+          break
+        }
+
+        case '6' :
+        {
+          const reportData = proformasReport(this.props.proformas, this.props.iniDateActive, this.props.endDateActive,
+            this.props.clientActiveId)
+          header = <Header tittle='REPORTE DE PROFORMAS' date={new Date()} />
+          filters = <FiltersData />
+          body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
           break
         }
       }

@@ -25,6 +25,7 @@ export default class DbSync extends React.Component {
     if (nextProps.dbUrl != this.props.dbUrl && nextProps.dbUrl != '') {
       this.syncGeneralDb(nextProps.dbUrl)
       this.syncSalesDb(nextProps.dbUrl)
+      this.syncUsersDb(nextProps.dbUrl)
     }
   }
 
@@ -97,12 +98,6 @@ export default class DbSync extends React.Component {
   }
 
   syncSalesDb(remoteDBUrl) {
-    // const _this = this
-    // const localDB = new PouchDB('sales')
-    // const remoteDB = new PouchDB(`${remoteDBUrl}/sales`)
-
-    // localDB.createIndex({ index: {fields: ['docType']} })
-    // localDB.createIndex({ index: {fields: ['docType', 'id']} })
 
     const docTypes = [
       {
@@ -127,24 +122,27 @@ export default class DbSync extends React.Component {
 
     this.syncDB(kwargs)
 
-    // const kwargs = {
-    //   db: 'sales',
-    //   docType: 'SALE',
-    //   dispatchType: 'FETCH_SALES_FULFILLED',
-    //   dispatchErrorType: 'FETCH_SALES_REJECTED'
-    // }
-    //
-    // localDB.sync(remoteDB, {
-    //   live: true,
-    //   retry: true
-    // })
-    //   .on('change', function(change) {
-    //     console.log('change')
-    //     _this.props.dispatch(fetchItems(kwargs))
-    //
-    //   })
-    //
-    // this.props.dispatch(fetchItems(kwargs))
+  }
+
+  syncUsersDb(remoteDBUrl) {
+
+    const docTypes = [
+      {
+        docType: 'USER',
+        dispatchType: 'FETCH_USERS_FULFILLED',
+        dispatchErrorType: 'FETCH_USERS_REJECTED'
+      }
+
+    ]
+
+    const kwargs = {
+      db: 'users',
+      remoteDBUrl: remoteDBUrl,
+      fecthFunc: fetchItemsBulk,
+      docTypes: docTypes
+    }
+
+    this.syncDB(kwargs)
 
   }
 

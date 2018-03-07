@@ -17,6 +17,7 @@ const stateConst = {
   subdepartments: [],
   subdepartmentActive: false,
   sales: [],
+  proformas: [],
   costFilter: false,
   price1Filter: false,
   price2Filter: false,
@@ -231,6 +232,26 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         sales: action.payload
+      }
+    } // case
+
+    // ***********************************
+    // PROFORMAS
+    // ***********************************
+
+    case 'FETCH_PROFORMAS_REJECTED':
+    {
+      return {
+        ...state,
+        proformas: []
+      }
+    } // case
+
+    case 'FETCH_PROFORMAS_FULFILLED':
+    {
+      return {
+        ...state,
+        proformas: action.payload
       }
     } // case
 

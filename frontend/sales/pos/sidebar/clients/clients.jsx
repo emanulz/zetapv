@@ -4,9 +4,10 @@
 import React from 'react'
 
 import {connect} from 'react-redux'
-import {clientSelected, searchClient} from './actions'
+import {clientSelected, searchClient, userSelected} from './actions'
 import {getClientDebt} from '../../../../admin/utils/receivable'
 import {recalcCart} from '../../main/product/actions'
+import Select2 from 'react-select2-wrapper'
 
 @connect((store) => {
   return {clients: store.clients.clients,
@@ -14,6 +15,8 @@ import {recalcCart} from '../../main/product/actions'
     cart: store.cart.cartItems,
     globalDiscount: store.cart.globalDiscount,
     client: store.clients.clientSelected,
+    users: store.clients.users,
+    user: store.clients.userSelected,
     movements: store.clientmovements.movements,
     debt: store.clients.clientSelectedDebt,
     disabled: store.sales.completed}
@@ -54,6 +57,15 @@ export default class Clients extends React.Component {
 
   }
 
+  userSelect(ev) {
+    const _id = ev.target.value
+    this.props.dispatch(userSelected(_id, this.props.users)) // dispatchs action according to result
+  }
+
+  userUnSelect(ev) {
+    this.props.dispatch({type: 'USER_CLEAR', payload: ''}) // dispatchs action according to result
+  }
+
   searchClientClick() {
 
     this.props.dispatch(searchClient())
@@ -62,6 +74,21 @@ export default class Clients extends React.Component {
 
   // Main Layout
   render() {
+
+    // ********************************************************************
+    // SELECT2 DATA
+    // ********************************************************************
+    const users = this.props.users
+
+    users.sort((a, b) => {
+      return a.code - b.code
+    })
+    const localUsers = users.filter(user => {
+      return user.is_seller == true
+    })
+    const userData = localUsers.map(user => {
+      return {text: `${user.name} ${user.last_name}`, id: user._id}
+    })
 
     const clientToShow = (this.props.clientSelected)
       ? `${this.props.clientSelected.name} ${this.props.clientSelected.last_name}`
@@ -122,6 +149,26 @@ export default class Clients extends React.Component {
           <span className='client-debt-amount credit-status credit-negative'>
             ₡ {this.props.debt.formatMoney(2, ',', '.')}
           </span> */}
+
+        </div>
+
+        <div className='col-xs-12 client-user'>
+
+          <Select2
+            disabled={this.props.disabled}
+            name='user'
+            value={this.props.user._id}
+            className='form-control'
+            onSelect={this.userSelect.bind(this)}
+            onUnselect={this.userUnSelect.bind(this)}
+            data={userData}
+            options={{
+              placeholder: 'Elija un vendedor...',
+              noResultsText: 'Sin elementos',
+              allowClear: true
+            }}
+
+          />
 
         </div>
 
