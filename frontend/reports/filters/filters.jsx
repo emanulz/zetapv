@@ -13,10 +13,12 @@ import {connect} from 'react-redux'
     iniDateActive: store.reports.iniDateActive,
     endDateActive: store.reports.endDateActive,
     clientActive: store.reports.clientActive,
+    userActive: store.reports.userActive,
     departmentActive: store.reports.departmentActive,
     subdepartmentActive: store.reports.subdepartmentActive,
     departments: store.reports.departments,
     clients: store.reports.clients,
+    users: store.reports.users,
     subdepartments: store.reports.subdepartments,
     filtersActive: store.reports.filtersActive,
     costFilter: store.reports.costFilter,
@@ -33,6 +35,14 @@ export default class Filters extends React.Component {
     const id = value.split('/')[0]
     const name = value.split('/')[1]
     this.props.dispatch({type: 'SET_CLIENT', payload: {id: id, name: name, value: value}})
+  }
+
+  setUserActive(event) {
+    const target = event.target
+    const value = target.value
+    const id = value.split('/')[0]
+    const name = value.split('/')[1]
+    this.props.dispatch({type: 'SET_USER', payload: {id: id, name: name, value: value}})
   }
 
   setReportActive(event) {
@@ -99,6 +109,7 @@ export default class Filters extends React.Component {
 
   clearFilters () {
     this.props.dispatch({type: 'CLEAR_CLIENT', payload: ''})
+    this.props.dispatch({type: 'CLEAR_USER', payload: ''})
     this.props.dispatch({type: 'CLEAR_REPORT', payload: ''})
     this.props.dispatch({type: 'CLEAR_INI_DATE', payload: ''})
     this.props.dispatch({type: 'CLEAR_END_DATE', payload: ''})
@@ -212,6 +223,24 @@ export default class Filters extends React.Component {
 
     clientsData.unshift({text: 'Todos los clientes', id: '0/Todos los clientes'})
 
+    // Users
+
+    const users = this.props.users
+
+    users.sort((a, b) => {
+      return a.code - b.code
+    })
+    const localUsers = users.filter(user => {
+      return user.is_seller == true
+    })
+    const usersData = localUsers.map(user => {
+      // return {text: `${user.name} ${user.last_name}`, id: user._id}
+      return {text: `${user.name} ${user.last_name}`,
+        id: `${user._id}/${user.name} ${user.last_name}`}
+    })
+
+    usersData.unshift({text: 'Todos los vendedores', id: '0/Todos los vendedores'})
+
     // ********************************************************************
     // FILTERS
     // ********************************************************************
@@ -239,6 +268,22 @@ export default class Filters extends React.Component {
         data={clientsData}
         options={{
           placeholder: 'Elija un Cliente...',
+          noResultsText: 'Sin elementos'
+        }}
+      />
+    </div>
+
+    const userFilter = <div>
+      <h4>Vendedor:</h4>
+      <Select2
+        disabled={!this.props.filtersActive}
+        name='seller'
+        value={this.props.userActive}
+        onSelect={this.setUserActive.bind(this)}
+        className='form-control'
+        data={usersData}
+        options={{
+          placeholder: 'Elija un Vendedor...',
           noResultsText: 'Sin elementos'
         }}
       />
@@ -303,24 +348,27 @@ export default class Filters extends React.Component {
     let filters = <div />
 
     switch (this.props.reportActive) {
+      // Sales
       case '1' :
       {
         filters = <div>
           {datesFilter}
           {clientFilter}
+          {userFilter}
         </div>
         break
       }
-
+      // Utilities
       case '2' :
       {
         filters = <div>
           {datesFilter}
           {clientFilter}
+          {userFilter}
         </div>
         break
       }
-
+      // Prices
       case '4' :
       {
         filters = <div>
@@ -329,16 +377,19 @@ export default class Filters extends React.Component {
         </div>
         break
       }
+      // Clients
       case '5' :
       {
         filters = <div />
         break
       }
+      // Proformas
       case '6' :
       {
         filters = <div>
           {datesFilter}
           {clientFilter}
+          {userFilter}
         </div>
         break
       }

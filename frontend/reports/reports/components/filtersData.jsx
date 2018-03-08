@@ -9,7 +9,8 @@ import {formatDate} from '../../../utils/formatDate.js'
   return {
     iniDateActive: store.reports.iniDateActive,
     endDateActive: store.reports.endDateActive,
-    client: store.reports.clientActiveName
+    client: store.reports.clientActiveName,
+    user: store.reports.userActiveName
   }
 })
 export default class FiltersData extends React.Component {
@@ -23,6 +24,7 @@ export default class FiltersData extends React.Component {
       <div className='report-content-filters-today col-xs-4'>
         <h3><b>Fecha:</b> {today}</h3>
         <h4><b>Cliente:</b> {this.props.client}</h4>
+        <h4><b>Vendedor:</b> {this.props.user}</h4>
       </div>
       <div className='report-content-filters-dates col-xs-4'>
         <h4><b>Fecha inicial:</b> {iniDate}</h4>

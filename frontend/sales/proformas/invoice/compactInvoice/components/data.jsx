@@ -13,7 +13,7 @@ export default class Data extends React.Component {
       ${('0' + (sale.created.getMonth() + 1)).slice(-2)}/
       ${sale.created.getFullYear()}`
       : '01/01/1970'
-    const client = sale.client ? `${sale.client.name} ${sale.client.last_name}` : 'Cliente de Contado'
+    const client = sale.client ? `${sale.client.code} - ${sale.client.name} ${sale.client.last_name}` : '00 - Cliente de Contado'
     const id = sale.id ? sale.id : '0001'
 
     return <div className='compact-proformaInvoice-data'>

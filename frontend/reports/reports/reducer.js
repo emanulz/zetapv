@@ -12,6 +12,10 @@ const stateConst = {
   clientActive: '',
   clientActiveName: '',
   clientActiveId: '',
+  users: [],
+  userActive: '',
+  userActiveName: '',
+  userActiveId: '',
   departments: [],
   departmentActive: false,
   subdepartments: [],
@@ -211,6 +215,46 @@ export default function reducer(state = stateConst, action) {
         clientActive: '',
         clientActiveId: '',
         clientActiveName: ''
+      }
+    } // case
+
+    // ***********************************
+    // USERS
+    // ***********************************
+
+    case 'FETCH_USERS_REJECTED':
+    {
+      return {
+        ...state,
+        users: []
+      }
+    } // case
+
+    case 'FETCH_USERS_FULFILLED':
+    {
+      return {
+        ...state,
+        users: action.payload
+      }
+    } // case
+
+    case 'SET_USER':
+    {
+      return {
+        ...state,
+        userActive: action.payload.value,
+        userActiveId: action.payload.id,
+        userActiveName: action.payload.name
+      }
+    } // case
+
+    case 'CLEAR_USER':
+    {
+      return {
+        ...state,
+        userActive: '',
+        userActiveId: '',
+        userActiveName: ''
       }
     } // case
 

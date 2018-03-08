@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchItemsBulk, fetchItems} from '../../admin/utils/api'
+import {fetchItemsBulk} from '../../admin/utils/api'
 import {getDbUrl} from './actions'
 
 const PouchDB = require('pouchdb')
@@ -24,6 +24,7 @@ export default class Product extends React.Component {
     if (nextProps.dbUrl != this.props.dbUrl && nextProps.dbUrl != '') {
       this.syncGeneralDb(nextProps.dbUrl)
       this.syncSalesDb(nextProps.dbUrl)
+      this.syncUsersDb(nextProps.dbUrl)
     }
   }
 
@@ -125,6 +126,28 @@ export default class Product extends React.Component {
 
     const kwargs = {
       db: 'sales',
+      remoteDBUrl: remoteDBUrl,
+      fecthFunc: fetchItemsBulk,
+      docTypes: docTypes
+    }
+
+    this.syncDB(kwargs)
+
+  }
+
+  syncUsersDb(remoteDBUrl) {
+
+    const docTypes = [
+      {
+        docType: 'USER',
+        dispatchType: 'FETCH_USERS_FULFILLED',
+        dispatchErrorType: 'FETCH_USERS_REJECTED'
+      }
+
+    ]
+
+    const kwargs = {
+      db: 'users',
       remoteDBUrl: remoteDBUrl,
       fecthFunc: fetchItemsBulk,
       docTypes: docTypes

@@ -19,6 +19,8 @@ import BodyPrices from './components/bodyPrices.jsx'
     endDateActive: store.reports.endDateActive,
     clientActive: store.reports.clientActive,
     clientActiveId: store.reports.clientActiveId,
+    userActive: store.reports.userActive,
+    userActiveId: store.reports.userActiveId,
     departmentActive: store.reports.departmentActive,
     subdepartmentActive: store.reports.subdepartmentActive,
     departments: store.reports.departments,
@@ -57,7 +59,7 @@ export default class Report extends React.Component {
         case '1' :
         {
           const reportData = salesReport(this.props.sales, this.props.iniDateActive, this.props.endDateActive,
-            this.props.clientActiveId)
+            this.props.clientActiveId, this.props.userActiveId)
           header = <Header tittle='REPORTE DE VENTAS' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
@@ -67,7 +69,7 @@ export default class Report extends React.Component {
         case '2' :
         {
           const reportData = utilitiesReport(this.props.sales, this.props.iniDateActive, this.props.endDateActive,
-            this.props.clientActiveId)
+            this.props.clientActiveId, this.props.userActiveId)
           header = <Header tittle='REPORTE DE UTILIDADES' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
@@ -96,7 +98,7 @@ export default class Report extends React.Component {
         case '6' :
         {
           const reportData = proformasReport(this.props.proformas, this.props.iniDateActive, this.props.endDateActive,
-            this.props.clientActiveId)
+            this.props.clientActiveId, this.props.userActiveId)
           header = <Header tittle='REPORTE DE PROFORMAS' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />

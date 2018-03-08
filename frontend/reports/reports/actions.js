@@ -1,7 +1,7 @@
 import React from 'react'
 import {formatDate} from '../../utils/formatDate.js'
 
-export function salesReport(sales, iniDate, endDate, client) {
+export function salesReport(sales, iniDate, endDate, client, user) {
 
   const initialDate = iniDate != '' ? new Date(iniDate).setHours(0, 0, 0, 0) : new Date('01-01-1980').setHours(0, 0, 0, 0)
   const finalDate = endDate != '' ? new Date(endDate).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
@@ -20,7 +20,25 @@ export function salesReport(sales, iniDate, endDate, client) {
 
   })
 
-  filteredSales.sort((a, b) => {
+  const filteredSalesUser = filteredSales.filter(sale => {
+
+    if (user == 0) {
+
+      return true
+
+    } else if (sale.user) {
+
+      return sale.user._id == user
+
+    } else {
+
+      return false
+
+    }
+
+  })
+
+  filteredSalesUser.sort((a, b) => {
     if (a.id > b.id) {
       return 1
     }
@@ -45,7 +63,7 @@ export function salesReport(sales, iniDate, endDate, client) {
   let subtotal = 0
   let totalIv = 0
 
-  const tbody = filteredSales.map(sale => {
+  const tbody = filteredSalesUser.map(sale => {
 
     total = total + parseFloat(sale.cart.cartTotal)
     subtotal = subtotal + parseFloat(sale.cart.cartSubtotal)
@@ -82,7 +100,7 @@ export function salesReport(sales, iniDate, endDate, client) {
 
 }
 
-export function utilitiesReport(sales, iniDate, endDate, client) {
+export function utilitiesReport(sales, iniDate, endDate, client, user) {
 
   const initialDate = iniDate != '' ? new Date(iniDate) : new Date('01-01-1980')
   const finalDate = endDate != '' ? new Date(endDate) : new Date()
@@ -104,7 +122,25 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
 
   })
 
-  filteredSales.sort((a, b) => {
+  const filteredSalesUser = filteredSales.filter(sale => {
+
+    if (user == 0) {
+
+      return true
+
+    } else if (sale.user) {
+
+      return sale.user._id == user
+
+    } else {
+
+      return false
+
+    }
+
+  })
+
+  filteredSalesUser.sort((a, b) => {
     if (a.id > b.id) {
       return 1
     }
@@ -133,7 +169,7 @@ export function utilitiesReport(sales, iniDate, endDate, client) {
   let utility = 0
   let cost = 0
 
-  const tbody = filteredSales.map(sale => {
+  const tbody = filteredSalesUser.map(sale => {
 
     total = total + parseFloat(sale.cart.cartTotal)
     subtotal = subtotal + parseFloat(sale.cart.cartSubtotal)
@@ -326,12 +362,12 @@ export function clientsReport(clients) {
   return {thead: thead, tbody: tbody, totals: ''}
 }
 
-export function proformasReport(proformas, iniDate, endDate, client) {
+export function proformasReport(proformas, iniDate, endDate, client, user) {
 
   const initialDate = iniDate != '' ? new Date(iniDate).setHours(0, 0, 0, 0) : new Date('01-01-1980').setHours(0, 0, 0, 0)
   const finalDate = endDate != '' ? new Date(endDate).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
 
-  const filteredSales = proformas.filter(proforma => {
+  const filteredProformas = proformas.filter(proforma => {
     const proformaDate = new Date(proforma.created).setHours(0, 0, 0, 0)
 
     if (client == 0) {
@@ -345,7 +381,7 @@ export function proformasReport(proformas, iniDate, endDate, client) {
 
   })
 
-  filteredSales.sort((a, b) => {
+  filteredProformas.sort((a, b) => {
     if (a.id > b.id) {
       return 1
     }
@@ -353,6 +389,24 @@ export function proformasReport(proformas, iniDate, endDate, client) {
       return -1
     }
     return 0
+  })
+
+  const filteredProformasUser = filteredProformas.filter(sale => {
+
+    if (user == 0) {
+
+      return true
+
+    } else if (sale.user) {
+
+      return sale.user._id == user
+
+    } else {
+
+      return false
+
+    }
+
   })
 
   const thead = <thead>
@@ -370,7 +424,7 @@ export function proformasReport(proformas, iniDate, endDate, client) {
   let subtotal = 0
   let totalIv = 0
 
-  const tbody = filteredSales.map(proforma => {
+  const tbody = filteredProformasUser.map(proforma => {
 
     total = total + parseFloat(proforma.cart.cartTotal)
     subtotal = subtotal + parseFloat(proforma.cart.cartSubtotal)
