@@ -50,6 +50,7 @@ import ReceivablePays from './receivable/payments/payments.jsx'
 
 import Sales from './sales/list.jsx'
 import Proformas from './sales/proformas/list.jsx'
+import Presales from './sales/presales/list.jsx'
 
 import Donations from './sales/donations/list.jsx'
 import DonationsCreate from './sales/donations/create.jsx'
@@ -89,6 +90,7 @@ const routes = <div>
 
   <Route exact path='/admin/sales' component={Sales} />
   <Route exact path='/admin/proformas' component={Proformas} />
+  <Route exact path='/admin/presales' component={Presales} />
 
   <Route exact path='/admin/donations' component={Donations} />
   <Route exact path='/admin/donations/add' component={DonationsCreate} />

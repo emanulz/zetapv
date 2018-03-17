@@ -18,6 +18,9 @@ export default class Buttons extends React.Component {
   showSalePanel() {
     this.props.dispatch({type: 'SHOW_SALES_PANEL', payload: -1})
   }
+  showPresalesPanel() {
+    this.props.dispatch({type: 'SHOW_PRESALES_PANEL', payload: -1})
+  }
   newSale() {
     // window.location.reload()
     window.location.href = '/sales/pos'
@@ -80,6 +83,7 @@ export default class Buttons extends React.Component {
       </button>
 
       <button
+        disabled={this.props.disabled}
         onClick={this.showSalePanel.bind(this)}
         style={{
           'height': '48px',
@@ -88,6 +92,21 @@ export default class Buttons extends React.Component {
         }}
         className='btn btn-default buttons-payButton'>
         Ventas del día
+        <span>
+          <i className='fa fa-list' />
+        </span>
+      </button>
+
+      <button
+        disabled={this.props.disabled}
+        onClick={this.showPresalesPanel.bind(this)}
+        style={{
+          'height': '48px',
+          'width': '49%',
+          'marginTop': '10px'
+        }}
+        className='btn btn-default buttons-payButton'>
+        Pre-Ventas
         <span>
           <i className='fa fa-list' />
         </span>

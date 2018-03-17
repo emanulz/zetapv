@@ -14,7 +14,7 @@ import pay from './pos/pay/reducer.js'
 import invoice from './pos/invoice/reducer.js'
 import proforma from './proformas/reducer.js'
 import proformaInvoice from './proformas/invoice/reducer.js'
-
+import presale from './presales/reducer.js'
 import creditNotes from './creditNotes/reducer.js'
 
 export default combineReducers({
@@ -32,5 +32,6 @@ export default combineReducers({
   invoice,
   proforma,
   proformaInvoice,
-  creditNotes
+  creditNotes,
+  presale
 })

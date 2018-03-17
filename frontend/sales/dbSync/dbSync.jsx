@@ -109,6 +109,11 @@ export default class DbSync extends React.Component {
         docType: 'PROFORMA',
         dispatchType: 'FETCH_PROFORMAS_FULFILLED',
         dispatchErrorType: 'FETCH_PROFORMAS_REJECTED'
+      },
+      {
+        docType: 'PRESALE',
+        dispatchType: 'FETCH_PRESALES_FULFILLED',
+        dispatchErrorType: 'FETCH_PRESALES_REJECTED'
       }
 
     ]

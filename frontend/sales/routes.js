@@ -6,6 +6,7 @@ import {Route} from 'react-router-dom'
 import Home from './home/home.jsx'
 import Pos from './pos/pos.jsx'
 import Proformas from './proformas/proformas.jsx'
+import Presales from './presales/presales.jsx'
 import CreditNote from './creditNotes/creditNote.jsx'
 
 const routes = <div className='mainContainer-content-wrapper'>
@@ -15,6 +16,8 @@ const routes = <div className='mainContainer-content-wrapper'>
   <Route exact path='/sales/pos/:sale' component={Pos} />
   <Route exact path='/sales/proforma' component={Proformas} />
   <Route exact path='/sales/proforma/:proforma' component={Proformas} />
+  <Route exact path='/sales/presale' component={Presales} />
+  <Route exact path='/sales/presale/:presale' component={Presales} />
   <Route exact path='/sales/creditnote' component={CreditNote} />
 
 </div>

@@ -14,7 +14,8 @@ const stateConst = {
   saleMovements: [],
   donations: [],
   donationActive: donationModel,
-  proformas: []
+  proformas: [],
+  presales: []
 }
 
 export default function reducer(state = stateConst, action) {
@@ -35,6 +36,23 @@ export default function reducer(state = stateConst, action) {
       return {
         ...state,
         proformas: []
+      }
+    } // case
+
+    case 'FETCH_PRESALES_FULFILLED':
+    {
+      return {
+        ...state,
+        presales: action.payload
+      }
+
+    } // case
+
+    case 'FETCH_PRESALES_REJECTED':
+    {
+      return {
+        ...state,
+        presales: []
       }
     } // case
 

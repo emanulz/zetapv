@@ -18,6 +18,26 @@ export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
 
+    case 'CLEAR_ALL':
+    {
+      return {
+        ...state,
+        editable: true,
+        created: '',
+        updated: '',
+        isNull: false,
+        cartHasItems: false, // var to check if cart has items
+        cartItems: [], // the list of items in cart
+        cartSubtotalNoDiscount: 0, // subtotal without discount and taxes
+        cartSubtotal: 0, // the subtotal including discounts without taxes
+        cartTaxes: 0, // total amount of taxes in cart in currency
+        cartTotal: 0, // cart total after discount and taxes
+        globalDiscount: 0, // discount %
+        discountTotal: 0, // discount in currency
+        cartItemActive: false
+      }
+    }
+
     case 'ADD_TO_CART':
     {
 
@@ -140,6 +160,23 @@ export default function reducer(state = stateConst, action) {
     }
 
     case 'LOADED_PROFORMA':
+    {
+      return {
+        ...state,
+        created: action.payload.cart.created,
+        isNull: action.payload.cart.isNull,
+        cartHasItems: action.payload.cart.cartHasItems, // var to check if cart has items
+        cartItems: action.payload.cart.cartItems, // the list of items in cart
+        cartSubtotalNoDiscount: action.payload.cart.cartSubtotalNoDiscount, // subtotal without discount and taxes
+        cartSubtotal: action.payload.cart.cartSubtotal, // the subtotal including discounts without taxes
+        cartTaxes: action.payload.cart.cartTaxes, // total amount of taxes in cart in currency
+        cartTotal: action.payload.cart.cartTotal, // cart total after discount and taxes
+        globalDiscount: action.payload.cart.globalDiscount, // discount %
+        discountTotal: action.payload.cart.discountTotal // discount in currency
+      }
+    }
+
+    case 'LOADED_PRESALE':
     {
       return {
         ...state,

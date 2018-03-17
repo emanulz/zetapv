@@ -6097,6 +6097,53 @@ input::-webkit-inner-spin-button {
     .sales-panel-container tbody {
       font-family: 'Source Sans Pro', sans-serif; }
 
+.presales-panel {
+  position: absolute;
+  top: 0;
+  right: -600px;
+  width: 600px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 5px 10px 1px rgba(0, 0, 0, 0.176);
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto; }
+  .presales-panel.is-visible {
+    right: 0;
+    z-index: 15; }
+  .presales-panel-header {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background-color: #0e1a29;
+    color: white;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: 'Source Sans Pro', sans-serif; }
+    .presales-panel-header i {
+      position: absolute;
+      right: 5px;
+      top: 2px;
+      cursor: pointer; }
+      .presales-panel-header i:hover {
+        font-size: 25px; }
+  .presales-panel-container {
+    margin-top: 15px; }
+    .presales-panel-container thead tr {
+      background-color: #354052;
+      color: white;
+      font-family: 'Source Sans Pro', sans-serif; }
+    .presales-panel-container tbody {
+      font-family: 'Source Sans Pro', sans-serif; }
+      .presales-panel-container tbody i {
+        text-align: center;
+        font-size: 15px;
+        cursor: pointer; }
+        .presales-panel-container tbody i:hover {
+          font-size: 18px;
+          color: #354052; }
+      .presales-panel-container tbody .loadRow {
+        padding-left: 20px; }
+
 .client {
   padding: 20px 10px;
   font-size: 15px; }

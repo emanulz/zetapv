@@ -11,7 +11,8 @@ const clientSelectedModel = {
   last_name: 'Contado',
   name: 'Cliente',
   updated: '',
-  saleLoaded: false
+  saleLoaded: false,
+  _id: 0
 }
 
 const userSelectedModel = {
@@ -36,6 +37,15 @@ const stateConst = {
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    case 'CLEAR_ALL':
+    {
+      return {
+        ...state,
+        clientSelected: clientSelectedModel,
+        userSelected: userSelectedModel
+      }
+    }
 
     case 'FETCH_CLIENTS':
     {
@@ -130,6 +140,42 @@ export default function reducer(state = stateConst, action) {
         ...state,
         clientSelected: action.payload.client,
         userSelected: action.payload.user
+      }
+    }
+
+    case 'LOADED_PRESALE':
+    {
+      return {
+        ...state,
+        clientSelected: action.payload.client
+      }
+    }
+
+    case 'LOADED_PROFORMA':
+    {
+      return {
+        ...state,
+        clientSelected: action.payload.client
+      }
+    }
+
+    case 'LOADED_TRUE':
+    {
+      const client = state.clientSelected
+      client.saleLoaded = true
+      return {
+        ...state,
+        clientSelected: client
+      }
+    }
+
+    case 'LOADED_FALSE':
+    {
+      const client = state.clientSelected
+      client.saleLoaded = false
+      return {
+        ...state,
+        clientSelected: client
       }
     }
 

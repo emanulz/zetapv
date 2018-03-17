@@ -12,13 +12,26 @@ const stateConst = {
   saleActive: saleActiveModel,
   completed: false,
   saleActiveId: 0,
-  isSalesPanelVisible: false
+  isSalesPanelVisible: false,
+  isPresalesPanelVisible: false
 
 }
 
 export default function reducer(state = stateConst, action) {
 
   switch (action.type) {
+
+    case 'CLEAR_ALL':
+    {
+      return {
+        ...state,
+        saleActive: saleActiveModel,
+        completed: false,
+        saleActiveId: 0,
+        isSalesPanelVisible: false,
+        isPresalesPanelVisible: false
+      }
+    } // case
 
     case 'SHOW_SALES_PANEL':
     {
@@ -28,11 +41,27 @@ export default function reducer(state = stateConst, action) {
       }
     } // case
 
+    case 'SHOW_PRESALES_PANEL':
+    {
+      return {
+        ...state,
+        isPresalesPanelVisible: true
+      }
+    } // case
+
     case 'HIDE_SALES_PANEL':
     {
       return {
         ...state,
         isSalesPanelVisible: false
+      }
+    } // case
+
+    case 'HIDE_PRESALES_PANEL':
+    {
+      return {
+        ...state,
+        isPresalesPanelVisible: false
       }
     } // case
 
@@ -64,7 +93,22 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        saleActiveId: action.payload,
+        completed: true
+      }
+    } // case
+
+    case 'SET_PRESALE_ID':
+    {
+      return {
+        ...state,
+        completed: true
+      }
+    } // case
+
+    case 'SET_PROFORMA_ID':
+    {
+      return {
+        ...state,
         completed: true
       }
     } // case
@@ -84,6 +128,28 @@ export default function reducer(state = stateConst, action) {
         ...state,
         saleActive: action.payload,
         saleActiveId: action.payload.id
+      }
+    }
+
+    case 'LOADED_PRESALE':
+    {
+      const sale = saleActiveModel
+      sale.cart = action.payload.cart
+      sale.client = action.payload.client
+      return {
+        ...state,
+        saleActive: sale
+      }
+    }
+
+    case 'LOADED_PROFORMA':
+    {
+      const sale = saleActiveModel
+      sale.cart = action.payload.cart
+      sale.client = action.payload.client
+      return {
+        ...state,
+        saleActive: sale
       }
     }
 

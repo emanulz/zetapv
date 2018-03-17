@@ -12,6 +12,7 @@ import PayPanel from './pay/payPanel.jsx'
 import InvoicePanel from './invoice/invoicePanel/invoicePanel.jsx'
 
 import SalesPanel from './sales/dailySales.jsx'
+import PresalesPanel from './sales/presalesList.jsx'
 
 export default class Pos extends React.Component {
 
@@ -33,6 +34,7 @@ export default class Pos extends React.Component {
       <PayPanel />
       <InvoicePanel />
       <SalesPanel />
+      <PresalesPanel />
     </div>
 
   }

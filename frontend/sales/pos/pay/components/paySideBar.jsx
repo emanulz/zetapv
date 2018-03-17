@@ -26,7 +26,7 @@ export default class PaySideBar extends React.Component {
       const sale = window.location.href.split('/').pop()
 
       // If is loading sale
-      if (sale != 'pos' && sale != '' && sale != 'proforma') {
+      if (sale != 'pos' && sale != '' && sale != 'proforma' && sale != 'presale') {
         this.props.dispatch(loadSale(sale, nextProps.sales))
 
         Mousetrap.reset()

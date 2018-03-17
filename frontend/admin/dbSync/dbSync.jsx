@@ -105,6 +105,11 @@ export default class Product extends React.Component {
         dispatchErrorType: 'FETCH_SALES_REJECTED'
       },
       {
+        docType: 'PRESALE',
+        dispatchType: 'FETCH_PRESALES_FULFILLED',
+        dispatchErrorType: 'FETCH_PRESALES_REJECTED'
+      },
+      {
         docType: 'DONATION',
         dispatchType: 'FETCH_DONATIONS_FULFILLED',
         dispatchErrorType: 'FETCH_DONATIONS_REJECTED'

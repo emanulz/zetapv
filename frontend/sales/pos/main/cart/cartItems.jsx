@@ -177,112 +177,6 @@ export default class CartItems extends React.Component {
 
     const cartItems = this.props.inCart
 
-    const items = cartItems.map((item, index) => {
-      const taxes1 = (item.product.useTaxes)
-        ? item.product.taxes
-        : 0
-      const taxes2 = (item.product.useTaxes2)
-        ? item.product.taxes2
-        : 0
-
-      const taxesText = `${taxes1 + taxes2}%`
-
-      const removeIcon = this.props.disabled
-        ? ''
-        : <i onClick={this.removeItem.bind(this, item.uuid)} className='fa fa-minus-square' aria-hidden='true' style={{
-          cursor: 'pointer'
-        }} />
-
-      const inputField = this.props.client.saleLoaded
-        ? <input
-          disabled={this.props.disabled}
-          onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
-          onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
-          onFocus={this.fieldFocus.bind(this)}
-          type='number' className='form-control'
-          style={{'width': '55px', 'height': '37px'}}
-          value={item.discount}
-        />
-        : <input
-          disabled={this.props.disabled}
-          onKeyPress={this.discountInputKeyPress.bind(this, item.uuid)}
-          onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
-          onFocus={this.fieldFocus.bind(this)}
-          type='number' className='form-control'
-          style={{'width': '55px', 'height': '37px'}}
-        />
-
-      const qtyField = <input
-        disabled={this.props.disabled}
-        onChange={this.qtyInputChange.bind(this, item.uuid)}
-        onFocus={this.fieldFocus.bind(this)}
-        type='number'
-        className='form-control'
-        style={{'width': '90%', 'height': '37px'}}
-        value={item.qty}
-      />
-
-      const loteField = this.props.defaultConfig.cartItemUseLote || this.props.userConfig.cartItemUseLote
-        ? <td style={{
-          'padding': '0'
-        }}>
-          <input
-            disabled={this.props.disabled}
-            onKeyPress={this.loteInputKeyPress.bind(this, item.uuid)}
-            onFocus={this.fieldFocus.bind(this)}
-            onBlur={this.loteInputOnBlur.bind(this, item.uuid)}
-            type='text' className='form-control'
-            style={{'width': '100px', 'height': '37px'}}
-          />
-        </td>
-        : <td />
-
-      const activeClass = item.product.code || item.product.barcode == this.props.cartItemActive ? 'cart-activeRow' : ''
-
-      return <tr className={activeClass} key={item.uuid} onClick={this.setCartItemActive.bind(this, item.product.code)}>
-        <td>
-          {item.product.code}
-        </td>
-        <td>
-          {item.product.description}
-        </td>
-        <td style={{
-          'padding': '0'
-        }}>
-          {qtyField}
-        </td>
-        <td>
-          ₡ {parseFloat(item.priceToUse).formatMoney(2, ',', '.')}
-        </td>
-        <td style={{
-          'padding': '0'
-        }}>
-          {inputField}
-        </td>
-        <td>
-          {taxesText}
-        </td>
-        <td>
-          ₡ {item.totalWithIv.formatMoney(2, ',', '.')}
-        </td>
-        {/* <td style={{
-          'padding': '0'
-        }}>
-          <input
-            disabled={this.props.disabled}
-            onKeyPress={this.loteInputKeyPress.bind(this, item.uuid)}
-            onBlur={this.loteInputOnBlur.bind(this, item.uuid)}
-            type='text' className='form-control'
-            style={{'width': '100px', 'height': '37px'}}
-          />
-        </td> */}
-        {loteField}
-        <td>
-          {removeIcon}
-        </td>
-      </tr>
-    })
-
     const items2 = cartItems.map((item, index) => {
 
       const activeClass = (item.product.code == this.props.cartItemActive || item.product.barcode == this.props.cartItemActive)
@@ -313,7 +207,7 @@ export default class CartItems extends React.Component {
           onBlur={this.discountInputOnBlur.bind(this, item.uuid)}
           onFocus={this.fieldFocus.bind(this)}
           type='number' className='form-control'
-          value={item.discount}
+          defaultValue={parseFloat(item.discount)}
         />
         : <input
           disabled={this.props.disabled}

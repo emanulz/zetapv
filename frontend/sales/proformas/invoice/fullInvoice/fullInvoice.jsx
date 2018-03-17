@@ -23,7 +23,7 @@ export default class FullInvoice extends React.Component {
       const proforma = window.location.href.split('/').pop()
 
       // If is loading proformas
-      if (proforma != 'pos' && proforma != '' && proforma != 'proforma') {
+      if (proforma != 'pos' && proforma != '' && proforma != 'proforma' && proforma != 'presale') {
         this.props.dispatch(loadProforma(proforma, nextProps.proformas))
 
         Mousetrap.reset()
