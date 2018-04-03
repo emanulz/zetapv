@@ -27,23 +27,24 @@ export default class Clients extends React.Component {
     if (nextProps.clientSelected != this.props.clientSelected) {
       // set the discount: default value or 0
 
-      // if (!nextProps.clientSelected.saleLoaded) {
-      const discount = nextProps.client.defaultDiscount ? nextProps.client.defaultDiscount : 0
+      if (!nextProps.clientSelected.saleLoaded) {
+        const discount = nextProps.client.defaultDiscount ? nextProps.client.defaultDiscount : 0
+        this.props.dispatch(recalcCart(nextProps.cart, discount, nextProps.client))
+        this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
 
-      this.props.dispatch(recalcCart(nextProps.cart, discount, nextProps.client))
-      this.props.dispatch({type: 'SET_GLOBAL_DISCOUNT', payload: discount})
+        // SETS VALUE OF DEFAULT DISCOUNT TO FIELD OR 0
+        if (nextProps.client.defaultDiscount) {
+          document.getElementById('discountField').value = discount
+          document.getElementById('discountField').disabled = true
+        } else {
+          document.getElementById('discountField').value = ''
+          document.getElementById('discountField').disabled = false
+        }
+      }
+
       const debt = getClientDebt(nextProps.client._id, nextProps.movements)
       this.props.dispatch({type: 'SET_CLIENT_DEBT', payload: debt})
 
-      // SETS VALUE OF DEFAULT DISCOUNT TO FIELD OR 0
-      if (nextProps.client.defaultDiscount) {
-        document.getElementById('discountField').value = discount
-        document.getElementById('discountField').disabled = true
-      } else {
-        document.getElementById('discountField').value = ''
-        document.getElementById('discountField').disabled = false
-      }
-      // }
     }
   }
 

@@ -64,13 +64,13 @@ export default class Cart extends React.Component {
 
   // Main Layout
   render() {
-    const useLote = this.props.defaultConfig
-      ? this.props.defaultConfig.cartItemUseLote
-      : false
+    // const useLote = this.props.defaultConfig
+    //   ? this.props.defaultConfig.cartItemUseLote
+    //   : false
 
-    const loteField = useLote
-      ? <th>Lote</th>
-      : <th />
+    // const loteField = useLote
+    //   ? <th>Lote</th>
+    //   : <th />
 
     return <div style={{
       'marginTop': '10px'

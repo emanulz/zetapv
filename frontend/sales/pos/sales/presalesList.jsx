@@ -30,13 +30,15 @@ export default class PresalesPanel extends React.Component {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
-    const filteredPresales = this.props.presales.filter(sale => {
-      const date = new Date(sale.created)
-      date.setHours(0, 0, 0, 0)
-      return +date === +today
-    })
+    const presales = this.props.presales
 
-    this.props.presales.sort((a, b) => {
+    // const filteredPresales = this.props.presales.filter(sale => {
+    //   const date = new Date(sale.created)
+    //   date.setHours(0, 0, 0, 0)
+    //   return +date === +today
+    // })
+
+    presales.sort((a, b) => {
       if (a.id < b.id) {
         return 1
       }
@@ -46,7 +48,7 @@ export default class PresalesPanel extends React.Component {
       return 0
     })
 
-    const itemsToRender = filteredPresales.map(presale => {
+    const itemsToRender = presales.map(presale => {
       return <tr key={presale._id}>
         <td className='loadRow'><i onClick={this.loadPresaleItem.bind(this, presale._id)} className='fa fa-download' /></td>
         <td><a href={`/sales/presale/${presale.id}`} target='_blank'>{presale.id}</a></td>
