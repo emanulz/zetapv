@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {salesReport, pricesReport, utilitiesReport, clientsReport, proformasReport} from './actions'
+import {salesReport, pricesReport, utilitiesReport, clientsReport, proformasReport, utilitiesProformasReport} from './actions'
 import Header from './components/header.jsx'
 import FiltersData from './components/filtersData.jsx'
 import FiltersDataPrices from './components/filtersDataPrices.jsx'
@@ -100,6 +100,16 @@ export default class Report extends React.Component {
           const reportData = proformasReport(this.props.proformas, this.props.iniDateActive, this.props.endDateActive,
             this.props.clientActiveId, this.props.userActiveId)
           header = <Header tittle='REPORTE DE PROFORMAS' date={new Date()} />
+          filters = <FiltersData />
+          body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
+          break
+        }
+
+        case '7' :
+        {
+          const reportData = utilitiesProformasReport(this.props.proformas, this.props.iniDateActive, this.props.endDateActive,
+            this.props.clientActiveId, this.props.userActiveId)
+          header = <Header tittle='REPORTE DE UTILIDADES DE PROFORMAS' date={new Date()} />
           filters = <FiltersData />
           body = <Body tbody={reportData.tbody} thead={reportData.thead} totals={reportData.totals} />
           break

@@ -3,8 +3,8 @@ import {formatDate} from '../../utils/formatDate.js'
 
 export function salesReport(sales, iniDate, endDate, client, user) {
 
-  const initialDate = iniDate != '' ? new Date(iniDate).setHours(0, 0, 0, 0) : new Date('01-01-1980').setHours(0, 0, 0, 0)
-  const finalDate = endDate != '' ? new Date(endDate).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
+  const initialDate = iniDate != '' ? new Date(`${iniDate} 00:00:00`) : new Date('01-01-1980 00:00:00').setHours(0, 0, 0, 0)
+  const finalDate = endDate != '' ? new Date(`${endDate} 00:00:00`).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
 
   const filteredSales = sales.filter(sale => {
     const saleDate = new Date(sale.created).setHours(0, 0, 0, 0)
@@ -102,8 +102,8 @@ export function salesReport(sales, iniDate, endDate, client, user) {
 
 export function utilitiesReport(sales, iniDate, endDate, client, user) {
 
-  const initialDate = iniDate != '' ? new Date(iniDate) : new Date('01-01-1980')
-  const finalDate = endDate != '' ? new Date(endDate) : new Date()
+  const initialDate = iniDate != '' ? new Date(`${iniDate} 00:00:00`) : new Date('01-01-1980 00:00:00').setHours(0, 0, 0, 0)
+  const finalDate = endDate != '' ? new Date(`${endDate} 00:00:00`).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
 
   const filteredSales = sales.filter(sale => {
     const saleDate = new Date(sale.created)
@@ -364,8 +364,8 @@ export function clientsReport(clients) {
 
 export function proformasReport(proformas, iniDate, endDate, client, user) {
 
-  const initialDate = iniDate != '' ? new Date(iniDate).setHours(0, 0, 0, 0) : new Date('01-01-1980').setHours(0, 0, 0, 0)
-  const finalDate = endDate != '' ? new Date(endDate).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
+  const initialDate = iniDate != '' ? new Date(`${iniDate} 00:00:00`) : new Date('01-01-1980 00:00:00').setHours(0, 0, 0, 0)
+  const finalDate = endDate != '' ? new Date(`${endDate} 00:00:00`).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
 
   const filteredProformas = proformas.filter(proforma => {
     const proformaDate = new Date(proforma.created).setHours(0, 0, 0, 0)
@@ -449,6 +449,137 @@ export function proformasReport(proformas, iniDate, endDate, client, user) {
       <tr>
         <th>IV</th>
         <td>₡ {totalIv.formatMoney(2, ',', '.')}</td>
+      </tr>
+      <tr className='total-row'>
+        <th>Total</th>
+        <td>₡ {total.formatMoney(2, ',', '.')}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  return {thead: thead, tbody: tbody, totals: totals}
+
+}
+
+export function utilitiesProformasReport(proformas, iniDate, endDate, client, user) {
+
+  const initialDate = iniDate != '' ? new Date(`${iniDate} 00:00:00`) : new Date('01-01-1980 00:00:00').setHours(0, 0, 0, 0)
+  const finalDate = endDate != '' ? new Date(`${endDate} 00:00:00`).setHours(0, 0, 0, 0) : new Date().setHours(0, 0, 0, 0)
+
+  const filteredSales = proformas.filter(proforma => {
+    const proformaDate = new Date(proforma.created)
+
+    if (client == 0) {
+
+      return proformaDate >= initialDate && proformaDate <= finalDate
+
+    } else {
+
+      return proforma.client._id == client && proformaDate >= initialDate && proformaDate <= finalDate
+    }
+
+  })
+
+  const filteredSalesUser = filteredSales.filter(proforma => {
+
+    if (user == 0) {
+
+      return true
+
+    } else if (proforma.user) {
+
+      return proforma.user._id == user
+
+    } else {
+
+      return false
+
+    }
+
+  })
+
+  filteredSalesUser.sort((a, b) => {
+    if (a.id > b.id) {
+      return 1
+    }
+    if (a.id < b.id) {
+      return -1
+    }
+    return 0
+  })
+
+  const thead = <thead>
+    <tr>
+      <td># Factura</td>
+      <td>Fecha</td>
+      <td>Cliente</td>
+      <td>Sub-Total</td>
+      <td>Costo</td>
+      <td>IV</td>
+      <td>Total</td>
+      <td>Utilidad</td>
+    </tr>
+  </thead>
+
+  let total = 0
+  let subtotal = 0
+  let totalIv = 0
+  let utility = 0
+  let cost = 0
+
+  const tbody = filteredSalesUser.map(proforma => {
+
+    total = total + parseFloat(proforma.cart.cartTotal)
+    subtotal = subtotal + parseFloat(proforma.cart.cartSubtotal)
+    totalIv = totalIv + parseFloat(proforma.cart.cartTaxes)
+
+    const subUtility = proforma.cart.cartItems.map(item => {
+      const cost1 = item.product.cost ? item.product.cost : 0
+      const utility2 = parseFloat(item.subtotal) - (parseFloat(cost1) * parseFloat(item.qty))
+      return utility2
+    })
+
+    const subCost = proforma.cart.cartItems.map(item => {
+      const cost1 = item.product.cost ? item.product.cost : 0
+      const cost2 = parseFloat(cost1) * parseFloat(item.qty)
+      return cost2
+    })
+
+    const localUtility = subUtility.reduce((a, b) => a + b, 0)
+    utility = parseFloat(utility) + parseFloat(localUtility)
+
+    const localCost = subCost.reduce((a, b) => a + b, 0)
+    cost = parseFloat(cost) + parseFloat(localCost)
+
+    return <tr key={proforma._id}>
+      <td><a target='_blank' href={`/sales/proforma/${proforma.id}`}>{proforma.id}</a></td>
+      <td>{formatDate(proforma.created)}</td>
+      <td>{`${proforma.client.name} ${proforma.client.last_name}`}</td>
+      <td>₡ {parseFloat(proforma.cart.cartSubtotal).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(localCost).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(proforma.cart.cartTaxes).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(proforma.cart.cartTotal).formatMoney(2, ',', '.')}</td>
+      <td>₡ {parseFloat(localUtility).formatMoney(2, ',', '.')}</td>
+    </tr>
+  })
+
+  const totals = <table className='table'>
+    <tbody>
+      <tr>
+        <th>Sub-total</th>
+        <td>₡ {subtotal.formatMoney(2, ',', '.')}</td>
+      </tr>
+      <tr>
+        <th>IV</th>
+        <td>₡ {totalIv.formatMoney(2, ',', '.')}</td>
+      </tr>
+      <tr>
+        <th>Costo total</th>
+        <td>₡ {cost.formatMoney(2, ',', '.')}</td>
+      </tr>
+      <tr>
+        <th>Utilidad</th>
+        <td>₡ {utility.formatMoney(2, ',', '.')}</td>
       </tr>
       <tr className='total-row'>
         <th>Total</th>

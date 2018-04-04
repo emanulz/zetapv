@@ -1,10 +1,26 @@
 export function formatDate (date) {
 
   if (Object.prototype.toString.call(date) != '[object Date]') {
-    date = new Date(date)
+    date = new Date(`${date}`)
   }
   let day = date.getDate()
-  let month = date.getMonth()
+  let month = date.getMonth() + 1
+  const year = date.getFullYear()
+
+  day = ('00' + day).slice(-2)
+  month = ('00' + month).slice(-2)
+
+  return `${day}/${month}/${year}`
+
+}
+
+export function formatDateNoUTC (date) {
+
+  if (Object.prototype.toString.call(date) != '[object Date]') {
+    date = new Date(`${date} 00:00:00`)
+  }
+  let day = date.getDate()
+  let month = date.getMonth() + 1
   const year = date.getFullYear()
 
   day = ('00' + day).slice(-2)

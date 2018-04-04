@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {formatDate} from '../../../utils/formatDate.js'
+import {formatDate, formatDateNoUTC} from '../../../utils/formatDate.js'
 
 @connect((store) => {
   return {
@@ -16,8 +16,8 @@ import {formatDate} from '../../../utils/formatDate.js'
 export default class FiltersData extends React.Component {
 
   render() {
-    const iniDate = this.props.iniDateActive != '' ? formatDate(this.props.iniDateActive) : '-'
-    const endDate = this.props.endDateActive != '' ? formatDate(this.props.endDateActive) : '-'
+    const iniDate = this.props.iniDateActive != '' ? formatDateNoUTC(this.props.iniDateActive) : '-'
+    const endDate = this.props.endDateActive != '' ? formatDateNoUTC(this.props.endDateActive) : '-'
     const today = formatDate(new Date())
 
     return <div className='report-content-filters row'>

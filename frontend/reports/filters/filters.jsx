@@ -175,6 +175,7 @@ export default class Filters extends React.Component {
       {text: `Ventas`, id: 1},
       {text: `Proformas`, id: 6},
       {text: `Utilidades`, id: 2},
+      {text: `Utilidades Proformas`, id: 7},
       // {text: `Descuentos`, id: 3},
       {text: `Lista de Precios`, id: 4},
       {text: `Lista de Clientes`, id: 5}
@@ -385,6 +386,17 @@ export default class Filters extends React.Component {
       }
       // Proformas
       case '6' :
+      {
+        filters = <div>
+          {datesFilter}
+          {clientFilter}
+          {userFilter}
+        </div>
+        break
+      }
+
+      // Utilities Proformas
+      case '7' :
       {
         filters = <div>
           {datesFilter}
