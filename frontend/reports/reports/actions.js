@@ -1,5 +1,6 @@
 import React from 'react'
 import {formatDate} from '../../utils/formatDate.js'
+import { format } from 'date-fns'
 
 export function salesReport(sales, iniDate, endDate, client, user) {
 
@@ -553,7 +554,7 @@ export function utilitiesProformasReport(proformas, iniDate, endDate, client, us
 
     return <tr key={proforma._id}>
       <td><a target='_blank' href={`/sales/proforma/${proforma.id}`}>{proforma.id}</a></td>
-      <td>{formatDate(proforma.created)}</td>
+      <td>{format(proforma.created, 'DD/MM/YYYY')}</td>
       <td>{`${proforma.client.name} ${proforma.client.last_name}`}</td>
       <td>₡ {parseFloat(proforma.cart.cartSubtotal).formatMoney(2, ',', '.')}</td>
       <td>₡ {parseFloat(localCost).formatMoney(2, ',', '.')}</td>
