@@ -27,6 +27,7 @@ export default class PaySideBar extends React.Component {
 
       // If is loading sale
       if (sale != 'pos' && sale != '' && sale != 'proforma' && sale != 'presale') {
+        console.log('LOADED SALE!!!!!!!', sale)
         this.props.dispatch(loadSale(sale, nextProps.sales))
 
         Mousetrap.reset()

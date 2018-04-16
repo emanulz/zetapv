@@ -136,10 +136,11 @@ export default function reducer(state = stateConst, action) {
 
     case 'LOADED_SALE':
     {
+      const user = action.payload.user ? action.payload.user : userSelectedModel
       return {
         ...state,
         clientSelected: action.payload.client,
-        userSelected: action.payload.user
+        userSelected: user
       }
     }
 

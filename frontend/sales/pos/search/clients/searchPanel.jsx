@@ -38,7 +38,6 @@ export default class searchClients extends React.Component {
       <div className='cd-panel-container'>
         <div className='cd-panel-content'>
           <div className='form-group'>
-
             <SearchForm />
             <ResultsTable />
           </div>

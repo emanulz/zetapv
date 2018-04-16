@@ -28,8 +28,7 @@ export default class resultsTable extends React.Component {
           {item.code}
         </td>
         <td>
-          {item.name}
-          {item.last_name}
+          {`${item.name} ${item.last_name}`}
         </td>
         <td>
           {hasCredit}
