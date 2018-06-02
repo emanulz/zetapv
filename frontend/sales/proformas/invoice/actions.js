@@ -12,7 +12,7 @@ export function loadProforma(id, sales) {
 
       dispatch({type: 'LOADED_PROFORMA', payload: filteredSales[0]})
       dispatch({type: 'SET_SALE', payload: filteredSales[0]})
-      dispatch({type: 'SET_SALE_ID', payload: filteredSales[0]._id})
+      dispatch({type: 'SET_PROFORMA_ID', payload: filteredSales[0]._id})
 
     } else {
       dispatch({type: 'NOT_FOUND_SALE', payload: id})

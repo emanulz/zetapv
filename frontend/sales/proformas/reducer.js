@@ -11,7 +11,8 @@ const stateConst = {
   proformaActive: proformaActiveModel,
   completed: false,
   proformaActiveId: 0,
-  isProformasPanelVisible: false
+  isProformasPanelVisible: false,
+  loaded: true
 
 }
 
@@ -83,7 +84,8 @@ export default function reducer(state = stateConst, action) {
         ...state,
         proformaActive: action.payload,
         proformaActiveId: action.payload.id,
-        completed: true
+        completed: false,
+        loaded: true
       }
     }
 

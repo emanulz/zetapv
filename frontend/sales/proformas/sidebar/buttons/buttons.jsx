@@ -3,15 +3,17 @@
  */
 import React from 'react'
 import {connect} from 'react-redux'
-import {saveItem} from './actions'
+import {saveItem, updateItem} from './actions'
 import alertify from 'alertifyjs'
 
 @connect((store) => {
   return {
     disabled: store.proforma.completed,
+    loaded: store.sales.loadedEdit,
     proformas: store.proforma.proformas,
     cart: store.cart,
-    client: store.clients.clientSelected
+    client: store.clients.clientSelected,
+    proforma: store.proforma.proformaActive
 
   }
 })
@@ -36,6 +38,19 @@ export default class Buttons extends React.Component {
       return true
     }).set('labels', {
       ok: 'Guardar',
+      cancel: 'Seguir'
+    })
+  }
+
+  updateProforma() {
+    const _this = this
+    // ALERTIFY CONFIRM
+    alertify.confirm('Actualizar Proforma', `¿Desea actualizar la proforma actual?`, function() {
+      _this.updateBtn()
+    }, function() {
+      return true
+    }).set('labels', {
+      ok: 'Actualizar',
       cancel: 'Seguir'
     })
   }
@@ -74,10 +89,78 @@ export default class Buttons extends React.Component {
 
   }
 
+  updateBtn() {
+    const currentProforma = this.props.proforma
+    const proforma = {
+      _id: currentProforma._id,
+      id: currentProforma.id,
+      docType: 'PROFORMA',
+      cart: this.props.cart,
+      client: this.props.client,
+      created: currentProforma.created
+    }
+
+    const kwargs = {
+      db: 'sales',
+      item: proforma,
+      sucessMessage: 'Proforma actualizada Correctamente.',
+      errorMessage: 'Hubo un error al actualizar la Proforma, intente de nuevo.'
+    }
+
+    this.props.dispatch(updateItem(kwargs))
+
+  }
+
   // Main Layout
   render() {
 
-    const buttons = this.props.disabled
+    const buttons = !this.props.loaded
+      ? <button
+        disabled={this.props.disabled}
+        onClick={this.saveProforma.bind(this)}
+        style={{
+          'height': '48px',
+          'width': '49%',
+          'marginTop': '10px'
+        }}
+        className='btn btn-default buttons-payButton'>
+        Guardar
+        <span>
+          <i className='fa fa-save' />
+        </span>
+      </button>
+      : <div>
+        <button
+          disabled={this.props.disabled}
+          onClick={this.saveProforma.bind(this)}
+          style={{
+            'height': '48px',
+            'width': '49%',
+            'marginTop': '10px'
+          }}
+          className='btn btn-default buttons-payButton'>
+          Guardar
+          <span>
+            <i className='fa fa-save' />
+          </span>
+        </button>
+        <button
+          disabled={!this.props.disabled}
+          onClick={this.updateProforma.bind(this)}
+          style={{
+            'height': '48px',
+            'width': '49%',
+            'marginTop': '10px'
+          }}
+          className='btn btn-default buttons-payButton'>
+          Actualizar
+          <span>
+            <i className='fa fa-save' />
+          </span>
+        </button>
+      </div>
+
+    const buttons2 = this.props.disabled
       ? <div>
         <button
           onClick={this.showProformaInoicePanel.bind(this)}
@@ -114,22 +197,8 @@ export default class Buttons extends React.Component {
         <b>Guardar Cotización:<br /></b>
       </span>
 
-      <button
-        disabled={this.props.disabled}
-        onClick={this.saveProforma.bind(this)}
-        style={{
-          'height': '48px',
-          'width': '49%',
-          'marginTop': '10px'
-        }}
-        className='btn btn-default buttons-payButton'>
-        Guardar
-        <span>
-          <i className='fa fa-save' />
-        </span>
-      </button>
-
       {buttons}
+      {buttons2}
 
     </div>
 

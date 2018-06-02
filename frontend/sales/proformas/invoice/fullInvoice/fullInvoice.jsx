@@ -7,7 +7,6 @@ import Totals from './components/totals.jsx'
 import Notes from './components/notes.jsx'
 import {connect} from 'react-redux'
 import {loadProforma} from '../actions'
-const Mousetrap = require('mousetrap')
 
 @connect((store) => {
   return {
@@ -25,8 +24,6 @@ export default class FullInvoice extends React.Component {
       // If is loading proformas
       if (proforma != 'pos' && proforma != '' && proforma != 'proforma' && proforma != 'presale') {
         this.props.dispatch(loadProforma(proforma, nextProps.proformas))
-
-        Mousetrap.reset()
 
       }
     }

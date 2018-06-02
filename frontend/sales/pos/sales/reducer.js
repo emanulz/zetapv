@@ -13,7 +13,8 @@ const stateConst = {
   completed: false,
   saleActiveId: 0,
   isSalesPanelVisible: false,
-  isPresalesPanelVisible: false
+  isPresalesPanelVisible: false,
+  loadedEdit: false
 
 }
 
@@ -109,7 +110,16 @@ export default function reducer(state = stateConst, action) {
     {
       return {
         ...state,
-        completed: true
+        completed: false,
+        loadedEdit: true
+      }
+    } // case
+
+    case 'UPDATE_COMPLETED':
+    {
+      return {
+        ...state,
+        loadedEdit: false
       }
     } // case
 
